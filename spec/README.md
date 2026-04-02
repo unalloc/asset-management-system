@@ -19,8 +19,7 @@ spec/
 ├── 8-utilization/                     # Asset Utilization & Allocation (18 requirements)
 ├── 9-multi-company/                   # Multi-Company Group Management (18 requirements)
 ├── 10-domestic-compliance/            # Domestic Compliance & Localization (15 requirements)
-├── 11-user-stories/                   # User Stories (74 stories)
-└── supplementary/                     # Reference materials
+└── 11-user-stories/                  # User Stories (74 stories)
 ```
 
 ## Module Summary
