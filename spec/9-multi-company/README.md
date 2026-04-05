@@ -22,9 +22,10 @@ This module supports asset management under multi-company group structure, inclu
 | F-2.8.13 | Support Different Company Types | Medium |
 | F-2.8.14 | Multi-company Asset Performance Benchmarking | Medium |
 | F-2.8.15 | Group Asset Optimization Suggestions | High |
-| F-2.8.16 | Domestic Group Management Compliance | High |
-| F-2.8.17 | Domestic Financial System Integration | High |
-| F-2.8.18 | Domestic Accounting Standards Support | High |
+| F-2.8.19 | Reporting and Dashboard Module | High |
+| F-2.8.20 | Data Hierarchy and Access Control | Critical |
+| F-2.8.21 | Audit and Compliance Framework | Critical |
+| F-2.8.22 | Data Security and Privacy | Critical |
 
 ## User Stories
 US-2.8.1 through US-2.8.36

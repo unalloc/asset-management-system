@@ -13,7 +13,6 @@ This module focuses on optimizing asset utilization efficiency, including asset 
 | F-2.7.4 | Real-time Asset Availability Tracking | High |
 | F-2.7.5 | Usage Contract Management | Medium |
 | F-2.7.6 | Asset Utilization Calculation | High |
-| F-2.7.7 | Equipment Efficiency Analysis | High |
 | F-2.7.8 | Idle Asset Identification | Medium |
 | F-2.7.9 | Usage Cost Allocation | High |
 | F-2.7.10 | Department/Project Usage Cost Tracking | High |
