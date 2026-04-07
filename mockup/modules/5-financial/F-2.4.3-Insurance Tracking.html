@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.3 - Insurance Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.3
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.3 - Insurance Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.3-Insurance%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Insurance Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Policies</p>
+                            <h2 style="font-size: 1.5rem;">24</h2>
+                            <p class="text-muted">$45.2M total coverage</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Expiring Soon</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                            <p class="text-warning">Within 30 days</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Underinsured Assets</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                            <p class="text-danger">&lt; 80% of value</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Claims</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                            <p class="text-muted">$125,000 pending</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div class="alert alert-warning">
+                    <strong>3 policies expiring within 30 days:</strong> POL-2024-001 (in 12 days), POL-2024-008 (in 18 days), POL-2024-015 (in 27 days)
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('policies')">Policies</button>
+                    <button class="tab" onclick="switchTab('assets')">Insured Assets</button>
+                    <button class="tab" onclick="switchTab('claims')">Claims</button>
+                    <button class="tab" onclick="switchTab('alerts')">Alerts</button>
+                </div>
+
+                <!-- Policies Tab -->
+                <div class="tab-content active" id="policies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Insurance Policies</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Types</option>
+                                    <option>Property</option>
+                                    <option>Liability</option>
+                                    <option>Workers Comp</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('add-policy-modal')">+ Add Policy</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Policy Number</th>
+                                            <th>Insurer</th>
+                                            <th>Type</th>
+                                            <th>Coverage</th>
+                                            <th>Premium</th>
+                                            <th>Deductible</th>
+                                            <th>Expiration</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>POL-2024-001</td>
+                                            <td>Travelers Insurance</td>
+                                            <td><span class="tag">Property</span></td>
+                                            <td>$15,000,000</td>
+                                            <td>$45,000</td>
+                                            <td>$25,000</td>
+                                            <td><span class="text-danger">2025-04-17</span></td>
+                                            <td><span class="badge badge-warning">Expiring</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-2024-002</td>
+                                            <td>Zurich Insurance</td>
+                                            <td><span class="tag">Liability</span></td>
+                                            <td>$10,000,000</td>
+                                            <td>$32,000</td>
+                                            <td>$10,000</td>
+                                            <td>2026-03-15</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-2024-003</td>
+                                            <td>Liberty Mutual</td>
+                                            <td><span class="tag">Workers Comp</span></td>
+                                            <td>$5,000,000</td>
+                                            <td>$28,000</td>
+                                            <td>$5,000</td>
+                                            <td>2025-11-30</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-2024-004</td>
+                                            <td>Chubb Insurance</td>
+                                            <td><span class="tag">Property</span></td>
+                                            <td>$20,000,000</td>
+                                            <td>$62,000</td>
+                                            <td>$50,000</td>
+                                            <td>2026-01-20</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insured Assets Tab -->
+                <div class="tab-content" id="assets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset-Policy Linkages</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('link-asset-modal')">+ Link Asset</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                Assets valued over $50,000 require active insurance coverage. Coverage adequacy is calculated as (Coverage / Asset Value) × 100%.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Policy</th>
+                                            <th>Asset Value</th>
+                                            <th>Coverage</th>
+                                            <th>Adequacy</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>POL-2024-001</td>
+                                            <td>$156,750</td>
+                                            <td>$200,000</td>
+                                            <td><span class="text-success">127.6%</span></td>
+                                            <td><span class="badge badge-success">Adequate</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td>POL-2024-004</td>
+                                            <td>$85,000</td>
+                                            <td>$100,000</td>
+                                            <td><span class="text-success">117.6%</span></td>
+                                            <td><span class="badge badge-success">Adequate</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-008</td>
+                                            <td>Delivery Vehicle #5</td>
+                                            <td>POL-2024-001</td>
+                                            <td>$65,780</td>
+                                            <td>$50,000</td>
+                                            <td><span class="text-danger">76.0%</span></td>
+                                            <td><span class="badge badge-danger">Underinsured</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-022</td>
+                                            <td>Tokyo Factory Equipment</td>
+                                            <td>Unlinked</td>
+                                            <td>$83,333</td>
+                                            <td>-</td>
+                                            <td><span class="text-danger">0%</span></td>
+                                            <td><span class="badge badge-danger">Uninsured</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Claims Tab -->
+                <div class="tab-content" id="claims-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Insurance Claims</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('file-claim-modal')">+ File Claim</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Claim ID</th>
+                                            <th>Policy</th>
+                                            <th>Asset</th>
+                                            <th>Incident Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Filed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CLM-2025-001</td>
+                                            <td>POL-2024-001</td>
+                                            <td>AST-2022-001</td>
+                                            <td>2025-03-15</td>
+                                            <td>$45,000</td>
+                                            <td><span class="badge badge-warning">Under Review</span></td>
+                                            <td>2025-03-20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CLM-2025-002</td>
+                                            <td>POL-2024-002</td>
+                                            <td>AST-2023-015</td>
+                                            <td>2025-02-28</td>
+                                            <td>$80,000</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td>2025-03-05</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CLM-2024-015</td>
+                                            <td>POL-2024-001</td>
+                                            <td>AST-2021-005</td>
+                                            <td>2024-11-10</td>
+                                            <td>$22,000</td>
+                                            <td><span class="badge badge-success">Paid</span></td>
+                                            <td>2024-11-15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerts Tab -->
+                <div class="tab-content" id="alerts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Coverage Alerts</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Alert Type</th>
+                                            <th>Policy/Asset</th>
+                                            <th>Description</th>
+                                            <th>Days Remaining</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td>POL-2024-001</td>
+                                            <td>Policy expires in 12 days - renewal required</td>
+                                            <td>12</td>
+                                            <td><button class="btn btn-outline btn-sm">Renew</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td>POL-2024-008</td>
+                                            <td>Policy expires in 18 days</td>
+                                            <td>18</td>
+                                            <td><button class="btn btn-outline btn-sm">Renew</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td>AST-2024-008</td>
+                                            <td>Asset coverage at 76% - below 80% threshold</td>
+                                            <td>-</td>
+                                            <td><button class="btn btn-outline btn-sm">Adjust</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td>AST-2024-022</td>
+                                            <td>Asset ($83,333) has no insurance coverage</td>
+                                            <td>-</td>
+                                            <td><button class="btn btn-outline btn-sm">Cover</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td>POL-2024-015</td>
+                                            <td>Policy expires in 27 days</td>
+                                            <td>27</td>
+                                            <td><button class="btn btn-outline btn-sm">Renew</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

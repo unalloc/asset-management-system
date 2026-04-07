@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.15 - HR Employee Integration</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 2: Asset Registration</span> / F-2.1.15
+                </div>
+                <div class="user-info">
+                    <span>HR Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.15 - HR Employee Integration</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.15-HR%20Employee%20Integration.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Employee-Asset Assignments</h2>
+                        <button class="btn btn-primary" onclick="openModal('assignAssetModal')">+ Assign Asset</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        <th>Department</th>
+                                        <th>Assigned Assets</th>
+                                        <th>Assignment Value</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assignmentTable">
+                                    <tr>
+                                        <td>EMP-0042</td>
+                                        <td>Sarah Johnson</td>
+                                        <td>Manufacturing</td>
+                                        <td>3</td>
+                                        <td>$45,200</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAssignments('EMP-0042')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="assignAsset('EMP-0042')">Assign</button>
+                                            <button class="btn btn-sm btn-outline" onclick="initiateRecovery('EMP-0042')">Recovery</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0157</td>
+                                        <td>Michael Chen</td>
+                                        <td>IT Infrastructure</td>
+                                        <td>5</td>
+                                        <td>$12,800</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAssignments('EMP-0157')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="assignAsset('EMP-0157')">Assign</button>
+                                            <button class="btn btn-sm btn-outline" onclick="initiateRecovery('EMP-0157')">Recovery</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0089</td>
+                                        <td>Emily Rodriguez</td>
+                                        <td>Quality Control</td>
+                                        <td>2</td>
+                                        <td>$8,500</td>
+                                        <td><span class="badge badge-warning">Pending Recovery</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAssignments('EMP-0089')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="assignAsset('EMP-0089')">Assign</button>
+                                            <button class="btn btn-sm btn-outline" onclick="initiateRecovery('EMP-0089')">Recovery</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0234</td>
+                                        <td>David Kim</td>
+                                        <td>Maintenance</td>
+                                        <td>8</td>
+                                        <td>$67,300</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAssignments('EMP-0234')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="assignAsset('EMP-0234')">Assign</button>
+                                            <button class="btn btn-sm btn-outline" onclick="initiateRecovery('EMP-0234')">Recovery</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Technician Skills & Certifications</h2>
+                        <button class="btn btn-primary" onclick="openModal('addSkillModal')">+ Add Skill</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        <th>Skills</th>
+                                        <th>Certifications</th>
+                                        <th>Expiry Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EMP-0234</td>
+                                        <td>David Kim</td>
+                                        <td>
+                                            <span class="tag">PLC Programming</span>
+                                            <span class="tag">HVAC Systems</span>
+                                            <span class="tag">Electrical</span>
+                                        </td>
+                                        <td>
+                                            <span class="tag">EPA 608</span>
+                                            <span class="tag">OSHA 30</span>
+                                        </td>
+                                        <td>2027-06-15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="manageSkills('EMP-0234')">Manage</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0042</td>
+                                        <td>Sarah Johnson</td>
+                                        <td>
+                                            <span class="tag">CNC Operation</span>
+                                            <span class="tag">Quality Inspection</span>
+                                        </td>
+                                        <td>
+                                            <span class="tag">ISO 9001</span>
+                                        </td>
+                                        <td>2026-09-30</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="manageSkills('EMP-0042')">Manage</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0157</td>
+                                        <td>Michael Chen</td>
+                                        <td>
+                                            <span class="tag">Server Administration</span>
+                                            <span class="tag">Network Security</span>
+                                        </td>
+                                        <td>
+                                            <span class="tag">CompTIA Security+</span>
+                                            <span class="tag">Cisco CCNA</span>
+                                        </td>
+                                        <td>2026-12-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="manageSkills('EMP-0157')">Manage</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Recovery Queue</h2>
+                        <span class="badge badge-danger">3 Pending</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Employee Name</th>
+                                        <th>Termination Date</th>
+                                        <th>Assets to Recover</th>
+                                        <th>Total Value</th>
+                                        <th>Recovery Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EMP-0089</td>
+                                        <td>Emily Rodriguez</td>
+                                        <td>2026-03-28</td>
+                                        <td>2</td>
+                                        <td>$8,500</td>
+                                        <td><span class="badge badge-warning">In Progress</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRecovery('EMP-0089')">View</button>
+                                            <button class="btn btn-sm btn-success" onclick="completeRecovery('EMP-0089')">Complete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0312</td>
+                                        <td>James Wilson</td>
+                                        <td>2026-04-02</td>
+                                        <td>1</td>
+                                        <td>$1,200</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRecovery('EMP-0312')">View</button>
+                                            <button class="btn btn-sm btn-success" onclick="startRecovery('EMP-0312')">Start</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EMP-0198</td>
+                                        <td>Lisa Park</td>
+                                        <td>2026-04-05</td>
+                                        <td>4</td>
+                                        <td>$15,600</td>
+                                        <td><span class="badge badge-warning">Pending</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRecovery('EMP-0198')">View</button>
+                                            <button class="btn btn-sm btn-success" onclick="startRecovery('EMP-0198')">Start</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="assignAssetModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Assign Asset to Employee</h3>
+                <button class="modal-close" onclick="closeModal('assignAssetModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="assignAssetForm">
+                    <div class="form-group">
+                        <label>Employee ID</label>
+                        <input type="text" class="form-control" id="employeeId"
+                               placeholder="e.g., EMP-0042">
+                        <p class="form-hint">Employee must be active and exist in HR system</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <input type="text" class="form-control" id="assetId"
+                               placeholder="e.g., AST-2024-0156">
+                        <p class="form-hint">Asset must be available for assignment</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Assignment Date</label>
+                            <input type="date" class="form-control" id="assignmentDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Return Date</label>
+                            <input type="date" class="form-control" id="expectedReturnDate">
+                            <p class="form-hint">Optional - for temporary assignments</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Purpose</label>
+                        <textarea class="form-control" id="assignmentPurpose"
+                                  placeholder="Reason for asset assignment"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assignment Value</label>
+                        <p><strong id="assetValue">$0.00</strong></p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('assignAssetModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('assignAssetModal')">Assign Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewAssignmentsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Assignment History</h3>
+                <button class="modal-close" onclick="closeModal('viewAssignmentsModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewAssignmentsContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewAssignmentsModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addSkillModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Employee Skill</h3>
+                <button class="modal-close" onclick="closeModal('addSkillModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addSkillForm">
+                    <div class="form-group">
+                        <label>Employee ID</label>
+                        <input type="text" class="form-control" id="skillEmployeeId"
+                               placeholder="e.g., EMP-0234">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Skill Type</label>
+                        <select class="form-control" id="skillType">
+                            <option value="">Select type...</option>
+                            <option value="technical">Technical Skill</option>
+                            <option value="certification">Certification</option>
+                            <option value="training">Training Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Skill/Certification Name</label>
+                        <input type="text" class="form-control" id="skillName"
+                               placeholder="e.g., PLC Programming, OSHA 30">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="date" class="form-control" id="skillExpiryDate">
+                        <p class="form-hint">Leave empty for non-expiring skills</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="skillNotes"
+                                  placeholder="Additional details about the skill"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addSkillModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addSkillModal')">Add Skill</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewAssignments(empId) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Employee ID</label>
+                        <p><strong>${empId}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <p>Manufacturing</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Assignment History</label>
+                    <table>
+                        <thead>
+                            <tr><th>Asset ID</th><th>Asset Name</th><th>Assigned Date</th><th>Returned Date</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>AST-2024-0089</td><td>Laptop Dell XPS 15</td><td>2025-06-15</td><td>—</td><td><span class="badge badge-success">Current</span></td></tr>
+                            <tr><td>AST-2023-0156</td><td>iPhone 14 Pro</td><td>2025-06-15</td><td>—</td><td><span class="badge badge-success">Current</span></td></tr>
+                            <tr><td>AST-2023-0042</td><td>Monitor LG 27"</td><td>2025-06-15</td><td>—</td><td><span class="badge badge-success">Current</span></td></tr>
+                            <tr><td>AST-2022-0078</td><td>Keyboard Logitech</td><td>2024-01-10</td><td>2025-06-14</td><td><span class="badge badge-secondary">Returned</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('viewAssignmentsContent').innerHTML = content;
+            openModal('viewAssignmentsModal');
+        }
+
+        function assignAsset(empId) {
+            document.getElementById('employeeId').value = empId;
+            openModal('assignAssetModal');
+        }
+
+        function initiateRecovery(empId) {
+            alert('Asset recovery workflow initiated for: ' + empId);
+        }
+
+        function viewRecovery(empId) {
+            alert('Viewing recovery details for: ' + empId);
+        }
+
+        function startRecovery(empId) {
+            alert('Starting recovery process for: ' + empId);
+        }
+
+        function completeRecovery(empId) {
+            alert('Marking recovery as complete for: ' + empId);
+        }
+
+        function manageSkills(empId) {
+            alert('Managing skills for employee: ' + empId);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

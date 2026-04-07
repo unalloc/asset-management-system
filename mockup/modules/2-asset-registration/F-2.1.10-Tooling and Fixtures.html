@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.10 - Tooling and Fixtures</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.10
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.10 - Tooling and Fixtures</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.10-Tooling%20and%20Fixtures.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Tooling Assets</h2>
+                        <button class="btn btn-primary" onclick="openModal('addToolingModal')">+ Add Tooling</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tooling Number</th>
+                                        <th>Type</th>
+                                        <th>Applicable Product</th>
+                                        <th>Design Life</th>
+                                        <th>Current Usage</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="toolingTable">
+                                    <tr>
+                                        <td>TL-MOLD-001</td>
+                                        <td>MOLD</td>
+                                        <td>Product A</td>
+                                        <td>10,000 cycles</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 72%"></div>
+                                            </div>
+                                            <span>7,200 cycles (72%)</span>
+                                        </td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTooling('TL-MOLD-001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editTooling('TL-MOLD-001')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="warning-row">
+                                        <td>TL-FIXT-002</td>
+                                        <td>FIXTURE</td>
+                                        <td>Product B</td>
+                                        <td>5,000 cycles</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill warning" style="width: 91%"></div>
+                                            </div>
+                                            <span>4,550 cycles (91%)</span>
+                                        </td>
+                                        <td><span class="badge badge-warning">Maintenance Due</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTooling('TL-FIXT-002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editTooling('TL-FIXT-002')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TL-JIG-003</td>
+                                        <td>JIG</td>
+                                        <td>Product C</td>
+                                        <td>8,000 cycles</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 35%"></div>
+                                            </div>
+                                            <span>2,800 cycles (35%)</span>
+                                        </td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTooling('TL-JIG-003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editTooling('TL-JIG-003')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TL-GAUGE-004</td>
+                                        <td>GAUGE</td>
+                                        <td>All Products</td>
+                                        <td>3,000 cycles</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 88%"></div>
+                                            </div>
+                                            <span>2,640 cycles (88%)</span>
+                                        </td>
+                                        <td><span class="badge badge-warning">Warning</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTooling('TL-GAUGE-004')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editTooling('TL-GAUGE-004')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TL-CUTT-005</td>
+                                        <td>CUTTING</td>
+                                        <td>Product D</td>
+                                        <td>2,000 cycles</td>
+                                        <td>
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 100%"></div>
+                                            </div>
+                                            <span>2,000 cycles (100%)</span>
+                                        </td>
+                                        <td><span class="badge badge-danger">Retired</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTooling('TL-CUTT-005')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="rehabilitateTooling('TL-CUTT-005')">Rehabilitate</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addToolingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Tooling Asset</h3>
+                <button class="modal-close" onclick="closeModal('addToolingModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addToolingForm">
+                    <div class="form-group">
+                        <label>Tooling Number</label>
+                        <input type="text" class="form-control" id="toolingNumber"
+                               placeholder="e.g., TL-MOLD-001">
+                        <p class="form-hint">Unique identifier, 1-20 alphanumeric characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tooling Type</label>
+                        <select class="form-control" id="toolingType">
+                            <option value="">-- Select Type --</option>
+                            <option value="MOLD">MOLD</option>
+                            <option value="FIXTURE">FIXTURE</option>
+                            <option value="JIG">JIG</option>
+                            <option value="CUTTING">CUTTING</option>
+                            <option value="GAUGE">GAUGE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Applicable Product</label>
+                        <input type="text" class="form-control" id="applicableProduct"
+                               placeholder="Product this tooling is designed for">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Design Life (cycles)</label>
+                        <input type="number" class="form-control" id="designLife"
+                               placeholder="e.g., 10000">
+                        <p class="form-hint">Expected usage life before replacement</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Maintenance Threshold (cycles)</label>
+                        <input type="number" class="form-control" id="maintenanceThreshold"
+                               placeholder="e.g., 8000">
+                        <p class="form-hint">Usage point to trigger maintenance (default: 100% of design life)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="toolingStatus">
+                            <option value="Draft">Draft</option>
+                            <option value="Active" selected>Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addToolingModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addToolingModal')">Add Tooling</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewToolingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Tooling Details</h3>
+                <button class="modal-close" onclick="closeModal('viewToolingModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewToolingContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewToolingModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="rehabModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Rehabilitate Tooling</h3>
+                <button class="modal-close" onclick="closeModal('rehabModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rehabForm">
+                    <p>Tooling has reached end of design life. Enter new design life to rehabilitate.</p>
+                    <div class="form-group">
+                        <label>New Design Life (cycles)</label>
+                        <input type="number" class="form-control" id="newDesignLife"
+                               placeholder="e.g., 10000">
+                    </div>
+                    <div class="form-group">
+                        <label>Rehabilitation Notes</label>
+                        <textarea class="form-control" id="rehabNotes"
+                                  placeholder="Describe rehabilitation performed"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('rehabModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('rehabModal')">Rehabilitate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewTooling(number) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tooling Number</label>
+                        <p><strong>${number}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <p>MOLD</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Design Life</label>
+                        <p>10,000 cycles</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Usage</label>
+                        <p>7,200 cycles (72%)</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('viewToolingContent').innerHTML = content;
+            openModal('viewToolingModal');
+        }
+
+        function editTooling(number) {
+            alert('Edit functionality for: ' + number);
+        }
+
+        function rehabilitateTooling(number) {
+            document.getElementById('newDesignLife').value = '';
+            document.getElementById('rehabNotes').value = '';
+            openModal('rehabModal');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.10 - Lease Accounting</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.10
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.10 - Lease Accounting</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.10-Lease%20Accounting.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Lease Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Lease Liability</p>
+                            <h2 style="font-size: 1.5rem;">$4,250,000</h2>
+                            <p class="text-muted">12 active leases</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">ROU Asset Value</p>
+                            <h2 style="font-size: 1.5rem;">$3,890,000</h2>
+                            <p class="text-muted">Net of depreciation</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Interest Expense YTD</p>
+                            <h2 style="font-size: 1.5rem;">$185,400</h2>
+                            <p class="text-danger">- $12,300 vs budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Lease Payments Due</p>
+                            <h2 style="font-size: 1.5rem;">$425,000</h2>
+                            <p class="text-muted">Q2 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('leases')">Lease Register</button>
+                    <button class="tab" onclick="switchTab('classify')">Classification</button>
+                    <button class="tab" onclick="switchTab('liability')">Liability Schedule</button>
+                    <button class="tab" onclick="switchTab('standards')">Standards</button>
+                </div>
+
+                <!-- Leases Tab -->
+                <div class="tab-content active" id="leases-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Lease Asset Register</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Leases</option>
+                                    <option>Finance Leases</option>
+                                    <option>Operating Leases</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('addLeaseModal')">+ New Lease</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Lease Number</th>
+                                            <th>Lessor</th>
+                                            <th>Lease Type</th>
+                                            <th>Commencement</th>
+                                            <th>Term (Months)</th>
+                                            <th>Lease Liability</th>
+                                            <th>ROU Asset</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LSL-2024-001</td>
+                                            <td>GE Capital</td>
+                                            <td><span class="tag">Finance</span></td>
+                                            <td>2024-01-15</td>
+                                            <td>60</td>
+                                            <td>$1,250,000</td>
+                                            <td>$1,180,000</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LSL-2024-002</td>
+                                            <td>Toyota Financial</td>
+                                            <td><span class="tag">Operating</span></td>
+                                            <td>2024-03-01</td>
+                                            <td>36</td>
+                                            <td>$850,000</td>
+                                            <td>$785,000</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LSL-2023-015</td>
+                                            <td>IBM Global Finance</td>
+                                            <td><span class="tag">Finance</span></td>
+                                            <td>2023-06-01</td>
+                                            <td>48</td>
+                                            <td>$2,150,000</td>
+                                            <td>$1,925,000</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- classification Tab -->
+                <div class="tab-content" id="classify-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Finance vs Operating Lease Classification</h2>
+                            <span class="badge badge-info">ASC 842 / IFRS 16</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Finance Lease Tests</label>
+                                    <ul style="font-size: 0.9rem;">
+                                        <li><strong>Ownership transfer:</strong> Title transfers at end of lease</li>
+                                        <li><strong>Purchase option:</strong> Bargain purchase option likely exercised</li>
+                                        <li><strong>Lease term:</strong> >= 75% of economic life</li>
+                                        <li><strong>Present value:</strong> >= 90% of fair value</li>
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <label>Lease Liability Calculation</label>
+                                    <p>PV of future payments at Incremental Borrowing Rate (IBR)</p>
+                                    <p style="font-size: 0.85rem; color: #64748b;">Formula: PV = Σ [Payment / (1 + r)^n]</p>
+                                </div>
+                            </div>
+                            <div class="table-container" style="margin-top: 1rem;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Lease Number</th>
+                                            <th>Ownership Transfer</th>
+                                            <th>BPO</th>
+                                            <th>PV >= 90%</th>
+                                            <th>Term >= 75%</th>
+                                            <th>Classification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LSL-2024-001</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="tag">Finance</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LSL-2024-002</td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="tag tag-secondary">Operating</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>LSL-2023-015</td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                            <td><span class="tag">Finance</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Liability Schedule Tab -->
+                <div class="tab-content" id="liability-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Lease Liability Amortization Schedule</h2>
+                            <button class="btn btn-outline btn-sm">Export Schedule</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Opening Liability</th>
+                                            <th>Interest Expense</th>
+                                            <th>Lease Payment</th>
+                                            <th>Principal Paid</th>
+                                            <th>Closing Liability</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Q1 2025</td>
+                                            <td>$1,125,000</td>
+                                            <td>$28,125</td>
+                                            <td>$75,000</td>
+                                            <td>$46,875</td>
+                                            <td>$1,078,125</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q2 2025</td>
+                                            <td>$1,078,125</td>
+                                            <td>$26,953</td>
+                                            <td>$75,000</td>
+                                            <td>$48,047</td>
+                                            <td>$1,030,078</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q3 2025</td>
+                                            <td>$1,030,078</td>
+                                            <td>$25,752</td>
+                                            <td>$75,000</td>
+                                            <td>$49,248</td>
+                                            <td>$980,830</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q4 2025</td>
+                                            <td>$980,830</td>
+                                            <td>$24,521</td>
+                                            <td>$75,000</td>
+                                            <td>$50,479</td>
+                                            <td>$930,351</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standards Tab -->
+                <div class="tab-content" id="standards-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Accounting Standards Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-2">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>ASC 842 (US GAAP)</h3>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>Finance leases: Interest expense + straight-line depreciation</li>
+                                            <li>Operating leases: Straight-line expense (single expense)</li>
+                                            <li>Short-term exemption: < 12 months recognized in P&L</li>
+                                            <li>Low-value exemption: < $5,000 recognized immediately</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>IFRS 16</h3>
+                                        <ul style="font-size: 0.9rem;">
+                                            <li>All leases except short-term and low-value: ROU asset + interest</li>
+                                            <li>Interest on lease liability (separate line)</li>
+                                            <li>Depreciation of ROU asset (separate line)</li>
+                                            <li>Variable payments excluded from liability</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

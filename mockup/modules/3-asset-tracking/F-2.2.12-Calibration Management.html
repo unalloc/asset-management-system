@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.12 - Calibration Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.12
+                </div>
+                <div class="user-info">
+                    <span>Quality Manager</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.12 - Calibration Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.12-Calibration%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Calibration Overview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Calibration Status Overview</h2>
+                        <div class="d-flex gap-sm">
+                            <button class="btn btn-outline btn-sm">Refresh</button>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('calibrationModal')">+ New Calibration</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div class="alert alert-success" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">156</div>
+                                <div>Calibrated</div>
+                            </div>
+                            <div class="alert alert-info" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">12</div>
+                                <div>Due Soon</div>
+                            </div>
+                            <div class="alert alert-warning" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">5</div>
+                                <div>Overdue</div>
+                            </div>
+                            <div class="alert alert-danger" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">2</div>
+                                <div>Quarantined</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Calibration Schedule</h2>
+                        <div class="d-flex gap-sm">
+                            <input type="text" class="form-control" placeholder="Search equipment..." style="width: 200px;">
+                            <select class="form-control" style="width: 150px;">
+                                <option>All Status</option>
+                                <option>Calibrated</option>
+                                <option>Due Soon</option>
+                                <option>Overdue</option>
+                                <option>Quarantined</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Equipment Name</th>
+                                        <th>Type</th>
+                                        <th>Cal. Interval</th>
+                                        <th>Last Cal.</th>
+                                        <th>Next Due</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EQ-CAL-001</td>
+                                        <td>Digital Multimeter DVM-4500</td>
+                                        <td>Electrical</td>
+                                        <td>90 days</td>
+                                        <td>2025-01-15</td>
+                                        <td>2025-04-15</td>
+                                        <td><span class="badge badge-success">Calibrated</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-CAL-002</td>
+                                        <td>Pressure Gauge PG-200</td>
+                                        <td>Pressure</td>
+                                        <td>180 days</td>
+                                        <td>2024-10-20</td>
+                                        <td>2025-04-18</td>
+                                        <td><span class="badge badge-info">Due Soon</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                            <button class="btn btn-sm btn-primary" onclick="openModal('calibrationModal')">Calibrate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-CAL-003</td>
+                                        <td>Thermometer TM-100</td>
+                                        <td>Temperature</td>
+                                        <td>365 days</td>
+                                        <td>2024-03-01</td>
+                                        <td>2025-03-01</td>
+                                        <td><span class="badge badge-danger">Overdue</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                            <button class="btn btn-sm btn-primary" onclick="openModal('calibrationModal')">Calibrate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EQ-CAL-004</td>
+                                        <td>Torque Wrench TW-500</td>
+                                        <td>Mechanical</td>
+                                        <td>90 days</td>
+                                        <td>2025-02-10</td>
+                                        <td>2025-05-10</td>
+                                        <td><span class="badge badge-success">Calibrated</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-danger-row">
+                                        <td>EQ-CAL-005</td>
+                                        <td>Microscope MC-800</td>
+                                        <td>Optical</td>
+                                        <td>180 days</td>
+                                        <td>2025-01-05</td>
+                                        <td>2025-07-05</td>
+                                        <td><span class="badge badge-danger">Quarantined</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calibration History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent Calibration Records</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Record ID</th>
+                                        <th>Equipment</th>
+                                        <th>Technician</th>
+                                        <th>Date</th>
+                                        <th>Result</th>
+                                        <th>Certificate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CAL-2025-089</td>
+                                        <td>Digital Multimeter DVM-4500</td>
+                                        <td>John Smith (CERT-2024-015)</td>
+                                        <td>2025-04-05</td>
+                                        <td><span class="badge badge-success">PASSED</span></td>
+                                        <td><button class="btn btn-sm btn-outline">View PDF</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>CAL-2025-088</td>
+                                        <td>Pressure Gauge PG-200</td>
+                                        <td>Jane Doe (CERT-2024-022)</td>
+                                        <td>2025-04-03</td>
+                                        <td><span class="badge badge-success">PASSED</span></td>
+                                        <td><button class="btn btn-sm btn-outline">View PDF</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>CAL-2025-087</td>
+                                        <td>Microscope MC-800</td>
+                                        <td>John Smith (CERT-2024-015)</td>
+                                        <td>2025-04-01</td>
+                                        <td><span class="badge badge-danger">FAILED</span></td>
+                                        <td><button class="btn btn-sm btn-outline">View PDF</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calibration States -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Equipment & Calibration States</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Equipment States</label>
+                                <div class="d-flex gap-sm" style="flex-wrap: wrap;">
+                                    <span class="tag">CALIBRATED</span>
+                                    <span class="tag">CALIBRATION_DUE</span>
+                                    <span class="tag">OVERDUE</span>
+                                    <span class="tag">QUARANTINE</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Calibration States</label>
+                                <div class="d-flex gap-sm" style="flex-wrap: wrap;">
+                                    <span class="tag">SCHEDULED</span>
+                                    <span class="tag">IN_PROGRESS</span>
+                                    <span class="tag badge-success">PASSED</span>
+                                    <span class="tag badge-danger">FAILED</span>
+                                    <span class="tag">CANCELLED</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Calibration Modal -->
+    <div class="modal-overlay" id="calibrationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Perform Calibration</h3>
+                <button class="modal-close" onclick="closeModal('calibrationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="calibrationForm">
+                    <div class="form-group">
+                        <label>Equipment</label>
+                        <select class="form-control" id="calEquipment">
+                            <option value="">Select Equipment</option>
+                            <option value="EQ-CAL-002">Pressure Gauge PG-200</option>
+                            <option value="EQ-CAL-003">Thermometer TM-100</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Calibration Procedure</label>
+                        <select class="form-control" id="calProcedure">
+                            <option value="">Select Procedure</option>
+                            <option value="PROC-PRES-001">Pressure Gauge Calibration - PROC-PRES-001</option>
+                            <option value="PROC-TEMP-001">Temperature Gauge Calibration - PROC-TEMP-001</option>
+                        </select>
+                        <div class="form-hint">Only approved procedures for the equipment type can be used</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Technician</label>
+                        <select class="form-control" id="calTechnician">
+                            <option value="">Select Technician</option>
+                            <option value="TECH-001">John Smith (CERT-2024-015) - Valid</option>
+                            <option value="TECH-002">Jane Doe (CERT-2024-022) - Valid</option>
+                            <option value="TECH-003">Bob Wilson (CERT-2023-008) - Expired</option>
+                        </select>
+                        <div class="form-hint">Technician must hold valid certification for this equipment type</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Reference Standard</label>
+                            <input type="text" class="form-control" id="calStandard" value="NIST-Traceable">
+                        </div>
+                        <div class="form-group">
+                            <label>Calibration Date</label>
+                            <input type="date" class="form-control" id="calDate" value="2025-04-05">
+                        </div>
+                    </div>
+                    <fieldset style="border: 1px solid var(--border); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                        <legend>As-Found Measurements (Before Adjustment)</legend>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Point 1 (0 bar)</label>
+                                <input type="number" class="form-control" id="asFound1" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Point 2 (50 bar)</label>
+                                <input type="number" class="form-control" id="asFound2" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Point 3 (100 bar)</label>
+                                <input type="number" class="form-control" id="asFound3" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset style="border: 1px solid var(--border); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                        <legend>As-Left Measurements (After Adjustment)</legend>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Point 1 (0 bar)</label>
+                                <input type="number" class="form-control" id="asLeft1" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Point 2 (50 bar)</label>
+                                <input type="number" class="form-control" id="asLeft2" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Point 3 (100 bar)</label>
+                                <input type="number" class="form-control" id="asLeft3" step="0.01">
+                                <div class="form-hint">Tolerance: ±0.5 bar</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <label>Measurement Uncertainty</label>
+                        <input type="number" class="form-control" id="uncertainty" step="0.001" value="0.05">
+                        <div class="form-hint">Measurement uncertainty per ISO 17025</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="calNotes" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Attach Certificate</label>
+                        <input type="file" class="form-control" id="calCertificate" accept=".pdf,.jpg,.png">
+                        <div class="form-hint">Upload calibration certificate as PDF or image</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('calibrationModal')">Cancel</button>
+                <button class="btn btn-secondary" onclick="closeModal('calibrationModal')">Save Draft</button>
+                <button class="btn btn-primary" onclick="closeModal('calibrationModal')">Submit Calibration</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

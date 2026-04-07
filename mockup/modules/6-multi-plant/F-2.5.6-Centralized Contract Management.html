@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.6 - Centralized Contract Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.6
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.6 - Centralized Contract Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.6-Centralized%20Contract%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Service Contracts</h2>
+                        <button class="btn btn-primary" onclick="openModal('addContractModal')">+ Add Contract</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <button class="tab active" onclick="switchTab(this, 'groupContracts')">Group Contracts</button>
+                            <button class="tab" onclick="switchTab(this, 'companyContracts')">Company Contracts</button>
+                            <button class="tab" onclick="switchTab(this, 'plantContracts')">Plant Contracts</button>
+                        </div>
+                        <div id="groupContracts" class="tab-content active">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract #</th>
+                                        <th>Vendor</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Coverage</th>
+                                        <th>Expiry</th>
+                                        <th>SLA</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GRP-MAINT-001</td>
+                                        <td>Siemens AG</td>
+                                        <td><span class="badge badge-primary">Maintenance</span></td>
+                                        <td>$2,500,000</td>
+                                        <td>All Plants</td>
+                                        <td><span class="text-warning">45 days</span></td>
+                                        <td><span class="badge badge-success">98.5%</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewContract('GRP-MAINT-001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>GRP-LEASE-001</td>
+                                        <td>IBM Corporation</td>
+                                        <td><span class="badge badge-info">Lease</span></td>
+                                        <td>$850,000</td>
+                                        <td>All Plants</td>
+                                        <td>2026-08-15</td>
+                                        <td><span class="badge badge-success">100%</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewContract('GRP-LEASE-001')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="companyContracts" class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract #</th>
+                                        <th>Vendor</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Coverage</th>
+                                        <th>Expiry</th>
+                                        <th>SLA</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>US01-SAFE-001</td>
+                                        <td>SafetyFirst Inc.</td>
+                                        <td><span class="badge badge-primary">Service</span></td>
+                                        <td>$340,000</td>
+                                        <td>US Plants</td>
+                                        <td>2025-11-30</td>
+                                        <td><span class="badge badge-success">95.2%</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewContract('US01-SAFE-001')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="plantContracts" class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract #</th>
+                                        <th>Vendor</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Coverage</th>
+                                        <th>Expiry</th>
+                                        <th>SLA</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>USEQ01-ELEV-001</td>
+                                        <td>Otis Elevator</td>
+                                        <td><span class="badge badge-primary">Maintenance</span></td>
+                                        <td>$45,000</td>
+                                        <td>USEQ01</td>
+                                        <td><span class="text-danger">15 days</span></td>
+                                        <td><span class="badge badge-warning">88.0%</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewContract('USEQ01-ELEV-001')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Contract Execution Status</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract</th>
+                                        <th>Organization</th>
+                                        <th>Allocated Value</th>
+                                        <th>Used Value</th>
+                                        <th>Remaining</th>
+                                        <th>Execution %</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GRP-MAINT-001</td>
+                                        <td>USEQ01</td>
+                                        <td>$800,000</td>
+                                        <td>$520,000</td>
+                                        <td>$280,000</td>
+                                        <td>65%</td>
+                                        <td><span class="badge badge-success">On Track</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>GRP-MAINT-001</td>
+                                        <td>USWQ01</td>
+                                        <td>$750,000</td>
+                                        <td>$780,000</td>
+                                        <td>-$30,000</td>
+                                        <td>104%</td>
+                                        <td><span class="badge badge-danger">Over Budget</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>GRP-MAINT-001</td>
+                                        <td>EUBR01</td>
+                                        <td>$650,000</td>
+                                        <td>$420,000</td>
+                                        <td>$230,000</td>
+                                        <td>64.6%</td>
+                                        <td><span class="badge badge-success">On Track</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Vendor must be in APPROVED status. SLA definitions must have measurable metrics. Required fields must be complete per contract type.
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addContractModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Contract</h3>
+                <button class="modal-close" onclick="closeModal('addContractModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm">
+                    <div class="form-group">
+                        <label>Organization Level</label>
+                        <select class="form-control" id="orgLevel">
+                            <option value="">-- Select Level --</option>
+                            <option value="GROUP">Group</option>
+                            <option value="COMPANY">Company</option>
+                            <option value="PLANT">Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contract Number</label>
+                        <input type="text" class="form-control" id="contractNumber"
+                               placeholder="e.g., GRP-MAINT-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vendor</label>
+                        <select class="form-control" id="vendor">
+                            <option value="">-- Select Vendor --</option>
+                            <option value="V001">Siemens AG</option>
+                            <option value="V002">IBM Corporation</option>
+                            <option value="V003">SafetyFirst Inc.</option>
+                            <option value="V004">Otis Elevator</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contract Type</label>
+                        <select class="form-control" id="contractType">
+                            <option value="">-- Select Type --</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Service">Service</option>
+                            <option value="Lease">Lease</option>
+                            <option value="Purchase">Purchase</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Value</label>
+                        <input type="number" class="form-control" id="totalValue"
+                               placeholder="e.g., 2500000.00">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addContractModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addContractModal')">Add Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewContractModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Contract Details</h3>
+                <button class="modal-close" onclick="closeModal('viewContractModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewContractContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewContractModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function switchTab(button, tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function viewContract(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Contract Number</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Type</label>
+                        <span class="badge badge-primary">Maintenance</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Vendor</label>
+                    <p>Siemens AG</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Total Value</label>
+                        <p>$2,500,000.00</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Used Value</label>
+                        <p>$1,720,000.00</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <p>2024-01-01</p>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <p>2026-06-15</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>SLA Compliance</label>
+                    <p><span class="badge badge-success">98.5%</span> - Excellent</p>
+                </div>
+            `;
+            document.getElementById('viewContractContent').innerHTML = content;
+            openModal('viewContractModal');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

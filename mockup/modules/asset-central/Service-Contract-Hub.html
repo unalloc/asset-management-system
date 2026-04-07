@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Contracts Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .contracts-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .contracts-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .contracts-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .contract-type-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .contract-type-badge.maintenance { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .contract-type-badge.repair { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .contract-type-badge.warranty { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .contract-type-badge.iot { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .expiry-badge {
+            display: inline-flex;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .expiry-badge.valid { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .expiry-badge.expiring { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .expiry-badge.expired { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Service Contracts Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">📄</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Service Contracts Central</h1>
+                    <div class="action-buttons">
+                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-primary">+ Create Contract</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search contracts by number, vendor, or asset...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Contracts</div>
+                        <div class="stat-value">86</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active</div>
+                        <div class="stat-value" style="color: var(--success);">72</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Expiring Soon</div>
+                        <div class="stat-value" style="color: var(--warning);">8</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Expired</div>
+                        <div class="stat-value" style="color: var(--danger);">6</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Value</div>
+                        <div class="stat-value">$1.8M</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="maintenance">Maintenance</option>
+                        <option value="repair">Repair</option>
+                        <option value="warranty">Warranty</option>
+                        <option value="iot">IoT Monitoring</option>
+                    </select>
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="expiring">Expiring Soon</option>
+                        <option value="expired">Expired</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                    <select>
+                        <option value="">All Vendors</option>
+                        <option value="acme">Acme Industrial Services</option>
+                        <option value="techfix">TechFix Industrial</option>
+                        <option value="global-hvac">Global HVAC Solutions</option>
+                    </select>
+                    <select>
+                        <option value="">All Plants</option>
+                        <option value="plant-a">Plant A - Detroit</option>
+                        <option value="plant-b">Plant B - Chicago</option>
+                        <option value="plant-c">Plant C - Munich</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="contracts-table">
+                        <thead>
+                            <tr>
+                                <th>Contract #</th>
+                                <th>Vendor</th>
+                                <th>Type</th>
+                                <th>Period</th>
+                                <th>Annual Value</th>
+                                <th>Assets Covered</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html?contract=SC-2025-001" class="asset-link">SC-2025-001</a></td>
+                                <td><strong>Acme Industrial Services</strong></td>
+                                <td><span class="contract-type-badge maintenance">Maintenance</span></td>
+                                <td>Jan 1, 2025 - Dec 31, 2025</td>
+                                <td>$24,000</td>
+                                <td>12</td>
+                                <td>
+                                    <span class="expiry-badge valid">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-001" class="btn btn-sm btn-outline">View Assets</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html?contract=SC-2025-002" class="asset-link">SC-2025-002</a></td>
+                                <td><strong>TechFix Industrial</strong></td>
+                                <td><span class="contract-type-badge repair">Repair</span></td>
+                                <td>Feb 1, 2025 - Jan 31, 2026</td>
+                                <td>$15,000</td>
+                                <td>8</td>
+                                <td>
+                                    <span class="expiry-badge valid">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-002" class="btn btn-sm btn-outline">View Assets</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html?contract=SC-2025-003" class="asset-link">SC-2025-003</a></td>
+                                <td><strong>Global HVAC Solutions</strong></td>
+                                <td><span class="contract-type-badge iot">IoT Monitoring</span></td>
+                                <td>Mar 1, 2025 - Feb 28, 2026</td>
+                                <td>$36,000</td>
+                                <td>25</td>
+                                <td>
+                                    <span class="expiry-badge expiring">Expiring Soon</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-003" class="btn btn-sm btn-outline">View Assets</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html?contract=SC-2024-015" class="asset-link">SC-2024-015</a></td>
+                                <td><strong>Precision Parts Co.</strong></td>
+                                <td><span class="contract-type-badge warranty">Warranty</span></td>
+                                <td>Jun 1, 2024 - May 31, 2025</td>
+                                <td>N/A</td>
+                                <td>45</td>
+                                <td>
+                                    <span class="expiry-badge expired">Expired</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-004" class="btn btn-sm btn-outline">View Assets</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">Renew</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html?contract=SC-2025-007" class="asset-link">SC-2025-007</a></td>
+                                <td><strong>TechMaintenance Corp</strong></td>
+                                <td><span class="contract-type-badge iot">IoT Monitoring</span></td>
+                                <td>Apr 1, 2025 - Mar 31, 2026</td>
+                                <td>$48,000</td>
+                                <td>18</td>
+                                <td>
+                                    <span class="expiry-badge valid">Active</span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-005" class="btn btn-sm btn-outline">View Assets</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 86 contracts</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">...</button>
+                        <button class="btn btn-sm btn-outline">18</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Service Contracts for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

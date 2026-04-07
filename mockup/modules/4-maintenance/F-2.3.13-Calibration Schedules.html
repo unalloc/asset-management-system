@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.13 - Calibration Schedules</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.13
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.13 - Calibration Schedules</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.13-Calibration%20Schedules.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('schedule')">Calibration Schedule</button>
+                    <button class="tab" onclick="switchTab('certificates')">Certificates</button>
+                    <button class="tab" onclick="switchTab('agencies')">Agencies</button>
+                </div>
+
+                <div class="tab-content active" id="schedule-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Equipment Calibration Status</h2>
+                            <button class="btn btn-primary" onclick="openModal('addCalModal')">+ Schedule Calibration</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="stats-grid">
+                                <div class="stat-card stat-success">
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-label">Valid</div>
+                                </div>
+                                <div class="stat-card stat-warning">
+                                    <div class="stat-value">5</div>
+                                    <div class="stat-label">Expiring Soon</div>
+                                </div>
+                                <div class="stat-card stat-danger">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">Expired</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value">31</div>
+                                    <div class="stat-label">Total Equipment</div>
+                                </div>
+                            </div>
+
+                            <div class="table-container" style="margin-top: 1rem;">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Equipment ID</th>
+                                            <th>Description</th>
+                                            <th>Calibration Due</th>
+                                            <th>Status</th>
+                                            <th>Interval</th>
+                                            <th>Agency</th>
+                                            <th>Last Result</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CAL-001</td>
+                                            <td>Digital Multimeter Fluke 87V</td>
+                                            <td>2025-04-15</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td>12 months</td>
+                                            <td>MetroCal Inc.</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Record</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CAL-002</td>
+                                            <td>Pressure Gauge 0-100 PSI</td>
+                                            <td>2025-04-10</td>
+                                            <td><span class="badge badge-warning">Expiring</span></td>
+                                            <td>6 months</td>
+                                            <td>MetroCal Inc.</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Schedule</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CAL-003</td>
+                                            <td>Temperature Chamber ±0.5°C</td>
+                                            <td>2025-04-02</td>
+                                            <td><span class="badge badge-danger">Expired</span></td>
+                                            <td>3 months</td>
+                                            <td>AccuCal Labs</td>
+                                            <td><span class="badge badge-warning">Adjusted</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Urgent</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CAL-004</td>
+                                            <td>Torque Wrench 10-100 Nm</td>
+                                            <td>2025-05-20</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td>12 months</td>
+                                            <td>MetroCal Inc.</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Record</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CAL-005</td>
+                                            <td>CMM Probe Accuracy</td>
+                                            <td>2025-04-08</td>
+                                            <td><span class="badge badge-warning">Expiring</span></td>
+                                            <td>6 months</td>
+                                            <td>ISO Tech Calibration</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Schedule</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Calibration Status Rules</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Condition</th>
+                                            <th>System Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td>Current date is before due date</td>
+                                            <td>Normal operation</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">Expiring</span></td>
+                                            <td>Within advance notice days of due date</td>
+                                            <td>Generate alert notification</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Expired</span></td>
+                                            <td>Past due date</td>
+                                            <td>Trigger lockout (if enabled)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="certificates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Calibration Certificates</h2>
+                            <button class="btn btn-primary btn-sm">Upload Certificate</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Certificate ID</th>
+                                            <th>Equipment</th>
+                                            <th>Cal. Date</th>
+                                            <th>Technician</th>
+                                            <th>Agency</th>
+                                            <th>As-Found</th>
+                                            <th>As-Left</th>
+                                            <th>Tolerance</th>
+                                            <th>Result</th>
+                                            <th>Certificate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CERT-2025-0012</td>
+                                            <td>CAL-001</td>
+                                            <td>2024-04-18</td>
+                                            <td>J. Williams</td>
+                                            <td>MetroCal Inc.</td>
+                                            <td>10.02V</td>
+                                            <td>10.00V</td>
+                                            <td>±0.05V</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td><button class="btn btn-sm btn-outline">PDF</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CERT-2025-0011</td>
+                                            <td>CAL-004</td>
+                                            <td>2024-05-25</td>
+                                            <td>K. Anderson</td>
+                                            <td>MetroCal Inc.</td>
+                                            <td>50.2 Nm</td>
+                                            <td>50.0 Nm</td>
+                                            <td>±0.5 Nm</td>
+                                            <td><span class="badge badge-success">Pass</span></td>
+                                            <td><button class="btn btn-sm btn-outline">PDF</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CERT-2025-0010</td>
+                                            <td>CAL-003</td>
+                                            <td>2024-01-10</td>
+                                            <td>M. Chen</td>
+                                            <td>AccuCal Labs</td>
+                                            <td>100.8°C</td>
+                                            <td>100.2°C</td>
+                                            <td>±0.5°C</td>
+                                            <td><span class="badge badge-warning">Adjusted</span></td>
+                                            <td><button class="btn btn-sm btn-outline">PDF</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Calibration Result Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="formula-box">
+                                <strong>As-Found Tolerance Check:</strong>
+                                <code>|As-Found Value - Standard| <= Tolerance</code>
+                            </div>
+                            <div class="formula-box" style="margin-top: 1rem;">
+                                <strong>As-Left Value:</strong>
+                                <code>As-Left = As-Found (if in tolerance), otherwise Adjusted Value</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="agencies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Calibration Agency Management</h2>
+                            <button class="btn btn-primary btn-sm">+ Add Agency</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Agency Name</th>
+                                            <th>Accreditation</th>
+                                            <th>Certificate Valid</th>
+                                            <th>Contact</th>
+                                            <th>Specialties</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>MetroCal Inc.</td>
+                                            <td><span class="badge badge-success">ISO 17025</span></td>
+                                            <td>2026-12-31</td>
+                                            <td>Robert Smith</td>
+                                            <td>Electrical, Pressure, Temperature</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AccuCal Labs</td>
+                                            <td><span class="badge badge-success">ISO 17025</span></td>
+                                            <td>2026-06-30</td>
+                                            <td>Lisa Wang</td>
+                                            <td>Temperature, Humidity</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>ISO Tech Calibration</td>
+                                            <td><span class="badge badge-success">ISO 17025</span></td>
+                                            <td>2025-09-15</td>
+                                            <td>David Lee</td>
+                                            <td>CMM, Dimensional</td>
+                                            <td><span class="badge badge-warning">Review</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addCalModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Schedule Calibration</h3>
+                <button class="modal-close" onclick="closeModal('addCalModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Equipment</label>
+                        <select class="form-control" id="calEquipment">
+                            <option value="">-- Select Equipment --</option>
+                            <option value="CAL-001">Digital Multimeter Fluke 87V</option>
+                            <option value="CAL-002">Pressure Gauge 0-100 PSI</option>
+                            <option value="CAL-003">Temperature Chamber ±0.5°C</option>
+                            <option value="CAL-004">Torque Wrench 10-100 Nm</option>
+                            <option value="CAL-005">CMM Probe Accuracy</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Calibration Agency</label>
+                            <select class="form-control" id="calAgency">
+                                <option value="">-- Select Agency --</option>
+                                <option value="MetroCal">MetroCal Inc.</option>
+                                <option value="AccuCal">AccuCal Labs</option>
+                                <option value="ISO Tech">ISO Tech Calibration</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Technician</label>
+                            <select class="form-control" id="calTech">
+                                <option value="">-- Select Technician --</option>
+                                <option value="JW001">J. Williams</option>
+                                <option value="KA001">K. Anderson</option>
+                                <option value="MC001">M. Chen</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Calibration Date</label>
+                            <input type="date" class="form-control" id="calDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" class="form-control" id="dueDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="calNotes" rows="2" placeholder="Any special instructions or requirements..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addCalModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addCalModal')">Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

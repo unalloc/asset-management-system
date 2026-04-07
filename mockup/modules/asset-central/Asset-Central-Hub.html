@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Central Hub - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .stat-card .stat-change {
+            font-size: 0.75rem;
+            margin-top: var(--spacing-sm);
+        }
+        .stat-card .stat-change.positive {
+            color: var(--success);
+        }
+        .stat-card .stat-change.negative {
+            color: var(--danger);
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filters-bar select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            min-width: 150px;
+        }
+        .filters-bar .filter-actions {
+            margin-left: auto;
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .asset-table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .asset-table-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .asset-table-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .asset-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .asset-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+        }
+        .asset-table th:hover {
+            background: var(--border);
+        }
+        .asset-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .asset-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .asset-table tr.clickable {
+            cursor: pointer;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-badge.active {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--success);
+        }
+        .status-badge.idle {
+            background: rgba(202, 138, 4, 0.1);
+            color: var(--warning);
+        }
+        .status-badge.maintenance {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .status-badge.retired {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--secondary);
+        }
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .pagination {
+            padding: var(--spacing-lg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pagination-info {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        .pagination-controls {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .asset-name-cell {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .quick-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .quick-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+        .quick-link:hover {
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+        }
+        .req-doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--info);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+        }
+        .req-doc-link:hover {
+            background: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+        }
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-icon:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Asset Central Hub</span>
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option value="US001">US Manufacturing Inc.</option>
+                        <option value="EU001">EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="module-hero" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: var(--spacing-xl); border-radius: var(--radius-lg); margin-bottom: var(--spacing-xl);">
+                    <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: var(--spacing-sm);">Asset Central Hub</h1>
+                    <p style="opacity: 0.9; max-width: 600px; margin-bottom: var(--spacing-lg);">Centralized asset management hub connecting all modules. Access asset details, work orders, vendors, spare parts, and more.</p>
+                    <div style="display: flex; gap: var(--spacing-xl);">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: 700;">12,458</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; text-transform: uppercase;">Total Assets</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: 700;">$48.2M</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; text-transform: uppercase;">Total Value</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: 700;">342</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; text-transform: uppercase;">Open Work Orders</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; font-weight: 700;">98.5%</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; text-transform: uppercase;">Uptime</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs" style="display: flex; border-bottom: 2px solid var(--border); margin-bottom: var(--spacing-lg);">
+                    <a href="#" class="tab active" onclick="showTab('assets'); return false;" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Assets</a>
+                    <a href="Work-Order-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Work Orders</a>
+                    <a href="Vendor-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Vendors</a>
+                    <a href="Spare-Part-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Spare Parts</a>
+                    <a href="Organization-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Organizations</a>
+                    <a href="Service-Contract-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Contracts</a>
+                    <a href="Insurance-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Insurance</a>
+                    <a href="Disposal-Hub.html" class="tab" style="padding: var(--spacing-md) var(--spacing-lg); border: none; background: transparent; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; text-decoration: none;">Disposal</a>
+                </div>
+
+                <div id="tab-assets" class="tab-content active">
+                    <div class="hub-header">
+                        <h1 style="font-size: 1.75rem; font-weight: 600;">Asset List</h1>
+                        <div class="action-buttons">
+                            <a href="../2-asset-registration/F-2.1.0-Register New Asset.html" class="btn btn-primary">+ Register New Asset</a>
+                            <a href="#" class="btn btn-outline">Export</a>
+                        </div>
+                    </div>
+
+                    <div class="search-container" style="margin-bottom: var(--spacing-lg);">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="globalSearch" placeholder="Search assets by ID, name, serial number, or location...">
+                    </div>
+
+                    <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Assets</div>
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-change positive">↑ 12 this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active</div>
+                        <div class="stat-value" style="color: var(--success);">892</div>
+                        <div class="stat-change">71.5% of total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Idle / Under Maintenance</div>
+                        <div class="stat-value" style="color: var(--warning);">156</div>
+                        <div class="stat-change">12.5% of total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Book Value</div>
+                        <div class="stat-value">$12.5M</div>
+                        <div class="stat-change positive">↑ $450K vs last year</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select id="filterType">
+                        <option value="">All Types</option>
+                        <option value="mfg">Manufacturing Equipment</option>
+                        <option value="tool">Tooling & Fixtures</option>
+                        <option value=" vehicles">Vehicles</option>
+                        <option value="it">IT Equipment</option>
+                        <option value="building">Building & Facilities</option>
+                    </select>
+                    <select id="filterStatus">
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="idle">Idle</option>
+                        <option value="maintenance">Under Maintenance</option>
+                        <option value="retired">Retired</option>
+                    </select>
+                    <select id="filterPlant">
+                        <option value="">All Plants</option>
+                        <option value="plant-a">Plant A - Detroit</option>
+                        <option value="plant-b">Plant B - Chicago</option>
+                        <option value="plant-c">Plant C - Munich</option>
+                    </select>
+                    <select id="filterDept">
+                        <option value="">All Departments</option>
+                        <option value="assembly">Assembly</option>
+                        <option value="machining">Machining</option>
+                        <option value="logistics">Logistics</option>
+                        <option value="quality">Quality Control</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="asset-table-container">
+                    <div class="asset-table-header">
+                        <h2>Asset List</h2>
+                        <div class="quick-actions">
+                            <a href="#" class="quick-link">📊 Dashboard</a>
+                            <a href="#" class="quick-link">📈 Reports</a>
+                            <a href="#" class="quick-link">⚙️ Bulk Actions</a>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="asset-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"><input type="checkbox"></th>
+                                    <th>Asset ID ↕</th>
+                                    <th>Asset Name ↕</th>
+                                    <th>Type ↕</th>
+                                    <th>Status ↕</th>
+                                    <th>Location ↕</th>
+                                    <th>Department ↕</th>
+                                    <th>Book Value ↕</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-001'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-001</span></td>
+                                    <td>CNC Machine Model-X</td>
+                                    <td>Manufacturing Equipment</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Plant A - Line 3</td>
+                                    <td>Assembly</td>
+                                    <td>$125,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-002'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-002</span></td>
+                                    <td>Overhead Crane 5T</td>
+                                    <td>Manufacturing Equipment</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Plant A - Warehouse</td>
+                                    <td>Logistics</td>
+                                    <td>$85,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-003'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-003</span></td>
+                                    <td>Forklift Electric</td>
+                                    <td>Vehicles</td>
+                                    <td><span class="status-badge idle">Idle</span></td>
+                                    <td>Plant B - Yard</td>
+                                    <td>Logistics</td>
+                                    <td>$32,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-004'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-004</span></td>
+                                    <td>Injection Molding Press</td>
+                                    <td>Manufacturing Equipment</td>
+                                    <td><span class="status-badge maintenance">Maintenance</span></td>
+                                    <td>Plant A - Line 1</td>
+                                    <td>Machining</td>
+                                    <td>$210,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-005'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-005</span></td>
+                                    <td>Coordinate Measuring Machine</td>
+                                    <td>Quality Equipment</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Plant A - QC Lab</td>
+                                    <td>Quality Control</td>
+                                    <td>$175,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-006'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-006</span></td>
+                                    <td>Welding Robot Arm</td>
+                                    <td>Manufacturing Equipment</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Plant C - Line 2</td>
+                                    <td>Assembly</td>
+                                    <td>$95,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-007'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-007</span></td>
+                                    <td>Air Compressor Industrial</td>
+                                    <td>Facility Equipment</td>
+                                    <td><span class="status-badge active">Active</span></td>
+                                    <td>Plant B - Utility</td>
+                                    <td>Facilities</td>
+                                    <td>$45,000</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="clickable" onclick="window.location.href='Asset-Detail.html?asset=AST-008'">
+                                    <td><input type="checkbox"></td>
+                                    <td><span class="asset-name-cell">AST-008</span></td>
+                                    <td>Assembly Line Conveyor</td>
+                                    <td>Manufacturing Equipment</td>
+                                    <td><span class="status-badge retired">Retired</span></td>
+                                    <td>Plant A - Line 2</td>
+                                    <td>Assembly</td>
+                                    <td>$0</td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-icon" title="View Details">👁️</button>
+                                            <button class="btn-icon" title="Edit">✏️</button>
+                                            <button class="btn-icon" title="More">⋮</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pagination-info">
+                            Showing 1-8 of 1,247 assets
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                            <button class="btn btn-sm btn-primary">1</button>
+                            <button class="btn btn-sm btn-outline">2</button>
+                            <button class="btn btn-sm btn-outline">3</button>
+                            <button class="btn btn-sm btn-outline">...</button>
+                            <button class="btn btn-sm btn-outline">156</button>
+                            <button class="btn btn-sm btn-outline">Next →</button>
+                        </div>
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            
+            document.querySelector(`.tab[onclick="showTab('${tabName}')"]`).classList.add('active');
+            document.getElementById('tab-' + tabName).style.display = 'block';
+        }
+        
+        document.getElementById('globalSearch').addEventListener('input', function(e) {
+            console.log('Search:', e.target.value);
+        });
+        
+        document.querySelectorAll('.filters-bar select').forEach(select => {
+            select.addEventListener('change', function() {
+                console.log('Filter changed:', this.id, this.value);
+            });
+        });
+    </script>
+</body>
+</html>

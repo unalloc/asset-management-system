@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .insurance-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .insurance-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .insurance-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .policy-type-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .policy-type-badge.property { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .policy-type-badge.liability { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .policy-type-badge.workers-comp { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .policy-type-badge.equipment { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .expiry-badge {
+            display: inline-flex;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .expiry-badge.active { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .expiry-badge.expiring { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .expiry-badge.expired { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Insurance Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">🛡️</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Insurance Central</h1>
+                    <div class="action-buttons">
+                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-primary">+ Add Policy</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search policies by number, insurer, or type...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Policies</div>
+                        <div class="stat-value">24</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Coverage</div>
+                        <div class="stat-value">$45.2M</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Expiring Soon</div>
+                        <div class="stat-value" style="color: var(--warning);">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active Claims</div>
+                        <div class="stat-value" style="color: var(--danger);">2</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Annual Premiums</div>
+                        <div class="stat-value">$167K</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="property">Property</option>
+                        <option value="liability">Liability</option>
+                        <option value="workers-comp">Workers Comp</option>
+                        <option value="equipment">Equipment</option>
+                    </select>
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="expiring">Expiring Soon</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                    <select>
+                        <option value="">All Insurers</option>
+                        <option value="travelers">Travelers Insurance</option>
+                        <option value="zurich">Zurich Insurance</option>
+                        <option value="liberty">Liberty Mutual</option>
+                        <option value="chubb">Chubb Insurance</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="insurance-table">
+                        <thead>
+                            <tr>
+                                <th>Policy #</th>
+                                <th>Insurer</th>
+                                <th>Type</th>
+                                <th>Coverage Amount</th>
+                                <th>Annual Premium</th>
+                                <th>Deductible</th>
+                                <th>Expiration</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../5-financial/F-2.4.3-Insurance%20Tracking.html?policy=POL-2024-001" class="asset-link">POL-2024-001</a></td>
+                                <td><strong>Travelers Insurance</strong></td>
+                                <td><span class="policy-type-badge property">Property</span></td>
+                                <td>$15,000,000</td>
+                                <td>$45,000</td>
+                                <td>$25,000</td>
+                                <td><span class="expiry-badge expiring">Apr 17, 2025</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-001" class="btn btn-sm btn-outline">Insured Assets</a>
+                                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../5-financial/F-2.4.3-Insurance%20Tracking.html?policy=POL-2024-002" class="asset-link">POL-2024-002</a></td>
+                                <td><strong>Zurich Insurance</strong></td>
+                                <td><span class="policy-type-badge liability">Liability</span></td>
+                                <td>$10,000,000</td>
+                                <td>$32,000</td>
+                                <td>$10,000</td>
+                                <td><span class="expiry-badge active">Mar 15, 2026</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-002" class="btn btn-sm btn-outline">Insured Assets</a>
+                                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../5-financial/F-2.4.3-Insurance%20Tracking.html?policy=POL-2024-003" class="asset-link">POL-2024-003</a></td>
+                                <td><strong>Liberty Mutual</strong></td>
+                                <td><span class="policy-type-badge workers-comp">Workers Comp</span></td>
+                                <td>$5,000,000</td>
+                                <td>$28,000</td>
+                                <td>$5,000</td>
+                                <td><span class="expiry-badge active">Nov 30, 2025</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../5-financial/F-2.4.3-Insurance%20Tracking.html?policy=POL-2024-004" class="asset-link">POL-2024-004</a></td>
+                                <td><strong>Chubb Insurance</strong></td>
+                                <td><span class="policy-type-badge property">Property</span></td>
+                                <td>$20,000,000</td>
+                                <td>$62,000</td>
+                                <td>$50,000</td>
+                                <td><span class="expiry-badge active">Jan 20, 2026</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-003" class="btn btn-sm btn-outline">Insured Assets</a>
+                                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../5-financial/F-2.4.3-Insurance%20Tracking.html?policy=POL-2024-008" class="asset-link">POL-2024-008</a></td>
+                                <td><strong>Hartford Insurance</strong></td>
+                                <td><span class="policy-type-badge equipment">Equipment</span></td>
+                                <td>$8,500,000</td>
+                                <td>$28,500</td>
+                                <td>$15,000</td>
+                                <td><span class="expiry-badge expiring">Apr 25, 2025</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-004" class="btn btn-sm btn-outline">Insured Assets</a>
+                                        <a href="../5-financial/F-2.4.3-Insurance%20Tracking.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 24 policies</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">4</button>
+                        <button class="btn btn-sm btn-outline">5</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Insurance Policies for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

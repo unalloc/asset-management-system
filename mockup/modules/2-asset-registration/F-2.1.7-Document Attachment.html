@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.7 - Document Attachment</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.7
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.7 - Document Attachment</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.7-Document%20Attachment.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Documents</h2>
+                        <button class="btn btn-primary" onclick="openModal('uploadDocumentModal')">+ Upload Document</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row mb-md">
+                            <div class="form-group">
+                                <label>Filter by Asset</label>
+                                <select class="form-control">
+                                    <option value="">All Assets</option>
+                                    <option value="CNC-MACHINE-001" selected>CNC-MACHINE-001</option>
+                                    <option value="PROD-LINE-001">PROD-LINE-001</option>
+                                    <option value="IT-SERVER-01">IT-SERVER-01</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Filter by Type</label>
+                                <select class="form-control">
+                                    <option value="">All Types</option>
+                                    <option value="WARRANTY">Warranty</option>
+                                    <option value="MANUAL">Manual</option>
+                                    <option value="CERTIFICATE">Certificate</option>
+                                    <option value="SDS">Safety Data Sheet</option>
+                                    <option value="PERMIT">Permit</option>
+                                    <option value="DRAWING">Drawing</option>
+                                    <option value="PHOTO">Photo</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Document Title</th>
+                                        <th>Type</th>
+                                        <th>Asset ID</th>
+                                        <th>Version</th>
+                                        <th>Size</th>
+                                        <th>Uploaded</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="documentsTable">
+                                    <tr>
+                                        <td>CNC Machine Warranty Certificate</td>
+                                        <td><span class="badge badge-success">WARRANTY</span></td>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td>2.1</td>
+                                        <td>2.4 MB</td>
+                                        <td>2025-01-10</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewDocument('DOC001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadDocument('DOC001')">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Operating Manual Rev.3</td>
+                                        <td><span class="badge badge-primary">MANUAL</span></td>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td>3.0</td>
+                                        <td>15.8 MB</td>
+                                        <td>2025-02-15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewDocument('DOC002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadDocument('DOC002')">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Safety Data Sheet - Coolant</td>
+                                        <td><span class="badge badge-warning">SDS</span></td>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td>1.0</td>
+                                        <td>456 KB</td>
+                                        <td>2025-01-08</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewDocument('DOC003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadDocument('DOC003')">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ISO 9001 Certificate</td>
+                                        <td><span class="badge badge-info">CERTIFICATE</span></td>
+                                        <td>PROD-LINE-001</td>
+                                        <td>4.0</td>
+                                        <td>1.2 MB</td>
+                                        <td>2025-03-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewDocument('DOC004')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadDocument('DOC004')">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Equipment Layout Drawing</td>
+                                        <td><span class="badge badge-danger">DRAWING</span></td>
+                                        <td>PROD-LINE-001</td>
+                                        <td>2.0</td>
+                                        <td>8.5 MB</td>
+                                        <td>2025-02-20</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewDocument('DOC005')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadDocument('DOC005')">Download</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Document Version History</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Document</label>
+                                <select class="form-control" onchange="loadVersionHistory(this.value)">
+                                    <option value="DOC001">CNC Machine Warranty Certificate</option>
+                                    <option value="DOC002">Operating Manual Rev.3</option>
+                                    <option value="DOC003">Safety Data Sheet - Coolant</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container mt-md">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Version</th>
+                                        <th>Effective Date</th>
+                                        <th>Expiry Date</th>
+                                        <th>Uploaded By</th>
+                                        <th>Changes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2.1</td>
+                                        <td>2025-03-01</td>
+                                        <td>2028-03-01</td>
+                                        <td>Admin</td>
+                                        <td>Extended warranty coverage</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-outline">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.0</td>
+                                        <td>2024-03-01</td>
+                                        <td>2025-03-01</td>
+                                        <td>Admin</td>
+                                        <td>Updated terms</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-outline">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.0</td>
+                                        <td>2022-03-01</td>
+                                        <td>2024-03-01</td>
+                                        <td>Admin</td>
+                                        <td>Initial warranty document</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-outline">Download</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="uploadDocumentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Upload Document</h3>
+                <button class="modal-close" onclick="closeModal('uploadDocumentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="uploadDocumentForm">
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <input type="text" class="form-control" id="assetId"
+                               placeholder="e.g., CNC-MACHINE-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Document Title</label>
+                        <input type="text" class="form-control" id="docTitle"
+                               placeholder="e.g., Equipment Warranty Certificate">
+                        <p class="form-hint">1-200 characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Document Type</label>
+                        <select class="form-control" id="docType">
+                            <option value="">-- Select Type --</option>
+                            <option value="WARRANTY">WARRANTY</option>
+                            <option value="MANUAL">MANUAL</option>
+                            <option value="CERTIFICATE">CERTIFICATE</option>
+                            <option value="SDS">SDS (Safety Data Sheet)</option>
+                            <option value="PERMIT">PERMIT</option>
+                            <option value="DRAWING">DRAWING</option>
+                            <option value="PHOTO">PHOTO</option>
+                            <option value="OTHER">OTHER</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="docDescription"
+                                  placeholder="Additional description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Document File</label>
+                        <input type="file" class="form-control" id="docFile"
+                               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.gif,.bmp,.tiff">
+                        <p class="form-hint">Max 50MB. Accepted: PDF, Office documents, images</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Effective Date</label>
+                            <input type="date" class="form-control" id="effectiveDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" class="form-control" id="expiryDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('uploadDocumentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('uploadDocumentModal')">Upload</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewDocumentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Document Details</h3>
+                <button class="modal-close" onclick="closeModal('viewDocumentModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewDocumentContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewDocumentModal')">Close</button>
+                <button class="btn btn-primary" onclick="downloadDocument()">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewDocument(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Document ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <span class="badge badge-success">WARRANTY</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <p>CNC Machine Warranty Certificate</p>
+                </div>
+                <div class="form-group">
+                    <label>Asset ID</label>
+                    <p>CNC-MACHINE-001</p>
+                </div>
+                <div class="form-group">
+                    <label>Current Version</label>
+                    <p>2.1</p>
+                </div>
+                <div class="form-group">
+                    <label>File Size</label>
+                    <p>2.4 MB</p>
+                </div>
+                <div class="form-group">
+                    <label>Uploaded</label>
+                    <p>2025-01-10</p>
+                </div>
+            `;
+            document.getElementById('viewDocumentContent').innerHTML = content;
+            openModal('viewDocumentModal');
+        }
+
+        function downloadDocument(id) {
+            alert('Downloading document: ' + (id || 'current'));
+        }
+
+        function loadVersionHistory(docId) {
+            console.log('Loading version history for:', docId);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

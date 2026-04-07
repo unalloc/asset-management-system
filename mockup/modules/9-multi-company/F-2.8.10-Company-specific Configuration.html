@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.10 - Company-specific Configuration</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.10
+                </div>
+                <div class="user-info">
+                    <span>Group Config Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.10 - Company-specific Configuration</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.10-Company-specific%20Configuration.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Configuration Hierarchy</h2>
+                    </div>
+                    <div class="card-body">
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                            <span class="badge badge-primary" style="font-size: 0.9rem; padding: 0.5rem 1rem;">GROUP</span>
+                            <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Highest Priority</p>
+                            <div style="margin-top: 1rem; font-size: 1.5rem; color: var(--border-dark);">▼</div>
+                            <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem;">
+                                <div>
+                                    <span class="badge badge-info" style="font-size: 0.8rem;">REGION</span>
+                                    <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Mid Priority</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; font-size: 1.5rem; color: var(--border-dark);">▼</div>
+                            <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem;">
+                                <div>
+                                    <span class="badge badge-warning" style="font-size: 0.8rem;">COUNTRY</span>
+                                    <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Lower Priority</p>
+                                </div>
+                            </div>
+                            <div style="margin-top: 1rem; font-size: 1.5rem; color: var(--border-dark);">▼</div>
+                            <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 2rem;">
+                                <div>
+                                    <span class="badge badge-success" style="font-size: 0.8rem;">COMPANY</span>
+                                    <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Lowest Priority (Override Allowed)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning" style="margin-top: 1rem;">
+                            <strong>Note:</strong> Group core principles CANNOT be overridden at company level.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Configuration Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Examples</th>
+                                        <th>Override Allowed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Business Processes</span></td>
+                                        <td>Approval workflows, notification rules</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Report Formats</span></td>
+                                        <td>Local currency, date format, language</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">Asset Categories</span></td>
+                                        <td>Local asset type taxonomy</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-danger">Core Principles</span></td>
+                                        <td>SOX controls, GDPR requirements</td>
+                                        <td><span class="badge badge-danger">No</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Company Configurations</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newConfigModal')">+ Add Configuration</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Config Key</th>
+                                        <th>Scope</th>
+                                        <th>Value</th>
+                                        <th>Version</th>
+                                        <th>Effective Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CURRENCY.default</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>EUR</td>
+                                        <td>1.2</td>
+                                        <td>2026-01-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>DATE.format</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>DD/MM/YYYY</td>
+                                        <td>1.0</td>
+                                        <td>2026-01-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>DEPRECIATION.method</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td>MODIFIED_ACCELERATED</td>
+                                        <td>2.0</td>
+                                        <td>2026-03-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newConfigModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Company Configuration</h3>
+                <button class="modal-close" onclick="closeModal('newConfigModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="configForm">
+                    <div class="form-group">
+                        <label>Configuration Scope</label>
+                        <select class="form-control" name="configScope">
+                            <option value="">Select Scope</option>
+                            <option value="GROUP">Group</option>
+                            <option value="REGION">Region</option>
+                            <option value="COUNTRY">Country</option>
+                            <option value="COMPANY">Company</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Configuration Key</label>
+                        <input type="text" class="form-control" name="configKey" placeholder="e.g., CURRENCY.default">
+                    </div>
+                    <div class="form-group">
+                        <label>Configuration Value</label>
+                        <input type="text" class="form-control" name="configValue">
+                    </div>
+                    <div class="form-group">
+                        <label>Version</label>
+                        <input type="text" class="form-control" name="version" placeholder="e.g., 1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>Effective Date</label>
+                        <input type="date" class="form-control" name="effectiveDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newConfigModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newConfigModal')">Add Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

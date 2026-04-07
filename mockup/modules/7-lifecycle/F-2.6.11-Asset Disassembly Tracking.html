@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.11 - Asset Disassembly Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.11
+                </div>
+                <div class="user-info">
+                    <span>Asset Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.11 - Asset Disassembly Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.11-Asset%20Disassembly%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Sessions</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Components Recovered</p>
+                            <h2 style="font-size: 1.5rem;">45</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Hazardous Processed</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Cost Recovery</p>
+                            <h2 style="font-size: 1.5rem;">$15,200</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('sessions')">Disassembly Sessions</button>
+                    <button class="tab" onclick="switchTab('components')">Components</button>
+                    <button class="tab" onclick="switchTab('hazardous')">Hazardous Materials</button>
+                    <button class="tab" onclick="switchTab('certificates')">Compliance Certificates</button>
+                </div>
+
+                <div class="tab-content active" id="sessions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Disassembly Sessions</h2>
+                            <button class="btn btn-primary" onclick="openModal('newSessionModal')">+ New Session</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Session ID</th>
+                                            <th>Asset</th>
+                                            <th>Facility</th>
+                                            <th>Start Date</th>
+                                            <th>Components</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DAS-2025-008</td>
+                                            <td>Industrial Robot (AST-2018-045)</td>
+                                            <td>Recycling Center A</td>
+                                            <td>2025-04-03</td>
+                                            <td>8</td>
+                                            <td><span class="badge badge-info">In Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewSession('DAS-2025-008')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="addComponent('DAS-2025-008')">Add Component</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="components-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Recovered Components</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Component ID</th>
+                                            <th>Session</th>
+                                            <th>Type</th>
+                                            <th>Material</th>
+                                            <th>Classification</th>
+                                            <th>Weight</th>
+                                            <th>Value</th>
+                                            <th>Inventory</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>COMP-2025-042</td>
+                                            <td>DAS-2025-008</td>
+                                            <td>Motor Assembly</td>
+                                            <td>Steel/Copper</td>
+                                            <td><span class="badge badge-success">REUSABLE</span></td>
+                                            <td>25 kg</td>
+                                            <td>$450</td>
+                                            <td><span class="badge badge-info">Added to Stock</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>COMP-2025-041</td>
+                                            <td>DAS-2025-008</td>
+                                            <td>Circuit Board</td>
+                                            <td>Electronic</td>
+                                            <td><span class="badge badge-warning">RECYCLABLE</span></td>
+                                            <td>2 kg</td>
+                                            <td>$80</td>
+                                            <td><span class="badge badge-info">Recycled</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="hazardous-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Hazardous Materials Processing</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>Warning:</strong> Hazardous components require certified processor handling
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Session</th>
+                                            <th>Material Type</th>
+                                            <th>Weight</th>
+                                            <th>Processor</th>
+                                            <th>Manifest</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>HAZ-2025-012</td>
+                                            <td>DAS-2025-008</td>
+                                            <td><span class="tag">Battery Pack</span></td>
+                                            <td>5 kg</td>
+                                            <td>EnviroSafe Inc.</td>
+                                            <td>EPA-2025-089</td>
+                                            <td><span class="badge badge-warning">Processing</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="certificates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Compliance Certificates</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Certificate ID</th>
+                                            <th>Type</th>
+                                            <th>Session</th>
+                                            <th>Issued Date</th>
+                                            <th>Expiry Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WEEE-2025-015</td>
+                                            <td><span class="tag">WEEE Recycling</span></td>
+                                            <td>DAS-2025-007</td>
+                                            <td>2025-04-02</td>
+                                            <td>2026-04-02</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>RCRA-2025-008</td>
+                                            <td><span class="tag">RCRA Manifest</span></td>
+                                            <td>DAS-2025-007</td>
+                                            <td>2025-04-02</td>
+                                            <td>2028-04-02</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newSessionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Disassembly Session</h3>
+                <button class="modal-close" onclick="closeModal('newSessionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="sessionForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="disAsset">
+                            <option value="">-- Select Approved Asset --</option>
+                            <option value="AST-2018-045">Industrial Robot (AST-2018-045) - Approved</option>
+                        </select>
+                        <p class="form-hint">Only approved assets can be disassembled</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Facility</label>
+                        <select class="form-control" id="disFacility">
+                            <option value="">-- Select Facility --</option>
+                            <option value="FAC001">Recycling Center A (WEEE Certified)</option>
+                            <option value="FAC002">Metal Recycler Inc.</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="datetime-local" class="form-control" id="disStartDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="disNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newSessionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newSessionModal')">Start Session</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addComponentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Component</h3>
+                <button class="modal-close" onclick="closeModal('addComponentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="componentForm">
+                    <div class="form-group">
+                        <label>Component Type</label>
+                        <input type="text" class="form-control" id="compType" placeholder="e.g., Motor Assembly">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Material Type</label>
+                        <select class="form-control" id="compMaterial">
+                            <option value="">-- Select Material --</option>
+                            <option value="STEEL">Steel</option>
+                            <option value="COPPER">Copper</option>
+                            <option value="ALUMINUM">Aluminum</option>
+                            <option value="ELECTRONIC">Electronic</option>
+                            <option value="PLASTIC">Plastic</option>
+                            <option value="BATTERY">Battery</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Classification</label>
+                            <select class="form-control" id="compClassification">
+                                <option value="">-- Select --</option>
+                                <option value="REUSABLE">REUSABLE</option>
+                                <option value="RECYCLABLE">RECYCLABLE</option>
+                                <option value="WASTE">WASTE</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" class="form-control" id="compWeight">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addComponentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addComponentModal')">Add Component</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewSession(id) { alert('Viewing session: ' + id); }
+        function addComponent(id) { openModal('addComponentModal'); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

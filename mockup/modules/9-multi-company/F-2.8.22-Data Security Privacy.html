@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.22 - Data Security and Privacy</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.22
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.22 - Data Security and Privacy</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">Critical</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.22-Data%20Security%20and%20Privacy.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Security Status Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: rgba(22, 163, 74, 0.1); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">ACTIVE</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">MFA Enforced</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(22, 163, 74, 0.1); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">99.9%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Encryption Coverage</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(22, 163, 74, 0.1); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">0</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Breaches (YTD)</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(22, 163, 74, 0.1); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">72hrs</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Breach Notification</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Data Classification Levels</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Description</th>
+                                        <th>Access Control</th>
+                                        <th>Encryption</th>
+                                        <th>Logging</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-secondary">PUBLIC</span></td>
+                                        <td>Non-sensitive</td>
+                                        <td>Anyone</td>
+                                        <td>Optional</td>
+                                        <td>None</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">INTERNAL</span></td>
+                                        <td>General business</td>
+                                        <td>Employees</td>
+                                        <td>At rest</td>
+                                        <td>Access logs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">CONFIDENTIAL</span></td>
+                                        <td>Sensitive</td>
+                                        <td>Need-to-know</td>
+                                        <td>Required</td>
+                                        <td>Full logs</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-danger">RESTRICTED</span></td>
+                                        <td>Highly sensitive</td>
+                                        <td>Explicit grant</td>
+                                        <td>Required</td>
+                                        <td>Complete audit</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Security Policies</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rule ID</th>
+                                        <th>Rule Name</th>
+                                        <th>Condition</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BR-001</td>
+                                        <td>Data Classification</td>
+                                        <td>Any data</td>
+                                        <td>Assign classification level</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BR-002</td>
+                                        <td>Minimum Privilege</td>
+                                        <td>Any access</td>
+                                        <td>Grant minimum necessary access</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BR-003</td>
+                                        <td>Secure Authentication</td>
+                                        <td>User login</td>
+                                        <td>Enforce MFA for sensitive operations</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BR-004</td>
+                                        <td>Encryption at Rest</td>
+                                        <td>Restricted/Confidential data</td>
+                                        <td>Require encryption</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BR-006</td>
+                                        <td>Breach Notification</td>
+                                        <td>Security incident</td>
+                                        <td>Notify within 72 hours</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Access Control by Role</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Authentication</th>
+                                        <th>Access Control</th>
+                                        <th>View Logs</th>
+                                        <th>Admin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Group Admin</strong></td>
+                                        <td><span class="badge badge-success">MFA</span></td>
+                                        <td>Full</td>
+                                        <td><span class="text-success">Yes</span></td>
+                                        <td><span class="text-success">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Company Admin</strong></td>
+                                        <td><span class="badge badge-success">MFA</span></td>
+                                        <td>Company + children</td>
+                                        <td>Own Only</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Plant Admin</strong></td>
+                                        <td><span class="badge badge-success">MFA</span></td>
+                                        <td>Plant + children</td>
+                                        <td>Own Only</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Technician</strong></td>
+                                        <td><span class="badge badge-secondary">Standard</span></td>
+                                        <td>Assigned assets</td>
+                                        <td>Own Only</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Viewer</strong></td>
+                                        <td><span class="badge badge-secondary">Standard</span></td>
+                                        <td>As assigned</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+    </script>
+</body>
+</html>

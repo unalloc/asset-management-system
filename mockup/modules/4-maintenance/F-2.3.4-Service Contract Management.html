@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.4 - Service Contract Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.4 - Service Contract Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.4-Service%20Contract%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('contracts')">Contracts</button>
+                    <button class="tab" onclick="switchTab('payments')">Payments</button>
+                    <button class="tab" onclick="switchTab('performance')">Vendor Performance</button>
+                </div>
+
+                <div class="tab-content active" id="contracts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Service Contracts</h2>
+                            <button class="btn btn-primary" onclick="openModal('createContractModal')">+ Create Contract</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contract #</th>
+                                            <th>Vendor</th>
+                                            <th>Type</th>
+                                            <th>Period</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SC-2025-001</td>
+                                            <td>ABC HVAC Services</td>
+                                            <td><span class="tag">Maintenance</span></td>
+                                            <td>2025-01-01 to 2025-12-31</td>
+                                            <td>$24,000.00</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SC-2025-002</td>
+                                            <td>TechFix Industrial</td>
+                                            <td><span class="tag">Repair</span></td>
+                                            <td>2025-02-01 to 2026-01-31</td>
+                                            <td>$15,000.00</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SC-2024-008</td>
+                                            <td>Elevator Maintenance Co.</td>
+                                            <td><span class="tag">Full Service</span></td>
+                                            <td>2024-06-01 to 2025-05-31</td>
+                                            <td>$36,000.00</td>
+                                            <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Renew</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SC-2025-003</td>
+                                            <td>SafeEquip Safety</td>
+                                            <td><span class="tag">Inspection</span></td>
+                                            <td>2025-03-01 to 2026-02-28</td>
+                                            <td>$8,500.00</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="payments-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Payment Records</h2>
+                            <button class="btn btn-primary btn-sm">+ Record Payment</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Payment ID</th>
+                                            <th>Contract #</th>
+                                            <th>Vendor</th>
+                                            <th>Amount</th>
+                                            <th>Payment Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PAY-2025-001</td>
+                                            <td>SC-2025-001</td>
+                                            <td>ABC HVAC Services</td>
+                                            <td>$6,000.00</td>
+                                            <td>2025-01-15</td>
+                                            <td><span class="badge badge-success">Paid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PAY-2025-002</td>
+                                            <td>SC-2025-001</td>
+                                            <td>ABC HVAC Services</td>
+                                            <td>$6,000.00</td>
+                                            <td>2025-04-15</td>
+                                            <td><span class="badge badge-success">Paid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PAY-2025-003</td>
+                                            <td>SC-2025-002</td>
+                                            <td>TechFix Industrial</td>
+                                            <td>$3,750.00</td>
+                                            <td>2025-02-01</td>
+                                            <td><span class="badge badge-success">Paid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PAY-2025-004</td>
+                                            <td>SC-2024-008</td>
+                                            <td>Elevator Maintenance Co.</td>
+                                            <td>$9,000.00</td>
+                                            <td>2025-06-01</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="performance-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Vendor Performance Evaluation</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor</th>
+                                            <th>Contracts</th>
+                                            <th>Avg Response Time</th>
+                                            <th>SLA Compliance</th>
+                                            <th>Quality Score</th>
+                                            <th>Overall Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ABC HVAC Services</td>
+                                            <td>2</td>
+                                            <td>4 hours</td>
+                                            <td><span class="badge badge-success">98%</span></td>
+                                            <td><span class="badge badge-success">Excellent</span></td>
+                                            <td><span class="badge badge-success">A+</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TechFix Industrial</td>
+                                            <td>1</td>
+                                            <td>8 hours</td>
+                                            <td><span class="badge badge-success">95%</span></td>
+                                            <td><span class="badge badge-primary">Good</span></td>
+                                            <td><span class="badge badge-primary">A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Elevator Maintenance Co.</td>
+                                            <td>1</td>
+                                            <td>2 hours</td>
+                                            <td><span class="badge badge-warning">88%</span></td>
+                                            <td><span class="badge badge-primary">Good</span></td>
+                                            <td><span class="badge badge-primary">B+</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SafeEquip Safety</td>
+                                            <td>1</td>
+                                            <td>6 hours</td>
+                                            <td><span class="badge badge-success">100%</span></td>
+                                            <td><span class="badge badge-success">Excellent</span></td>
+                                            <td><span class="badge badge-success">A+</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="createContractModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Service Contract</h3>
+                <button class="modal-close" onclick="closeModal('createContractModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Vendor</label>
+                        <select class="form-control" id="contractVendor">
+                            <option value="">-- Select Vendor --</option>
+                            <option value="V001">ABC HVAC Services</option>
+                            <option value="V002">TechFix Industrial</option>
+                            <option value="V003">Elevator Maintenance Co.</option>
+                            <option value="V004">SafeEquip Safety</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Contract Number</label>
+                            <input type="text" class="form-control" id="contractNumber">
+                            <p class="form-hint">Format: SC-YYYY-NNN</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Contract Type</label>
+                            <select class="form-control" id="contractType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="Repair">Repair</option>
+                                <option value="Full Service">Full Service</option>
+                                <option value="Inspection">Inspection</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Contract Amount</label>
+                            <input type="number" class="form-control" id="contractAmount">
+                        </div>
+                        <div class="form-group">
+                            <label>Currency</label>
+                            <select class="form-control" id="currency">
+                                <option value="USD" selected>USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>SLA Terms</label>
+                        <textarea class="form-control" id="slaTerms" rows="3" placeholder="Response time: 4 hours&#10;Resolution time: 24 hours&#10;Availability: Business hours"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Plan</label>
+                        <div id="paymentPlanContainer">
+                            <div class="d-flex gap-sm mb-sm">
+                                <input type="number" class="form-control" placeholder="Amount" id="paymentAmount1" style="flex: 1;">
+                                <input type="date" class="form-control" id="paymentDate1" style="flex: 1;">
+                                <button type="button" class="btn btn-outline btn-sm">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createContractModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('createContractModal')">Create Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

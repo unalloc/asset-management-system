@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.8 - Cycle Counting Plan</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.8
+                </div>
+                <div class="user-info">
+                    <span>Asset Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.8 - Cycle Counting Plan</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.8-Cycle%20Counting%20Plan.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Class A Assets</p>
+                            <h2 style="font-size: 1.5rem;">45</h2>
+                            <p class="text-muted">Monthly count</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Class B Assets</p>
+                            <h2 style="font-size: 1.5rem;">128</h2>
+                            <p class="text-muted">Quarterly count</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Class C Assets</p>
+                            <h2 style="font-size: 1.5rem;">312</h2>
+                            <p class="text-muted">Semi-annual count</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Due This Month</p>
+                            <h2 style="font-size: 1.5rem;">23</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('classification')">ABC Classification</button>
+                    <button class="tab" onclick="switchTab('schedules')">Count Schedules</button>
+                    <button class="tab" onclick="switchTab('high-risk')">High Risk Assets</button>
+                    <button class="tab" onclick="switchTab('rules')">Frequency Rules</button>
+                </div>
+
+                <div class="tab-content active" id="classification-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>ABC Classification Rules</h2>
+                            <button class="btn btn-primary" onclick="openModal('editClassificationModal')">Edit Rules</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Value Threshold</th>
+                                            <th>Base Frequency</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">A</span></td>
+                                            <td>> $50,000</td>
+                                            <td>Monthly</td>
+                                            <td>High-value critical assets</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">B</span></td>
+                                            <td>$10,000 - $50,000</td>
+                                            <td>Quarterly</td>
+                                            <td>Medium-value assets</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-success">C</span></td>
+                                            <td>< $10,000</td>
+                                            <td>Semi-annually</td>
+                                            <td>Low-value assets</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="schedules-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Upcoming Cycle Counts</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Class</th>
+                                            <th>Risk Level</th>
+                                            <th>Last Count</th>
+                                            <th>Next Count</th>
+                                            <th>Frequency</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-danger">A</span></td>
+                                            <td><span class="badge badge-danger">HIGH</span></td>
+                                            <td>2025-03-01</td>
+                                            <td>2025-04-01</td>
+                                            <td>Monthly (2x)</td>
+                                            <td><span class="badge badge-warning">Due Soon</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-045</td>
+                                            <td>Delivery Truck</td>
+                                            <td><span class="badge badge-warning">B</span></td>
+                                            <td><span class="badge badge-warning">MEDIUM</span></td>
+                                            <td>2025-01-15</td>
+                                            <td>2025-04-15</td>
+                                            <td>Quarterly</td>
+                                            <td><span class="badge badge-info">Scheduled</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="high-risk-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>High Risk Assets - Increased Frequency</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Rule:</strong> HIGH risk assets have frequency doubled
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Class</th>
+                                            <th>Risk Level</th>
+                                            <th>Base Frequency</th>
+                                            <th>Adjusted Frequency</th>
+                                            <th>Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-danger">A</span></td>
+                                            <td><span class="badge badge-danger">HIGH</span></td>
+                                            <td>Monthly</td>
+                                            <td>Bi-weekly</td>
+                                            <td>Safety critical equipment</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="rules-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Frequency Adjustment Rules</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Rule</th>
+                                            <th>Condition</th>
+                                            <th>Action</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Past Variance</td>
+                                            <td>Variance > 5%</td>
+                                            <td>Increase frequency one level</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reclassification</td>
+                                            <td>Class A → B</td>
+                                            <td>Recalculate frequency</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Missed Count</td>
+                                            <td>Count skipped</td>
+                                            <td>Immediate catch-up scheduling</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>New Asset</td>
+                                            <td>No history</td>
+                                            <td>Use default frequency</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="editClassificationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Edit ABC Classification Rules</h3>
+                <button class="modal-close" onclick="closeModal('editClassificationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="classificationForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Class A Threshold ($)</label>
+                        <input type="number" class="form-control" id="classAThreshold" value="50000">
+                        <p class="form-hint">Assets above this value are Class A</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class B Threshold ($)</label>
+                        <input type="number" class="form-control" id="classBThreshold" value="10000">
+                        <p class="form-hint">Assets between Class B threshold and Class A threshold are Class B</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Variance Threshold (%)</label>
+                        <input type="number" class="form-control" id="varianceThreshold" value="5">
+                        <p class="form-hint">Variance above this percentage triggers increased frequency</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('editClassificationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('editClassificationModal')">Save Rules</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

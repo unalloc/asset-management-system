@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.12 - Shift-based Equipment Scheduling</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.12
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.12 - Shift-based Equipment Scheduling</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.12-Shift-based%20Equipment%20Scheduling.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Schedule Utilization</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">87%</h2>
+                            <p>Across All Shifts</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Scheduled Today</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">42</h2>
+                            <p>Equipment Slots</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Conflicts</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">2</h2>
+                            <p>Awaiting Resolution</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('schedule')">Schedule</button>
+                    <button class="tab" onclick="switchTab('gantt')">Gantt View</button>
+                    <button class="tab" onclick="switchTab('shifts')">Shift Config</button>
+                </div>
+
+                <div class="tab-content active" id="schedule-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Equipment Schedule</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>Apr 8, 2025</option>
+                                    <option>Apr 9, 2025</option>
+                                    <option>Apr 10, 2025</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="openModal('newSlotModal')">+ Add Slot</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Equipment</th>
+                                            <th>Shift</th>
+                                            <th>Time</th>
+                                            <th>Production Order</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-primary">Morning</span></td>
+                                            <td>06:00 - 14:00</td>
+                                            <td>PO-2025-042</td>
+                                            <td><span class="badge badge-success">Optimized</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-warning">Afternoon</span></td>
+                                            <td>14:00 - 22:00</td>
+                                            <td>PO-2025-043</td>
+                                            <td><span class="badge badge-warning">Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Generator #1</td>
+                                            <td><span class="badge badge-danger">Night</span></td>
+                                            <td>22:00 - 06:00</td>
+                                            <td>PO-2025-044</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Excavator #1</td>
+                                            <td><span class="badge badge-primary">Morning</span></td>
+                                            <td>06:00 - 14:00</td>
+                                            <td>CON-2025-012</td>
+                                            <td><span class="badge badge-danger">Conflict</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Resolve</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="gantt-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gantt Chart View</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="background: #f8fafc; padding: 2rem; border-radius: 8px; text-align: center;">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.5;">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <p style="margin-top: 1rem;">Gantt Chart Visualization</p>
+                                <p class="text-muted" style="font-size: 0.75rem;">Equipment scheduling timeline with shift breakdown</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="shifts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Shift Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Shift Type</th>
+                                            <th>Hours</th>
+                                            <th>Break Duration</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Morning Shift</strong></td>
+                                            <td>06:00 - 14:00</td>
+                                            <td>60 min</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Afternoon Shift</strong></td>
+                                            <td>14:00 - 22:00</td>
+                                            <td>60 min</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Night Shift</strong></td>
+                                            <td>22:00 - 06:00</td>
+                                            <td>45 min</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newSlotModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Schedule Slot</h3>
+                <button class="modal-close" onclick="closeModal('newSlotModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="slotForm">
+                    <div class="form-group">
+                        <label>Equipment</label>
+                        <select class="form-control" id="equipment">
+                            <option value="">-- Select Equipment --</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                            <option value="AST-2022-045">Excavator #1</option>
+                            <option value="AST-2021-033">Generator #1</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Shift Type</label>
+                            <select class="form-control" id="shiftType">
+                                <option value="">-- Select Shift --</option>
+                                <option value="MORNING">Morning (06:00-14:00)</option>
+                                <option value="AFTERNOON">Afternoon (14:00-22:00)</option>
+                                <option value="NIGHT">Night (22:00-06:00)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Production Order</label>
+                            <select class="form-control">
+                                <option value="">-- Select Order --</option>
+                                <option value="PO-2025-042">PO-2025-042</option>
+                                <option value="PO-2025-043">PO-2025-043</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newSlotModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newSlotModal')">Add Slot</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

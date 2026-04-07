@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.14 - Warranty Claim Processing</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.14
+                </div>
+                <div class="user-info">
+                    <span>Asset Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.14 - Warranty Claim Processing</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.14-Warranty%20Claim%20Processing.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Claims</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Submission</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Cost Avoidance YTD</p>
+                            <h2 style="font-size: 1.5rem;">$42,500</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Near Expiry Warnings</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('claims')">Warranty Claims</button>
+                    <button class="tab" onclick="switchTab('near-expiry')">Near Expiry</button>
+                    <button class="tab" onclick="switchTab('suppliers')">Supplier Performance</button>
+                    <button class="tab" onclick="switchTab('history')">Claim History</button>
+                </div>
+
+                <div class="tab-content active" id="claims-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Warranty Claims</h2>
+                            <button class="btn btn-primary" onclick="openModal('newClaimModal')">+ New Claim</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Claim ID</th>
+                                            <th>Asset</th>
+                                            <th>Supplier</th>
+                                            <th>Failure Date</th>
+                                            <th>Claim Amount</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WCL-2025-012</td>
+                                            <td>HVAC Unit (AST-2022-034)</td>
+                                            <td>CoolAir Systems</td>
+                                            <td>2025-04-02</td>
+                                            <td>$3,500</td>
+                                            <td><span class="badge badge-warning">Submitted</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewClaim('WCL-2025-012')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="trackClaim('WCL-2025-012')">Track</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="near-expiry-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Warranties Nearing Expiry</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Warning:</strong> 8 assets have warranties expiring within 30 days
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Supplier</th>
+                                            <th>Warranty End</th>
+                                            <th>Days Remaining</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2023-045</td>
+                                            <td>Compressor Unit</td>
+                                            <td>Industrial Parts Co</td>
+                                            <td>2025-05-01</td>
+                                            <td><span class="text-warning">26 days</span></td>
+                                            <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="suppliers-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Supplier Warranty Performance</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Supplier</th>
+                                            <th>Claims Filed</th>
+                                            <th>Claims Accepted</th>
+                                            <th>Acceptance Rate</th>
+                                            <th>Avg Response Time</th>
+                                            <th>Quality Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CoolAir Systems</td>
+                                            <td>8</td>
+                                            <td>7</td>
+                                            <td>87.5%</td>
+                                            <td>5 days</td>
+                                            <td><span class="badge badge-success">A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Industrial Parts Co</td>
+                                            <td>12</td>
+                                            <td>9</td>
+                                            <td>75%</td>
+                                            <td>8 days</td>
+                                            <td><span class="badge badge-warning">B</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Claim History</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Claim ID</th>
+                                            <th>Asset</th>
+                                            <th>Supplier</th>
+                                            <th>Filed Date</th>
+                                            <th>Resolved Date</th>
+                                            <th>Claim Amount</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WCL-2025-008</td>
+                                            <td>Motor #3 (AST-2021-089)</td>
+                                            <td>Industrial Parts Co</td>
+                                            <td>2025-02-15</td>
+                                            <td>2025-03-01</td>
+                                            <td>$2,200</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newClaimModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Warranty Claim</h3>
+                <button class="modal-close" onclick="closeModal('newClaimModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="claimForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="claimAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2022-034">HVAC Unit - Warranty: Valid until 2026-03-15</option>
+                        </select>
+                    </div>
+
+                    <div class="alert alert-info" id="warrantyInfo">
+                        <strong>Warranty Status:</strong> Valid - expires 2026-03-15
+                    </div>
+
+                    <div class="form-group">
+                        <label>Failure Description</label>
+                        <textarea class="form-control" id="claimDescription" rows="3" placeholder="Describe the failure"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Failure Date</label>
+                            <input type="date" class="form-control" id="claimFailureDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Claim Amount</label>
+                            <input type="number" class="form-control" id="claimAmount">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newClaimModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newClaimModal')">Submit Claim</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewClaim(id) { alert('Viewing claim: ' + id); }
+        function trackClaim(id) { alert('Tracking claim: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

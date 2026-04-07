@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.13 - Residual Value Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.13
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.13 - Residual Value Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-secondary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.13-Residual%20Value%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Asset Portfolio</p>
+                            <h2 style="font-size: 1.5rem;">$18,450,000</h2>
+                            <p class="text-muted">156 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Residual Value</p>
+                            <h2 style="font-size: 1.5rem;">$2,150,000</h2>
+                            <p class="text-muted">11.7% of original</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Reviews</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                            <p class="text-warning">3 overdue</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Realization Rate</p>
+                            <h2 style="font-size: 1.5rem;">94.2%</h2>
+                            <p class="text-success">Above target</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('assets')">Asset Residual Values</button>
+                    <button class="tab" onclick="switchTab('assessments')">Assessments</button>
+                    <button class="tab" onclick="switchTab('disposals')">Disposal Records</button>
+                    <button class="tab" onclick="switchTab('variance')">Variance Analysis</button>
+                </div>
+
+                <div class="tab-content active" id="assets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Residual Value Register</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Assets</option>
+                                    <option>Pending Review</option>
+                                    <option>Near End of Life</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('newAssessmentModal')">+ New Assessment</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Acquisition Cost</th>
+                                            <th>Current NBV</th>
+                                            <th>Est. Residual</th>
+                                            <th>Last Assessment</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-002</td>
+                                            <td>Forklift #3</td>
+                                            <td>$45,000</td>
+                                            <td>$18,000</td>
+                                            <td>$8,500</td>
+                                            <td>2025-01-15</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2019-008</td>
+                                            <td>Delivery Truck #2</td>
+                                            <td>$85,000</td>
+                                            <td>$25,500</td>
+                                            <td>$12,000</td>
+                                            <td>2024-06-20</td>
+                                            <td><span class="badge badge-warning">Review Due</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2018-015</td>
+                                            <td>Excavator #1</td>
+                                            <td>$250,000</td>
+                                            <td>$62,500</td>
+                                            <td>$35,000</td>
+                                            <td>2024-12-01</td>
+                                            <td><span class="badge badge-danger">Overdue</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="assessments-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Residual Value Assessments</h2>
+                            <button class="btn btn-outline btn-sm">Export History</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Assessment ID</th>
+                                            <th>Asset</th>
+                                            <th>Assessor</th>
+                                            <th>Assessment Date</th>
+                                            <th>Estimated Value</th>
+                                            <th>Method</th>
+                                            <th>Justification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RVA-2025-001</td>
+                                            <td>AST-2020-002</td>
+                                            <td>John Smith</td>
+                                            <td>2025-01-15</td>
+                                            <td>$8,500</td>
+                                            <td>Market Assessment</td>
+                                            <td>Comparable sales data</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RVA-2024-012</td>
+                                            <td>AST-2020-002</td>
+                                            <td>Jane Doe</td>
+                                            <td>2024-01-20</td>
+                                            <td>$9,000</td>
+                                            <td>Market Assessment</td>
+                                            <td>Industry report</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RVA-2024-008</td>
+                                            <td>AST-2019-008</td>
+                                            <td>John Smith</td>
+                                            <td>2024-06-20</td>
+                                            <td>$12,000</td>
+                                            <td>Condition Assessment</td>
+                                            <td>Physical inspection</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="disposals-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Disposal Records</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('recordDisposalModal')">+ Record Disposal</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Disposal ID</th>
+                                            <th>Asset</th>
+                                            <th>Disposal Date</th>
+                                            <th>Proceeds</th>
+                                            <th>Net Book Value</th>
+                                            <th>Gain/Loss</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DIS-2025-003</td>
+                                            <td>AST-2017-012</td>
+                                            <td>2025-02-15</td>
+                                            <td>$15,000</td>
+                                            <td>$12,500</td>
+                                            <td class="text-success">+$2,500</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2025-002</td>
+                                            <td>AST-2018-004</td>
+                                            <td>2025-01-28</td>
+                                            <td>$8,500</td>
+                                            <td>$10,200</td>
+                                            <td class="text-danger">-$1,700</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2024-015</td>
+                                            <td>AST-2016-009</td>
+                                            <td>2024-12-10</td>
+                                            <td>$22,000</td>
+                                            <td>$18,500</td>
+                                            <td class="text-success">+$3,500</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="variance-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Estimated vs Actual Residual Value</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Estimated RV</th>
+                                            <th>Actual Proceeds</th>
+                                            <th>Variance</th>
+                                            <th>Variance %</th>
+                                            <th>Realization Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2017-012</td>
+                                            <td>$14,000</td>
+                                            <td>$15,000</td>
+                                            <td class="text-success">+$1,000</td>
+                                            <td>7.1%</td>
+                                            <td><span class="badge badge-success">107.1%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2018-004</td>
+                                            <td>$9,500</td>
+                                            <td>$8,500</td>
+                                            <td class="text-danger">-$1,000</td>
+                                            <td>-10.5%</td>
+                                            <td><span class="badge badge-warning">89.5%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2016-009</td>
+                                            <td>$20,000</td>
+                                            <td>$22,000</td>
+                                            <td class="text-success">+$2,000</td>
+                                            <td>10.0%</td>
+                                            <td><span class="badge badge-success">110.0%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                </div>
+
+                
+
+                
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newAssessmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>New Residual Value Assessment</h2>
+                <button class="close-modal" onclick="closeModal('newAssessmentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newAssessmentForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select name="asset" class="form-control">
+                            <option value="">Select Asset</option>
+                            <option value="AST-2019-008">AST-2019-008 - Delivery Truck #2</option>
+                            <option value="AST-2018-015">AST-2018-015 - Excavator #1</option>
+                            <option value="AST-2020-003">AST-2020-003 - Crane #2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Estimated Residual Value</label>
+                        <input type="number" name="estimatedValue" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Assessment Date</label>
+                        <input type="date" name="assessmentDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Assessment Method</label>
+                        <select name="method" class="form-control">
+                            <option value="">Select Method</option>
+                            <option value="market">Market Assessment</option>
+                            <option value="condition">Condition Assessment</option>
+                            <option value="appraisal">Professional Appraisal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Justification / Evidence</label>
+                        <textarea name="justification" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Assessor</label>
+                        <input type="text" name="assessor" class="form-control">
+                    </div>
+                    <div class="d-flex gap-sm" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('newAssessmentModal')">Create Assessment</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('newAssessmentModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="recordDisposalModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Record Asset Disposal</h2>
+                <button class="close-modal" onclick="closeModal('recordDisposalModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="recordDisposalForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select name="asset" class="form-control">
+                            <option value="">Select Asset</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Disposal Date</label>
+                        <input type="date" name="disposalDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Proceeds</label>
+                        <input type="number" name="proceeds" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Disposal Method</label>
+                        <select name="disposalMethod" class="form-control">
+                            <option value="">Select Method</option>
+                            <option value="sale">Sale</option>
+                            <option value="scrapped">Scrapped</option>
+                            <option value="donated">Donated</option>
+                            <option value="stolen">Stolen/Lost</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea name="notes" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="d-flex gap-sm" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('recordDisposalModal')">Record Disposal</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('recordDisposalModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

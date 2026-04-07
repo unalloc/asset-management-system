@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.9 - Asset Disposal Workflow</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.9
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.9 - Asset Disposal Workflow</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Disposal Summary -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Disposals</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Approved This Month</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Proceeds</p>
+                            <h2 style="font-size: 1.5rem;">$45,500</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Gain/Loss Recorded</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">+$12,300</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('pending')">Pending Requests</button>
+                    <button class="tab" onclick="switchTab('approved')">Approved</button>
+                    <button class="tab" onclick="switchTab('completed')">Completed</button>
+                    <button class="tab" onclick="switchTab('workflow')">Workflow Config</button>
+                </div>
+
+                <!-- Pending Tab -->
+                <div class="tab-content active" id="pending-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Disposal Requests</h2>
+                            <button class="btn btn-primary" onclick="openModal('newDisposalModal')">+ New Disposal</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset</th>
+                                            <th>Reason</th>
+                                            <th>Method</th>
+                                            <th>Estimated Value</th>
+                                            <th>Requested By</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DIS-2025-015</td>
+                                            <td>CNC Machine #3 (AST-2020-033)</td>
+                                            <td>End of useful life</td>
+                                            <td><span class="tag">Scrap</span></td>
+                                            <td>$500</td>
+                                            <td>John Smith</td>
+                                            <td>2025-04-03</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewDisposal('DIS-2025-015')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="approveDisposal('DIS-2025-015')">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2025-014</td>
+                                            <td>Office Furniture Set (AST-2021-089)</td>
+                                            <td>Relocation</td>
+                                            <td><span class="tag">Sale</span></td>
+                                            <td>$2,500</td>
+                                            <td>Jane Doe</td>
+                                            <td>2025-04-02</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewDisposal('DIS-2025-014')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="approveDisposal('DIS-2025-014')">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2025-013</td>
+                                            <td>Delivery Van #2 (AST-2019-045)</td>
+                                            <td>Condition issues</td>
+                                            <td><span class="tag">Auction</span></td>
+                                            <td>$8,000</td>
+                                            <td>Mike Johnson</td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewDisposal('DIS-2025-013')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="approveDisposal('DIS-2025-013')">Approve</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approved Tab -->
+                <div class="tab-content" id="approved-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Approved Disposals - Awaiting Execution</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset</th>
+                                            <th>Approved By</th>
+                                            <th>Approval Date</th>
+                                            <th>Disposal Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DIS-2025-012</td>
+                                            <td>IT Server (AST-2018-022)</td>
+                                            <td>Finance Director</td>
+                                            <td>2025-03-28</td>
+                                            <td>2025-04-10</td>
+                                            <td><button class="btn btn-sm btn-primary">Execute</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Tab -->
+                <div class="tab-content" id="completed-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Completed Disposals</h2>
+                            <button class="btn btn-outline btn-sm">Export Report</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset</th>
+                                            <th>Method</th>
+                                            <th>Net Book Value</th>
+                                            <th>Proceeds</th>
+                                            <th>Gain/Loss</th>
+                                            <th>Completed Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>DIS-2025-011</td>
+                                            <td>Copier #5 (AST-2019-078)</td>
+                                            <td><span class="tag">Recycled</span></td>
+                                            <td>$0</td>
+                                            <td>$0</td>
+                                            <td><span class="text-success">$0</span></td>
+                                            <td>2025-03-25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2025-010</td>
+                                            <td>Lab Equipment (AST-2020-015)</td>
+                                            <td><span class="tag">Sold</span></td>
+                                            <td>$3,500</td>
+                                            <td>$4,200</td>
+                                            <td><span class="text-success">+$700</span></td>
+                                            <td>2025-03-20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>DIS-2025-009</td>
+                                            <td>Conference Table (AST-2017-042)</td>
+                                            <td><span class="tag">Donated</span></td>
+                                            <td>$800</td>
+                                            <td>$0</td>
+                                            <td><span class="text-danger">-$800</span></td>
+                                            <td>2025-03-15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow Config Tab -->
+                <div class="tab-content" id="workflow-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Disposal Workflow Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Approval Required For</label>
+                                    <label class="d-flex align-center gap-sm"><input type="checkbox" checked> Assets &gt; $5,000</label>
+                                    <label class="d-flex align-center gap-sm"><input type="checkbox" checked> All asset disposals</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>Approvers</label>
+                                    <p>Asset Manager, Finance Director, Compliance Officer</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>SOX Requirement:</strong> All disposals require dual approval and documented justification per SOX Section 404.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- New Disposal Modal -->
+    <div class="modal-overlay" id="newDisposalModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Disposal Request</h3>
+                <button class="modal-close" onclick="closeModal('newDisposalModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="disposalForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="disposalAsset" onchange="loadAssetInfo()">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2020-033">CNC Machine #3 - NBV: $12,500</option>
+                            <option value="AST-2021-089">Office Furniture Set - NBV: $1,200</option>
+                            <option value="AST-2019-045">Delivery Van #2 - NBV: $15,000</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Net Book Value</label>
+                            <input type="text" class="form-control" id="assetNBV" disabled placeholder="Auto-populated">
+                        </div>
+                        <div class="form-group">
+                            <label>Original Cost</label>
+                            <input type="text" class="form-control" id="assetCost" disabled placeholder="Auto-populated">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Disposal Reason</label>
+                        <select class="form-control" id="disposalReason">
+                            <option value="">-- Select Reason --</option>
+                            <option value="EOUL">End of useful life</option>
+                            <option value="DAMAGE">Damage beyond repair</option>
+                            <option value="UPGRADE">Replacement/upgrade</option>
+                            <option value="RELOCATE">Relocation/space optimization</option>
+                            <option value="SELL">Sale of asset</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Disposal Method</label>
+                        <select class="form-control" id="disposalMethod">
+                            <option value="">-- Select Method --</option>
+                            <option value="SCRAP">Scrap</option>
+                            <option value="RECYCLE">Recycle (WEEE)</option>
+                            <option value="SALE">Sale</option>
+                            <option value="AUCTION">Auction</option>
+                            <option value="DONATE">Donation</option>
+                            <option value="RETURN">Return to Lessor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estimated Proceeds</label>
+                        <input type="number" class="form-control" id="estimatedProceeds" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Justification</label>
+                        <textarea class="form-control" id="justification" rows="3"
+                                  placeholder="Detailed explanation for disposal..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supporting Documents</label>
+                        <input type="file" class="form-control" multiple accept=".pdf,.doc,.docx,.jpg,.png">
+                        <p class="form-hint">Upload photos, quotes, or other supporting documents</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newDisposalModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newDisposalModal')">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function loadAssetInfo() {
+            const assetSelect = document.getElementById('disposalAsset');
+            const nbvField = document.getElementById('assetNBV');
+            const costField = document.getElementById('assetCost');
+
+            const assetData = {
+                'AST-2020-033': { nbv: '$12,500', cost: '$85,000' },
+                'AST-2021-089': { nbv: '$1,200', cost: '$8,500' },
+                'AST-2019-045': { nbv: '$15,000', cost: '$65,000' }
+            };
+
+            const selected = assetSelect.value;
+            if (assetData[selected]) {
+                nbvField.value = assetData[selected].nbv;
+                costField.value = assetData[selected].cost;
+            } else {
+                nbvField.value = '';
+                costField.value = '';
+            }
+        }
+
+        function viewDisposal(id) {
+            alert('Viewing disposal request: ' + id);
+        }
+
+        function approveDisposal(id) {
+            alert('Approving disposal request: ' + id);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

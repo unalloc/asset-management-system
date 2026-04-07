@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.15 - Group Asset Optimization</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.15
+                </div>
+                <div class="user-info">
+                    <span>Group Asset Manager</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.15 - Group Asset Optimization Suggestions</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.15-Group%20Asset%20Optimization%20Suggestions.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Optimization Dashboard</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newAnalysisModal')">+ Run Analysis</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">$3.2M</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Potential Savings</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--primary); margin: 0;">12</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Active Suggestions</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--warning); margin: 0;">8</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Pending Approval</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--info); margin: 0;">$890K</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Implemented Savings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Optimization Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-primary" style="font-size: 0.8rem;">REDISTRIBUTION</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Move assets to higher-utilization entities</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-success" style="font-size: 0.8rem;">SHARING</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Enable shared asset pools</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-danger" style="font-size: 0.8rem;">DISPOSAL</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Identify assets to dispose</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-warning" style="font-size: 0.8rem;">PROCUREMENT</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Optimize timing/quantity</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Suggestions</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Suggestion ID</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                        <th>Expected Benefit</th>
+                                        <th>Implementation Cost</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>SUG-2026-001</td>
+                                        <td><span class="badge badge-primary">REDISTRIBUTION</span></td>
+                                        <td>Transfer CNC-200 from EU to US facility</td>
+                                        <td>$450,000</td>
+                                        <td>$25,000</td>
+                                        <td><span class="badge badge-warning">PENDING</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SUG-2026-002</td>
+                                        <td><span class="badge badge-success">SHARING</span></td>
+                                        <td>Create shared forklift pool between facilities</td>
+                                        <td>$180,000</td>
+                                        <td>$15,000</td>
+                                        <td><span class="badge badge-info">IN_PROGRESS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SUG-2026-003</td>
+                                        <td><span class="badge badge-danger">DISPOSAL</span></td>
+                                        <td>Dispose 5 idle assets (NBV: $75,000)</td>
+                                        <td>$120,000</td>
+                                        <td>$8,000</td>
+                                        <td><span class="badge badge-success">APPROVED</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newAnalysisModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Run Optimization Analysis</h3>
+                <button class="modal-close" onclick="closeModal('newAnalysisModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="analysisForm">
+                    <div class="form-group">
+                        <label>Optimization Objective</label>
+                        <select class="form-control" name="objectiveType">
+                            <option value="">Select Type</option>
+                            <option value="REDISTRIBUTION">Redistribution</option>
+                            <option value="SHARING">Sharing</option>
+                            <option value="DISPOSAL">Disposal</option>
+                            <option value="PROCUREMENT">Procurement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Target Companies</label>
+                        <select class="form-control" name="targetCompanies" multiple>
+                            <option value="ALL">All Companies</option>
+                            <option value="US0001">US Manufacturing Inc.</option>
+                            <option value="EU0001">EU Holdings GmbH</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Optimization Parameters</label>
+                        <textarea class="form-control" name="parameters" placeholder="e.g., Min utilization threshold: 50%"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Constraints</label>
+                        <textarea class="form-control" name="constraints" placeholder="e.g., Max relocation cost: $50,000"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newAnalysisModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newAnalysisModal')">Run Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

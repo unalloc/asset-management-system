@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.6 - Vendor Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.6
+                </div>
+                <div class="user-info">
+                    <span>Company Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.6 - Vendor Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.6-Vendor%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('vendors')">Vendors</button>
+                    <button class="tab" onclick="switchTab('qualifications')">Qualifications</button>
+                    <button class="tab" onclick="switchTab('performance')">Performance</button>
+                    <button class="tab" onclick="switchTab('contracts')">Contract History</button>
+                </div>
+
+                <div class="tab-content active" id="vendors-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Vendors</h2>
+                            <button class="btn btn-primary" onclick="openModal('addVendorModal')">+ Add Vendor</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor Code</th>
+                                            <th>Vendor Name</th>
+                                            <th>Type</th>
+                                            <th>Size</th>
+                                            <th>Status</th>
+                                            <th>Qualifications</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>VEN-001</td>
+                                            <td>Acme Industrial Services</td>
+                                            <td><span class="tag">Service</span></td>
+                                            <td>Large</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VEN-002</td>
+                                            <td>TechMaintenance Corp</td>
+                                            <td><span class="tag">IoT</span></td>
+                                            <td>Medium</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VEN-003</td>
+                                            <td>SafetyFirst Equipment</td>
+                                            <td><span class="tag">Parts</span></td>
+                                            <td>Small</td>
+                                            <td><span class="badge badge-danger">Suspended</span></td>
+                                            <td><span class="badge badge-danger">Expired</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VEN-004</td>
+                                            <td>Global HVAC Solutions</td>
+                                            <td><span class="tag">Service</span></td>
+                                            <td>Large</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="qualifications-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Certification Tracking</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('addCertModal')">+ Add Certification</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Renewal Alert:</strong> 3 certifications expiring within 30 days
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor</th>
+                                            <th>Certification</th>
+                                            <th>Issue Date</th>
+                                            <th>Expiry Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TechMaintenance Corp</td>
+                                            <td>ISO 9001:2015</td>
+                                            <td>2024-01-15</td>
+                                            <td>2025-01-14</td>
+                                            <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Renew</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Acme Industrial Services</td>
+                                            <td>OSHA Safety Certified</td>
+                                            <td>2024-03-01</td>
+                                            <td>2026-03-01</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SafetyFirst Equipment</td>
+                                            <td>EPA Hazardous Waste Handler</td>
+                                            <td>2023-06-01</td>
+                                            <td>2024-06-01</td>
+                                            <td><span class="badge badge-danger">Expired</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Renew</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="performance-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Vendor Performance Scores</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="margin-bottom:0">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--success);">4.5</h3>
+                                        <p class="text-muted">Acme Industrial Services</p>
+                                        <p class="text-sm">Quality: 4.8 | Timeliness: 4.2 | Cost: 4.5</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--warning);">3.8</h3>
+                                        <p class="text-muted">TechMaintenance Corp</p>
+                                        <p class="text-sm">Quality: 4.0 | Timeliness: 3.5 | Cost: 4.0</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--danger);">2.1</h3>
+                                        <p class="text-muted">SafetyFirst Equipment</p>
+                                        <p class="text-sm">Quality: 2.5 | Timeliness: 1.8 | Cost: 2.0</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-container mt-lg">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor</th>
+                                            <th>Last Evaluation</th>
+                                            <th>Quality Score</th>
+                                            <th>Timeliness</th>
+                                            <th>Cost Score</th>
+                                            <th>Overall</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Acme Industrial Services</td>
+                                            <td>2025-03-15</td>
+                                            <td>4.8/5</td>
+                                            <td>4.2/5</td>
+                                            <td>4.5/5</td>
+                                            <td><span class="badge badge-success">Excellent</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TechMaintenance Corp</td>
+                                            <td>2025-03-10</td>
+                                            <td>4.0/5</td>
+                                            <td>3.5/5</td>
+                                            <td>4.0/5</td>
+                                            <td><span class="badge badge-warning">Good</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Global HVAC Solutions</td>
+                                            <td>2025-03-01</td>
+                                            <td>4.5/5</td>
+                                            <td>4.0/5</td>
+                                            <td>3.8/5</td>
+                                            <td><span class="badge badge-success">Excellent</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="contracts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Contract History</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vendor</th>
+                                            <th>Contract ID</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Value</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Acme Industrial Services</td>
+                                            <td>CON-2024-001</td>
+                                            <td>2024-01-01</td>
+                                            <td>2025-12-31</td>
+                                            <td>$125,000</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>TechMaintenance Corp</td>
+                                            <td>CON-2024-002</td>
+                                            <td>2024-03-01</td>
+                                            <td>2025-02-28</td>
+                                            <td>$78,500</td>
+                                            <td><span class="badge badge-warning">Expiring</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Global HVAC Solutions</td>
+                                            <td>CON-2023-005</td>
+                                            <td>2023-06-01</td>
+                                            <td>2024-05-31</td>
+                                            <td>$45,000</td>
+                                            <td><span class="badge badge-secondary">Expired</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addVendorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Vendor</h3>
+                <button class="modal-close" onclick="closeModal('addVendorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Vendor Code</label>
+                        <input type="text" class="form-control" id="vendorCode">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vendor Name</label>
+                        <input type="text" class="form-control" id="vendorName">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vendor Type</label>
+                            <select class="form-control" id="vendorType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Service">Service</option>
+                                <option value="Parts">Parts</option>
+                                <option value="IoT">IoT</option>
+                                <option value="Consulting">Consulting</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select class="form-control" id="vendorSize">
+                                <option value="Small">Small</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Large">Large</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="vendorEmail">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" class="form-control" id="vendorPhone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" id="vendorAddress" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="d-flex align-center gap-sm">
+                            <input type="checkbox" id="vendorActive" checked>
+                            Active Status
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addVendorModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addVendorModal')">Add Vendor</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addCertModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Certification</h3>
+                <button class="modal-close" onclick="closeModal('addCertModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Vendor</label>
+                        <select class="form-control" id="certVendor">
+                            <option value="">-- Select Vendor --</option>
+                            <option value="VEN-001">Acme Industrial Services</option>
+                            <option value="VEN-002">TechMaintenance Corp</option>
+                            <option value="VEN-004">Global HVAC Solutions</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certification Name</label>
+                        <input type="text" class="form-control" id="certName">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Issue Date</label>
+                            <input type="date" class="form-control" id="certIssueDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" class="form-control" id="certExpiryDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addCertModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addCertModal')">Add Certification</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

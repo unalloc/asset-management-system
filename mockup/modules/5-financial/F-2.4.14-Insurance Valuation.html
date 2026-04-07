@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.14 - Insurance Valuation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.14
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.14 - Insurance Valuation</h1>
+                    <div class="meta">
+                        <span class="badge badge-secondary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.14-Insurance%20Valuation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Insured Value</p>
+                            <h2 style="font-size: 1.5rem;">$24,500,000</h2>
+                            <p class="text-muted">156 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Coverage</p>
+                            <h2 style="font-size: 1.5rem;">$22,800,000</h2>
+                            <p class="text-muted">93.1% of insured value</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Coverage Gaps</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                            <p class="text-danger">Underinsured assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Recommended Add.</p>
+                            <h2 style="font-size: 1.5rem;">$1,700,000</h2>
+                            <p class="text-muted">10% contingency buffer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('valuations')">Valuations</button>
+                    <button class="tab" onclick="switchTab('coverage')">Coverage Analysis</button>
+                    <button class="tab" onclick="switchTab('methods')">Valuation Methods</button>
+                    <button class="tab" onclick="switchTab('policies')">Policy Assignment</button>
+                </div>
+
+                <div class="tab-content active" id="valuations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Insurance Valuations</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Assets</option>
+                                    <option>Coverage Gap</option>
+                                    <option>Overinsured</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('newValuationModal')">+ New Valuation</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Valuation Method</th>
+                                            <th>Insured Value</th>
+                                            <th>Coverage Amount</th>
+                                            <th>Adequacy Ratio</th>
+                                            <th>Last Valuation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="tag">Replacement Cost</span></td>
+                                            <td>$250,000</td>
+                                            <td>$235,000</td>
+                                            <td><span class="badge badge-warning">94%</span></td>
+                                            <td>2025-01-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td><span class="tag">Actual Cash Value</span></td>
+                                            <td>$120,000</td>
+                                            <td>$125,000</td>
+                                            <td><span class="badge badge-success">104%</span></td>
+                                            <td>2025-02-01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-008</td>
+                                            <td>Production Robot</td>
+                                            <td><span class="tag">Functional Replacement</span></td>
+                                            <td>$450,000</td>
+                                            <td>$400,000</td>
+                                            <td><span class="badge badge-danger">89%</span></td>
+                                            <td>2024-12-15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="coverage-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Coverage Adequacy Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row" style="margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <label>Adequacy Thresholds</label>
+                                    <ul style="font-size: 0.9rem;">
+                                        <li><span class="badge badge-danger">Underinsured:</span> Ratio < 80%</li>
+                                        <li><span class="badge badge-warning">Adequate:</span> Ratio 80% - 100%</li>
+                                        <li><span class="badge badge-success">Optimal:</span> Ratio 100% - 120%</li>
+                                        <li><span class="badge badge-info">Overinsured:</span> Ratio > 120%</li>
+                                    </ul>
+                                </div>
+                                <div class="form-group">
+                                    <label>Recommended Coverage</label>
+                                    <p>Insured Value × 1.1 (10% contingency buffer)</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Insured Value</th>
+                                            <th>Current Coverage</th>
+                                            <th>Recommended Coverage</th>
+                                            <th>Gap/Surplus</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2021-008</td>
+                                            <td>$450,000</td>
+                                            <td>$400,000</td>
+                                            <td>$495,000</td>
+                                            <td class="text-danger">-$95,000</td>
+                                            <td><span class="badge badge-danger">Underinsured</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>$250,000</td>
+                                            <td>$235,000</td>
+                                            <td>$275,000</td>
+                                            <td class="text-danger">-$40,000</td>
+                                            <td><span class="badge badge-warning">Underinsured</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>$120,000</td>
+                                            <td>$125,000</td>
+                                            <td>$132,000</td>
+                                            <td class="text-success">-$7,000</td>
+                                            <td><span class="badge badge-success">Optimal</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2020-005</td>
+                                            <td>$180,000</td>
+                                            <td>$225,000</td>
+                                            <td>$198,000</td>
+                                            <td class="text-info">+$27,000</td>
+                                            <td><span class="badge badge-info">Overinsured</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="methods-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Valuation Methods</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-2">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Replacement Cost</h3>
+                                        <p class="text-muted">Original Cost × (Current Index / Acquisition Index)</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Adjusts for inflation using cost indices</li>
+                                            <li>Recommended for equipment subject to price changes</li>
+                                            <li>Requires current and acquisition cost indices</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Actual Cash Value (ACV)</h3>
+                                        <p class="text-muted">Replacement Cost × (1 - Age-Based Depreciation)</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Accounts for wear and age</li>
+                                            <li>Common for vehicles and electronics</li>
+                                            <li>Depreciation rate based on asset category</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Functional Replacement</h3>
+                                        <p class="text-muted">Cost to replace with similar functionality</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Modern equivalent with same function</li>
+                                            <li>May be higher or lower than replacement cost</li>
+                                            <li>Useful for specialized equipment</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Agreed Value</h3>
+                                        <p class="text-muted">Explicitly agreed amount per policy</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Fixed amount regardless of depreciation</li>
+                                            <li>Requires insurer agreement</li>
+                                            <li>Common for high-value unique assets</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="policies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset to Policy Assignment</h2>
+                            <button class="btn btn-outline btn-sm">Manage Policies</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Policy Number</th>
+                                            <th>Policy Type</th>
+                                            <th>Insurer</th>
+                                            <th>Total Coverage</th>
+                                            <th>Assets Covered</th>
+                                            <th>Expiry Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>POL-2025-001</td>
+                                            <td><span class="tag">Property</span></td>
+                                            <td>AXA Commercial</td>
+                                            <td>$15,000,000</td>
+                                            <td>98 assets</td>
+                                            <td>2025-12-31</td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-2025-002</td>
+                                            <td><span class="tag">Equipment</span></td>
+                                            <td>Zurich General</td>
+                                            <td>$7,500,000</td>
+                                            <td>45 assets</td>
+                                            <td>2025-06-30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-2025-003</td>
+                                            <td><span class="tag">Vehicle</span></td>
+                                            <td>State Farm Commercial</td>
+                                            <td>$800,000</td>
+                                            <td>13 assets</td>
+                                            <td>2025-08-15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                </div>
+
+                
+
+                
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newValuationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>New Insurance Valuation</h2>
+                <button class="close-modal" onclick="closeModal('newValuationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newValuationForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select name="asset" class="form-control">
+                            <option value="">Select Asset</option>
+                            <option value="AST-2021-008">AST-2021-008 - Production Robot</option>
+                            <option value="AST-2022-001">AST-2022-001 - CNC Machine #1</option>
+                            <option value="AST-2023-015">AST-2023-015 - IT Server Cluster</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Valuation Date</label>
+                        <input type="date" name="valuationDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Valuation Method</label>
+                        <select name="method" class="form-control">
+                            <option value="">Select Method</option>
+                            <option value="replacement">Replacement Cost</option>
+                            <option value="acv">Actual Cash Value</option>
+                            <option value="functional">Functional Replacement</option>
+                            <option value="agreed">Agreed Value</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Depreciation Rate (%)</label>
+                            <input type="number" name="depreciationRate" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Cost Index</label>
+                            <input type="number" name="costIndex" class="form-control" step="0.001">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Insured Value</label>
+                        <input type="number" name="insuredValue" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Coverage Amount</label>
+                        <input type="number" name="coverageAmount" class="form-control">
+                    </div>
+                    <div class="d-flex gap-sm" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('newValuationModal')">Create Valuation</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('newValuationModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

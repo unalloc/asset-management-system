@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.6 - Tax Compliance Reporting</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.6
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.6 - Tax Compliance Reporting</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.6-Tax%20Compliance%20Reporting.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Tax Value</p>
+                            <h2 style="font-size: 1.5rem;">$8,750,000</h2>
+                            <p class="text-muted">89 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Deferred Tax Liability</p>
+                            <h2 style="font-size: 1.5rem;">$425,000</h2>
+                            <p class="text-warning">3 jurisdictions</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Book-Tax Differences</p>
+                            <h2 style="font-size: 1.5rem;">$1,250,000</h2>
+                            <p class="text-muted">42 temporary differences</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Tax Filing Status</p>
+                            <h2 style="font-size: 1.5rem;">Q1 Ready</h2>
+                            <p>April 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('tax-books')">Tax Books</button>
+                    <button class="tab" onclick="switchTab('depreciation')">Tax Depreciation</button>
+                    <button class="tab" onclick="switchTab('differences')">Book-Tax Differences</button>
+                    <button class="tab" onclick="switchTab('filings')">Tax Filings</button>
+                </div>
+
+                <div class="tab-content active" id="tax-books-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tax Books Configuration</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Jurisdictions</option>
+                                    <option>United States</option>
+                                    <option>Germany</option>
+                                    <option>France</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('add-tax-book')">+ Add Tax Book</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Tax Book</th>
+                                            <th>Jurisdiction</th>
+                                            <th>Depreciation Method</th>
+                                            <th>Asset Count</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>US Tax Book 2025</td>
+                                            <td><span class="tag">United States</span></td>
+                                            <td><span class="tag">MACRS</span></td>
+                                            <td>45</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>German AfA Book</td>
+                                            <td><span class="tag">Germany</span></td>
+                                            <td><span class="tag">German AfA</span></td>
+                                            <td>28</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>French Amortissement</td>
+                                            <td><span class="tag">France</span></td>
+                                            <td><span class="tag">Amortissement</span></td>
+                                            <td>16</td>
+                                            <td><span class="badge badge-warning">Draft</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="depreciation-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tax Depreciation Schedule</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>US Tax Book 2025</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm">Calculate Tax Depreciation</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Tax Cost Basis</th>
+                                            <th>Method</th>
+                                            <th>Life</th>
+                                            <th>YTD Depreciation</th>
+                                            <th>Accumulated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>$150,000</td>
+                                            <td><span class="tag">MACRS 7yr</span></td>
+                                            <td>7 years</td>
+                                            <td>$21,430</td>
+                                            <td>$64,285</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td>$85,000</td>
+                                            <td><span class="tag">Section 179</span></td>
+                                            <td>5 years</td>
+                                            <td>$85,000</td>
+                                            <td>$85,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-008</td>
+                                            <td>Delivery Vehicle #5</td>
+                                            <td>$65,000</td>
+                                            <td><span class="tag">MACRS 5yr</span></td>
+                                            <td>5 years</td>
+                                            <td>$12,000</td>
+                                            <td>$18,500</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="differences-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Book-Tax Differences</h2>
+                            <button class="btn btn-primary btn-sm">Generate Reconciliation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Book Value</th>
+                                            <th>Tax Value</th>
+                                            <th>Difference</th>
+                                            <th>Type</th>
+                                            <th>Deferred Tax</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>$105,000</td>
+                                            <td>$85,715</td>
+                                            <td class="text-danger">$19,285</td>
+                                            <td><span class="tag">Temporary</span></td>
+                                            <td>$4,821</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td>$42,500</td>
+                                            <td>$0</td>
+                                            <td class="text-danger">$42,500</td>
+                                            <td><span class="tag">Permanent</span></td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-008</td>
+                                            <td>Delivery Vehicle #5</td>
+                                            <td>$45,500</td>
+                                            <td>$46,500</td>
+                                            <td class="text-success">($1,000)</td>
+                                            <td><span class="tag">Temporary</span></td>
+                                            <td>($250)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="filings-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tax Filing Records</h2>
+                            <button class="btn btn-primary btn-sm">+ New Filing</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Jurisdiction</th>
+                                            <th>Form Type</th>
+                                            <th>Total Tax Value</th>
+                                            <th>Filed Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Q1 2025</td>
+                                            <td><span class="tag">United States</span></td>
+                                            <td>Form 4562</td>
+                                            <td>$2,450,000</td>
+                                            <td>2025-04-15</td>
+                                            <td><span class="badge badge-success">Filed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Export</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q4 2024</td>
+                                            <td><span class="tag">United States</span></td>
+                                            <td>Form 4562</td>
+                                            <td>$2,380,000</td>
+                                            <td>2025-01-20</td>
+                                            <td><span class="badge badge-success">Filed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Export</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q1 2025</td>
+                                            <td><span class="tag">Germany</span></td>
+                                            <td>AfA Declaration</td>
+                                            <td>€1,200,000</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                                <button class="btn btn-outline btn-sm">Export</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

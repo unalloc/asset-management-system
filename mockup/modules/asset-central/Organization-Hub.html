@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .org-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .org-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .org-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .org-type-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .org-type-badge.group { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .org-type-badge.company { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .org-type-badge.division { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .org-type-badge.department { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .org-type-badge.team { background: rgba(100, 116, 139, 0.1); color: var(--secondary); }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .hierarchy-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Organization Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">🏢</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Organization Central</h1>
+                    <div class="action-buttons">
+                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-primary">+ Add Organization</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search organizations by code, name, or type...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Organizations</div>
+                        <div class="stat-value">24</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Groups</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Companies</div>
+                        <div class="stat-value">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Divisions</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Departments</div>
+                        <div class="stat-value">15</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="group">Group</option>
+                        <option value="company">Company</option>
+                        <option value="division">Division</option>
+                        <option value="department">Department</option>
+                        <option value="team">Team</option>
+                    </select>
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                    <select>
+                        <option value="">All Regions</option>
+                        <option value="na">North America</option>
+                        <option value="eu">Europe</option>
+                        <option value="apac">APAC</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="org-table">
+                        <thead>
+                            <tr>
+                                <th>Org Code</th>
+                                <th>Organization Name</th>
+                                <th>Type</th>
+                                <th>Level</th>
+                                <th>Region</th>
+                                <th>Assets</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html?org=GLOBAL" class="asset-link">GLOBAL</a></td>
+                                <td><strong>Global Manufacturing Corp</strong></td>
+                                <td><span class="org-type-badge group">Group</span></td>
+                                <td><span class="hierarchy-indicator">1</span></td>
+                                <td>Global</td>
+                                <td>1,250</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../9-multi-company/F-2.8.2-Legal%20Entity%20Management.html" class="btn btn-sm btn-outline">Entities</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html?org=US0001" class="asset-link">US0001</a></td>
+                                <td><strong>US Manufacturing Inc.</strong></td>
+                                <td><span class="org-type-badge company">Company</span></td>
+                                <td><span class="hierarchy-indicator">2</span></td>
+                                <td>North America</td>
+                                <td>850</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../9-multi-company/F-2.8.2-Legal%20Entity%20Management.html" class="btn btn-sm btn-outline">Entities</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html?org=EU0001" class="asset-link">EU0001</a></td>
+                                <td><strong>EU Holdings GmbH</strong></td>
+                                <td><span class="org-type-badge company">Company</span></td>
+                                <td><span class="hierarchy-indicator">2</span></td>
+                                <td>Europe</td>
+                                <td>320</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../9-multi-company/F-2.8.2-Legal%20Entity%20Management.html" class="btn btn-sm btn-outline">Entities</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html?org=JV0001" class="asset-link">JV0001</a></td>
+                                <td><strong>Asia Pacific Joint Venture Ltd.</strong></td>
+                                <td><span class="org-type-badge company">Company</span></td>
+                                <td><span class="hierarchy-indicator">2</span></td>
+                                <td>APAC</td>
+                                <td>80</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../9-multi-company/F-2.8.2-Legal%20Entity%20Management.html" class="btn btn-sm btn-outline">Entities</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html?org=NA-NA" class="asset-link">NA-NA</a></td>
+                                <td><strong>North America Division</strong></td>
+                                <td><span class="org-type-badge division">Division</span></td>
+                                <td><span class="hierarchy-indicator">3</span></td>
+                                <td>North America</td>
+                                <td>450</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../9-multi-company/F-2.8.1-Multi-level%20Org%20Hierarchy.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 24 organizations</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">4</button>
+                        <button class="btn btn-sm btn-outline">5</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Organizations for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

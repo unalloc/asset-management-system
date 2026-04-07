@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.9 - Group-level Asset Standardization</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.9
+                </div>
+                <div class="user-info">
+                    <span>Group Standards Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.9 - Group-level Asset Standardization</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.9-Group-level%20Asset%20Standardization.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Group Standards</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newStandardModal')">+ Create Standard</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Standard Code</th>
+                                        <th>Standard Name</th>
+                                        <th>Type</th>
+                                        <th>Version</th>
+                                        <th>Status</th>
+                                        <th>Compliance Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>STD-001</td>
+                                        <td>CNC Machine Classification</td>
+                                        <td><span class="badge badge-primary">CLASSIFICATION</span></td>
+                                        <td>2.0</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td><span class="text-success">92%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>STD-002</td>
+                                        <td>Asset Coding Rules</td>
+                                        <td><span class="badge badge-info">CODING</span></td>
+                                        <td>1.5</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td><span class="text-success">88%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>STD-003</td>
+                                        <td>Forklift Specifications</td>
+                                        <td><span class="badge badge-warning">SPEC</span></td>
+                                        <td>1.2</td>
+                                        <td><span class="badge badge-warning">REVIEW</span></td>
+                                        <td><span class="text-warning">75%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Standard Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-primary">CLASSIFICATION</span>
+                                <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Asset taxonomy standards</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-info">CODING</span>
+                                <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Asset code patterns</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-warning">SPEC</span>
+                                <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Technical specifications</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-success">SUPPLIER</span>
+                                <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Preferred suppliers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Compliance Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Total Assets</th>
+                                        <th>Compliant</th>
+                                        <th>Non-Compliant</th>
+                                        <th>Compliance Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td>1,250</td>
+                                        <td>1,150</td>
+                                        <td>100</td>
+                                        <td><span class="text-success">92%</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>890</td>
+                                        <td>780</td>
+                                        <td>110</td>
+                                        <td><span class="text-success">87.6%</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newStandardModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Standard</h3>
+                <button class="modal-close" onclick="closeModal('newStandardModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="standardForm">
+                    <div class="form-group">
+                        <label>Standard Code</label>
+                        <input type="text" class="form-control" name="standardCode" placeholder="STD-XXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Standard Name</label>
+                        <input type="text" class="form-control" name="standardName">
+                    </div>
+                    <div class="form-group">
+                        <label>Standard Type</label>
+                        <select class="form-control" name="standardType">
+                            <option value="">Select Type</option>
+                            <option value="CLASSIFICATION">Classification</option>
+                            <option value="CODING">Coding</option>
+                            <option value="SPEC">Specification</option>
+                            <option value="SUPPLIER">Supplier</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Version</label>
+                        <input type="text" class="form-control" name="version" placeholder="e.g., 1.0">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newStandardModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newStandardModal')">Create Standard</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.2 - Preventive Maintenance Workflow</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.2 - Preventive Maintenance Workflow</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.2-Preventive%20Maintenance%20Workflow.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('workorders')">Work Orders</button>
+                    <button class="tab" onclick="switchTab('checklists')">Checklists</button>
+                    <button class="tab" onclick="switchTab('approvals')">Approvals</button>
+                </div>
+
+                <div class="tab-content active" id="workorders-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Work Orders</h2>
+                            <button class="btn btn-primary" onclick="openModal('createWOModal')">+ Create Work Order</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Work Order #</th>
+                                            <th>Asset</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Scheduled Date</th>
+                                            <th>Assigned To</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0042</td>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td><span class="badge badge-danger">Emergency</span></td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                            <td>2025-04-05</td>
+                                            <td>John Smith</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0041</td>
+                                            <td>HVAC System (AST-2023-045)</td>
+                                            <td><span class="badge badge-warning">High</span></td>
+                                            <td><span class="badge badge-info">Assigned</span></td>
+                                            <td>2025-04-08</td>
+                                            <td>Mike Johnson</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0040</td>
+                                            <td>Forklift #3 (AST-2023-089)</td>
+                                            <td><span class="badge badge-primary">Medium</span></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                            <td>2025-04-03</td>
+                                            <td>Tom Wilson</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0039</td>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td><span class="badge badge-primary">Medium</span></td>
+                                            <td><span class="badge badge-secondary">Pending</span></td>
+                                            <td>2025-04-10</td>
+                                            <td>Auto-assigned</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="checklists-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Checklists</h2>
+                            <button class="btn btn-primary btn-sm">+ Create Checklist</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Checklist Name</th>
+                                            <th>Type</th>
+                                            <th>Items</th>
+                                            <th>Est. Time</th>
+                                            <th>Used In</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Monthly PM Inspection</td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td>12 items</td>
+                                            <td>2 hours</td>
+                                            <td>8 work orders</td>
+                                        </tr>
+                                        <tr>
+                                            <td>HVAC Quarterly Service</td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td>18 items</td>
+                                            <td>4 hours</td>
+                                            <td>4 work orders</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Safety Equipment Check</td>
+                                            <td><span class="tag">Inspection</span></td>
+                                            <td>15 items</td>
+                                            <td>1 hour</td>
+                                            <td>12 work orders</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="approvals-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Approvals</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Work Order #</th>
+                                            <th>Asset</th>
+                                            <th>Technician</th>
+                                            <th>Submitted</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0038</td>
+                                            <td>Conveyor Belt A (AST-2024-022)</td>
+                                            <td>Tom Wilson</td>
+                                            <td>2025-04-04</td>
+                                            <td><span class="badge badge-warning">Pending Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-success">Approve</button>
+                                                <button class="btn btn-sm btn-outline">Reject</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0035</td>
+                                            <td>Packaging Machine (AST-2023-067)</td>
+                                            <td>John Smith</td>
+                                            <td>2025-04-02</td>
+                                            <td><span class="badge badge-warning">Pending Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-success">Approve</button>
+                                                <button class="btn btn-sm btn-outline">Reject</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="createWOModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Work Order</h3>
+                <button class="modal-close" onclick="closeModal('createWOModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Source Maintenance Plan</label>
+                        <select class="form-control" id="sourcePlan">
+                            <option value="">-- Select Plan (Optional) --</option>
+                            <option value="MP-2025-001">Monthly PM - CNC Machine #1</option>
+                            <option value="MP-2025-002">Quarterly - HVAC System</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="woAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2024-001">CNC Machine #1 (AST-2024-001)</option>
+                            <option value="AST-2023-045">HVAC System (AST-2023-045)</option>
+                            <option value="AST-2023-089">Forklift #3 (AST-2023-089)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select class="form-control" id="woPriority">
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                                <option value="Emergency">Emergency</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Scheduled Date</label>
+                            <input type="date" class="form-control" id="scheduledDate">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Assigned Technician</label>
+                            <select class="form-control" id="assignedTech">
+                                <option value="">-- Select Technician --</option>
+                                <option value="JS001">John Smith (CNC Specialist)</option>
+                                <option value="MJ001">Mike Johnson (HVAC Certified)</option>
+                                <option value="TW001">Tom Wilson (Forklift Expert)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Hours</label>
+                            <input type="number" class="form-control" id="estHours" value="2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estimated Cost</label>
+                        <input type="number" class="form-control" id="estCost" value="150.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="d-flex align-center gap-sm">
+                            <input type="checkbox" id="workPermitRequired">
+                            Work Permit Required
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Safety Notes</label>
+                        <textarea class="form-control" id="safetyNotes" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Checklist</label>
+                        <select class="form-control" id="checklistSelect">
+                            <option value="">-- Select Checklist --</option>
+                            <option value="CL-001">Monthly PM Inspection</option>
+                            <option value="CL-002">HVAC Quarterly Service</option>
+                            <option value="CL-003">Safety Equipment Check</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createWOModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('createWOModal')">Create Work Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

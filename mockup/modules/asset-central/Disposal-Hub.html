@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disposal Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .disposal-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .disposal-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .disposal-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .method-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .method-badge.sale { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .method-badge.auction { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .method-badge.scrap { background: rgba(100, 116, 139, 0.1); color: var(--secondary); }
+        .method-badge.donation { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .method-badge.lease-return { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .gain-loss {
+            font-weight: 600;
+        }
+        .gain-loss.positive { color: var(--success); }
+        .gain-loss.negative { color: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Disposal Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">📦</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Disposal Central</h1>
+                    <div class="action-buttons">
+                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-primary">+ New Disposal</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search disposals by ID, asset, or reason...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Pending Disposals</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Completed This Month</div>
+                        <div class="stat-value">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Proceeds</div>
+                        <div class="stat-value">$45.5K</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Gain/Loss YTD</div>
+                        <div class="stat-value" style="color: var(--success);">+$12.3K</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Records</div>
+                        <div class="stat-value">128</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="pending">Pending Approval</option>
+                        <option value="approved">Approved</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <select>
+                        <option value="">All Methods</option>
+                        <option value="sale">Sale</option>
+                        <option value="auction">Auction</option>
+                        <option value="scrap">Scrap</option>
+                        <option value="donation">Donation</option>
+                        <option value="lease-return">Lease Return</option>
+                    </select>
+                    <select>
+                        <option value="">All Reasons</option>
+                        <option value="end-of-life">End of useful life</option>
+                        <option value="condition">Condition issues</option>
+                        <option value="upgrade">Upgrade/Replace</option>
+                        <option value="relocation">Relocation</option>
+                    </select>
+                    <select>
+                        <option value="">All Plants</option>
+                        <option value="plant-a">Plant A - Detroit</option>
+                        <option value="plant-b">Plant B - Chicago</option>
+                        <option value="plant-c">Plant C - Munich</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="disposal-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Asset</th>
+                                <th>Reason</th>
+                                <th>Method</th>
+                                <th>Book Value</th>
+                                <th>Proceeds</th>
+                                <th>Gain/Loss</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html?disposal=DIS-2025-015" class="asset-link">DIS-2025-015</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-2020-033" class="asset-link">CNC Machine #3</a> <span class="text-muted">(AST-2020-033)</span></td>
+                                <td>End of useful life</td>
+                                <td><span class="method-badge scrap">Scrap</span></td>
+                                <td>$2,500</td>
+                                <td>$500</td>
+                                <td><span class="gain-loss negative">-$2,000</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-primary">Approve</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html?disposal=DIS-2025-014" class="asset-link">DIS-2025-014</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-2021-089" class="asset-link">Office Furniture Set</a> <span class="text-muted">(AST-2021-089)</span></td>
+                                <td>Relocation</td>
+                                <td><span class="method-badge sale">Sale</span></td>
+                                <td>$1,200</td>
+                                <td>$2,500</td>
+                                <td><span class="gain-loss positive">+$1,300</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-primary">Approve</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html?disposal=DIS-2025-013" class="asset-link">DIS-2025-013</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-2019-045" class="asset-link">Delivery Van #2</a> <span class="text-muted">(AST-2019-045)</span></td>
+                                <td>Condition issues</td>
+                                <td><span class="method-badge auction">Auction</span></td>
+                                <td>$12,000</td>
+                                <td>$8,000</td>
+                                <td><span class="gain-loss negative">-$4,000</span></td>
+                                <td><span class="badge badge-warning">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-primary">Approve</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html?disposal=DIS-2025-012" class="asset-link">DIS-2025-012</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-2018-022" class="asset-link">Forklift #4</a> <span class="text-muted">(AST-2018-022)</span></td>
+                                <td>Upgrade/Replace</td>
+                                <td><span class="method-badge auction">Auction</span></td>
+                                <td>$8,500</td>
+                                <td>$11,200</td>
+                                <td><span class="gain-loss positive">+$2,700</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html?disposal=DIS-2025-011" class="asset-link">DIS-2025-011</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-2020-015" class="asset-link">Lab Equipment</a> <span class="text-muted">(AST-2020-015)</span></td>
+                                <td>Donation</td>
+                                <td><span class="method-badge donation">Donation</span></td>
+                                <td>$5,000</td>
+                                <td>$0</td>
+                                <td><span class="gain-loss negative">-$5,000</span></td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../7-lifecycle/F-2.6.9-Asset%20Disposal%20Workflow.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 128 records</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">...</button>
+                        <button class="btn btn-sm btn-outline">26</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Disposals for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

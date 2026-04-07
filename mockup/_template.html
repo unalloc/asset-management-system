@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{REQ_ID} - {REQ_TITLE}</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .req-doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--info);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+        }
+        .req-doc-link:hover {
+            background: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+        }
+        .info-box {
+            background: #f0f9ff;
+            border: 1px solid #e0f2fe;
+            border-radius: var(--radius-md);
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .info-box strong {
+            color: var(--info);
+        }
+        .info-box ul {
+            margin: 5px 0 0 20px;
+        }
+        .info-box li {
+            margin: 3px 0;
+        }
+        .rules-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <h1>AMS</h1>
+                <span>Asset Management</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-section">
+                    <span class="nav-section-title">Foundation</span>
+                    <ul>
+                        <li><a href="../../index.html">Overview</a></li>
+                    </ul>
+                </li>
+                <li class="nav-section">
+                    <span class="nav-section-title">Module 2: Asset Registration</span>
+                    <ul id="nav-2-asset-registration"></ul>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / {REQ_ID}
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>{REQ_ID} - {REQ_TITLE}</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">{PRIORITY}</span>
+                        <a href="../../../2-asset-registration/{REQ_FILE}.md" target="_blank" class="req-doc-link">
+                            View Requirement Document
+                        </a>
+                    </div>
+                </div>
+
+                <!-- UI Content Area -->
+                {UI_CONTENT}
+
+            </div>
+        </main>
+    </div>
+
+    {MODALS}
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

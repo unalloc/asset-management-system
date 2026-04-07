@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.11 - Country-Specific Tax Depreciation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.11
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.11 - Country-Specific Tax Depreciation</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.11-Country-Specific%20Tax%20Depreciation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Tax Depreciation YTD</p>
+                            <h2 style="font-size: 1.5rem;">$2,450,000</h2>
+                            <p class="text-muted">Across 5 countries</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Section 179 Deductions</p>
+                            <h2 style="font-size: 1.5rem;">$185,000</h2>
+                            <p class="text-success">12 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Bonus Depreciation</p>
+                            <h2 style="font-size: 1.5rem;">$420,000</h2>
+                            <p class="text-muted">First-year bonus</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Book-Tax Differences</p>
+                            <h2 style="font-size: 1.5rem;">$675,000</h2>
+                            <p class="text-muted">Temporary differences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('schedules')">Tax Schedules</button>
+                    <button class="tab" onclick="switchTab('methods')">Tax Methods</button>
+                    <button class="tab" onclick="switchTab('conventions')">Conventions</button>
+                    <button class="tab" onclick="switchTab('jurisdictions')">Jurisdictions</button>
+                </div>
+
+                <div class="tab-content active" id="schedules-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tax Depreciation Schedules by Asset</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Countries</option>
+                                    <option>United States</option>
+                                    <option>Germany</option>
+                                    <option>France</option>
+                                    <option>United Kingdom</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('addTaxScheduleModal')">+ New Schedule</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Country</th>
+                                            <th>Tax Category</th>
+                                            <th>Method</th>
+                                            <th>Convention</th>
+                                            <th>Original Cost</th>
+                                            <th>YTD Depreciation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2024-001</td>
+                                            <td><span class="tag">US</span></td>
+                                            <td>7-year Property</td>
+                                            <td><span class="tag">MACRS 200% DB</span></td>
+                                            <td>Half-year</td>
+                                            <td>$250,000</td>
+                                            <td>$35,700</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-002</td>
+                                            <td><span class="tag">DE</span></td>
+                                            <td>AfA Category 7</td>
+                                            <td><span class="tag">German AfA</span></td>
+                                            <td>N/A</td>
+                                            <td>$180,000</td>
+                                            <td>$25,714</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-003</td>
+                                            <td><span class="tag">FR</span></td>
+                                            <td>Amortissement Category</td>
+                                            <td><span class="tag">French Linear</span></td>
+                                            <td>N/A</td>
+                                            <td>$320,000</td>
+                                            <td>$45,714</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-008</td>
+                                            <td><span class="tag">UK</span></td>
+                                            <td>Main Pool</td>
+                                            <td><span class="tag">Capital Allowances</span></td>
+                                            <td>Annual</td>
+                                            <td>$450,000</td>
+                                            <td>$108,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="methods-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Country-Specific Depreciation Methods</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Country</th>
+                                            <th>Method</th>
+                                            <th>Formula</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>United States</td>
+                                            <td><span class="tag">MACRS 200% DB</span></td>
+                                            <td>2 × (1/Life) × Book Value</td>
+                                            <td>200% declining balance with SL switch</td>
+                                        </tr>
+                                        <tr>
+                                            <td>United States</td>
+                                            <td><span class="tag">MACRS 150% DB</span></td>
+                                            <td>1.5 × (1/Life) × Book Value</td>
+                                            <td>150% declining balance with SL switch</td>
+                                        </tr>
+                                        <tr>
+                                            <td>United States</td>
+                                            <td><span class="tag">Section 179</span></td>
+                                            <td>Immediate deduction</td>
+                                            <td>Up to $1,160,000 limit (2024)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Germany</td>
+                                            <td><span class="tag">German AfA</span></td>
+                                            <td>BMF Tables by Category</td>
+                                            <td>Straight-line using BMF official tables</td>
+                                        </tr>
+                                        <tr>
+                                            <td>France</td>
+                                            <td><span class="tag">Amortissement</span></td>
+                                            <td>Linear per Admin Tables</td>
+                                            <td>Administration-published depreciation tables</td>
+                                        </tr>
+                                        <tr>
+                                            <td>United Kingdom</td>
+                                            <td><span class="tag">Capital Allowances</span></td>
+                                            <td>Annual Investment Allowance</td>
+                                            <td>100% first-year allowance up to limit</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="conventions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Depreciation Conventions</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Half-Year Convention</h3>
+                                        <p class="text-muted">50% depreciation in first and last year</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Default for most assets</li>
+                                            <li>Applied automatically unless mid-quarter applies</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Mid-Quarter Convention</h3>
+                                        <p class="text-muted">Applied when >40% of assets placed in Q4</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>Check: Q4 acquisitions / Total acquisitions</li>
+                                            <li>If > 40%, mid-quarter applies to all</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body">
+                                        <h3>Full-Year Convention</h3>
+                                        <p class="text-muted">Full year depreciation</p>
+                                        <ul style="font-size: 0.85rem;">
+                                            <li>International assets</li>
+                                            <li>Mid-month option for some jurisdictions</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="jurisdictions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Tax Jurisdiction Configuration</h2>
+                            <button class="btn btn-outline btn-sm">Manage Rules</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Country</th>
+                                            <th>Currency</th>
+                                            <th>Standards</th>
+                                            <th>Active Rules</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>United States</td>
+                                            <td>USD</td>
+                                            <td>MACRS, ACRS, Section 179</td>
+                                            <td>12 property classes</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Germany</td>
+                                            <td>EUR</td>
+                                            <td>German AfA (BMF Tables)</td>
+                                            <td>6 asset categories</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>France</td>
+                                            <td>EUR</td>
+                                            <td>Amortissement (Admin Tables)</td>
+                                            <td>8 categories</td>
+                                            <td><span class="badge badge-success">Active</td>
+                                        </tr>
+                                        <tr>
+                                            <td>United Kingdom</td>
+                                            <td>GBP</td>
+                                            <td>Capital Allowances (HMRC)</td>
+                                            <td>4 pools</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                </div>
+
+                
+
+                
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addTaxScheduleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add Tax Depreciation Schedule</h2>
+                <button class="close-modal" onclick="closeModal('addTaxScheduleModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addTaxScheduleForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select name="asset" class="form-control">
+                            <option value="">Select Asset</option>
+                            <option value="AST-2024-001">AST-2024-001 - CNC Machine</option>
+                            <option value="AST-2024-002">AST-2024-002 - Conveyor System</option>
+                            <option value="AST-2024-003">AST-2024-003 - Packaging Line</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Country</label>
+                        <select name="country" class="form-control">
+                            <option value="">Select Country</option>
+                            <option value="US">United States</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="UK">United Kingdom</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tax Category</label>
+                        <select name="taxCategory" class="form-control">
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Depreciation Method</label>
+                            <select name="method" class="form-control">
+                                <option value="">Select Method</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Convention</label>
+                            <select name="convention" class="form-control">
+                                <option value="">Select Convention</option>
+                                <option value="half-year">Half-Year</option>
+                                <option value="mid-quarter">Mid-Quarter</option>
+                                <option value="full-year">Full-Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Placed In Service Date</label>
+                        <input type="date" name="placedInService" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Original Cost</label>
+                        <input type="number" name="originalCost" class="form-control">
+                    </div>
+                    <div class="d-flex gap-sm" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('addTaxScheduleModal')">Create Schedule</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('addTaxScheduleModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

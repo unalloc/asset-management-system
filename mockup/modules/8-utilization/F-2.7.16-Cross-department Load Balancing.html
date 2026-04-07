@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.16 - Cross-department/Location Asset Load Balancing</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.16
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.16 - Cross-department/Location Asset Load Balancing</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.16-Cross-department-Location%20Asset%20Load%20Balancing.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Load Balance Index</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">0.85</h2>
+                            <p>Target: > 0.80</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Departments Analyzed</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">12</h2>
+                            <p>Across 3 Plants</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Imbalance Alerts</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">3</h2>
+                            <p>Awaiting Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('load')">Load Analysis</button>
+                    <button class="tab" onclick="switchTab('solutions')">Solutions</button>
+                    <button class="tab" onclick="switchTab('constraints')">Constraints</button>
+                </div>
+
+                <div class="tab-content active" id="load-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Department/Location Load</h2>
+                            <button class="btn btn-primary" onclick="openModal('runAnalysisModal')">Run Analysis</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Department</th>
+                                            <th>Location</th>
+                                            <th>Utilization Rate</th>
+                                            <th>Wait Queue</th>
+                                            <th>Usage Cost</th>
+                                            <th>Load Index</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Construction</td>
+                                            <td>Plant 1</td>
+                                            <td>92%</td>
+                                            <td>5</td>
+                                            <td>$125,000</td>
+                                            <td class="text-danger">1.15</td>
+                                            <td><span class="badge badge-danger">Overloaded</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operations</td>
+                                            <td>Plant 1</td>
+                                            <td>78%</td>
+                                            <td>2</td>
+                                            <td>$95,000</td>
+                                            <td class="text-success">0.95</td>
+                                            <td><span class="badge badge-success">Balanced</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maintenance</td>
+                                            <td>Plant 2</td>
+                                            <td>45%</td>
+                                            <td>0</td>
+                                            <td>$42,000</td>
+                                            <td class="text-warning">0.65</td>
+                                            <td><span class="badge badge-warning">Underutilized</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>R&D</td>
+                                            <td>HQ Lab</td>
+                                            <td>88%</td>
+                                            <td>3</td>
+                                            <td>$110,000</td>
+                                            <td class="text-success">0.92</td>
+                                            <td><span class="badge badge-success">Balanced</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="solutions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Balancing Solutions</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Solution Type</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Asset</th>
+                                            <th>Est. Cost</th>
+                                            <th>Est. Benefit</th>
+                                            <th>Score</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-primary">REDEPLOYMENT</span></td>
+                                            <td>Maintenance</td>
+                                            <td>Construction</td>
+                                            <td>Excavator #2</td>
+                                            <td>$3,500</td>
+                                            <td>$18,000</td>
+                                            <td><strong>4.1</strong></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-info">WORK_REDISTRIBUTION</span></td>
+                                            <td>Construction</td>
+                                            <td>Operations</td>
+                                            <td>CNC Work</td>
+                                            <td>$1,200</td>
+                                            <td>$8,500</td>
+                                            <td><strong>6.1</strong></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">POOL_EXPANSION</span></td>
+                                            <td>-</td>
+                                            <td>Plant 1</td>
+                                            <td>2 Laptops</td>
+                                            <td>$2,000</td>
+                                            <td>$5,000</td>
+                                            <td><strong>1.5</strong></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Review</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="constraints-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Balancing Constraints</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Constraint Type</th>
+                                            <th>Description</th>
+                                            <th>Value</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Movement Cost Limit</strong></td>
+                                            <td>Maximum budget for redeployment</td>
+                                            <td>$10,000</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Geographic Limit</strong></td>
+                                            <td>Maximum distance for redeployment</td>
+                                            <td>50 km</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Minimum Utilization</strong></td>
+                                            <td>Target minimum utilization rate</td>
+                                            <td>60%</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Imbalance Threshold</strong></td>
+                                            <td>STDDEV threshold for alerts</td>
+                                            <td>0.15</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="runAnalysisModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Run Load Analysis</h3>
+                <button class="modal-close" onclick="closeModal('runAnalysisModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="analysisForm">
+                    <div class="form-group">
+                        <label>Analysis Date</label>
+                        <input type="date" class="form-control" id="analysisDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Load Indicator</label>
+                        <select class="form-control" id="loadIndicator">
+                            <option value="">-- Select Indicator --</option>
+                            <option value="UTILIZATION_RATE">Utilization Rate</option>
+                            <option value="WAIT_QUEUE">Wait Queue</option>
+                            <option value="USAGE_COST">Usage Cost</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Scope</label>
+                        <select class="form-control">
+                            <option>All Departments</option>
+                            <option>Plant 1 Only</option>
+                            <option>Specific Division</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('runAnalysisModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('runAnalysisModal')">Run Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

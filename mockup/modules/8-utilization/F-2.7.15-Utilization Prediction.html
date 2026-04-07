@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.15 - Utilization Prediction and Capacity Planning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.15
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.15 - Utilization Prediction and Capacity Planning</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.15-Utilization%20Prediction%20and%20Capacity%20Planning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Predicted Utilization</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">82%</h2>
+                            <p>Q3 2025 (3-month horizon)</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Confidence Level</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">87%</h2>
+                            <p>Range: 75% - 92%</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Capacity Gap</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">5</h2>
+                            <p>Assets needed</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Recommendations</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">3</h2>
+                            <p>Pending review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('predictions')">Predictions</button>
+                    <button class="tab" onclick="switchTab('capacity')">Capacity Plan</button>
+                    <button class="tab" onclick="switchTab('scenarios')">Scenarios</button>
+                </div>
+
+                <div class="tab-content active" id="predictions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Utilization Predictions</h2>
+                            <button class="btn btn-primary" onclick="openModal('newPredictionModal')">+ New Prediction</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset/Category</th>
+                                            <th>Horizon</th>
+                                            <th>Method</th>
+                                            <th>Predicted</th>
+                                            <th>Confidence</th>
+                                            <th>Scenario</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Heavy Equipment</td>
+                                            <td>SHORT_TERM</td>
+                                            <td>TIME_SERIES</td>
+                                            <td>82%</td>
+                                            <td>87%</td>
+                                            <td><span class="badge badge-primary">BASELINE</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machines</td>
+                                            <td>MEDIUM_TERM</td>
+                                            <td>REGRESSION</td>
+                                            <td>78%</td>
+                                            <td>82%</td>
+                                            <td><span class="badge badge-success">OPTIMISTIC</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehicles</td>
+                                            <td>LONG_TERM</td>
+                                            <td>ML</td>
+                                            <td>65%</td>
+                                            <td>75%</td>
+                                            <td><span class="badge badge-danger">PESSIMISTIC</span></td>
+                                            <td><span class="badge badge-warning">Review</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="capacity-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Capacity Planning Recommendations</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset Type</th>
+                                            <th>Current Capacity</th>
+                                            <th>Predicted Demand</th>
+                                            <th>Gap</th>
+                                            <th>Recommendation</th>
+                                            <th>Est. Cost</th>
+                                            <th>Priority</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Machines</td>
+                                            <td>85%</td>
+                                            <td>95%</td>
+                                            <td class="text-danger">+10%</td>
+                                            <td><span class="badge badge-primary">PROCUREMENT</span></td>
+                                            <td>$250,000</td>
+                                            <td><span class="badge badge-danger">1</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehicles</td>
+                                            <td>75%</td>
+                                            <td>70%</td>
+                                            <td class="text-success">-5%</td>
+                                            <td><span class="badge badge-warning">DISPOSAL</span></td>
+                                            <td>($45,000)</td>
+                                            <td><span class="badge badge-warning">2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Heavy Equipment</td>
+                                            <td>82%</td>
+                                            <td>80%</td>
+                                            <td class="text-success">-2%</td>
+                                            <td><span class="badge badge-info">NO_ACTION</span></td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-success">3</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="scenarios-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Scenario Comparison</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Scenario</th>
+                                            <th>Utilization</th>
+                                            <th>Capacity Gap</th>
+                                            <th>Est. Cost</th>
+                                            <th>Est. Benefit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Optimistic</strong></td>
+                                            <td>88%</td>
+                                            <td>2</td>
+                                            <td>$180,000</td>
+                                            <td>$450,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Baseline</strong></td>
+                                            <td>82%</td>
+                                            <td>5</td>
+                                            <td>$320,000</td>
+                                            <td>$380,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Pessimistic</strong></td>
+                                            <td>70%</td>
+                                            <td>8</td>
+                                            <td>$520,000</td>
+                                            <td>$280,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newPredictionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Prediction</h3>
+                <button class="modal-close" onclick="closeModal('newPredictionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="predictionForm">
+                    <div class="form-group">
+                        <label>Asset/Category</label>
+                        <select class="form-control" id="asset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="HEAVY">Heavy Equipment</option>
+                            <option value="CNC">CNC Machines</option>
+                            <option value="VEHICLES">Vehicles</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prediction Type</label>
+                            <select class="form-control" id="predType">
+                                <option value="">-- Select Type --</option>
+                                <option value="TIME_SERIES">Time Series</option>
+                                <option value="REGRESSION">Regression</option>
+                                <option value="ML">Machine Learning</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Horizon</label>
+                            <select class="form-control" id="horizon">
+                                <option value="">-- Select Horizon --</option>
+                                <option value="SHORT_TERM">Short Term (1-3 mo)</option>
+                                <option value="MEDIUM_TERM">Medium Term (3-12 mo)</option>
+                                <option value="LONG_TERM">Long Term (1-3 yr)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Scenario</label>
+                        <select class="form-control">
+                            <option value="BASELINE">Baseline</option>
+                            <option value="OPTIMISTIC">Optimistic</option>
+                            <option value="PESSIMISTIC">Pessimistic</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newPredictionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newPredictionModal')">Generate Prediction</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

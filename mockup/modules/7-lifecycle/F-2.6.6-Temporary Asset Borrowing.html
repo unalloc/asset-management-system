@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.6 - Temporary Asset Borrowing Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.6
+                </div>
+                <div class="user-info">
+                    <span>Asset Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.6 - Temporary Asset Borrowing Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.6-Temporary%20Asset%20Borrowing%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Extensions</p>
+                            <h2 style="font-size: 1.5rem;">6</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Damage Assessment</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Compensation Orders</p>
+                            <h2 style="font-size: 1.5rem;">1</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Blacklisted</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('active')">Active Borrowings</button>
+                    <button class="tab" onclick="switchTab('extensions')">Extensions</button>
+                    <button class="tab" onclick="switchTab('damage')">Damage Processing</button>
+                    <button class="tab" onclick="switchTab('blacklist')">Blacklist</button>
+                    <button class="tab" onclick="switchTab('chargeback')">Chargeback</button>
+                </div>
+
+                <div class="tab-content active" id="active-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Borrowings with Extensions</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset</th>
+                                            <th>Borrower</th>
+                                            <th>Original Due</th>
+                                            <th>Current Due</th>
+                                            <th>Extensions</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BOR-2025-015</td>
+                                            <td>Measuring Equipment (AST-2023-089)</td>
+                                            <td>David Lee</td>
+                                            <td>2025-04-05</td>
+                                            <td>2025-04-20</td>
+                                            <td>1</td>
+                                            <td><span class="badge badge-primary">Extended</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewBorrowing('BOR-2025-015')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="extendBorrowing('BOR-2025-015')">Extend</button>
+                                                <button class="btn btn-sm btn-success" onclick="processReturn('BOR-2025-015')">Return</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="extensions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Extension Requests</h2>
+                            <button class="btn btn-primary" onclick="openModal('newExtensionModal')">+ New Extension</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Rule:</strong> Extension duration > 50% of original duration requires re-approval
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Extension ID</th>
+                                            <th>Borrowing ID</th>
+                                            <th>Asset</th>
+                                            <th>Days Extended</th>
+                                            <th>Original Duration</th>
+                                            <th>% of Original</th>
+                                            <th>Reason</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EXT-2025-008</td>
+                                            <td>BOR-2025-015</td>
+                                            <td>Measuring Equipment</td>
+                                            <td>15</td>
+                                            <td>10</td>
+                                            <td>150%</td>
+                                            <td>Project delay</td>
+                                            <td><span class="badge badge-warning">Re-approval Required</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="damage-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Damage Processing</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset</th>
+                                            <th>Borrower</th>
+                                            <th>Return Condition</th>
+                                            <th>Assessment Status</th>
+                                            <th>Compensation</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RET-2025-011</td>
+                                            <td>Camera Kit (AST-2022-078)</td>
+                                            <td>Mike Williams</td>
+                                            <td><span class="badge badge-danger">DAMAGED</span></td>
+                                            <td><span class="badge badge-warning">Pending Assessment</span></td>
+                                            <td>TBD</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="assessDamage('RET-2025-011')">Assess</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="blacklist-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Blacklisted Borrowers</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>Note:</strong> Borrowers with damaged returns or >30 days overdue are added to blacklist
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Reason</th>
+                                            <th>Blacklisted Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EMP015</td>
+                                            <td>John Carter</td>
+                                            <td>Operations</td>
+                                            <td>Damaged equipment (2025-02)</td>
+                                            <td>2025-02-15</td>
+                                            <td><span class="badge badge-danger">Blacklisted</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="chargeback-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Borrowing Cost Chargeback</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Department</th>
+                                            <th>Borrowing Days</th>
+                                            <th>Daily Rate</th>
+                                            <th>Total Cost</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-03</td>
+                                            <td>Marketing</td>
+                                            <td>45</td>
+                                            <td>$25</td>
+                                            <td>$1,125</td>
+                                            <td><span class="badge badge-success">Charged</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newExtensionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Request Extension</h3>
+                <button class="modal-close" onclick="closeModal('newExtensionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="extensionForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Borrowing Record</label>
+                        <select class="form-control" id="extBorrowing" onchange="loadExtensionInfo()">
+                            <option value="">-- Select Borrowing --</option>
+                            <option value="BOR-2025-015">BOR-2025-015 - Measuring Equipment - Due: 2025-04-05</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Original Duration</label>
+                            <input type="text" class="form-control" id="extOriginalDuration" disabled placeholder="Auto-populated">
+                        </div>
+                        <div class="form-group">
+                            <label>Days Extended</label>
+                            <input type="number" class="form-control" id="extDays" onchange="checkApprovalRequirement()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reason for Extension</label>
+                        <textarea class="form-control" id="extReason" rows="2" placeholder="Explain why extension is needed"></textarea>
+                    </div>
+
+                    <div class="alert alert-warning" id="approvalWarning" style="display:none;">
+                        <strong>Re-approval Required:</strong> Extension exceeds 50% of original duration
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newExtensionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newExtensionModal')">Submit Extension</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="damageAssessmentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Damage Assessment</h3>
+                <button class="modal-close" onclick="closeModal('damageAssessmentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="assessmentForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <input type="text" class="form-control" id="assessAsset" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Borrower</label>
+                        <input type="text" class="form-control" id="assessBorrower" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Damage Description</label>
+                        <textarea class="form-control" id="assessDescription" rows="2" disabled></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assessment Result</label>
+                        <select class="form-control" id="assessResult">
+                            <option value="">-- Select Result --</option>
+                            <option value="MINOR">Minor Damage - Repair only</option>
+                            <option value="MAJOR">Major Damage - Compensation required</option>
+                            <option value="NO_DAMAGE">No Damage - Normal wear</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Compensation Amount</label>
+                        <input type="number" class="form-control" id="assessCompensation" value="0">
+                        <p class="form-hint">Enter amount for compensation order</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assessment Notes</label>
+                        <textarea class="form-control" id="assessNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('damageAssessmentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('damageAssessmentModal')">Submit Assessment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewBorrowing(id) { alert('Viewing borrowing: ' + id); }
+
+        function extendBorrowing(id) {
+            document.getElementById('extBorrowing').value = id;
+            loadExtensionInfo();
+            openModal('newExtensionModal');
+        }
+
+        function processReturn(id) {
+            alert('Processing return for: ' + id);
+        }
+
+        function assessDamage(id) {
+            document.getElementById('assessAsset').value = 'Camera Kit (AST-2022-078)';
+            document.getElementById('assessBorrower').value = 'Mike Williams';
+            document.getElementById('assessDescription').value = 'Lens scratch, body dented';
+            openModal('damageAssessmentModal');
+        }
+
+        function loadExtensionInfo() {
+            document.getElementById('extOriginalDuration').value = '10 days';
+        }
+
+        function checkApprovalRequirement() {
+            const original = parseInt(document.getElementById('extOriginalDuration').value) || 0;
+            const extended = parseInt(document.getElementById('extDays').value) || 0;
+            const percentage = (extended / original) * 100;
+            document.getElementById('approvalWarning').style.display = percentage > 50 ? 'block' : 'none';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

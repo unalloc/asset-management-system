@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.12 - Maintenance Backlog</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.12
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.12 - Maintenance Backlog</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.12-Maintenance%20Backlog.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('backlog')">Backlog Overview</button>
+                    <button class="tab" onclick="switchTab('aging')">Aging Analysis</button>
+                    <button class="tab" onclick="switchTab('bottlenecks')">Bottleneck Analysis</button>
+                </div>
+
+                <div class="tab-content active" id="backlog-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Backlog Summary</h2>
+                            <button class="btn btn-primary" onclick="openModal('clearanceModal')">Create Clearance Plan</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value">47</div>
+                                    <div class="stat-label">Total Backlog</div>
+                                </div>
+                                <div class="stat-card stat-warning">
+                                    <div class="stat-value">32</div>
+                                    <div class="stat-label">Current (7 days)</div>
+                                </div>
+                                <div class="stat-card stat-danger">
+                                    <div class="stat-value">8</div>
+                                    <div class="stat-label">Aging (7-30 days)</div>
+                                </div>
+                                <div class="stat-card stat-danger">
+                                    <div class="stat-value">5</div>
+                                    <div class="stat-label">Aged (30-90 days)</div>
+                                </div>
+                                <div class="stat-card stat-critical">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">Critical (>90 days)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Backlog Work Orders</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Status</option>
+                                    <option>Open</option>
+                                    <option>In Progress</option>
+                                    <option>On Hold</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>WO Number</th>
+                                            <th>Description</th>
+                                            <th>Age</th>
+                                            <th>Status</th>
+                                            <th>Priority</th>
+                                            <th>Est. Hours</th>
+                                            <th>Assigned To</th>
+                                            <th>Delay Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0845</td>
+                                            <td>Replace hydraulic pump on Press #2</td>
+                                            <td>95 days</td>
+                                            <td><span class="badge badge-secondary">On Hold</span></td>
+                                            <td><span class="badge badge-primary">High</span></td>
+                                            <td>8 hrs</td>
+                                            <td>Tom Wilson</td>
+                                            <td><span class="text-danger">Awaiting parts</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0852</td>
+                                            <td>Calibrate CNC Machine #3</td>
+                                            <td>87 days</td>
+                                            <td><span class="badge badge-secondary">On Hold</span></td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td>4 hrs</td>
+                                            <td>Mike Johnson</td>
+                                            <td><span class="text-danger">Calibration kit unavailable</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0868</td>
+                                            <td>Inspect fire suppression system</td>
+                                            <td>45 days</td>
+                                            <td><span class="badge badge-info">Open</span></td>
+                                            <td><span class="badge badge-primary">High</span></td>
+                                            <td>3 hrs</td>
+                                            <td>Unassigned</td>
+                                            <td><span class="text-warning">Resource constraint</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0875</td>
+                                            <td>Replace conveyor belt sections</td>
+                                            <td>28 days</td>
+                                            <td><span class="badge badge-info">Open</span></td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td>6 hrs</td>
+                                            <td>John Smith</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0880</td>
+                                            <td>Lubrication of packaging equipment</td>
+                                            <td>12 days</td>
+                                            <td><span class="badge badge-info">Open</span></td>
+                                            <td><span class="badge badge-secondary">Low</span></td>
+                                            <td>2 hrs</td>
+                                            <td>Tom Wilson</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0882</td>
+                                            <td>Replace air filter on HVAC Unit B</td>
+                                            <td>5 days</td>
+                                            <td><span class="badge badge-info">Open</span></td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td>1 hr</td>
+                                            <td>Sarah Davis</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="aging-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Backlog Aging Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Age Bucket</th>
+                                            <th>Count</th>
+                                            <th>Total Est. Hours</th>
+                                            <th>% of Backlog</th>
+                                            <th>Action Required</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-success">Current (0-7 days)</span></td>
+                                            <td>32</td>
+                                            <td>68 hrs</td>
+                                            <td>68%</td>
+                                            <td>Normal processing</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">Aging (7-30 days)</span></td>
+                                            <td>8</td>
+                                            <td>22 hrs</td>
+                                            <td>17%</td>
+                                            <td>Review required</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Aged (30-90 days)</span></td>
+                                            <td>5</td>
+                                            <td>18 hrs</td>
+                                            <td>11%</td>
+                                            <td>Escalation needed</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Critical (>90 days)</span></td>
+                                            <td>2</td>
+                                            <td>12 hrs</td>
+                                            <td>4%</td>
+                                            <td>Immediate attention</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Cause Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Delay Reason</th>
+                                            <th>Count</th>
+                                            <th>% of Delayed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Awaiting parts</td>
+                                            <td>6</td>
+                                            <td>40%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Resource constraint</td>
+                                            <td>5</td>
+                                            <td>33%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Equipment unavailable</td>
+                                            <td>2</td>
+                                            <td>13%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Permit/approval pending</td>
+                                            <td>2</td>
+                                            <td>13%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="bottlenecks-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Resource Bottleneck Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Bottleneck Criteria:</strong> Resource utilization exceeds 85% with queue above threshold
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Resource</th>
+                                            <th>Role</th>
+                                            <th>Available Hrs/Week</th>
+                                            <th>Scheduled Hrs</th>
+                                            <th>Utilization %</th>
+                                            <th>Queue Size</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Mike Johnson</td>
+                                            <td>HVAC/Electrical Tech</td>
+                                            <td>40 hrs</td>
+                                            <td>38 hrs</td>
+                                            <td><span class="text-danger">95%</span></td>
+                                            <td>6 WOs</td>
+                                            <td><span class="badge badge-danger">Bottleneck</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>John Smith</td>
+                                            <td>CNC/Robotics Tech</td>
+                                            <td>40 hrs</td>
+                                            <td>35 hrs</td>
+                                            <td>88%</td>
+                                            <td>4 WOs</td>
+                                            <td><span class="badge badge-warning">High</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tom Wilson</td>
+                                            <td>General/Hydraulics</td>
+                                            <td>40 hrs</td>
+                                            <td>30 hrs</td>
+                                            <td>75%</td>
+                                            <td>3 WOs</td>
+                                            <td><span class="badge badge-success">Normal</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sarah Davis</td>
+                                            <td>Electrical/PLC Tech</td>
+                                            <td>40 hrs</td>
+                                            <td>28 hrs</td>
+                                            <td>70%</td>
+                                            <td>2 WOs</td>
+                                            <td><span class="badge badge-success">Normal</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Resource Utilization Formula</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="formula-box">
+                                <code>Resource Utilization = Scheduled Hours / Available Hours</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="clearanceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Backlog Clearance Plan</h3>
+                <button class="modal-close" onclick="closeModal('clearanceModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Target Completion Date</label>
+                        <input type="date" class="form-control" id="targetDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Priority Focus</label>
+                        <select class="form-control" id="priorityFocus">
+                            <option value="">-- Select Focus --</option>
+                            <option value="critical">Critical (>90 days) first</option>
+                            <option value="aged">Aged (30-90 days) first</option>
+                            <option value="balance">Balanced approach</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Additional Resources Needed</label>
+                        <textarea class="form-control" id="addResources" rows="3" placeholder="Describe any additional resources required..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Backlog Reduction (%)</label>
+                        <input type="number" class="form-control" id="reductionTarget" value="50">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('clearanceModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('clearanceModal')">Create Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

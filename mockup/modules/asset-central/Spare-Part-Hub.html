@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spare Parts Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .parts-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .parts-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .parts-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .stock-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stock-indicator.high { color: var(--success); }
+        .stock-indicator.medium { color: var(--warning); }
+        .stock-indicator.low { color: var(--danger); }
+        .stock-indicator.out { color: var(--danger); font-weight: 600; }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .criticality-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .criticality-badge.critical { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+        .criticality-badge.high { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .criticality-badge.medium { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .criticality-badge.low { background: rgba(100, 116, 139, 0.1); color: var(--secondary); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Spare Parts Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">🔧</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Spare Parts Central</h1>
+                    <div class="action-buttons">
+                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-primary">+ Create Requisition</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search parts by ID, name, or category...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Parts</div>
+                        <div class="stat-value">1,248</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Below Safety Stock</div>
+                        <div class="stat-value" style="color: var(--danger);">23</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Out of Stock</div>
+                        <div class="stat-value" style="color: var(--danger);">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending Requisitions</div>
+                        <div class="stat-value" style="color: var(--warning);">18</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Value</div>
+                        <div class="stat-value">$2.4M</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Categories</option>
+                        <option value="bearings">Bearings</option>
+                        <option value="hydraulic">Hydraulic</option>
+                        <option value="electrical">Electrical</option>
+                        <option value="filters">Filters</option>
+                        <option value="sensors">Sensors</option>
+                        <option value="lubricants">Lubricants</option>
+                    </select>
+                    <select>
+                        <option value="">All Criticality</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select>
+                        <option value="">All Stock Status</option>
+                        <option value="high">High Stock</option>
+                        <option value="medium">Medium Stock</option>
+                        <option value="low">Low Stock</option>
+                        <option value="out">Out of Stock</option>
+                    </select>
+                    <select>
+                        <option value="">All Locations</option>
+                        <option value="plant-a">Plant A - Detroit</option>
+                        <option value="plant-b">Plant B - Chicago</option>
+                        <option value="plant-c">Plant C - Munich</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="parts-table">
+                        <thead>
+                            <tr>
+                                <th>Part Number</th>
+                                <th>Part Name</th>
+                                <th>Category</th>
+                                <th>Criticality</th>
+                                <th>Stock Qty</th>
+                                <th>Safety Stock</th>
+                                <th>Unit Cost</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html?part=SP-2024-001" class="asset-link">SP-2024-001</a></td>
+                                <td><strong>Bearing Assembly</strong></td>
+                                <td><span class="tag">Bearings</span></td>
+                                <td><span class="criticality-badge critical">Critical</span></td>
+                                <td><span class="stock-indicator high">45</span></td>
+                                <td>20</td>
+                                <td>$85.00</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-001" class="btn btn-sm btn-outline">Used By</a>
+                                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html?part=SP-2024-008" class="asset-link">SP-2024-008</a></td>
+                                <td><strong>Hydraulic Hose</strong></td>
+                                <td><span class="tag">Hydraulic</span></td>
+                                <td><span class="criticality-badge high">High</span></td>
+                                <td><span class="stock-indicator medium">12</span></td>
+                                <td>10</td>
+                                <td>$125.00</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-002" class="btn btn-sm btn-outline">Used By</a>
+                                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html?part=SP-2023-012" class="asset-link">SP-2023-012</a></td>
+                                <td><strong>Filter Cartridge</strong></td>
+                                <td><span class="tag">Filters</span></td>
+                                <td><span class="criticality-badge medium">Medium</span></td>
+                                <td><span class="stock-indicator low">5</span></td>
+                                <td>15</td>
+                                <td>$32.00</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-004" class="btn btn-sm btn-outline">Used By</a>
+                                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html?part=SP-2024-015" class="asset-link">SP-2024-015</a></td>
+                                <td><strong>Sensor Module</strong></td>
+                                <td><span class="tag">Electrical</span></td>
+                                <td><span class="criticality-badge critical">Critical</span></td>
+                                <td><span class="stock-indicator out">0</span></td>
+                                <td>5</td>
+                                <td>$450.00</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-005" class="btn btn-sm btn-outline">Used By</a>
+                                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html?part=SP-2023-005" class="asset-link">SP-2023-005</a></td>
+                                <td><strong>Lubricant 5W-30</strong></td>
+                                <td><span class="tag">Lubricants</span></td>
+                                <td><span class="criticality-badge low">Low</span></td>
+                                <td><span class="stock-indicator high">120 gal</span></td>
+                                <td>30 gal</td>
+                                <td>$22.50</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.5-Spare%20Parts%20Inventory%20Linkage.html" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 1,248 parts</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">...</button>
+                        <button class="btn btn-sm btn-outline">250</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Spare Parts for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

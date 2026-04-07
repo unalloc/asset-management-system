@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.8 - RCM Strategies</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.8
+                </div>
+                <div class="user-info">
+                    <span>Reliability Engineer</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.8 - RCM Strategies</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.8-RCM%20Strategies.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('analyses')">RCM Analyses</button>
+                    <button class="tab" onclick="switchTab('strategies')">Strategies</button>
+                    <button class="tab" onclick="switchTab('fmea')">FMEA</button>
+                    <button class="tab" onclick="switchTab('effectiveness')">Effectiveness</button>
+                </div>
+
+                <div class="tab-content active" id="analyses-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>RCM Analysis Register</h2>
+                            <button class="btn btn-primary" onclick="openModal('newAnalysisModal')">+ New Analysis</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Analysis Date</th>
+                                            <th>Analyst</th>
+                                            <th>RPN</th>
+                                            <th>Risk Level</th>
+                                            <th>Recommended Strategy</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td>2025-03-15</td>
+                                            <td>Sarah Chen</td>
+                                            <td>156</td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>HVAC System (AST-2023-045)</td>
+                                            <td>2025-03-10</td>
+                                            <td>John Smith</td>
+                                            <td>245</td>
+                                            <td><span class="badge badge-danger">High</span></td>
+                                            <td><span class="tag">Predictive</span></td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td>2025-03-20</td>
+                                            <td>Sarah Chen</td>
+                                            <td>42</td>
+                                            <td><span class="badge badge-success">Low</span></td>
+                                            <td><span class="tag">Run-to-Failure</span></td>
+                                            <td><span class="badge badge-warning">Pending Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Review</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assembly Robot #3 (AST-2024-022)</td>
+                                            <td>2025-02-28</td>
+                                            <td>Mike Johnson</td>
+                                            <td>180</td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td><span class="tag">Proactive</span></td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="strategies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Strategies</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('newStrategyModal')">+ Define Strategy</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="margin-bottom:0; border-left: 4px solid var(--danger);">
+                                    <div class="card-body">
+                                        <h3 style="font-size: 1rem; margin-bottom: var(--spacing-sm);">High Risk (RPN >= 200)</h3>
+                                        <p class="text-muted text-sm">Proactive or Predictive maintenance required</p>
+                                        <p style="margin-top: var(--spacing-md);"><strong>Assets:</strong> 3</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0; border-left: 4px solid var(--warning);">
+                                    <div class="card-body">
+                                        <h3 style="font-size: 1rem; margin-bottom: var(--spacing-sm);">Medium Risk (RPN 50-199)</h3>
+                                        <p class="text-muted text-sm">Preventive maintenance required</p>
+                                        <p style="margin-top: var(--spacing-md);"><strong>Assets:</strong> 12</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0; border-left: 4px solid var(--success);">
+                                    <div class="card-body">
+                                        <h3 style="font-size: 1rem; margin-bottom: var(--spacing-sm);">Low Risk (RPN < 50)</h3>
+                                        <p class="text-muted text-sm">Run-to-failure corrective maintenance allowed</p>
+                                        <p style="margin-top: var(--spacing-md);"><strong>Assets:</strong> 9</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-container mt-lg">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Strategy</th>
+                                            <th>Assets</th>
+                                            <th>Avg. Interval</th>
+                                            <th>Avg. Cost/ Cycle</th>
+                                            <th>Effectiveness</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="tag">Proactive</span></td>
+                                            <td>2</td>
+                                            <td>30 days</td>
+                                            <td>$2,500</td>
+                                            <td><span class="badge badge-success">92%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">Predictive</span></td>
+                                            <td>3</td>
+                                            <td>Usage-based</td>
+                                            <td>$1,800</td>
+                                            <td><span class="badge badge-success">88%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td>15</td>
+                                            <td>90 days</td>
+                                            <td>$1,200</td>
+                                            <td><span class="badge badge-warning">78%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">Run-to-Failure</span></td>
+                                            <td>4</td>
+                                            <td>N/A</td>
+                                            <td>$4,500</td>
+                                            <td><span class="badge badge-danger">65%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="fmea-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Failure Mode & Effects Analysis</h2>
+                            <button class="btn btn-primary btn-sm">+ Add Failure Mode</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>RPN Calculation:</strong> RPN = Severity x Occurrence x Detection (all rated 1-10)
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Failure Mode</th>
+                                            <th>Severity</th>
+                                            <th>Occurrence</th>
+                                            <th>Detection</th>
+                                            <th>RPN</th>
+                                            <th>Risk Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>HVAC System</td>
+                                            <td>Compressor Failure</td>
+                                            <td>9</td>
+                                            <td>4</td>
+                                            <td>6</td>
+                                            <td><span class="text-danger">216</span></td>
+                                            <td><span class="badge badge-danger">High</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HVAC System</td>
+                                            <td>Refrigerant Leak</td>
+                                            <td>7</td>
+                                            <td>5</td>
+                                            <td>7</td>
+                                            <td><span class="text-danger">245</span></td>
+                                            <td><span class="badge badge-danger">High</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td>Spindle Bearing Wear</td>
+                                            <td>8</td>
+                                            <td>3</td>
+                                            <td>6</td>
+                                            <td><span class="text-warning">144</span></td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compressor Unit</td>
+                                            <td>Belt Wear</td>
+                                            <td>4</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td><span class="text-success">48</span></td>
+                                            <td><span class="badge badge-success">Low</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="effectiveness-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Strategy Effectiveness Tracking</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="height: 250px; background: var(--bg-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-lg);">
+                                <div class="text-center text-muted">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                                    </svg>
+                                    <p style="margin-top: 1rem;">Strategy Effectiveness Comparison Chart</p>
+                                    <p class="text-sm">Predicted vs Actual Performance</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Strategy</th>
+                                            <th>MTBF Target</th>
+                                            <th>MTBF Actual</th>
+                                            <th>MTTR Target</th>
+                                            <th>MTTR Actual</th>
+                                            <th>Cost Variance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Proactive</td>
+                                            <td>45 days</td>
+                                            <td>48 days</td>
+                                            <td>4 hours</td>
+                                            <td>3.5 hours</td>
+                                            <td><span class="text-success">-8%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Predictive</td>
+                                            <td>60 days</td>
+                                            <td>55 days</td>
+                                            <td>3 hours</td>
+                                            <td>3.2 hours</td>
+                                            <td><span class="text-warning">+5%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Preventive</td>
+                                            <td>30 days</td>
+                                            <td>28 days</td>
+                                            <td>6 hours</td>
+                                            <td>6.5 hours</td>
+                                            <td><span class="text-warning">+12%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newAnalysisModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New RCM Analysis</h3>
+                <button class="modal-close" onclick="closeModal('newAnalysisModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="analysisAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                            <option value="AST-2023-045">HVAC System</option>
+                            <option value="AST-2024-015">Compressor Unit</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Function Description</label>
+                        <textarea class="form-control" id="functionDesc" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Failure Modes</label>
+                        <textarea class="form-control" id="failureModes" rows="3" placeholder="Enter failure modes, one per line"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Severity Rating (1-10)</label>
+                            <input type="number" class="form-control" id="severityRating">
+                        </div>
+                        <div class="form-group">
+                            <label>Occurrence Rating (1-10)</label>
+                            <input type="number" class="form-control" id="occurrenceRating">
+                        </div>
+                        <div class="form-group">
+                            <label>Detection Rating (1-10)</label>
+                            <input type="number" class="form-control" id="detectionRating">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newAnalysisModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newAnalysisModal')">Create Analysis</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="newStrategyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Define Maintenance Strategy</h3>
+                <button class="modal-close" onclick="closeModal('newStrategyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Strategy Type</label>
+                        <select class="form-control" id="strategyType">
+                            <option value="">-- Select Strategy --</option>
+                            <option value="Proactive">Proactive</option>
+                            <option value="Predictive">Predictive</option>
+                            <option value="Preventive">Preventive</option>
+                            <option value="Run-to-Failure">Run-to-Failure</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Interval Value</label>
+                            <input type="number" class="form-control" id="intervalValue">
+                        </div>
+                        <div class="form-group">
+                            <label>Interval Unit</label>
+                            <select class="form-control" id="intervalUnit">
+                                <option value="Days">Days</option>
+                                <option value="Weeks">Weeks</option>
+                                <option value="Months">Months</option>
+                                <option value="Hours">Operating Hours</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estimated Cost per Cycle</label>
+                        <input type="number" class="form-control" id="strategyCost">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newStrategyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newStrategyModal')">Save Strategy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

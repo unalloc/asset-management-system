@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.2 - Automated Depreciation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.2 - Automated Depreciation</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.2-Automated%20Depreciation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Depreciation Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Asset Value</p>
+                            <h2 style="font-size: 1.5rem;">$12,450,000</h2>
+                            <p class="text-muted">156 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Accumulated Depreciation</p>
+                            <h2 style="font-size: 1.5rem;">$3,250,000</h2>
+                            <p class="text-success">+ $85,000 this month</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Net Book Value</p>
+                            <h2 style="font-size: 1.5rem;">$9,200,000</h2>
+                            <p class="text-muted">73.9% of original</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Depreciation This Period</p>
+                            <h2 style="font-size: 1.5rem;">$125,450</h2>
+                            <p>April 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('assets')">Asset Depreciation</button>
+                    <button class="tab" onclick="switchTab('methods')">Depreciation Methods</button>
+                    <button class="tab" onclick="switchTab('journals')">Journal Entries</button>
+                    <button class="tab" onclick="switchTab('reports')">Reports</button>
+                </div>
+
+                <!-- Assets Tab -->
+                <div class="tab-content active" id="assets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Depreciation Schedule</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Assets</option>
+                                    <option>By Type</option>
+                                    <option>By Location</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm">Calculate Depreciation</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Acquisition Date</th>
+                                            <th>Original Cost</th>
+                                            <th>Useful Life</th>
+                                            <th>Depreciation Method</th>
+                                            <th>Accumulated</th>
+                                            <th>Net Book Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>2022-01-15</td>
+                                            <td>$150,000</td>
+                                            <td>10 years</td>
+                                            <td><span class="tag">Straight-line</span></td>
+                                            <td>$45,000</td>
+                                            <td>$105,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td>2023-03-01</td>
+                                            <td>$85,000</td>
+                                            <td>5 years</td>
+                                            <td><span class="tag">Declining Balance</span></td>
+                                            <td>$42,500</td>
+                                            <td>$42,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-008</td>
+                                            <td>Delivery Vehicle #5</td>
+                                            <td>2024-06-15</td>
+                                            <td>$65,000</td>
+                                            <td>5 years</td>
+                                            <td><span class="tag">Sum-of-Years</span></td>
+                                            <td>$19,500</td>
+                                            <td>$45,500</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Methods Tab -->
+                <div class="tab-content" id="methods-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Depreciation Methods Configuration</h2>
+                            <button class="btn btn-primary btn-sm">+ Add Method</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Method Name</th>
+                                            <th>Type</th>
+                                            <th>Formula</th>
+                                            <th>Applicable Standards</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Straight-line</td>
+                                            <td>Time-based</td>
+                                            <td>(Cost - Salvage) / Useful Life</td>
+                                            <td><span class="tag">US GAAP</span> <span class="tag">IFRS</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Declining Balance (200%)</td>
+                                            <td>Accelerated</td>
+                                            <td>2 × (1/Useful Life) × Book Value</td>
+                                            <td><span class="tag">US GAAP</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Declining Balance (150%)</td>
+                                            <td>Accelerated</td>
+                                            <td>1.5 × (1/Useful Life) × Book Value</td>
+                                            <td><span class="tag">US GAAP</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sum-of-Years Digits</td>
+                                            <td>Accelerated</td>
+                                            <td>(Remaining Life / SYD) × (Cost - Salvage)</td>
+                                            <td><span class="tag">US GAAP</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Units of Production</td>
+                                            <td>Usage-based</td>
+                                            <td>(Units This Period / Total Units) × (Cost - Salvage)</td>
+                                            <td><span class="tag">US GAAP</span> <span class="tag">IFRS</span></td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journals Tab -->
+                <div class="tab-content" id="journals-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Depreciation Journal Entries</h2>
+                            <button class="btn btn-outline btn-sm">Export to ERP</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Journal Date</th>
+                                            <th>Description</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Status</th>
+                                            <th>Posted By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>April 2025</td>
+                                            <td>2025-04-30</td>
+                                            <td>Depreciation - April 2025</td>
+                                            <td>Depreciation Expense: $125,450</td>
+                                            <td>Accumulated Depreciation: $125,450</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td>System</td>
+                                        </tr>
+                                        <tr>
+                                            <td>March 2025</td>
+                                            <td>2025-03-31</td>
+                                            <td>Depreciation - March 2025</td>
+                                            <td>Depreciation Expense: $125,000</td>
+                                            <td>Accumulated Depreciation: $125,000</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                            <td>System</td>
+                                        </tr>
+                                        <tr>
+                                            <td>February 2025</td>
+                                            <td>2025-02-28</td>
+                                            <td>Depreciation - February 2025</td>
+                                            <td>Depreciation Expense: $118,500</td>
+                                            <td>Accumulated Depreciation: $118,500</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                            <td>System</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Tab -->
+                <div class="tab-content" id="reports-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Depreciation Reports</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>Asset Register</h3>
+                                        <p class="text-muted">Complete depreciation schedule by asset</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>GL Reconciliation</h3>
+                                        <p class="text-muted">Depreciation vs. general ledger</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>Tax Report</h3>
+                                        <p class="text-muted">Tax depreciation by jurisdiction</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

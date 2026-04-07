@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.12 - Retirement Planning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.12
+                </div>
+                <div class="user-info">
+                    <span>Finance Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.12 - Retirement Planning</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.12-Retirement%20Planning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Assets Analyzed</p>
+                            <h2 style="font-size: 1.5rem;">156</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">High Risk Flagged</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Planned Retirements</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Budget Required</p>
+                            <h2 style="font-size: 1.5rem;">$245,000</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('predictions')">Retirement Predictions</button>
+                    <button class="tab" onclick="switchTab('risk')">Risk Analysis</button>
+                    <button class="tab" onclick="switchTab('plans')">Retirement Plans</button>
+                    <button class="tab" onclick="switchTab('budget')">Budget Planning</button>
+                </div>
+
+                <div class="tab-content active" id="predictions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Retirement Predictions</h2>
+                            <button class="btn btn-primary" onclick="openModal('newPredictionModal')">+ New Prediction</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Predicted Date</th>
+                                            <th>Confidence</th>
+                                            <th>Risk Score</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>2027-06</td>
+                                            <td>85%</td>
+                                            <td><span class="badge badge-danger">HIGH</span></td>
+                                            <td><span class="badge badge-warning">Monitor</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewPrediction('AST-2020-015')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick='createPlan("AST-2020-015")'>Plan</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2019-042</td>
+                                            <td>Delivery Van #1</td>
+                                            <td>2026-12</td>
+                                            <td>72%</td>
+                                            <td><span class="badge badge-warning">MEDIUM</span></td>
+                                            <td><span class="badge badge-info">Scheduled</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewPrediction('AST-2019-042')">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="risk-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Risk Score Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Risk Score Formula:</strong> Maintenance cost trend (30%), Failure frequency (30%), Efficiency decline (20%), Compliance risk (20%)
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Maint. Trend</th>
+                                            <th>Failure Freq.</th>
+                                            <th>Efficiency</th>
+                                            <th>Compliance</th>
+                                            <th>Total Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td class="text-danger">HIGH</td>
+                                            <td class="text-danger">HIGH</td>
+                                            <td class="text-warning">MED</td>
+                                            <td class="text-success">LOW</td>
+                                            <td><span class="badge badge-danger">78</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="plans-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Retirement Plans</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Plan ID</th>
+                                            <th>Asset</th>
+                                            <th>Planned Date</th>
+                                            <th>Replacement Cost</th>
+                                            <th>Budget Status</th>
+                                            <th>Replacement Schedule</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RP-2025-008</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>2027-06</td>
+                                            <td>$150,000</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td><span class="badge badge-info">SCH-2025-012</span></td>
+                                            <td><span class="badge badge-info">Draft</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="budget-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Retirement Budget Planning</h2>
+                            <button class="btn btn-primary" onclick="openModal('newBudgetModal')">+ Add Budget Item</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Asset</th>
+                                            <th>Disposal Cost</th>
+                                            <th>Replacement Cost</th>
+                                            <th>Total Budget</th>
+                                            <th>Allocated</th>
+                                            <th>Variance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025</td>
+                                            <td>Delivery Van #1</td>
+                                            <td>$2,000</td>
+                                            <td>$45,000</td>
+                                            <td>$47,000</td>
+                                            <td>$30,000</td>
+                                            <td><span class="text-danger">-$17,000</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newPredictionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Retirement Prediction</h3>
+                <button class="modal-close" onclick="closeModal('newPredictionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="predictionForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="predAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2020-015">CNC Machine #1 - $85,000</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Physical Life (Years)</label>
+                            <input type="number" class="form-control" id="predPhysicalLife">
+                        </div>
+                        <div class="form-group">
+                            <label>Technical Life (Years)</label>
+                            <input type="number" class="form-control" id="predTechnicalLife">
+                        </div>
+                        <div class="form-group">
+                            <label>Economic Life (Years)</label>
+                            <input type="number" class="form-control" id="predEconomicLife">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Budget Period</label>
+                        <input type="number" class="form-control" id="predBudgetPeriod">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newPredictionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newPredictionModal')">Generate Prediction</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewPrediction(id) { alert('Viewing prediction for: ' + id); }
+        function createPlan(id) { alert('Creating retirement plan for: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

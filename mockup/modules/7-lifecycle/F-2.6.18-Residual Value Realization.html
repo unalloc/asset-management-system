@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.18 - Asset Residual Value Realization</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.18
+                </div>
+                <div class="user-info">
+                    <span>Finance Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.18 - Asset Residual Value Realization</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.18-Asset%20Residual%20Value%20Realization.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Disposals This Month</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Proceeds</p>
+                            <h2 style="font-size: 1.5rem;">$125,000</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg. Realization Rate</p>
+                            <h2 style="font-size: 1.5rem;">92%</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Gain/Loss</p>
+                            <h2 style="font-size: 1.5rem;">+$15,200</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('realization')">Residual Value Tracking</button>
+                    <button class="tab" onclick="switchTab('comparison')">Expected vs Actual</button>
+                    <button class="tab" onclick="switchTab('gainloss')">Gain/Loss Analysis</button>
+                    <button class="tab" onclick="switchTab('warnings')">Low Realization Warnings</button>
+                </div>
+
+                <div class="tab-content active" id="realization-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Residual Value Records</h2>
+                            <button class="btn btn-primary" onclick="openModal('newRealizationModal')">+ Record Disposal</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset ID</th>
+                                            <th>Disposal Date</th>
+                                            <th>Expected Value</th>
+                                            <th>Actual Value</th>
+                                            <th>Variance</th>
+                                            <th>Realization Rate</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RV-2025-012</td>
+                                            <td>AST-2019-078</td>
+                                            <td>2025-04-03</td>
+                                            <td>$8,000</td>
+                                            <td>$8,500</td>
+                                            <td><span class="text-success">+$500</span></td>
+                                            <td><span class="badge badge-success">106%</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewRecord('RV-2025-012')">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RV-2025-011</td>
+                                            <td>AST-2020-045</td>
+                                            <td>2025-04-02</td>
+                                            <td>$12,000</td>
+                                            <td>$10,500</td>
+                                            <td><span class="text-danger">-$1,500</span></td>
+                                            <td><span class="badge badge-warning">87.5%</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewRecord('RV-2025-011')">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="comparison-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Expected vs Actual Residual Value</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Formula:</strong> Realization Rate = (Actual Residual Value / Expected Residual Value) × 100
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Expected RV</th>
+                                            <th>Sale Price</th>
+                                            <th>Cost Savings</th>
+                                            <th>Actual RV</th>
+                                            <th>Variance</th>
+                                            <th>Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2019-078</td>
+                                            <td>Lab Equipment</td>
+                                            <td>$8,000</td>
+                                            <td>$7,500</td>
+                                            <td>$1,000</td>
+                                            <td>$8,500</td>
+                                            <td><span class="text-success">+$500</span></td>
+                                            <td><span class="badge badge-success">106%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="gainloss-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gain/Loss on Disposal</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Formula:</strong> Gain/Loss = Proceeds - Carrying Value (Acquisition Cost - Accumulated Depreciation)
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset</th>
+                                            <th>Carrying Value</th>
+                                            <th>Proceeds</th>
+                                            <th>Gain/Loss</th>
+                                            <th>Disposal Method</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RV-2025-012</td>
+                                            <td>Lab Equipment (AST-2019-078)</td>
+                                            <td>$6,500</td>
+                                            <td>$7,500</td>
+                                            <td><span class="text-success">+$1,000</span></td>
+                                            <td><span class="tag">Sold</span></td>
+                                            <td>2025-04-03</td>
+                                        </tr>
+                                        <tr>
+                                            <td>RV-2025-010</td>
+                                            <td>Office Furniture (AST-2018-034)</td>
+                                            <td>$3,200</td>
+                                            <td>$2,800</td>
+                                            <td><span class="text-danger">-$400</span></td>
+                                            <td><span class="tag">Donated</span></td>
+                                            <td>2025-04-01</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="warnings-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Low Realization Warnings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Rule:</strong> Low realization (< expected by threshold) triggers warning
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Expected</th>
+                                            <th>Actual</th>
+                                            <th>Rate</th>
+                                            <th>Threshold</th>
+                                            <th>Variance</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-045</td>
+                                            <td>Delivery Van</td>
+                                            <td>$12,000</td>
+                                            <td>$10,500</td>
+                                            <td><span class="text-warning">87.5%</span></td>
+                                            <td>90%</td>
+                                            <td><span class="text-danger">-12.5%</span></td>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newRealizationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Record Residual Value</h3>
+                <button class="modal-close" onclick="closeModal('newRealizationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="realizationForm">
+                    <div class="form-group">
+                        <label>Disposed Asset</label>
+                        <select class="form-control" id="rvAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2020-045">Delivery Van #2 - Carrying: $15,000 - Expected RV: $12,000</option>
+                        </select>
+                        <p class="form-hint">Only disposed assets appear here</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expected Residual Value</label>
+                            <input type="text" class="form-control" id="rvExpected" disabled placeholder="Auto-populated">
+                        </div>
+                        <div class="form-group">
+                            <label>Carrying Value</label>
+                            <input type="text" class="form-control" id="rvCarrying" disabled placeholder="Auto-populated">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sale Price</label>
+                        <input type="number" class="form-control" id="rvSalePrice">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cost Savings</label>
+                        <input type="number" class="form-control" id="rvSavings" value="0">
+                        <p class="form-hint">Avoided disposal costs</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Actual Residual Value</label>
+                        <input type="text" class="form-control" id="rvActual" disabled placeholder="Auto-calculated">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Buyer Information</label>
+                        <input type="text" class="form-control" id="rvBuyer" placeholder="Optional buyer details">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Realization Date</label>
+                        <input type="date" class="form-control" id="rvDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newRealizationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newRealizationModal')">Record Disposal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewRecord(id) { alert('Viewing record: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

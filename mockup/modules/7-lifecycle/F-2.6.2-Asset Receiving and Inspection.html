@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.2 - Asset Receiving and Inspection</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.2
+                </div>
+                <div class="user-info">
+                    <span>Warehouse Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.2 - Asset Receiving and Inspection</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.2-Asset%20Receiving%20and%20Inspection.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Receipts</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Inspected Today</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Inspection</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Rejected This Week</p>
+                            <h2 style="font-size: 1.5rem;">1</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('pending')">Pending Receipt</button>
+                    <button class="tab" onclick="switchTab('inspections')">Inspections</button>
+                    <button class="tab" onclick="switchTab('qualified')">Qualified</button>
+                    <button class="tab" onclick="switchTab('rejected')">Rejected</button>
+                </div>
+
+                <div class="tab-content active" id="pending-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Receipts</h2>
+                            <button class="btn btn-primary" onclick="openModal('newReceiptModal')">+ New Receipt</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>PO Number</th>
+                                            <th>Supplier</th>
+                                            <th>Expected Qty</th>
+                                            <th>Received</th>
+                                            <th>Location</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PO-2025-089</td>
+                                            <td>TechCorp Industries</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td>Warehouse A</td>
+                                            <td><span class="badge badge-warning">Awaiting Receipt</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="receiveAsset('PO-2025-089')">Receive</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>PO-2025-088</td>
+                                            <td>Industrial Supply Co</td>
+                                            <td>4</td>
+                                            <td>2</td>
+                                            <td>Warehouse B</td>
+                                            <td><span class="badge badge-info">Partially Received</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="receiveAsset('PO-2025-088')">Receive</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="inspections-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Inspection Queue</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Receipt ID</th>
+                                            <th>Asset</th>
+                                            <th>Inspector</th>
+                                            <th>Scheduled Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>REC-2025-034</td>
+                                            <td>CNC Machine (AST-2025-012)</td>
+                                            <td>Mike Wilson</td>
+                                            <td>2025-04-04</td>
+                                            <td><span class="badge badge-warning">Pending Inspection</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="inspectAsset('REC-2025-034')">Inspect</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="qualified-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Qualified Assets</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>PO Number</th>
+                                            <th>Inspection Date</th>
+                                            <th>Inspector</th>
+                                            <th>Result</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2025-011</td>
+                                            <td>Office Furniture Set</td>
+                                            <td>PO-2025-087</td>
+                                            <td>2025-04-02</td>
+                                            <td>Jane Smith</td>
+                                            <td><span class="badge badge-success">QUALIFIED</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="rejected-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Rejected Assets</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>PO Number</th>
+                                            <th>Rejection Date</th>
+                                            <th>Reason</th>
+                                            <th>Return Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2025-010</td>
+                                            <td>Lab Equipment</td>
+                                            <td>PO-2025-086</td>
+                                            <td>2025-04-01</td>
+                                            <td>Damaged in transit</td>
+                                            <td><span class="badge badge-warning">Return Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newReceiptModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Receipt</h3>
+                <button class="modal-close" onclick="closeModal('newReceiptModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="receiptForm">
+                    <div class="form-group">
+                        <label>PO Number</label>
+                        <select class="form-control" id="receiptPO" onchange="loadPOInfo()">
+                            <option value="">-- Select PO --</option>
+                            <option value="PO-2025-089">PO-2025-089 - TechCorp Industries - $85,000</option>
+                            <option value="PO-2025-088">PO-2025-088 - Industrial Supply Co - $12,500</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Expected Quantity</label>
+                            <input type="text" class="form-control" id="expectedQty" disabled placeholder="Auto-populated">
+                        </div>
+                        <div class="form-group">
+                            <label>Received Quantity</label>
+                            <input type="number" class="form-control" id="receivedQty">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <select class="form-control" id="receiptLocation">
+                            <option value="">-- Select Location --</option>
+                            <option value="WH-A">Warehouse A</option>
+                            <option value="WH-B">Warehouse B</option>
+                            <option value="WH-C">Warehouse C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="receiptNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newReceiptModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newReceiptModal')">Submit Receipt</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="inspectionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Asset Inspection</h3>
+                <button class="modal-close" onclick="closeModal('inspectionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="inspectionForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <input type="text" class="form-control" id="inspectAsset" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Inspector</label>
+                        <select class="form-control" id="inspector">
+                            <option value="">-- Select Inspector --</option>
+                            <option value="INS001">Mike Wilson (Certified)</option>
+                            <option value="INS002">Jane Smith (Certified)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Inspection Date</label>
+                        <input type="date" class="form-control" id="inspectionDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Result</label>
+                        <select class="form-control" id="inspectionResult" onchange="toggleRejectionReason()">
+                            <option value="">-- Select Result --</option>
+                            <option value="QUALIFIED">QUALIFIED</option>
+                            <option value="PENDING_REPAIR">PENDING_REPAIR</option>
+                            <option value="REJECTED">REJECTED</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="rejectionGroup" style="display:none;">
+                        <label>Rejection Reason</label>
+                        <textarea class="form-control" id="rejectionReason" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Findings</label>
+                        <textarea class="form-control" id="inspectionFindings" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('inspectionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('inspectionModal')">Submit Inspection</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+
+        function receiveAsset(id) {
+            document.getElementById('receiptPO').value = id;
+            openModal('newReceiptModal');
+        }
+
+        function inspectAsset(id) {
+            document.getElementById('inspectAsset').value = id;
+            openModal('inspectionModal');
+        }
+
+        function loadPOInfo() {
+            const poData = {
+                'PO-2025-089': { expected: 1 },
+                'PO-2025-088': { expected: 4 }
+            };
+            const po = document.getElementById('receiptPO').value;
+            document.getElementById('expectedQty').value = poData[po]?.expected || '';
+        }
+
+        function toggleRejectionReason() {
+            const result = document.getElementById('inspectionResult').value;
+            document.getElementById('rejectionGroup').style.display = result === 'REJECTED' ? 'block' : 'none';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

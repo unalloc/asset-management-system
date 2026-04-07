@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.2 - Custom Asset Categories</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.2 - Custom Asset Categories</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.2-Custom%20Asset%20Categories.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Categories</h2>
+                        <button class="btn btn-primary" onclick="openModal('addCategoryModal')">+ Add Category</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Category Code</th>
+                                        <th>Category Name</th>
+                                        <th>Parent Category</th>
+                                        <th>Level</th>
+                                        <th>Status</th>
+                                        <th>Asset Count</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoryTable">
+                                    <tr>
+                                        <td>FIN-REALEST</td>
+                                        <td>Real Estate</td>
+                                        <td>—</td>
+                                        <td>1</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>24</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('FIN-REALEST')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('FIN-REALEST')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FIN-BUILD</td>
+                                        <td>Buildings</td>
+                                        <td>FIN-REALEST</td>
+                                        <td>2</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>12</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('FIN-BUILD')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('FIN-BUILD')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FIN-LAND</td>
+                                        <td>Land</td>
+                                        <td>FIN-REALEST</td>
+                                        <td>2</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>8</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('FIN-LAND')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('FIN-LAND')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IT-SERVER</td>
+                                        <td>IT Servers</td>
+                                        <td>IT-HW</td>
+                                        <td>2</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>156</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('IT-SERVER')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('IT-SERVER')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IT-HW</td>
+                                        <td>IT Hardware</td>
+                                        <td>—</td>
+                                        <td>1</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>342</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('IT-HW')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('IT-HW')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VEH-FLEET</td>
+                                        <td>Fleet Vehicles</td>
+                                        <td>—</td>
+                                        <td>1</td>
+                                        <td><span class="badge badge-warning">Inactive</span></td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCategory('VEH-FLEET')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editCategory('VEH-FLEET')">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addCategoryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Category</h3>
+                <button class="modal-close" onclick="closeModal('addCategoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addCategoryForm">
+                    <div class="form-group">
+                        <label>Category Code</label>
+                        <input type="text" class="form-control" id="categoryCode"
+                               placeholder="e.g., FIN-REALEST">
+                        <p class="form-hint">1-50 alphanumeric characters or underscores</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category Name</label>
+                        <input type="text" class="form-control" id="categoryName"
+                               placeholder="e.g., Real Estate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Category</label>
+                        <select class="form-control" id="parentCategory">
+                            <option value="">-- No Parent --</option>
+                            <option value="FIN-REALEST">Real Estate</option>
+                            <option value="IT-HW">IT Hardware</option>
+                            <option value="VEHICLE">Vehicles</option>
+                        </select>
+                        <p class="form-hint">Select if this category is a sub-category</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="categoryDesc"
+                                  placeholder="Detailed description of the category"></textarea>
+                        <p class="form-hint">Maximum 500 characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sort Order</label>
+                        <input type="number" class="form-control" id="sortOrder" value="0">
+                        <p class="form-hint">Display ordering within siblings</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="categoryStatus">
+                            <option value="Draft">Draft</option>
+                            <option value="Active" selected>Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addCategoryModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addCategoryModal')">Add Category</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewCategoryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Category Details</h3>
+                <button class="modal-close" onclick="closeModal('viewCategoryModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewCategoryContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewCategoryModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewCategory(code) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category Code</label>
+                        <p><strong>${code}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Parent Category</label>
+                    <p>Real Estate</p>
+                </div>
+                <div class="form-group">
+                    <label>Hierarchy Level</label>
+                    <p>2</p>
+                </div>
+                <div class="form-group">
+                    <label>Asset Count</label>
+                    <p>24 assets classified</p>
+                </div>
+                <div class="form-group">
+                    <label>Inherited Attributes</label>
+                    <p>Depreciation Method, Useful Life, Cost Center</p>
+                </div>
+            `;
+            document.getElementById('viewCategoryContent').innerHTML = content;
+            openModal('viewCategoryModal');
+        }
+
+        function editCategory(code) {
+            alert('Edit functionality for: ' + code);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

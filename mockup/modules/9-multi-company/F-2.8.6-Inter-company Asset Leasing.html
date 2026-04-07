@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.6 - Inter-company Asset Leasing</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.6
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.6 - Inter-company Asset Leasing</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.6-Inter-company%20Asset%20Leasing.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Lease Contracts</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newLeaseModal')">+ Create Lease</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Lease ID</th>
+                                        <th>Asset</th>
+                                        <th>Lessor</th>
+                                        <th>Lessee</th>
+                                        <th>Type</th>
+                                        <th>Term</th>
+                                        <th>Monthly Payment</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LS-2026-001</td>
+                                        <td>Excavator EX-300</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-success">FINANCE</span></td>
+                                        <td>48 months</td>
+                                        <td>$4,500</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LS-2026-002</td>
+                                        <td>Generator GEN-100</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-warning">OPERATING</span></td>
+                                        <td>24 months</td>
+                                        <td>$2,200</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Lease Classification</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-2">
+                            <div class="card" style="border: 2px solid var(--success);">
+                                <div class="card-body">
+                                    <h3 style="color: var(--success);">Finance Lease</h3>
+                                    <ul style="margin-top: 1rem;">
+                                        <li>Ownership transfers at end</li>
+                                        <li>OR substantially all risks/rewards transferred</li>
+                                        <li>Creates ROU asset + liability</li>
+                                    </ul>
+                                    <p class="text-muted" style="margin-top: 1rem; font-size: 0.875rem;">Per IFRS 16 / ASC 842</p>
+                                </div>
+                            </div>
+                            <div class="card" style="border: 2px solid var(--warning);">
+                                <div class="card-body">
+                                    <h3 style="color: var(--warning);">Operating Lease</h3>
+                                    <ul style="margin-top: 1rem;">
+                                        <li>All other leases</li>
+                                        <li>Off-balance sheet treatment</li>
+                                        <li>Lease expense recognized straight-line</li>
+                                    </ul>
+                                    <p class="text-muted" style="margin-top: 1rem; font-size: 0.875rem;">Simplified accounting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Exceptions</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Exception Type</th>
+                                        <th>Threshold</th>
+                                        <th>Treatment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Short-term</span></td>
+                                        <td>< 12 months</td>
+                                        <td>Exclude from balance sheet, expense immediately</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Low-value</span></td>
+                                        <td>< $5,000 USD</td>
+                                        <td>Expense immediately</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newLeaseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Inter-company Lease</h3>
+                <button class="modal-close" onclick="closeModal('newLeaseModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="leaseForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" name="assetId">
+                            <option value="">Select Asset</option>
+                            <option value="AST-001">Excavator EX-300 (AST-001)</option>
+                            <option value="AST-002">Generator GEN-100 (AST-002)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Lessor Company</label>
+                            <select class="form-control" name="lessorCompany">
+                                <option value="">Select Company</option>
+                                <option value="US0001">US Manufacturing Inc.</option>
+                                <option value="EU0001">EU Holdings GmbH</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Lessee Company</label>
+                            <select class="form-control" name="lesseeCompany">
+                                <option value="">Select Company</option>
+                                <option value="US0001">US Manufacturing Inc.</option>
+                                <option value="EU0001">EU Holdings GmbH</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lease Type</label>
+                        <select class="form-control" name="leaseType">
+                            <option value="">Select Type</option>
+                            <option value="FINANCE">Finance Lease</option>
+                            <option value="OPERATING">Operating Lease</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Lease Term (months)</label>
+                            <input type="number" class="form-control" name="termMonths">
+                        </div>
+                        <div class="form-group">
+                            <label>Monthly Payment</label>
+                            <input type="number" class="form-control" name="paymentAmount" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Currency</label>
+                            <select class="form-control" name="currency">
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount Rate</label>
+                            <input type="number" class="form-control" name="discountRate" step="0.01" placeholder="e.g., 5.5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date</label>
+                        <input type="date" class="form-control" name="startDate">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newLeaseModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newLeaseModal')">Create Lease</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

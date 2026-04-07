@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.8 - Component-Level Financial</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.8
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.8 - Component-Level Financial</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.8-Component-Level%20Financial.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Parent Assets</p>
+                            <h2 style="font-size: 1.5rem;">24</h2>
+                            <p class="text-muted">With components</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Components</p>
+                            <h2 style="font-size: 1.5rem;">87</h2>
+                            <p class="text-muted">Active components</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Parent Value</p>
+                            <h2 style="font-size: 1.5rem;">$5,600,000</h2>
+                            <p class="text-muted">$4,200,000 NBV</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Replacement</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                            <p class="text-muted">Components due</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('parents')">Parent Assets</button>
+                    <button class="tab" onclick="switchTab('components')">Components</button>
+                    <button class="tab" onclick="switchTab('schedules')">Depreciation Schedules</button>
+                    <button class="tab" onclick="switchTab('replacement')">Replacements</button>
+                </div>
+
+                <div class="tab-content active" id="parents-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Parent Assets with Components</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('add-parent')">+ Define Parent Asset</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Original Cost</th>
+                                            <th>Components</th>
+                                            <th>Accumulated Dep.</th>
+                                            <th>Net Book Value</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2021-001</td>
+                                            <td>Injection Molding Machine</td>
+                                            <td>$450,000</td>
+                                            <td>5</td>
+                                            <td>$135,000</td>
+                                            <td>$315,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Components</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2022-003</td>
+                                            <td>Commercial HVAC System</td>
+                                            <td>$280,000</td>
+                                            <td>4</td>
+                                            <td>$84,000</td>
+                                            <td>$196,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Components</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2020-008</td>
+                                            <td>Production Robot Arm</td>
+                                            <td>$180,000</td>
+                                            <td>3</td>
+                                            <td>$90,000</td>
+                                            <td>$90,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Components</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="components-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Component Registry</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('add-component')">+ Add Component</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Component ID</th>
+                                            <th>Parent Asset</th>
+                                            <th>Component Name</th>
+                                            <th>Allocation %</th>
+                                            <th>Cost</th>
+                                            <th>Useful Life</th>
+                                            <th>Method</th>
+                                            <th>NBV</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CMP-2021-001-01</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Hydraulic Press Unit</td>
+                                            <td>35%</td>
+                                            <td>$157,500</td>
+                                            <td>10 years</td>
+                                            <td><span class="tag">Straight-line</span></td>
+                                            <td>$110,250</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CMP-2021-001-02</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Control System</td>
+                                            <td>25%</td>
+                                            <td>$112,500</td>
+                                            <td>5 years</td>
+                                            <td><span class="tag">Declining Balance</span></td>
+                                            <td>$67,500</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CMP-2021-001-03</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Conveyor System</td>
+                                            <td>20%</td>
+                                            <td>$90,000</td>
+                                            <td>7 years</td>
+                                            <td><span class="tag">Straight-line</span></td>
+                                            <td>$64,286</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CMP-2021-001-04</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Electrical Panel</td>
+                                            <td>12%</td>
+                                            <td>$54,000</td>
+                                            <td>10 years</td>
+                                            <td><span class="tag">Straight-line</span></td>
+                                            <td>$37,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CMP-2021-001-05</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Safety Equipment</td>
+                                            <td>8%</td>
+                                            <td>$36,000</td>
+                                            <td>5 years</td>
+                                            <td><span class="tag">Straight-line</span></td>
+                                            <td>$21,600</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="schedules-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Component Depreciation Schedules</h2>
+                            <select class="form-control" style="width: auto;">
+                                <option>AST-2021-001 - Injection Molding Machine</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Hydraulic Press (35%)</th>
+                                            <th>Control System (25%)</th>
+                                            <th>Conveyor (20%)</th>
+                                            <th>Electrical (12%)</th>
+                                            <th>Safety (8%)</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2021</td>
+                                            <td>$15,750</td>
+                                            <td>$45,000</td>
+                                            <td>$12,857</td>
+                                            <td>$5,400</td>
+                                            <td>$7,200</td>
+                                            <td>$86,207</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022</td>
+                                            <td>$15,750</td>
+                                            <td>$27,000</td>
+                                            <td>$12,857</td>
+                                            <td>$5,400</td>
+                                            <td>$7,200</td>
+                                            <td>$68,207</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2023</td>
+                                            <td>$15,750</td>
+                                            <td>$16,200</td>
+                                            <td>$12,857</td>
+                                            <td>$5,400</td>
+                                            <td>$7,200</td>
+                                            <td>$57,407</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024</td>
+                                            <td>$15,750</td>
+                                            <td>$9,720</td>
+                                            <td>$12,857</td>
+                                            <td>$5,400</td>
+                                            <td>-</td>
+                                            <td>$43,727</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="replacement-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Component Replacement History</h2>
+                            <button class="btn btn-primary btn-sm">+ Record Replacement</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Parent Asset</th>
+                                            <th>Component Replaced</th>
+                                            <th>Disposal Value</th>
+                                            <th>New Component</th>
+                                            <th>Capitalization</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-02-15</td>
+                                            <td>AST-2021-001</td>
+                                            <td>Control System (Old)</td>
+                                            <td>$5,000</td>
+                                            <td>Control System V2</td>
+                                            <td>$125,000</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2024-11-20</td>
+                                            <td>AST-2020-008</td>
+                                            <td>Robot Arm Actuator</td>
+                                            <td>$2,500</td>
+                                            <td>Servo Motor Assembly</td>
+                                            <td>$35,000</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

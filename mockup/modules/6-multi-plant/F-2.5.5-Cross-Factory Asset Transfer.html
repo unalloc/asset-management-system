@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.5 - Cross-Factory Asset Transfer</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.5
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.5 - Cross-Factory Asset Transfer</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.5-Cross-Factory%20Asset%20Transfer.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Transfers</h2>
+                        <button class="btn btn-primary" onclick="openModal('newTransferModal')">+ New Transfer</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transfer ID</th>
+                                        <th>Asset</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Transfer Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TRF-2025-001</td>
+                                        <td>CNC-MILL-001 (5-Axis CNC)</td>
+                                        <td>USEQ01 - US East Quality</td>
+                                        <td>USWQ01 - US West Quality</td>
+                                        <td>2025-04-15</td>
+                                        <td><span class="badge badge-warning">Pending Approval</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTransfer('TRF-2025-001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="approveTransfer('TRF-2025-001')">Approve</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-002</td>
+                                        <td>IT-SERVER-015 (Dell PowerEdge)</td>
+                                        <td>US01 - US Manufacturing</td>
+                                        <td>EU01 - EU Holdings</td>
+                                        <td>2025-04-10</td>
+                                        <td><span class="badge badge-info">In Transit</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTransfer('TRF-2025-002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="confirmArrival('TRF-2025-002')">Confirm Arrival</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-003</td>
+                                        <td>VEH-FORK-003 (Forklift)</td>
+                                        <td>EUBR01 - EU Berlin Plant</td>
+                                        <td>EUMU01 - EU Munich Plant</td>
+                                        <td>2025-03-28</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTransfer('TRF-2025-003')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-004</td>
+                                        <td>PROD-PRESS-002 (Hydraulic Press)</td>
+                                        <td>USEQ01 - US East Quality</td>
+                                        <td>USEQ02 - US East Expansion</td>
+                                        <td>2025-04-01</td>
+                                        <td><span class="badge badge-danger">Cancelled</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTransfer('TRF-2025-004')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Transfer Price</label>
+                                <p class="form-hint">Must be positive (OECD arm's length)</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Transfer Reason</label>
+                                <p class="form-hint">Minimum 20 characters required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Asset Constraints</label>
+                                <p class="form-hint">Assets under active maintenance, leased, or encumbered cannot be transferred</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newTransferModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Asset Transfer</h3>
+                <button class="modal-close" onclick="closeModal('newTransferModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="transferForm">
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <select class="form-control" id="assetId">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST001">CNC-MILL-001 - 5-Axis CNC Machine</option>
+                            <option value="AST002">IT-SERVER-015 - Dell PowerEdge R740</option>
+                            <option value="AST003">VEH-FORK-003 - Forklift Toyota 5000lb</option>
+                            <option value="AST004">PROD-PRESS-002 - Hydraulic Press 500T</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Source Organization</label>
+                        <select class="form-control" id="sourceOrg">
+                            <option value="">-- Select Source --</option>
+                            <option value="USEQ01">USEQ01 - US East Quality Plant</option>
+                            <option value="USWQ01">USWQ01 - US West Quality Plant</option>
+                            <option value="EUBR01">EUBR01 - EU Berlin Plant</option>
+                            <option value="EUMU01">EUMU01 - EU Munich Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Destination Organization</label>
+                        <select class="form-control" id="destOrg">
+                            <option value="">-- Select Destination --</option>
+                            <option value="USEQ01">USEQ01 - US East Quality Plant</option>
+                            <option value="USWQ01">USWQ01 - US West Quality Plant</option>
+                            <option value="EUBR01">EUBR01 - EU Berlin Plant</option>
+                            <option value="EUMU01">EUMU01 - EU Munich Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transfer Date</label>
+                        <input type="date" class="form-control" id="transferDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transfer Price</label>
+                        <input type="number" class="form-control" id="transferPrice"
+                               placeholder="e.g., 150000.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transfer Reason</label>
+                        <textarea class="form-control" id="transferReason"
+                                  placeholder="Explain business justification for transfer"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newTransferModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newTransferModal')">Submit Transfer Request</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewTransferModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Transfer Details</h3>
+                <button class="modal-close" onclick="closeModal('viewTransferModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewTransferContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewTransferModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewTransfer(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Transfer ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-warning">Pending Approval</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Asset</label>
+                    <p>CNC-MILL-001 - 5-Axis CNC Machine</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>From</label>
+                        <p>USEQ01 - US East Quality Plant</p>
+                    </div>
+                    <div class="form-group">
+                        <label>To</label>
+                        <p>USWQ01 - US West Quality Plant</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Transfer Date</label>
+                        <p>2025-04-15</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Transfer Price</label>
+                        <p>$125,000.00</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Transfer Reason</label>
+                    <p>Reallocation of equipment to support increased production capacity at West Coast facility per Q2 manufacturing plan review.</p>
+                </div>
+                <div class="form-group">
+                    <label>Approval History</label>
+                    <table>
+                        <thead>
+                            <tr><th>Date</th><th>Approver</th><th>Action</th><th>Comments</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2025-04-05</td><td>J. Smith</td><td>Submitted</td><td>Initial request</td></tr>
+                            <tr><td>2025-04-06</td><td>M. Johnson</td><td>Pending</td><td>Awaiting finance review</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('viewTransferContent').innerHTML = content;
+            openModal('viewTransferModal');
+        }
+
+        function approveTransfer(id) {
+            alert('Approve transfer: ' + id);
+        }
+
+        function confirmArrival(id) {
+            if (confirm('Confirm asset arrival at destination?')) {
+                alert('Arrival confirmed. Asset status updated to ACTIVE.');
+            }
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

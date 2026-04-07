@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.4 - Asset Deployment and Commissioning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.4
+                </div>
+                <div class="user-info">
+                    <span>Plant Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.4 - Asset Deployment and Commissioning</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.4-Asset%20Deployment%20and%20Commissioning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Deployment</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">In Commissioning</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Completed This Month</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Awaiting Sign-off</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('pending')">Pending Deployment</button>
+                    <button class="tab" onclick="switchTab('commissioning')">Commissioning</button>
+                    <button class="tab" onclick="switchTab('completed')">Completed</button>
+                    <button class="tab" onclick="switchTab('safety')">Safety Sign-offs</button>
+                </div>
+
+                <div class="tab-content active" id="pending-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Deployment</h2>
+                            <button class="btn btn-primary" onclick="openModal('newDeploymentModal')">+ New Deployment</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Current Location</th>
+                                            <th>Target Location</th>
+                                            <th>Responsible Person</th>
+                                            <th>Planned Start</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2025-015</td>
+                                            <td>Industrial Robot Arm</td>
+                                            <td>Warehouse A</td>
+                                            <td>Production Line 1</td>
+                                            <td>John Smith</td>
+                                            <td>2025-04-10</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="startDeployment('AST-2025-015')">Deploy</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2025-016</td>
+                                            <td>HVAC System Unit</td>
+                                            <td>Warehouse B</td>
+                                            <td>Building A - Floor 2</td>
+                                            <td>Jane Doe</td>
+                                            <td>2025-04-12</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="startDeployment('AST-2025-016')">Deploy</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="commissioning-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Commissioning Sessions</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Session ID</th>
+                                            <th>Asset</th>
+                                            <th>Current Phase</th>
+                                            <th>Progress</th>
+                                            <th>Start Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>COM-2025-003</td>
+                                            <td>CNC Machine #3 (AST-2025-008)</td>
+                                            <td><span class="tag">Trial Operation</span></td>
+                                            <td>
+                                                <div style="width:100px;height:8px;background:#e2e8f0;border-radius:4px;">
+                                                    <div style="width:75%;height:100%;background:var(--primary);border-radius:4px;"></div>
+                                                </div>
+                                            </td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-info">In Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewCommissioning('COM-2025-003')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="advancePhase('COM-2025-003')">Advance</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="completed-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Completed Deployments</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Location</th>
+                                            <th>Commissioned Date</th>
+                                            <th>Responsible Person</th>
+                                            <th>Maintenance Plan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2025-012</td>
+                                            <td>Conveyor Belt System</td>
+                                            <td>Production Line 2</td>
+                                            <td>2025-03-28</td>
+                                            <td>Mike Wilson</td>
+                                            <td><span class="badge badge-success">Activated</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="safety-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Safety Sign-off Checklist</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Session ID</th>
+                                            <th>Asset</th>
+                                            <th>Lockout/Tagout</th>
+                                            <th>Electrical Safety</th>
+                                            <th>Operator Training</th>
+                                            <th>Permits Obtained</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>COM-2025-003</td>
+                                            <td>CNC Machine #3</td>
+                                            <td><span class="badge badge-success">Complete</span></td>
+                                            <td><span class="badge badge-success">Complete</span></td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td><span class="badge badge-success">Complete</span></td>
+                                            <td><span class="badge badge-warning">3/4 Complete</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newDeploymentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Asset Deployment</h3>
+                <button class="modal-close" onclick="closeModal('newDeploymentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="deploymentForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="deployAsset" onchange="loadAssetDeploymentInfo()">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2025-015">Industrial Robot Arm - Status: CAPITALIZED</option>
+                            <option value="AST-2025-016">HVAC System Unit - Status: CAPITALIZED</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Target Location</label>
+                        <select class="form-control" id="deployLocation">
+                            <option value="">-- Select Location --</option>
+                            <option value="PL1">Production Line 1</option>
+                            <option value="PL2">Production Line 2</option>
+                            <option value="BLDG-A-2">Building A - Floor 2</option>
+                            <option value="WH-A">Warehouse A</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Responsible Person</label>
+                        <select class="form-control" id="deployResponsible">
+                            <option value="">-- Select Person --</option>
+                            <option value="EMP001">John Smith - Maintenance Tech</option>
+                            <option value="EMP002">Jane Doe - Operations Lead</option>
+                            <option value="EMP003">Mike Wilson - Safety Officer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Planned Start Date</label>
+                        <input type="date" class="form-control" id="deployStartDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="deployNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newDeploymentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newDeploymentModal')">Start Deployment</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewCommissioning(id) { alert('Viewing commissioning: ' + id); }
+        function startDeployment(id) {
+            document.getElementById('deployAsset').value = id;
+            openModal('newDeploymentModal');
+        }
+        function advancePhase(id) { alert('Advancing phase for: ' + id); }
+
+        function loadAssetDeploymentInfo() {
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

@@ -13,7 +13,7 @@
 ### 2. Finance Department
 **Financial Analysts and Accountants**
 - Track asset values in multiple currencies
-- Manage depreciation calculations
+- Manage depreciation calculations (US GAAP / IFRS)
 - Prepare tax compliance reports
 - Analyze asset-related expenses
 - Support budget planning and forecasting
@@ -27,10 +27,10 @@
 
 ### 4. Operations Managers
 **Plant and Production Managers**
-- Monitor equipment performance and OEE
+- Monitor equipment performance
 - Coordinate maintenance activities
 - Manage asset allocation within operations
-- Track production metrics
+- Track shift schedules
 
 ### 5. Maintenance Teams
 **Maintenance Managers and Technicians**
@@ -48,11 +48,11 @@
 - Handle asset receiving and acceptance
 
 ### 7. Compliance Officers
-**Quality and EHS Managers**
+**Quality, Safety, and Environmental Managers**
 - Monitor regulatory compliance
 - Manage certifications and audits
-- Track environmental requirements
-- Ensure safety compliance
+- Track environmental requirements (EPA, WEEE)
+- Ensure safety compliance (OSHA)
 
 ### 8. Executive Leadership
 **Group and Company Management**

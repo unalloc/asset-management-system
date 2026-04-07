@@ -4,89 +4,79 @@
 
 This repository contains the complete product requirements for an Asset Management System designed for multinational manufacturing corporations with multiple factories. The system is designed for Western markets (US/EU) and focuses on fixed asset management.
 
+> **Note:** This is a pure business requirements document. All technical design content has been removed. No database schemas, API specifications, or implementation details are included.
+
 ## Document Structure
 
 ```
 spec/
 ├── README.md                          # This file - main index
-├── 1-overview/                        # Project overview and objectives
-├── 2-asset-registration/              # Asset Registration & Cataloging (15 requirements)
+├── 0-asset-central/                   # Asset Central Hub & Entity Model
+├── 1-overview/                       # Project overview and objectives
+├── 2-asset-registration/             # Asset Registration & Cataloging (15 requirements)
 ├── 3-asset-tracking/                  # Asset Tracking & Monitoring (10 requirements)
-├── 4-maintenance/                     # Maintenance Management (17 requirements)
-├── 5-financial/                       # Financial Management (14 requirements)
-├── 6-multi-plant/                     # Multi-Plant & Manufacturing Compliance (8 requirements)
-├── 7-lifecycle/                       # Asset Lifecycle Management (18 requirements)
-├── 8-utilization/                     # Asset Utilization & Allocation (17 requirements)
-├── 9-multi-company/                   # Multi-Company Group Management (19 requirements)
-└── 10-user-stories/                   # User Stories
+├── 4-maintenance/                    # Maintenance Management (17 requirements)
+├── 5-financial/                      # Financial Management (14 requirements)
+├── 6-multi-plant/                    # Multi-Plant & Manufacturing Compliance (8 requirements)
+├── 7-lifecycle/                      # Asset Lifecycle Management (18 requirements)
+├── 8-utilization/                    # Asset Utilization & Allocation (17 requirements)
+├── 9-multi-company/                  # Multi-Company Group Management (19 requirements)
+└── 10-user-stories/                  # User Stories
 ```
+
+## Entity Model
+
+The system contains **44 core business entities** organized across 9 modules. The **Asset** entity is the central hub connecting all modules.
+
+See [`0-asset-central/ENTITY-MODEL.md`](./0-asset-central/ENTITY-MODEL.md) for:
+- Complete entity list with attributes
+- Entity relationship diagrams
+- Module-entity matrix
+- Organizational hierarchy structure
+
+### Key Entities
+
+| Category | Primary Entities |
+|----------|-----------------|
+| **Core** | Asset, AssetType, AssetCategory, AssetHierarchy |
+| **Tracking** | Location, LoanTicket, TransferTicket, AuditLog, IoTSensor |
+| **Maintenance** | MaintenancePlan, WorkOrder, MaintenanceHistory, Vendor, SparePart |
+| **Financial** | DepreciationSchedule, InsurancePolicy, CapitalProject, Budget |
+| **Lifecycle** | PurchaseOrder, DisposalRecord, CommissioningRecord |
+| **Utilization** | AllocationPlan, UsageContract, AssetReservation |
+| **Organization** | Organization, LegalEntity, CostCenter |
 
 ## Module Summary
 
 | Module | Name | Requirements |
 |--------|------|-------------|
-| 1 | Overview | Project background, objectives, target users |
-| 2 | Asset Registration & Cataloging | 15 functional requirements |
-| 3 | Asset Tracking & Monitoring | 10 functional requirements |
-| 4 | Maintenance Management | 17 functional requirements |
-| 5 | Financial Management | 14 functional requirements |
-| 6 | Multi-Plant & Manufacturing Compliance | 8 functional requirements |
-| 7 | Asset Lifecycle Management | 18 functional requirements |
-| 8 | Asset Utilization & Allocation | 17 functional requirements |
-| 9 | Multi-Company Group Management | 19 functional requirements |
-| **Total** | | **118 functional requirements** |
+| 0 | Asset Central | 2 (Hub + Detail) |
+| 2 | Asset Registration & Cataloging | 15 |
+| 3 | Asset Tracking & Monitoring | 10 |
+| 4 | Maintenance Management | 17 |
+| 5 | Financial Management | 14 |
+| 6 | Multi-Plant & Manufacturing Compliance | 8 |
+| 7 | Asset Lifecycle Management | 18 |
+| 8 | Asset Utilization & Allocation | 17 |
+| 9 | Multi-Company Group Management | 19 |
+| **Total** | | **120** |
 
 ## How to Navigate
 
-1. **For high-level understanding**: Start with `1-overview/` to understand project context
-2. **For functional requirements**: Navigate to the relevant module directory
-3. **For detailed specifications**: Each requirement is documented in its own file with title in filename
-4. **For user perspectives**: See `10-user-stories/` for use case documentation
-5. **For compliance reference**: See `docs/superpowers/western-eam-compliance-reference.md`
+1. **For entity understanding**: Start with [`0-asset-central/ENTITY-MODEL.md`](./0-asset-central/ENTITY-MODEL.md)
+2. **For high-level understanding**: Then review `1-overview/`
+3. **For functional requirements**: Navigate to the relevant module directory
+4. **For detailed specifications**: Each requirement is in its own file
 
-## Document Version
+## Cross-Cutting Requirements (Module 9)
 
-- **Version**: 9.0
-- **Date**: 2025-04-04
-- **Status**: Draft
-- **Total Requirements**: 118 functional requirements across 8 modules
-
-## Key Features
-
-### Core Capabilities
-- Multi-plant asset registry with hierarchical structure
-- Full asset lifecycle management from procurement to disposal
-- Real-time asset tracking with IoT integration
-- Preventive and predictive maintenance scheduling
-- Mobile workforce management with offline support
-- Multi-currency financial management with depreciation calculation
-- Comprehensive audit trail and compliance reporting
-
-### Advanced Features
-- Centralized notification and alert system
-- Configurable reporting dashboards and KPI visualization
-- Standardized API framework for external system integration
-- Root cause analysis with knowledge base
-- GIS geographic integration for spatial analysis
-- Maintenance calendar and Gantt chart views
-- HR system integration for employee-asset management
-
-### Multi-Company Support
-- Multi-level organizational hierarchy (Group → Company → Division → Plant → Department)
-- Data isolation by company/entity with row-level security
-- Consolidated group reporting with proper elimination rules
-- Cross-company asset transfers with transfer pricing
-- Inter-company leasing and cost allocation
-- Group policy templates and standardization
-
-### Cross-Cutting Requirements (Module 9)
-- **F-2.8.20** - Data Hierarchy and Access Control: 6-level organizational hierarchy, RBAC, data isolation
-- **F-2.8.21** - Audit and Compliance Framework: SOX, GDPR, ISO 55000 compliance controls
-- **F-2.8.22** - Data Security and Privacy: Encryption, access control, privacy by design
+| ID | Title | Purpose |
+|----|-------|---------|
+| F-2.8.20 | Data Hierarchy and Access Control | 6-level hierarchy, RBAC, data isolation |
+| F-2.8.21 | Audit and Compliance Framework | SOX, GDPR, ISO 55000 compliance |
+| F-2.8.22 | Data Security and Privacy | Encryption, access control, privacy |
 
 ## Compliance Alignment
-
-This system is designed to meet Western market regulatory requirements:
 
 | Regulation | Scope | Key Requirements |
 |------------|-------|-----------------|
@@ -96,8 +86,16 @@ This system is designed to meet Western market regulatory requirements:
 | GDPR | EU/EER | Data protection, privacy |
 | OSHA | US | Safety equipment tracking |
 | EPA | US | Environmental compliance (WEEE, RCRA) |
-| WEEE Directive | EU | Electronic waste tracking |
+
+## Organizational Hierarchy
+
+The system supports a 6-level organizational structure:
+- **Group** → **Company** → **Division** → **Plant** → **Department** → **Cost Center**
+
+Data scoping and access control follow this hierarchy.
 
 ---
 
-*This is a pure product definition document focused on business requirements only. No technical implementation details (database schemas, API specifications, or architectural designs) are included.*
+*Document Version: 10.0*  
+*Last Updated: 2026-04-06*  
+*Status: Pure Business Requirements (No Technical Design)*

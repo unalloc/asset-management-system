@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.13 - Criticality Classification</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.13
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.13 - Criticality Classification</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.13-Criticality%20Classification.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Criticality Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="criticality-summary">
+                            <div class="criticality-card critical">
+                                <h3>Class A - Critical</h3>
+                                <p class="count">24 assets</p>
+                                <p class="description">Production stoppage risk</p>
+                                <p class="strategy">Strategy: Preventive Maintenance</p>
+                            </div>
+                            <div class="criticality-card important">
+                                <h3>Class B - Important</h3>
+                                <p class="count">67 assets</p>
+                                <p class="description">Capacity impact risk</p>
+                                <p class="strategy">Strategy: Condition-Based</p>
+                            </div>
+                            <div class="criticality-card standard">
+                                <h3>Class C - Non-critical</h3>
+                                <p class="count">142 assets</p>
+                                <p class="description">Limited impact</p>
+                                <p class="strategy">Strategy: Run-to-Failure</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Criticality Classifications</h2>
+                        <button class="btn btn-primary" onclick="openModal('classifyModal')">+ Classify Asset</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Asset Name</th>
+                                        <th>Classification</th>
+                                        <th>Valid Until</th>
+                                        <th>Assessed By</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="criticalityTable">
+                                    <tr>
+                                        <td><span class="req-id">ASSET-001</span></td>
+                                        <td>CNC Machining Center</td>
+                                        <td><span class="badge badge-danger">A - Critical</span></td>
+                                        <td>2027-01-15</td>
+                                        <td>John Smith</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClassification('ASSET-001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClassification('ASSET-001')">Update</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">ASSET-002</span></td>
+                                        <td>Industrial Robot Arm</td>
+                                        <td><span class="badge badge-danger">A - Critical</span></td>
+                                        <td>2027-02-20</td>
+                                        <td>Jane Doe</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClassification('ASSET-002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClassification('ASSET-002')">Update</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">ASSET-003</span></td>
+                                        <td>Conveyor System</td>
+                                        <td><span class="badge badge-warning">B - Important</span></td>
+                                        <td>2026-08-10</td>
+                                        <td>Mike Johnson</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClassification('ASSET-003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClassification('ASSET-003')">Update</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="warning-row">
+                                        <td><span class="req-id">ASSET-004</span></td>
+                                        <td>Packaging Equipment</td>
+                                        <td><span class="badge badge-warning">B - Important</span></td>
+                                        <td>2026-03-01</td>
+                                        <td>Sarah Wilson</td>
+                                        <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClassification('ASSET-004')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClassification('ASSET-004')">Renew</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">ASSET-005</span></td>
+                                        <td>Office Furniture</td>
+                                        <td><span class="badge badge-secondary">C - Non-critical</span></td>
+                                        <td>2027-06-30</td>
+                                        <td>Admin</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClassification('ASSET-005')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClassification('ASSET-005')">Update</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="classifyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Classify Asset Criticality</h3>
+                <button class="modal-close" onclick="closeModal('classifyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="classifyForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="classifyAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="ASSET-001">CNC Machining Center (ASSET-001)</option>
+                            <option value="ASSET-002">Industrial Robot Arm (ASSET-002)</option>
+                            <option value="ASSET-003">Conveyor System (ASSET-003)</option>
+                            <option value="ASSET-004">Packaging Equipment (ASSET-004)</option>
+                            <option value="ASSET-005">Office Furniture (ASSET-005)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Criticality Level</label>
+                        <select class="form-control" id="criticalityLevel" onchange="updateStrategy()">
+                            <option value="">-- Select Level --</option>
+                            <option value="A">A - Critical (Production stoppage risk)</option>
+                            <option value="B">B - Important (Capacity impact risk)</option>
+                            <option value="C">C - Non-critical (Limited impact)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Applied Maintenance Strategy</label>
+                        <input type="text" class="form-control" id="maintenanceStrategy" readonly
+                               placeholder="Auto-populated based on level">
+                        <p class="form-hint">Automatically applied based on criticality level</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assessment Basis</label>
+                        <textarea class="form-control" id="assessmentBasis"
+                                  rows="3"
+                                  placeholder="Justification for the classification"></textarea>
+                        <p class="form-hint">1-1000 characters explaining the classification decision</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Impact Scope</label>
+                        <textarea class="form-control" id="impactScope" rows="2"
+                                  placeholder="Description of failure impact"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valid Until</label>
+                        <input type="date" class="form-control" id="validUntil">
+                        <p class="form-hint">Assessment validity period</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assessed By</label>
+                        <input type="text" class="form-control" id="assessedBy"
+                               placeholder="Name of person conducting assessment">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('classifyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('classifyModal')">Classify Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Criticality Classification Details</h3>
+                <button class="modal-close" onclick="closeModal('viewModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewClassificationContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function updateStrategy() {
+            const level = document.getElementById('criticalityLevel').value;
+            const strategyField = document.getElementById('maintenanceStrategy');
+            
+            const strategies = {
+                'A': 'Preventive Maintenance (Scheduled inspections)',
+                'B': 'Condition-Based Maintenance (Monitoring-based)',
+                'C': 'Run-to-Failure Maintenance (Reactive)'
+            };
+            
+            strategyField.value = strategies[level] || '';
+        }
+
+        function viewClassification(assetId) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <p><strong>${assetId}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Asset Name</label>
+                        <p>CNC Machining Center</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Current Classification</label>
+                        <span class="badge badge-danger">A - Critical</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Valid Until</label>
+                        <p>2027-01-15</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Maintenance Strategy</label>
+                        <p>Preventive Maintenance (Scheduled inspections)</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Assessed By</label>
+                        <p>John Smith</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('viewClassificationContent').innerHTML = content;
+            openModal('viewModal');
+        }
+
+        function editClassification(assetId) {
+            alert('Update criticality for: ' + assetId);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <style>
+        .criticality-summary {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .criticality-card {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .criticality-card.critical {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .criticality-card.important {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        .criticality-card.standard {
+            background-color: #d1e7dd;
+            border: 1px solid #c3e6cb;
+        }
+        .criticality-card h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+        .criticality-card .count {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .criticality-card .description {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .criticality-card .strategy {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+        .warning-row {
+            background-color: #fff3cd;
+        }
+    </style>
+</body>
+</html>

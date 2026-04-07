@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.12 - Replacement Planning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.12
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.12 - Replacement Planning</h1>
+                    <div class="meta">
+                        <span class="badge badge-secondary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.12-Replacement%20Planning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Assets Flagged for Review</p>
+                            <h2 style="font-size: 1.5rem;">23</h2>
+                            <p class="text-warning">8 high priority</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Planned Replacements 2025</p>
+                            <h2 style="font-size: 1.5rem;">$1,850,000</h2>
+                            <p class="text-muted">15 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Budget Available</p>
+                            <h2 style="font-size: 1.5rem;">$2,200,000</h2>
+                            <p class="text-success">$350,000 remaining</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg EAC Savings</p>
+                            <h2 style="font-size: 1.5rem;">18%</h2>
+                            <p class="text-muted">vs keeping assets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('analysis')">Replacement Analysis</button>
+                    <button class="tab" onclick="switchTab('priority')">Priority List</button>
+                    <button class="tab" onclick="switchTab('schedule')">Replacement Schedule</button>
+                    <button class="tab" onclick="switchTab('npv')">NPV Comparison</button>
+                </div>
+
+                <div class="tab-content active" id="analysis-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Keep vs Replace Analysis</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('newAnalysisModal')">+ New Analysis</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row" style="margin-bottom: 1rem;">
+                                <div class="form-group">
+                                    <label>Priority Score Formula</label>
+                                    <p class="text-muted" style="font-size: 0.9rem;">Priority Score = Age Factor (30%) + Condition Factor (25%) + Cost Factor (25%) + Risk Factor (20%)</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Age</th>
+                                            <th>Condition</th>
+                                            <th>Maint. Cost Trend</th>
+                                            <th>Failure Probability</th>
+                                            <th>EAC Keep</th>
+                                            <th>EAC Replace</th>
+                                            <th>Recommendation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2018-005</td>
+                                            <td>Packaging Machine #2</td>
+                                            <td>7 years</td>
+                                            <td><span class="badge badge-warning">Fair</span></td>
+                                            <td class="text-danger">+15%/yr</td>
+                                            <td>12%</td>
+                                            <td>$185,000</td>
+                                            <td>$142,000</td>
+                                            <td><span class="badge badge-success">Replace</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2019-012</td>
+                                            <td>Assembly Robot Arm</td>
+                                            <td>6 years</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                            <td>+3%/yr</td>
+                                            <td>4%</td>
+                                            <td>$95,000</td>
+                                            <td>$112,000</td>
+                                            <td><span class="badge badge-info">Keep</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2017-003</td>
+                                            <td>CNC Lathe #3</td>
+                                            <td>8 years</td>
+                                            <td><span class="badge badge-danger">Poor</span></td>
+                                            <td class="text-danger">+22%/yr</td>
+                                            <td>28%</td>
+                                            <td>$245,000</td>
+                                            <td>$158,000</td>
+                                            <td><span class="badge badge-success">Replace</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="priority-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Replacement Priority List</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Priorities</option>
+                                    <option>High Priority</option>
+                                    <option>Medium Priority</option>
+                                    <option>Low Priority</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export List</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Priority</th>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Priority Score</th>
+                                            <th>Age</th>
+                                            <th>Condition</th>
+                                            <th>Est. Replacement Cost</th>
+                                            <th>Risk Level</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">1 - Critical</span></td>
+                                            <td>AST-2017-003</td>
+                                            <td>CNC Lathe #3</td>
+                                            <td>92</td>
+                                            <td>8 years</td>
+                                            <td><span class="badge badge-danger">Poor</span></td>
+                                            <td>$180,000</td>
+                                            <td><span class="badge badge-danger">High</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-danger">2 - Critical</span></td>
+                                            <td>AST-2018-005</td>
+                                            <td>Packaging Machine #2</td>
+                                            <td>87</td>
+                                            <td>7 years</td>
+                                            <td><span class="badge badge-warning">Fair</span></td>
+                                            <td>$120,000</td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">3 - High</span></td>
+                                            <td>AST-2016-008</td>
+                                            <td>Hydraulic Press</td>
+                                            <td>78</td>
+                                            <td>9 years</td>
+                                            <td><span class="badge badge-warning">Fair</span></td>
+                                            <td>$95,000</td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">4 - High</span></td>
+                                            <td>AST-2018-011</td>
+                                            <td>Welding Station #4</td>
+                                            <td>72</td>
+                                            <td>7 years</td>
+                                            <td><span class="badge badge-warning">Fair</span></td>
+                                            <td>$65,000</td>
+                                            <td><span class="badge badge-secondary">Low</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="schedule-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Replacement Plan by Year</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>2025</option>
+                                    <option>2026</option>
+                                    <option>2027</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Generate Report</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Quarter</th>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Replacement Cost</th>
+                                            <th>Budget</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Q1 2025</td>
+                                            <td>AST-2017-003</td>
+                                            <td>CNC Lathe #3</td>
+                                            <td>$180,000</td>
+                                            <td>$200,000</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q2 2025</td>
+                                            <td>AST-2018-005</td>
+                                            <td>Packaging Machine #2</td>
+                                            <td>$120,000</td>
+                                            <td>$200,000</td>
+                                            <td><span class="badge badge-secondary">Planned</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q3 2025</td>
+                                            <td>AST-2016-008</td>
+                                            <td>Hydraulic Press</td>
+                                            <td>$95,000</td>
+                                            <td>$150,000</td>
+                                            <td><span class="badge badge-secondary">Planned</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q4 2025</td>
+                                            <td>AST-2018-011</td>
+                                            <td>Welding Station #4</td>
+                                            <td>$65,000</td>
+                                            <td>$100,000</td>
+                                            <td><span class="badge badge-secondary">Planned</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="npv-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>NPV Comparison - Keep vs Replace</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>EAC Keep</th>
+                                            <th>EAC Replace</th>
+                                            <th>NPV Savings</th>
+                                            <th>Payback Period</th>
+                                            <th>Decision</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Lathe #3</td>
+                                            <td>$245,000</td>
+                                            <td>$158,000</td>
+                                            <td class="text-success">$87,000</td>
+                                            <td>2.3 years</td>
+                                            <td><span class="badge badge-success">Replace</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Packaging Machine #2</td>
+                                            <td>$185,000</td>
+                                            <td>$142,000</td>
+                                            <td class="text-success">$43,000</td>
+                                            <td>3.1 years</td>
+                                            <td><span class="badge badge-success">Replace</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assembly Robot Arm</td>
+                                            <td>$95,000</td>
+                                            <td>$112,000</td>
+                                            <td class="text-danger">($17,000)</td>
+                                            <td>N/A</td>
+                                            <td><span class="badge badge-info">Keep</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                </div>
+
+                
+
+                
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newAnalysisModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>New Replacement Analysis</h2>
+                <button class="close-modal" onclick="closeModal('newAnalysisModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newAnalysisForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select name="asset" class="form-control">
+                            <option value="">Select Asset</option>
+                            <option value="AST-2017-003">AST-2017-003 - CNC Lathe #3</option>
+                            <option value="AST-2018-005">AST-2018-005 - Packaging Machine #2</option>
+                            <option value="AST-2016-008">AST-2016-008 - Hydraulic Press</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Replacement Cost</label>
+                        <input type="number" name="replacementCost" class="form-control">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>New Asset Life (Years)</label>
+                            <input type="number" name="newAssetLife" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Remaining Life (Years)</label>
+                            <input type="number" name="remainingLife" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Maintenance Cost Trend (%/yr)</label>
+                        <input type="number" name="maintCostTrend" class="form-control" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>Failure Probability (%)</label>
+                        <input type="number" name="failureProbability" class="form-control">
+                    </div>
+                    <div class="d-flex gap-sm" style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('newAnalysisModal')">Run Analysis</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('newAnalysisModal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

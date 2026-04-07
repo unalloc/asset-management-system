@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.4 - Real-time Asset Availability Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.4 - Real-time Asset Availability Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.4-Real-time%20Asset%20Availability%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Available</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">78%</h2>
+                            <p>98 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">In Use</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">15%</h2>
+                            <p>19 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Reserved</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">5%</h2>
+                            <p>6 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Maintenance</p>
+                            <h2 style="font-size: 1.5rem; color: var(--danger);">2%</h2>
+                            <p>3 assets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('tracking')">Live Tracking</button>
+                    <button class="tab" onclick="switchTab('history')">Status History</button>
+                    <button class="tab" onclick="switchTab('alerts')">Alerts</button>
+                </div>
+
+                <div class="tab-content active" id="tracking-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Status Dashboard</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Assets</option>
+                                    <option>Heavy Equipment</option>
+                                    <option>Vehicles</option>
+                                    <option>Tools</option>
+                                </select>
+                                <button class="btn btn-primary" onclick="openModal('updateStatusModal')">Update Status</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Current Status</th>
+                                            <th>Location</th>
+                                            <th>Current User</th>
+                                            <th>Last Updated</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-045</td>
+                                            <td>Excavator #1</td>
+                                            <td><span class="badge badge-success">AVAILABLE</span></td>
+                                            <td>Site A - Yard 3</td>
+                                            <td>-</td>
+                                            <td>5 min ago</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Update</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-033</td>
+                                            <td>Generator #2</td>
+                                            <td><span class="badge badge-primary">IN_USE</span></td>
+                                            <td>Site B - Power Station</td>
+                                            <td>Construction Team</td>
+                                            <td>2 min ago</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Update</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-warning">RESERVED</span></td>
+                                            <td>Plant 1 - Floor 2</td>
+                                            <td>Reserved for Apr 15</td>
+                                            <td>1 hour ago</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Update</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-089</td>
+                                            <td>Conference Projector</td>
+                                            <td><span class="badge badge-danger">UNDER_MAINTENANCE</span></td>
+                                            <td>Maintenance Bay</td>
+                                            <td>Tech Support</td>
+                                            <td>30 min ago</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Update</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Status Change History</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Previous Status</th>
+                                            <th>New Status</th>
+                                            <th>Source</th>
+                                            <th>Updated By</th>
+                                            <th>Timestamp</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Generator #2</td>
+                                            <td><span class="badge badge-success">AVAILABLE</span></td>
+                                            <td><span class="badge badge-primary">IN_USE</span></td>
+                                            <td>SYSTEM</td>
+                                            <td>Auto (Reservation Start)</td>
+                                            <td>Apr 8, 2025 08:00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-primary">IN_USE</span></td>
+                                            <td><span class="badge badge-success">AVAILABLE</span></td>
+                                            <td>RFID</td>
+                                            <td>Tom Wilson</td>
+                                            <td>Apr 8, 2025 07:45</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="alerts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Status Alerts</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Stale Update:</strong> Excavator #3 status not updated in 48 hours
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>Conflict Detected:</strong> Generator #1 shows inconsistent status between RFID and GPS
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="updateStatusModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Update Asset Status</h3>
+                <button class="modal-close" onclick="closeModal('updateStatusModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="statusForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="assetSelect">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2022-045">Excavator #1</option>
+                            <option value="AST-2021-033">Generator #2</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>New Status</label>
+                        <select class="form-control" id="newStatus">
+                            <option value="">-- Select Status --</option>
+                            <option value="AVAILABLE">AVAILABLE</option>
+                            <option value="IN_USE">IN_USE</option>
+                            <option value="RESERVED">RESERVED</option>
+                            <option value="UNDER_MAINTENANCE">UNDER_MAINTENANCE</option>
+                            <option value="OUT_OF_SERVICE">OUT_OF_SERVICE</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" id="location" placeholder="Current location">
+                    </div>
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <textarea class="form-control" id="reason" rows="2" placeholder="Reason for status change"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('updateStatusModal')">Cancel</button>
+                <button class="btn btn-primary" type="submit" form="statusForm" onclick="closeModal('updateStatusModal')">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

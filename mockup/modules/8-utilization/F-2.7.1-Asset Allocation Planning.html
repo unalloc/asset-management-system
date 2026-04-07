@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.1 - Asset Allocation Planning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.1
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.1 - Asset Allocation Planning</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.1-Asset%20Allocation%20Planning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Plans</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">12</h2>
+                            <p>Q2 2025 Plans</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Budget Allocated</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">$4.2M</h2>
+                            <p>78% of Total Budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Utilization Target</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">85%</h2>
+                            <p>Across Departments</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('plans')">Allocation Plans</button>
+                    <button class="tab" onclick="switchTab('matrix')">Allocation Matrix</button>
+                    <button class="tab" onclick="switchTab('optimization')">Optimization</button>
+                </div>
+
+                <div class="tab-content active" id="plans-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Allocation Plans</h2>
+                            <button class="btn btn-primary" onclick="openModal('newPlanModal')">+ New Plan</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Plan Code</th>
+                                            <th>Plan Name</th>
+                                            <th>Type</th>
+                                            <th>Period</th>
+                                            <th>Budget</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>APL-202504-001</td>
+                                            <td>Q2 2025 Construction Equipment</td>
+                                            <td>QUARTERLY</td>
+                                            <td>Apr 1 - Jun 30, 2025</td>
+                                            <td>$1,250,000</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>APL-202504-002</td>
+                                            <td>Annual IT Equipment Pool</td>
+                                            <td>ANNUAL</td>
+                                            <td>Jan 1 - Dec 31, 2025</td>
+                                            <td>$2,800,000</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>APL-202503-003</td>
+                                            <td>Manufacturing Line Expansion</td>
+                                            <td>ANNUAL</td>
+                                            <td>Jan 1 - Dec 31, 2025</td>
+                                            <td>$3,500,000</td>
+                                            <td><span class="badge badge-primary">In Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="matrix-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset-Department Allocation Matrix</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>Select Plan...</option>
+                                    <option>APL-202504-001</option>
+                                    <option>APL-202504-002</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset Category</th>
+                                            <th>Construction</th>
+                                            <th>Operations</th>
+                                            <th>Maintenance</th>
+                                            <th>Executive</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Heavy Equipment</td>
+                                            <td>45%</td>
+                                            <td>20%</td>
+                                            <td>15%</td>
+                                            <td>20%</td>
+                                            <td><strong>100%</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehicles</td>
+                                            <td>30%</td>
+                                            <td>40%</td>
+                                            <td>20%</td>
+                                            <td>10%</td>
+                                            <td><strong>100%</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tools & Instruments</td>
+                                            <td>25%</td>
+                                            <td>35%</td>
+                                            <td>30%</td>
+                                            <td>10%</td>
+                                            <td><strong>100%</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="optimization-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Optimization Settings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Optimization Objective</label>
+                                    <select class="form-control">
+                                        <option>MAX_UTILIZATION</option>
+                                        <option>MIN_IDLE</option>
+                                        <option>BALANCE_WORKLOAD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Budget Warning Threshold</label>
+                                    <input type="number" class="form-control" value="90">
+                                    <p class="form-hint">Percentage of budget that triggers warning</p>
+                                </div>
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>Info:</strong> Optimization runs automatically when allocation plans are created or modified.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newPlanModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Allocation Plan</h3>
+                <button class="modal-close" onclick="closeModal('newPlanModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="planForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Plan Code</label>
+                            <input type="text" class="form-control" id="planCode" placeholder="APL-YYYYMM-SEQ">
+                        </div>
+                        <div class="form-group">
+                            <label>Plan Type</label>
+                            <select class="form-control" id="planType">
+                                <option value="">-- Select Type --</option>
+                                <option value="ANNUAL">ANNUAL</option>
+                                <option value="QUARTERLY">QUARTERLY</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Plan Name</label>
+                        <input type="text" class="form-control" id="planName" placeholder="Enter plan name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Budget</label>
+                        <input type="number" class="form-control" id="totalBudget" placeholder="0.00">
+                        <p class="form-hint">Maximum: $999,999,999.99</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newPlanModal')">Cancel</button>
+                <button class="btn btn-primary" type="submit" form="planForm" onclick="closeModal('newPlanModal')">Create Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

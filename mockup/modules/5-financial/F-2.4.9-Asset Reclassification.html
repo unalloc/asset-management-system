@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.9 - Asset Reclassification</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.9
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.9 - Asset Reclassification</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.9-Asset%20Reclassification.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Reclassifications</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                            <p class="text-muted">Pending approval</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Impairments YTD</p>
+                            <h2 style="font-size: 1.5rem;">$285,000</h2>
+                            <p class="text-danger">12 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Impairment Reversals</p>
+                            <h2 style="font-size: 1.5rem;">$45,000</h2>
+                            <p class="text-success">3 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Reclassifications YTD</p>
+                            <h2 style="font-size: 1.5rem;">18</h2>
+                            <p class="text-muted">$1.2M value affected</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('reclassify')">Reclassifications</button>
+                    <button class="tab" onclick="switchTab('impairment')">Impairment Testing</button>
+                    <button class="tab" onclick="switchTab('history')">Change History</button>
+                    <button class="tab" onclick="switchTab('pending')">Pending Approvals</button>
+                </div>
+
+                <div class="tab-content active" id="reclassify-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Reclassification Requests</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('reclassify-asset')">+ New Reclassification</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Current Class</th>
+                                            <th>New Class</th>
+                                            <th>Book Value</th>
+                                            <th>Reason</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2019-015</td>
+                                            <td>Office Building A</td>
+                                            <td><span class="tag">Property</span></td>
+                                            <td><span class="tag">Investment Property</span></td>
+                                            <td>$2,450,000</td>
+                                            <td>Leased to third party</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2020-022</td>
+                                            <td>Manufacturing Equipment</td>
+                                            <td><span class="tag">Machinery</span></td>
+                                            <td><span class="tag">Equipment Held for Sale</span></td>
+                                            <td>$180,000</td>
+                                            <td>Disposal planned Q3</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-008</td>
+                                            <td>IT Infrastructure</td>
+                                            <td><span class="tag">Computer Equipment</span></td>
+                                            <td><span class="tag">Communication Equipment</span></td>
+                                            <td>$95,000</td>
+                                            <td>Network infrastructure reallocation</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="impairment-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Impairment Testing</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('run-impairment')">+ Run Impairment Test</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                Recoverable Amount = MAX(Fair Value - Costs to Sell, Value in Use)
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Carrying Amount</th>
+                                            <th>Recoverable Amount</th>
+                                            <th>Impairment Loss</th>
+                                            <th>Test Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2018-003</td>
+                                            <td>Production Line #3</td>
+                                            <td>$450,000</td>
+                                            <td>$380,000</td>
+                                            <td class="text-danger">$70,000</td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-danger">Impairment Required</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2019-010</td>
+                                            <td>Warehouse Building</td>
+                                            <td>$1,200,000</td>
+                                            <td>$1,350,000</td>
+                                            <td class="text-success">$0</td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-success">No Impairment</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2020-005</td>
+                                            <td>Specialized Tooling</td>
+                                            <td>$85,000</td>
+                                            <td>$92,000</td>
+                                            <td class="text-success">$0</td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-success">Reversal Possible</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Reclassification & Impairment History</h2>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Change Type</th>
+                                            <th>Before</th>
+                                            <th>After</th>
+                                            <th>Amount</th>
+                                            <th>Approved By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-03-15</td>
+                                            <td>AST-2021-008</td>
+                                            <td>IT Infrastructure</td>
+                                            <td><span class="tag">Classification Change</span></td>
+                                            <td>Computer Equipment</td>
+                                            <td>Communication Equipment</td>
+                                            <td>-</td>
+                                            <td>J. Smith</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-03-10</td>
+                                            <td>AST-2018-003</td>
+                                            <td>Production Line #3</td>
+                                            <td><span class="tag">Impairment</span></td>
+                                            <td>$520,000</td>
+                                            <td>$450,000</td>
+                                            <td class="text-danger">$70,000</td>
+                                            <td>J. Smith</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-02-28</td>
+                                            <td>AST-2017-012</td>
+                                            <td>Fleet Vehicle #7</td>
+                                            <td><span class="tag">Classification Change</span></td>
+                                            <td>Vehicle</td>
+                                            <td>Equipment Held for Sale</td>
+                                            <td>-</td>
+                                            <td>M. Johnson</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-02-20</td>
+                                            <td>AST-2019-005</td>
+                                            <td>Office Equipment</td>
+                                            <td><span class="tag">Impairment Reversal</span></td>
+                                            <td>$65,000</td>
+                                            <td>$72,000</td>
+                                            <td class="text-success">$7,000</td>
+                                            <td>J. Smith</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="pending-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Approvals</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset ID</th>
+                                            <th>Type</th>
+                                            <th>Requested By</th>
+                                            <th>Date</th>
+                                            <th>Value Impact</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>REQ-2025-045</td>
+                                            <td>AST-2019-015</td>
+                                            <td><span class="tag">Reclassification</span></td>
+                                            <td>Division Finance</td>
+                                            <td>2025-04-10</td>
+                                            <td>$2,450,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-success btn-sm">Approve</button>
+                                                <button class="btn btn-danger btn-sm">Reject</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>REQ-2025-046</td>
+                                            <td>AST-2020-022</td>
+                                            <td><span class="tag">Reclassification</span></td>
+                                            <td>Division Finance</td>
+                                            <td>2025-04-08</td>
+                                            <td>$180,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-success btn-sm">Approve</button>
+                                                <button class="btn btn-danger btn-sm">Reject</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>REQ-2025-047</td>
+                                            <td>AST-2018-003</td>
+                                            <td><span class="tag">Impairment</span></td>
+                                            <td>Company Controller</td>
+                                            <td>2025-04-05</td>
+                                            <td class="text-danger">$70,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-success btn-sm">Approve</button>
+                                                <button class="btn btn-danger btn-sm">Reject</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

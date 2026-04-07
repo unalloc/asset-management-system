@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.3 - Maintenance History Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.3
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.3 - Maintenance History Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.3-Maintenance%20History%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('history')">History Records</button>
+                    <button class="tab" onclick="switchTab('statistics')">Statistics</button>
+                    <button class="tab" onclick="switchTab('trends')">Failure Trends</button>
+                </div>
+
+                <div class="tab-content active" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance History</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">Export</button>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('filterModal')">Filter</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Work Order</th>
+                                            <th>Asset</th>
+                                            <th>Type</th>
+                                            <th>Result</th>
+                                            <th>Date</th>
+                                            <th>Cost</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>MHR-2025-0089</td>
+                                            <td>WO-2025-0035</td>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td><span class="badge badge-success">Success</span></td>
+                                            <td>2025-04-02</td>
+                                            <td>$425.00</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Invalidate</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MHR-2025-0088</td>
+                                            <td>WO-2025-0034</td>
+                                            <td>HVAC System (AST-2023-045)</td>
+                                            <td><span class="tag">Inspection</span></td>
+                                            <td><span class="badge badge-success">Success</span></td>
+                                            <td>2025-04-01</td>
+                                            <td>$180.00</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Invalidate</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>MHR-2025-0087</td>
+                                            <td>WO-2025-0031</td>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td><span class="tag">Corrective</span></td>
+                                            <td><span class="badge badge-warning">Partial Failure</span></td>
+                                            <td>2025-03-28</td>
+                                            <td>$650.00</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Invalidate</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">MHR-2025-0082</td>
+                                            <td>WO-2025-0028</td>
+                                            <td>Forklift #3 (AST-2023-089)</td>
+                                            <td><span class="tag">Corrective</span></td>
+                                            <td><span class="badge badge-danger">Failure</span></td>
+                                            <td>2025-03-25</td>
+                                            <td>$890.00</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <span class="badge badge-secondary">Invalidated</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="statistics-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Statistics</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select Asset</label>
+                                    <select class="form-control" id="statsAsset">
+                                        <option value="AST-2024-001">CNC Machine #1 (AST-2024-001)</option>
+                                        <option value="AST-2023-045">HVAC System (AST-2023-045)</option>
+                                        <option value="AST-2024-015">Compressor Unit (AST-2024-015)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-label">MTBF (Mean Time Between Failures)</div>
+                                    <div class="stat-value">45 days</div>
+                                    <div class="stat-trend positive">+5 days vs last period</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">MTTR (Mean Time To Repair)</div>
+                                    <div class="stat-value">4.2 hours</div>
+                                    <div class="stat-trend negative">+0.5 hours vs last period</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Cumulative Maintenance Cost</div>
+                                    <div class="stat-value">$4,850.00</div>
+                                    <div class="stat-trend neutral">YTD total</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Total Failure Count</div>
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-trend neutral">Current year</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="trends-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Failure Mode Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Failure Mode Code</th>
+                                            <th>Description</th>
+                                            <th>Occurrences</th>
+                                            <th>Avg Time to Repair</th>
+                                            <th>Total Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>FM-001</td>
+                                            <td>Bearing Wear</td>
+                                            <td>5</td>
+                                            <td>3.5 hours</td>
+                                            <td>$1,250.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FM-002</td>
+                                            <td>Electrical Malfunction</td>
+                                            <td>3</td>
+                                            <td>5.2 hours</td>
+                                            <td>$2,100.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FM-003</td>
+                                            <td>Hydraulic Leak</td>
+                                            <td>2</td>
+                                            <td>2.8 hours</td>
+                                            <td>$450.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>FM-004</td>
+                                            <td>Sensor Failure</td>
+                                            <td>4</td>
+                                            <td>1.5 hours</td>
+                                            <td>$680.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="filterModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Filter History</h3>
+                <button class="modal-close" onclick="closeModal('filterModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Asset</label>
+                            <select class="form-control" id="filterAsset">
+                                <option value="">All Assets</option>
+                                <option value="AST-2024-001">CNC Machine #1</option>
+                                <option value="AST-2023-045">HVAC System</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Maintenance Type</label>
+                            <select class="form-control" id="filterType">
+                                <option value="">All Types</option>
+                                <option value="Preventive">Preventive</option>
+                                <option value="Corrective">Corrective</option>
+                                <option value="Inspection">Inspection</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Result</label>
+                            <select class="form-control" id="filterResult">
+                                <option value="">All Results</option>
+                                <option value="Success">Success</option>
+                                <option value="PartialFailure">Partial Failure</option>
+                                <option value="Failure">Failure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Include Invalidated</label>
+                            <select class="form-control" id="filterInvalidated">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date From</label>
+                            <input type="date" class="form-control" id="dateFrom">
+                        </div>
+                        <div class="form-group">
+                            <label>Date To</label>
+                            <input type="date" class="form-control" id="dateTo">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('filterModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('filterModal')">Apply Filter</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

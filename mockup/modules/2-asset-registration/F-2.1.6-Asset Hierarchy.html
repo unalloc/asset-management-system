@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.6 - Asset Hierarchy</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.6
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.6 - Asset Hierarchy</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.6-Asset%20Hierarchy.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Hierarchy</h2>
+                        <button class="btn btn-primary" onclick="openModal('addRelationshipModal')">+ Add Relationship</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parent Asset</th>
+                                        <th>Child Asset</th>
+                                        <th>Relationship Type</th>
+                                        <th>Created Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hierarchyTable">
+                                    <tr>
+                                        <td>PROD-LINE-001</td>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td><span class="badge badge-primary">COMPONENT</span></td>
+                                        <td>2025-01-15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRelationship('PR001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editRelationship('PR001')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td>CNC-SPINDLE-001</td>
+                                        <td><span class="badge badge-warning">COMPONENT</span></td>
+                                        <td>2025-01-16</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRelationship('PR002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editRelationship('PR002')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PROD-LINE-001</td>
+                                        <td>CONVEYOR-001</td>
+                                        <td><span class="badge badge-info">ACCESSORY</span></td>
+                                        <td>2025-01-17</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRelationship('PR003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editRelationship('PR003')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WAREHOUSE-A</td>
+                                        <td>RACK-SYSTEM-01</td>
+                                        <td><span class="badge badge-success">CONTAINER</span></td>
+                                        <td>2025-02-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRelationship('PR004')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editRelationship('PR004')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CNC-MACHINE-001</td>
+                                        <td>SPAREPART-001</td>
+                                        <td><span class="badge badge-danger">SPARES</span></td>
+                                        <td>2025-02-10</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewRelationship('PR005')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editRelationship('PR005')">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Hierarchy Tree View</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Root Asset</label>
+                                <select class="form-control" id="rootAsset" onchange="loadHierarchyTree()">
+                                    <option value="PROD-LINE-001">PROD-LINE-001 - Main Production Line</option>
+                                    <option value="WAREHOUSE-A">WAREHOUSE-A - Main Warehouse</option>
+                                    <option value="IT-SERVER">IT-SERVER - Server Rack</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="hierarchyTree" style="margin-top: 16px;">
+                            <div style="padding-left: 20px; border-left: 2px solid var(--border);">
+                                <p><strong>PROD-LINE-001</strong> <span class="badge badge-success">ACTIVE</span></p>
+                                <div style="padding-left: 30px; border-left: 1px solid var(--border); margin-top: 8px;">
+                                    <p><span style="color: var(--text-secondary);">├─</span> <strong>CNC-MACHINE-001</strong> <span class="badge badge-primary">COMPONENT</span></p>
+                                    <div style="padding-left: 30px; border-left: 1px solid var(--border); margin-top: 8px;">
+                                        <p><span style="color: var(--text-secondary);">├─</span> <strong>CNC-SPINDLE-001</strong> <span class="badge badge-warning">COMPONENT</span></p>
+                                        <p><span style="color: var(--text-secondary);">└─</span> <strong>SPAREPART-001</strong> <span class="badge badge-danger">SPARES</span></p>
+                                    </div>
+                                    <p style="margin-top: 8px;"><span style="color: var(--text-secondary);">├─</span> <strong>CONVEYOR-001</strong> <span class="badge badge-info">ACCESSORY</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addRelationshipModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Asset Relationship</h3>
+                <button class="modal-close" onclick="closeModal('addRelationshipModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addRelationshipForm">
+                    <div class="form-group">
+                        <label>Parent Asset ID</label>
+                        <input type="text" class="form-control" id="parentAssetId"
+                               placeholder="e.g., PROD-LINE-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Child Asset ID</label>
+                        <input type="text" class="form-control" id="childAssetId"
+                               placeholder="e.g., CNC-MACHINE-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Relationship Type</label>
+                        <select class="form-control" id="relationshipType">
+                            <option value="">-- Select Type --</option>
+                            <option value="COMPONENT">COMPONENT</option>
+                            <option value="ACCESSORY">ACCESSORY</option>
+                            <option value="CONTAINER">CONTAINER</option>
+                            <option value="SPARES">SPARES</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Relationship Attributes</label>
+                        <textarea class="form-control" id="relationshipAttrs"
+                                  placeholder="Additional metadata for the relationship"></textarea>
+                        <p class="form-hint">Maximum 500 characters</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addRelationshipModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addRelationshipModal')">Add Relationship</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewRelationshipModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Relationship Details</h3>
+                <button class="modal-close" onclick="closeModal('viewRelationshipModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewRelationshipContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewRelationshipModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewRelationship(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Relationship ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Parent Asset</label>
+                    <p>PROD-LINE-001</p>
+                </div>
+                <div class="form-group">
+                    <label>Child Asset</label>
+                    <p>CNC-MACHINE-001</p>
+                </div>
+                <div class="form-group">
+                    <label>Relationship Type</label>
+                    <span class="badge badge-primary">COMPONENT</span>
+                </div>
+            `;
+            document.getElementById('viewRelationshipContent').innerHTML = content;
+            openModal('viewRelationshipModal');
+        }
+
+        function editRelationship(id) {
+            alert('Edit functionality for: ' + id);
+        }
+
+        function loadHierarchyTree() {
+            console.log('Loading hierarchy tree for:', document.getElementById('rootAsset').value);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

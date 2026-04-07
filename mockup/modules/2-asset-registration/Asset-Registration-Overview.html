@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Asset Registration - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .module-hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .module-hero h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .module-hero p {
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        .module-hero .stats-row {
+            display: flex;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
+        }
+
+        .module-hero .stat-item {
+            text-align: center;
+        }
+
+        .module-hero .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .module-hero .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .tab-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card .feature-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-card .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .feature-card .feature-icon.primary {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        .feature-card .feature-icon.success {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--success);
+        }
+
+        .feature-card .feature-icon.warning {
+            background: rgba(202, 138, 4, 0.1);
+            color: var(--warning);
+        }
+
+        .feature-card .feature-icon.info {
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--info);
+        }
+
+        .feature-card .feature-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .feature-card .feature-id {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-card .feature-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        .feature-card .feature-link {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .feature-card .feature-link:hover {
+            text-decoration: underline;
+        }
+
+        .quick-action-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .quick-action-card:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.02);
+        }
+
+        .quick-action-card .action-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .quick-action-card .action-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .quick-action-card .action-desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .category-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .category-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--border);
+        }
+
+        .sub-nav {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .sub-nav-item {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sub-nav-item:hover, .sub-nav-item.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .status-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+
+        .status-card .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .status-card .status-title {
+            font-weight: 600;
+        }
+
+        .status-card .status-badge {
+            font-size: 0.75rem;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--success);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar .progress-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+        }
+
+        .progress-bar .progress-fill.success { background: var(--success); }
+        .progress-bar .progress-fill.primary { background: var(--primary); }
+        .progress-bar .progress-fill.warning { background: var(--warning); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="../asset-central/Asset-Central-Hub.html">Asset Central</a> / Module 2: Asset Registration
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="module-hero">
+                    <h1>Module 2: Asset Registration</h1>
+                    <p>Comprehensive asset registration and management with support for multiple asset types, bulk operations, and automated identification.</p>
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <div class="stat-value">12,458</div>
+                            <div class="stat-label">Total Assets</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Categories</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">98.5%</div>
+                            <div class="stat-label">Tagged</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Pending Import</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" data-tab="overview">Overview</button>
+                    <button class="tab" data-tab="quick-actions">Quick Actions</button>
+                    <button class="tab" data-tab="core-features">Core Features</button>
+                    <button class="tab" data-tab="advanced">Advanced</button>
+                </div>
+
+                <div id="tab-overview" class="tab-content active">
+                    <div class="grid grid-2 mb-lg">
+                        <div class="status-card">
+                            <div class="status-header">
+                                <span class="status-title">Asset Registration Progress</span>
+                                <span class="status-badge">On Track</span>
+                            </div>
+                            <div class="progress-bar mb-md">
+                                <div class="progress-fill success" style="width: 78%"></div>
+                            </div>
+                            <div class="d-flex justify-between text-muted" style="font-size: 0.75rem;">
+                                <span>7,850 registered</span>
+                                <span>78%</span>
+                            </div>
+                        </div>
+                        <div class="status-card">
+                            <div class="status-header">
+                                <span class="status-title">Barcode Generation</span>
+                                <span class="status-badge">Active</span>
+                            </div>
+                            <div class="progress-bar mb-md">
+                                <div class="progress-fill primary" style="width: 92%"></div>
+                            </div>
+                            <div class="d-flex justify-between text-muted" style="font-size: 0.75rem;">
+                                <span>11,462 generated</span>
+                                <span>92%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-md">Module Capabilities</h3>
+                    <div class="action-grid">
+                        <div class="quick-action-card">
+                            <div class="action-icon primary" style="background: rgba(37, 99, 235, 0.1); color: var(--primary);">📦</div>
+                            <div class="action-title">Multiple Asset Types</div>
+                            <div class="action-desc">Equipment, vehicles, IT, furniture</div>
+                        </div>
+                        <div class="quick-action-card">
+                            <div class="action-icon success" style="background: rgba(22, 163, 74, 0.1); color: var(--success);">📊</div>
+                            <div class="action-title">Custom Categories</div>
+                            <div class="action-desc">User-defined attributes</div>
+                        </div>
+                        <div class="quick-action-card">
+                            <div class="action-icon warning" style="background: rgba(202, 138, 4, 0.1); color: var(--warning);">📥</div>
+                            <div class="action-title">Bulk Import</div>
+                            <div class="action-desc">Excel & CSV support</div>
+                        </div>
+                        <div class="quick-action-card">
+                            <div class="action-icon info" style="background: rgba(2, 132, 199, 0.1); color: var(--info);">🏷️</div>
+                            <div class="action-title">ID Integration</div>
+                            <div class="action-desc">Barcode, QR, RFID</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-quick-actions" class="tab-content">
+                    <div class="action-grid">
+                        <a href="F-2.1.1-Multiple%20Asset%20Types%20Support.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon primary" style="background: rgba(37, 99, 235, 0.1); color: var(--primary);">➕</div>
+                            <div class="action-title">Register New Asset</div>
+                            <div class="action-desc">Add single asset manually</div>
+                        </a>
+                        <a href="F-2.1.3-Bulk%20Import-Export.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon success" style="background: rgba(22, 163, 74, 0.1); color: var(--success);">📤</div>
+                            <div class="action-title">Import Assets</div>
+                            <div class="action-desc">Bulk import from Excel/CSV</div>
+                        </a>
+                        <a href="F-2.1.4-Barcode-QR%20Code%20Generation.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon warning" style="background: rgba(202, 138, 4, 0.1); color: var(--warning);">🖨️</div>
+                            <div class="action-title">Print Labels</div>
+                            <div class="action-desc">Generate barcode/QR labels</div>
+                        </a>
+                        <a href="F-2.1.5-RFID%20Tag%20Integration.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon info" style="background: rgba(2, 132, 199, 0.1); color: var(--info);">📡</div>
+                            <div class="action-title">RFID Scan</div>
+                            <div class="action-desc">Register via RFID reader</div>
+                        </a>
+                        <a href="F-2.1.2-Custom%20Asset%20Categories.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon primary" style="background: rgba(37, 99, 235, 0.1); color: var(--primary);">🏗️</div>
+                            <div class="action-title">Manage Categories</div>
+                            <div class="action-desc">Configure asset categories</div>
+                        </a>
+                        <a href="F-2.1.3-Bulk%20Import-Export.html" class="quick-action-card" style="text-decoration: none;">
+                            <div class="action-icon success" style="background: rgba(22, 163, 74, 0.1); color: var(--success);">📋</div>
+                            <div class="action-title">Export Assets</div>
+                            <div class="action-desc">Export to Excel/CSV</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-core-features" class="tab-content">
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon primary">📦</div>
+                                <div>
+                                    <div class="feature-title">Multiple Asset Types Support</div>
+                                    <div class="feature-id">F-2.1.1</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Support various asset types including equipment, vehicles, IT hardware, furniture, and more.</p>
+                            <a href="F-2.1.1-Multiple%20Asset%20Types%20Support.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon success">📊</div>
+                                <div>
+                                    <div class="feature-title">Custom Asset Categories</div>
+                                    <div class="feature-id">F-2.1.2</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Define and manage custom asset categories with user-defined attributes.</p>
+                            <a href="F-2.1.2-Custom%20Asset%20Categories.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon warning">📥</div>
+                                <div>
+                                    <div class="feature-title">Bulk Import-Export</div>
+                                    <div class="feature-id">F-2.1.3</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Import and export asset data in bulk using Excel and CSV formats.</p>
+                            <a href="F-2.1.3-Bulk%20Import-Export.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon info">🏷️</div>
+                                <div>
+                                    <div class="feature-title">Barcode/QR Code Generation</div>
+                                    <div class="feature-id">F-2.1.4</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Generate and print barcode and QR code labels for asset identification.</p>
+                            <a href="F-2.1.4-Barcode-QR%20Code%20Generation.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon primary">📡</div>
+                                <div>
+                                    <div class="feature-title">RFID Tag Integration</div>
+                                    <div class="feature-id">F-2.1.5</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Integrate with RFID systems for automated asset tracking and identification.</p>
+                            <a href="F-2.1.5-RFID%20Tag%20Integration.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon success">🔗</div>
+                                <div>
+                                    <div class="feature-title">Asset Hierarchy</div>
+                                    <div class="feature-id">F-2.1.6</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Define and manage hierarchical relationships between assets.</p>
+                            <a href="F-2.1.6-Asset%20Hierarchy.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon warning">📎</div>
+                                <div>
+                                    <div class="feature-title">Document Attachment</div>
+                                    <div class="feature-id">F-2.1.7</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Attach documents, manuals, certificates, and images to assets.</p>
+                            <a href="F-2.1.7-Document%20Attachment.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon info">🏭</div>
+                                <div>
+                                    <div class="feature-title">Manufacturing Asset Types</div>
+                                    <div class="feature-id">F-2.1.8</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Specialized support for manufacturing equipment and machinery.</p>
+                            <a href="F-2.1.8-Manufacturing%20Asset%20Types.html" class="feature-link">Open →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-advanced" class="tab-content">
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon primary">⚙️</div>
+                                <div>
+                                    <div class="feature-title">Equipment Hierarchy</div>
+                                    <div class="feature-id">F-2.1.9</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Multi-level equipment structure and BOM (Bill of Materials) integration.</p>
+                            <a href="F-2.1.9-Equipment%20Hierarchy.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon success">🔧</div>
+                                <div>
+                                    <div class="feature-title">Tooling and Fixtures</div>
+                                    <div class="feature-id">F-2.1.10</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Manage tools, jigs, fixtures, and consumables with tracking.</p>
+                            <a href="F-2.1.10-Tooling%20and%20Fixtures.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon warning">🏢</div>
+                                <div>
+                                    <div class="feature-title">Multi-Plant Asset Registry</div>
+                                    <div class="feature-id">F-2.1.11</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Centralized registry for assets across multiple manufacturing plants.</p>
+                            <a href="F-2.1.11-Multi-Plant%20Asset%20Registry.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon info">🧩</div>
+                                <div>
+                                    <div class="feature-title">Asset Componentization</div>
+                                    <div class="feature-id">F-2.1.12</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Break down assets into components for detailed tracking.</p>
+                            <a href="F-2.1.12-Asset%20Componentization.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon primary">⚠️</div>
+                                <div>
+                                    <div class="feature-title">Criticality Classification</div>
+                                    <div class="feature-id">F-2.1.13</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Classify assets by criticality for maintenance prioritization.</p>
+                            <a href="F-2.1.13-Criticality%20Classification.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon success">🔌</div>
+                                <div>
+                                    <div class="feature-title">Integration API Framework</div>
+                                    <div class="feature-id">F-2.1.14</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">RESTful APIs for third-party system integrations.</p>
+                            <a href="F-2.1.14-Integration%20API%20Framework.html" class="feature-link">Open →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-header">
+                                <div class="feature-icon warning">👤</div>
+                                <div>
+                                    <div class="feature-title">HR Employee Integration</div>
+                                    <div class="feature-id">F-2.1.15</div>
+                                </div>
+                            </div>
+                            <p class="feature-desc">Link assets with employees for accountability tracking.</p>
+                            <a href="F-2.1.15-HR%20Employee%20Integration.html" class="feature-link">Open →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

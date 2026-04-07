@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.1 - Scheduled Maintenance Planning</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="../asset-central/Asset-Central-Hub.html">Asset Central</a>
+                    <span id="asset-context" style="display:none;"> / <a href="#" id="asset-context-link">AST-001</a></span>
+                    <span> / F-2.3.1</span>
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.1 - Scheduled Maintenance Planning</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.1-Scheduled%20Maintenance%20Planning.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('schedules')">Maintenance Schedules</button>
+                    <button class="tab" onclick="switchTab('calendar')">Calendar View</button>
+                    <button class="tab" onclick="switchTab('templates')">Templates</button>
+                </div>
+
+                <!-- Schedules Tab -->
+                <div class="tab-content active" id="schedules-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Maintenance Schedules</h2>
+                            <button class="btn btn-primary" onclick="openModal('addScheduleModal')">+ Create Schedule</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Maintenance Type</th>
+                                            <th>Frequency</th>
+                                            <th>Next Due</th>
+                                            <th>Status</th>
+                                            <th>Assigned To</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="../asset-central/Asset-Detail.html?asset=AST-2024-001" class="asset-link">CNC Machine #1</a> <span class="text-muted">(AST-2024-001)</span></td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td>Monthly</td>
+                                            <td>2025-04-15</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td>John Smith</td>
+                                            <td class="table-actions">
+                                                <a href="../asset-central/Asset-Detail.html?asset=AST-2024-001" class="btn btn-sm btn-outline">View Asset</a>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="../asset-central/Asset-Detail.html?asset=AST-2023-045" class="asset-link">HVAC System</a> <span class="text-muted">(AST-2023-045)</span></td>
+                                            <td><span class="tag">Inspection</span></td>
+                                            <td>Quarterly</td>
+                                            <td>2025-04-20</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td>Mike Johnson</td>
+                                            <td class="table-actions">
+                                                <a href="../asset-central/Asset-Detail.html?asset=AST-2023-045" class="btn btn-sm btn-outline">View Asset</a>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="../asset-central/Asset-Detail.html?asset=AST-2023-089" class="asset-link">Forklift #3</a> <span class="text-muted">(AST-2023-089)</span></td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td>Weekly</td>
+                                            <td>2025-04-07</td>
+                                            <td><span class="badge badge-warning">Due Soon</span></td>
+                                            <td>Tom Wilson</td>
+                                            <td class="table-actions">
+                                                <a href="../asset-central/Asset-Detail.html?asset=AST-2023-089" class="btn btn-sm btn-outline">View Asset</a>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="../asset-central/Asset-Detail.html?asset=AST-2024-015" class="asset-link">Compressor Unit</a> <span class="text-muted">(AST-2024-015)</span></td>
+                                            <td><span class="tag">Predictive</span></td>
+                                            <td>Usage-based (500 hrs)</td>
+                                            <td>485 hrs remaining</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td>Auto-triggered</td>
+                                            <td class="table-actions">
+                                                <a href="../asset-central/Asset-Detail.html?asset=AST-2024-015" class="btn btn-sm btn-outline">View Asset</a>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Tab -->
+                <div class="tab-content" id="calendar-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Calendar - April 2025</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">&lt; Previous</button>
+                                <button class="btn btn-outline btn-sm">Today</button>
+                                <button class="btn btn-outline btn-sm">Next &gt;</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div style="height: 400px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                <div class="text-center text-muted">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    <p style="margin-top: 1rem;">Calendar View (Gantt Chart)</p>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Maintenance schedules displayed with resource allocation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Templates Tab -->
+                <div class="tab-content" id="templates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Templates</h2>
+                            <button class="btn btn-primary btn-sm">+ Create Template</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Template Name</th>
+                                            <th>Type</th>
+                                            <th>Tasks</th>
+                                            <th>Est. Hours</th>
+                                            <th>Used By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Monthly PM Checklist</td>
+                                            <td>Preventive</td>
+                                            <td>8 tasks</td>
+                                            <td>4 hours</td>
+                                            <td>12 schedules</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quarterly Inspection</td>
+                                            <td>Inspection</td>
+                                            <td>15 tasks</td>
+                                            <td>6 hours</td>
+                                            <td>8 schedules</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Annual Overhaul</td>
+                                            <td>Major Service</td>
+                                            <td>25 tasks</td>
+                                            <td>16 hours</td>
+                                            <td>5 schedules</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Schedule Modal -->
+    <div class="modal-overlay" id="addScheduleModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Maintenance Schedule</h3>
+                <button class="modal-close" onclick="closeModal('addScheduleModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="scheduleAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2024-001">CNC Machine #1 (AST-2024-001)</option>
+                            <option value="AST-2023-045">HVAC System (AST-2023-045)</option>
+                            <option value="AST-2023-089">Forklift #3 (AST-2023-089)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Maintenance Type</label>
+                            <select class="form-control" id="maintType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Preventive">Preventive</option>
+                                <option value="Inspection">Inspection</option>
+                                <option value="Predictive">Predictive</option>
+                                <option value="Calibration">Calibration</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select class="form-control" id="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Frequency Type</label>
+                            <select class="form-control" id="freqType" onchange="toggleUsageFields()">
+                                <option value="Time-based">Time-based</option>
+                                <option value="Usage-based">Usage-based</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label id="freqLabel">Frequency Value</label>
+                            <input type="number" class="form-control" id="freqValue" value="1">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Frequency Unit</label>
+                            <select class="form-control" id="freqUnit">
+                                <option value="Day">Days</option>
+                                <option value="Week">Weeks</option>
+                                <option value="Month" selected>Months</option>
+                                <option value="Year">Years</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estimated Hours</label>
+                        <input type="number" class="form-control" id="estHours" value="2">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Assigned Technician</label>
+                        <select class="form-control" id="assignedTech">
+                            <option value="">-- Auto-assign --</option>
+                            <option value="JS001">John Smith</option>
+                            <option value="MJ001">Mike Johnson</option>
+                            <option value="TW001">Tom Wilson</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="d-flex align-center gap-sm">
+                            <input type="checkbox" id="autoGenerateWo" checked>
+                            Auto-generate work order when due
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addScheduleModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addScheduleModal')">Create Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function toggleUsageFields() {
+            const freqType = document.getElementById('freqType').value;
+            const freqLabel = document.getElementById('freqLabel');
+            if (freqType === 'Usage-based') {
+                freqLabel.textContent = 'Usage Threshold (hours)';
+            } else {
+                freqLabel.textContent = 'Frequency Value';
+            }
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

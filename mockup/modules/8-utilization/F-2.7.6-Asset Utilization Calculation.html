@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.6 - Asset Utilization Calculation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.6
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.6 - Asset Utilization Calculation</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.6-Asset%20Utilization%20Calculation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Time Utilization</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">78%</h2>
+                            <p>Industry Benchmark: 72%</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Capacity Utilization</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">85%</h2>
+                            <p>Target: 90%</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Data Quality Score</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">92%</h2>
+                            <p>Good - 8% Estimated</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('dashboard')">Dashboard</button>
+                    <button class="tab" onclick="switchTab('analysis')">Analysis</button>
+                    <button class="tab" onclick="switchTab('benchmarks')">Benchmarks</button>
+                </div>
+
+                <div class="tab-content active" id="dashboard-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Utilization by Asset Category</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>Monthly</option>
+                                    <option>Weekly</option>
+                                    <option>Quarterly</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Time Util</th>
+                                            <th>Capacity Util</th>
+                                            <th>Value Util</th>
+                                            <th>Overall</th>
+                                            <th>Trend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Heavy Equipment</td>
+                                            <td>82%</td>
+                                            <td>88%</td>
+                                            <td>75%</td>
+                                            <td><strong>82%</strong></td>
+                                            <td><span class="badge badge-success">↑ 5%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vehicles</td>
+                                            <td>75%</td>
+                                            <td>90%</td>
+                                            <td>80%</td>
+                                            <td><strong>82%</strong></td>
+                                            <td><span class="badge badge-success">↑ 2%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Production Machinery</td>
+                                            <td>85%</td>
+                                            <td>92%</td>
+                                            <td>78%</td>
+                                            <td><strong>85%</strong></td>
+                                            <td><span class="badge badge-danger">↓ 3%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Equipment</td>
+                                            <td>60%</td>
+                                            <td>70%</td>
+                                            <td>65%</td>
+                                            <td><strong>65%</strong></td>
+                                            <td><span class="badge badge-warning">→ 0%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="analysis-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Utilization Calculation Settings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Calculation Method</label>
+                                    <select class="form-control">
+                                        <option>SENSOR</option>
+                                        <option>MANUAL</option>
+                                        <option>HYBRID</option>
+                                    </select>
+                                    <p class="form-hint">SENSOR: IoT data, MANUAL: User-reported, HYBRID: Combination</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Weights Configuration</label>
+                                    <div class="d-flex gap-sm">
+                                        <input type="number" class="form-control" value="40" style="width: 80px;">%
+                                        <input type="number" class="form-control" value="35" style="width: 80px;">%
+                                        <input type="number" class="form-control" value="25" style="width: 80px;">%
+                                    </div>
+                                    <p class="form-hint">Time, Capacity, Value weights (must sum to 100%)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="benchmarks-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Industry Benchmarks</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset Category</th>
+                                            <th>Our Utilization</th>
+                                            <th>Industry Avg</th>
+                                            <th>Top 25%</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Heavy Equipment</td>
+                                            <td>82%</td>
+                                            <td>72%</td>
+                                            <td>85%</td>
+                                            <td><span class="badge badge-success">Above Avg</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Production Machinery</td>
+                                            <td>85%</td>
+                                            <td>80%</td>
+                                            <td>92%</td>
+                                            <td><span class="badge badge-warning">Near Avg</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+        </main>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

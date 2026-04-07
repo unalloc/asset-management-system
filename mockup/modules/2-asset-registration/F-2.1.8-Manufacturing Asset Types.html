@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.8 - Manufacturing Asset Types</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.8
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.8 - Manufacturing Asset Types</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.8-Manufacturing%20Asset%20Types.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mb-lg">
+                    <strong>Manufacturing Module Required:</strong> This feature requires the Manufacturing module to be enabled.
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Manufacturing Asset Types</h2>
+                        <button class="btn btn-primary" onclick="openModal('addMfgTypeModal')">+ Add Manufacturing Type</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Type Code</th>
+                                        <th>Type Name</th>
+                                        <th>Equipment Category</th>
+                                        <th>Status</th>
+                                        <th>Assets</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mfgTypeTable">
+                                    <tr>
+                                        <td>CNC-MILL</td>
+                                        <td>CNC Milling Machine</td>
+                                        <td><span class="badge badge-primary">MACHINING</span></td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>24</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('CNC-MILL')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('CNC-MILL')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>INJ-MOLD</td>
+                                        <td>Injection Molding Machine</td>
+                                        <td><span class="badge badge-primary">MACHINING</span></td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>12</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('INJ-MOLD')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('INJ-MOLD')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ASSEMBLY-ARM</td>
+                                        <td>Robotic Assembly Arm</td>
+                                        <td><span class="badge badge-info">ASSEMBLY</span></td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>18</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('ASSEMBLY-ARM')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('ASSEMBLY-ARM')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FORKLIFT</td>
+                                        <td>Material Handling Forklift</td>
+                                        <td><span class="badge badge-warning">MATERIAL_HANDLING</span></td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>8</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('FORKLIFT')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('FORKLIFT')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CARTONIZER</td>
+                                        <td>Carton Packaging Machine</td>
+                                        <td><span class="badge badge-danger">PACKAGING</span></td>
+                                        <td><span class="badge badge-warning">DRAFT</span></td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('CARTONIZER')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('CARTONIZER')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CMM-UNIT</td>
+                                        <td>Coordinate Measuring Machine</td>
+                                        <td><span class="badge badge-success">QUALITY</span></td>
+                                        <td><span class="badge badge-secondary">DEPRECATED</span></td>
+                                        <td>3</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewMfgType('CMM-UNIT')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editMfgType('CMM-UNIT')">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Technical Parameters by Type</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Manufacturing Type</label>
+                                <select class="form-control" onchange="loadTechParams(this.value)">
+                                    <option value="CNC-MILL">CNC-MILL - CNC Milling Machine</option>
+                                    <option value="INJ-MOLD">INJ-MOLD - Injection Molding Machine</option>
+                                    <option value="ASSEMBLY-ARM">ASSEMBLY-ARM - Robotic Assembly Arm</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-container mt-md">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Parameter Name</th>
+                                        <th>Type</th>
+                                        <th>Required</th>
+                                        <th>Default Value</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>max_spindle_speed</td>
+                                        <td>number</td>
+                                        <td><span class="badge badge-danger">Yes</span></td>
+                                        <td>-</td>
+                                        <td>RPM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>table_size</td>
+                                        <td>object</td>
+                                        <td><span class="badge badge-danger">Yes</span></td>
+                                        <td>-</td>
+                                        <td>mm x mm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>power_rating</td>
+                                        <td>number</td>
+                                        <td><span class="badge badge-danger">Yes</span></td>
+                                        <td>-</td>
+                                        <td>kW</td>
+                                    </tr>
+                                    <tr>
+                                        <td>oee_target</td>
+                                        <td>number</td>
+                                        <td><span class="badge badge-success">No</span></td>
+                                        <td>85</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>maintenance_interval</td>
+                                        <td>number</td>
+                                        <td><span class="badge badge-success">No</span></td>
+                                        <td>2000</td>
+                                        <td>hours</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Capability Metrics (OEE)</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <p><strong>CNC-MILL</strong></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Metrics Defined</label>
+                                <p>4 metrics configured</p>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Metric Name</th>
+                                        <th>Description</th>
+                                        <th>Target</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>availability</td>
+                                        <td>Machine availability rate</td>
+                                        <td>95</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>performance</td>
+                                        <td>Performance rate</td>
+                                        <td>90</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>quality</td>
+                                        <td>Quality rate</td>
+                                        <td>98</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>oee</td>
+                                        <td>Overall Equipment Effectiveness</td>
+                                        <td>85</td>
+                                        <td>%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addMfgTypeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Manufacturing Type</h3>
+                <button class="modal-close" onclick="closeModal('addMfgTypeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addMfgTypeForm">
+                    <div class="form-group">
+                        <label>Type Code</label>
+                        <input type="text" class="form-control" id="mfgTypeCode"
+                               placeholder="e.g., CNC-MILL">
+                        <p class="form-hint">1-30 uppercase alphanumeric characters or underscores</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type Name</label>
+                        <input type="text" class="form-control" id="mfgTypeName"
+                               placeholder="e.g., CNC Milling Machine">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Equipment Category</label>
+                        <select class="form-control" id="equipmentCategory">
+                            <option value="">-- Select Category --</option>
+                            <option value="MACHINING">MACHINING</option>
+                            <option value="FORMING">FORMING</option>
+                            <option value="ASSEMBLY">ASSEMBLY</option>
+                            <option value="MATERIAL_HANDLING">MATERIAL_HANDLING</option>
+                            <option value="PACKAGING">PACKAGING</option>
+                            <option value="QUALITY">QUALITY</option>
+                            <option value="UTILITIES">UTILITIES</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="mfgTypeStatus">
+                            <option value="DRAFT">Draft</option>
+                            <option value="ACTIVE" selected>Active</option>
+                            <option value="DEPRECATED">Deprecated</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Technical Parameters (JSON)</label>
+                        <textarea class="form-control" id="techParams"
+                                  placeholder='{"max_spindle_speed": 5000, "table_size": {"x": 1000, "y": 500}, "power_rating": 15}'></textarea>
+                        <p class="form-hint">Valid JSON structure with equipment specifications</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Capability Metrics (JSON)</label>
+                        <textarea class="form-control" id="capMetrics"
+                                  placeholder='{"oee_target": 85, "availability_target": 95}'></textarea>
+                        <p class="form-hint">Optional OEE metric definitions</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addMfgTypeModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addMfgTypeModal')">Add Type</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewMfgTypeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Manufacturing Type Details</h3>
+                <button class="modal-close" onclick="closeModal('viewMfgTypeModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewMfgTypeContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewMfgTypeModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewMfgType(code) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Type Code</label>
+                        <p><strong>${code}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">ACTIVE</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Equipment Category</label>
+                    <span class="badge badge-primary">MACHINING</span>
+                </div>
+                <div class="form-group">
+                    <label>Assets Using This Type</label>
+                    <p>24 assets registered</p>
+                </div>
+            `;
+            document.getElementById('viewMfgTypeContent').innerHTML = content;
+            openModal('viewMfgTypeModal');
+        }
+
+        function editMfgType(code) {
+            alert('Edit functionality for: ' + code);
+        }
+
+        function loadTechParams(typeCode) {
+            console.log('Loading technical parameters for:', typeCode);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

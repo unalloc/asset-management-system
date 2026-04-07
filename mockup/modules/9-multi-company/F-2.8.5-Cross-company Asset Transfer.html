@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.5 - Cross-company Asset Transfer</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.5
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.5 - Cross-company Asset Transfer</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.5-Cross-company%20Asset%20Transfer.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Transfer Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div class="card" style="margin-bottom: 0; border: 2px solid var(--primary);">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--primary); font-size: 0.9rem;">PAID</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Internal Sale</p>
+                                    <p style="font-size: 0.7rem; margin-top: 0.5rem;">Arm's length price required</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom: 0;">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--secondary); font-size: 0.9rem;">UNPAID</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Donation</p>
+                                    <p style="font-size: 0.7rem; margin-top: 0.5rem;">Calculate deemed cost</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom: 0;">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--warning); font-size: 0.9rem;">LEASE</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Transfer</p>
+                                    <p style="font-size: 0.7rem; margin-top: 0.5rem;">Update lease terms</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom: 0;">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--success); font-size: 0.9rem;">BORROW</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Temporary</p>
+                                    <p style="font-size: 0.7rem; margin-top: 0.5rem;">Set return conditions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pending Transfers</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newTransferModal')">+ Initiate Transfer</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transfer ID</th>
+                                        <th>Asset</th>
+                                        <th>From Company</th>
+                                        <th>To Company</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TRF-2026-001</td>
+                                        <td>CNC Machine Model-X</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-primary">PAID</span></td>
+                                        <td>$125,000</td>
+                                        <td><span class="badge badge-warning">PENDING</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Approve</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2026-002</td>
+                                        <td>Assembly Robot AR-500</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-warning">BORROW</span></td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-info">IN_PROGRESS</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Track</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Transfer Validation</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <strong>Transfer Requirements:</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Asset must be owned by transferring company</li>
+                                <li>Asset must not have restrictions (mortgage, liens)</li>
+                                <li>Receiving company must be active</li>
+                                <li>Transfer pricing must be defined for PAID transfers</li>
+                                <li>All required approvals must be obtained</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newTransferModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Initiate Cross-Company Transfer</h3>
+                <button class="modal-close" onclick="closeModal('newTransferModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="transferForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" name="assetId">
+                            <option value="">Select Asset</option>
+                            <option value="AST-001">CNC Machine Model-X (AST-001)</option>
+                            <option value="AST-002">Assembly Robot AR-500 (AST-002)</option>
+                            <option value="AST-003">Forklift FL-200 (AST-003)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>From Company</label>
+                            <select class="form-control" name="fromCompany">
+                                <option value="">Select Company</option>
+                                <option value="US0001">US Manufacturing Inc.</option>
+                                <option value="EU0001">EU Holdings GmbH</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>To Company</label>
+                            <select class="form-control" name="toCompany">
+                                <option value="">Select Company</option>
+                                <option value="US0001">US Manufacturing Inc.</option>
+                                <option value="EU0001">EU Holdings GmbH</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Transfer Type</label>
+                        <select class="form-control" name="transferType">
+                            <option value="">Select Type</option>
+                            <option value="PAID">PAID (Internal Sale)</option>
+                            <option value="UNPAID">UNPAID (Donation)</option>
+                            <option value="LEASE">LEASE Transfer</option>
+                            <option value="BORROW">TEMPORARY BORROWING</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Transfer Price</label>
+                            <input type="number" class="form-control" name="transferPrice" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Price Method</label>
+                            <select class="form-control" name="priceMethod">
+                                <option value="MARKET">Market</option>
+                                <option value="COST_PLUS">Cost Plus</option>
+                                <option value="PROFIT_PLUS">Profit Plus</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Transfer Reason</label>
+                        <textarea class="form-control" name="reason" placeholder="Explain the business reason for this transfer"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newTransferModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newTransferModal')">Submit Transfer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

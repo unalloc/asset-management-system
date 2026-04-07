@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.3 - Bulk Import-Export</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.3
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.3 - Bulk Import-Export</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.3-Bulk%20Import-Export.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Import Operations</h2>
+                        <button class="btn btn-primary" onclick="openModal('importModal')">+ New Import</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Import ID</th>
+                                        <th>Date</th>
+                                        <th>Mode</th>
+                                        <th>File Name</th>
+                                        <th>Records</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="importTable">
+                                    <tr>
+                                        <td>IMP-2025-001</td>
+                                        <td>2025-03-15 14:32</td>
+                                        <td><span class="tag">CREATE</span></td>
+                                        <td>assets_march_2025.csv</td>
+                                        <td>1,250</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewImport('IMP-2025-001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadReport('IMP-2025-001')">Report</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IMP-2025-002</td>
+                                        <td>2025-03-18 09:15</td>
+                                        <td><span class="tag">UPDATE</span></td>
+                                        <td>asset_updates.xlsx</td>
+                                        <td>456</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewImport('IMP-2025-002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadReport('IMP-2025-002')">Report</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IMP-2025-003</td>
+                                        <td>2025-03-20 11:45</td>
+                                        <td><span class="tag">CREATE</span></td>
+                                        <td>new_assets.json</td>
+                                        <td>89</td>
+                                        <td><span class="badge badge-danger">Failed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewImport('IMP-2025-003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="downloadReport('IMP-2025-003')">Errors</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IMP-2025-004</td>
+                                        <td>2025-03-22 16:20</td>
+                                        <td><span class="tag">REPLACE</span></td>
+                                        <td>full_replacement.xlsx</td>
+                                        <td>2,100</td>
+                                        <td><span class="badge badge-warning">Processing</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewImport('IMP-2025-004')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Export Operations</h2>
+                        <button class="btn btn-primary" onclick="openModal('exportModal')">+ New Export</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Export ID</th>
+                                        <th>Date</th>
+                                        <th>Format</th>
+                                        <th>Records</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="exportTable">
+                                    <tr>
+                                        <td>EXP-2025-001</td>
+                                        <td>2025-03-10 08:00</td>
+                                        <td><span class="tag">CSV</span></td>
+                                        <td>5,420</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="downloadExport('EXP-2025-001')">Download</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EXP-2025-002</td>
+                                        <td>2025-03-17 14:30</td>
+                                        <td><span class="tag">XLSX</span></td>
+                                        <td>3,215</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="downloadExport('EXP-2025-002')">Download</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="importModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Import</h3>
+                <button class="modal-close" onclick="closeModal('importModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="importForm">
+                    <div class="form-group">
+                        <label>Import Mode</label>
+                        <select class="form-control" id="importMode">
+                            <option value="CREATE" selected>CREATE - Add new assets only</option>
+                            <option value="UPDATE">UPDATE - Update existing assets</option>
+                            <option value="REPLACE">REPLACE - Replace all asset data</option>
+                        </select>
+                        <p class="form-hint">Determines how duplicates are handled</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Template</label>
+                        <select class="form-control" id="importTemplate">
+                            <option value="">-- Select Template --</option>
+                            <option value="standard">Standard Asset Template v2.1</option>
+                            <option value="it-equipment">IT Equipment Template v1.5</option>
+                            <option value="vehicles">Vehicle Template v1.2</option>
+                        </select>
+                        <p class="form-hint">Template version must match import file version</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Import File</label>
+                        <input type="file" class="form-control" id="importFile"
+                               accept=".csv,.xlsx,.xls,.json">
+                        <p class="form-hint">Supported formats: CSV, XLSX, XLS, JSON (max 100MB)</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>REPLACE Mode Warning:</strong> This will replace all existing asset data with data from the import file. This action cannot be undone.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('importModal')">Start Import</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="exportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Export</h3>
+                <button class="modal-close" onclick="closeModal('exportModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="exportForm">
+                    <div class="form-group">
+                        <label>Export Format</label>
+                        <select class="form-control" id="exportFormat">
+                            <option value="CSV" selected>CSV</option>
+                            <option value="XLSX">Excel (XLSX)</option>
+                            <option value="JSON">JSON</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asset Filter</label>
+                        <select class="form-control" id="exportFilter">
+                            <option value="all">All Assets</option>
+                            <option value="active">Active Assets Only</option>
+                            <option value="inactive">Inactive Assets Only</option>
+                            <option value="by-type">By Asset Type</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fields to Include</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" checked disabled> Asset Code</label>
+                            <label><input type="checkbox" checked disabled> Asset Name</label>
+                            <label><input type="checkbox" checked> Description</label>
+                            <label><input type="checkbox" checked> Asset Type</label>
+                            <label><input type="checkbox" checked> Location</label>
+                            <label><input type="checkbox" checked> Acquisition Date</label>
+                            <label><input type="checkbox" checked> Original Cost</label>
+                            <label><input type="checkbox"> PII Fields</label>
+                        </div>
+                        <p class="form-hint">PII fields require explicit authorization</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('exportModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('exportModal')">Export</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewImportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Import Details</h3>
+                <button class="modal-close" onclick="closeModal('viewImportModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewImportContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewImportModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewImport(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Import ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">Completed</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Summary</label>
+                    <p>Total Records: 1,250<br>Successful: 1,198<br>Failed: 52<br>Skipped: 0</p>
+                </div>
+            `;
+            document.getElementById('viewImportContent').innerHTML = content;
+            openModal('viewImportModal');
+        }
+
+        function downloadReport(id) {
+            alert('Downloading error report for: ' + id);
+        }
+
+        function downloadExport(id) {
+            alert('Downloading export for: ' + id);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

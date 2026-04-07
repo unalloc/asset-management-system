@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.11 - Work Order Prioritization</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.11
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.11 - Work Order Prioritization</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.11-Work%20Order%20Prioritization.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('priorities')">Work Order Queue</button>
+                    <button class="tab" onclick="switchTab('weights')">Priority Weights</button>
+                    <button class="tab" onclick="switchTab('schedule')">Schedule Optimization</button>
+                </div>
+
+                <div class="tab-content active" id="priorities-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Work Order Priority Queue</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Priorities</option>
+                                    <option>Emergency</option>
+                                    <option>High</option>
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Refresh</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>WO Number</th>
+                                            <th>Asset</th>
+                                            <th>Asset Class</th>
+                                            <th>Priority Score</th>
+                                            <th>Priority</th>
+                                            <th>Est. Hours</th>
+                                            <th>Due Date</th>
+                                            <th>Assigned To</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0892</td>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td><span class="badge badge-danger">A</span></td>
+                                            <td>4.7</td>
+                                            <td><span class="badge badge-danger">Emergency</span></td>
+                                            <td>4 hrs</td>
+                                            <td>2025-04-05</td>
+                                            <td>John Smith</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Dispatch</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0891</td>
+                                            <td>Robot Arm Cell 3 (AST-2024-022)</td>
+                                            <td><span class="badge badge-danger">A</span></td>
+                                            <td>4.5</td>
+                                            <td><span class="badge badge-danger">Emergency</span></td>
+                                            <td>6 hrs</td>
+                                            <td>2025-04-05</td>
+                                            <td>Mike Johnson</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Dispatch</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0889</td>
+                                            <td>HVAC Unit A (AST-2023-045)</td>
+                                            <td><span class="badge badge-warning">B</span></td>
+                                            <td>3.8</td>
+                                            <td><span class="badge badge-primary">High</span></td>
+                                            <td>2 hrs</td>
+                                            <td>2025-04-07</td>
+                                            <td>Tom Wilson</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Reprioritize</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0888</td>
+                                            <td>Conveyor Line 2 (AST-2023-078)</td>
+                                            <td><span class="badge badge-warning">B</span></td>
+                                            <td>3.6</td>
+                                            <td><span class="badge badge-primary">High</span></td>
+                                            <td>3 hrs</td>
+                                            <td>2025-04-08</td>
+                                            <td>Sarah Davis</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Reprioritize</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0885</td>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td><span class="badge badge-info">C</span></td>
+                                            <td>2.5</td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td>2 hrs</td>
+                                            <td>2025-04-10</td>
+                                            <td>Tom Wilson</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Reprioritize</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0880</td>
+                                            <td>Packaging Machine (AST-2022-034)</td>
+                                            <td><span class="badge badge-info">C</span></td>
+                                            <td>1.8</td>
+                                            <td><span class="badge badge-secondary">Low</span></td>
+                                            <td>1 hr</td>
+                                            <td>2025-04-15</td>
+                                            <td>Unassigned</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Assign</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="weights-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Priority Score Weights</h2>
+                            <button class="btn btn-primary btn-sm">Save Weights</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="formula-box">
+                                <code>Priority Score = (CriticalityWeight x AssetCriticality) + (ProductionWeight x ProductionImpact) + (SafetyWeight x SafetyRisk) + (UrgencyWeight x UrgencyFactor)</code>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Criticality Weight (%)</label>
+                                    <input type="number" class="form-control" id="critWeight" value="35">
+                                    <p class="form-hint">Asset A=5, B=3, C=1</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Production Weight (%)</label>
+                                    <input type="number" class="form-control" id="prodWeight" value="30">
+                                    <p class="form-hint">Downtime hours and production loss</p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Safety Weight (%)</label>
+                                    <input type="number" class="form-control" id="safetyWeight" value="25">
+                                    <p class="form-hint">Safety risk level (1-5)</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Urgency Weight (%)</label>
+                                    <input type="number" class="form-control" id="urgencyWeight" value="10">
+                                    <p class="form-hint">Days overdue / 30 (max 5)</p>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <strong>Priority Thresholds:</strong>
+                                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                                    <li>Emergency: Score >= 4.5</li>
+                                    <li>High: Score >= 3.5</li>
+                                    <li>Medium: Score >= 2.0</li>
+                                    <li>Low: Score < 2.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Criticality Rating Scale</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Class</th>
+                                            <th>Score</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">A - Critical</span></td>
+                                            <td>5</td>
+                                            <td>Production stop if asset fails, no substitute available</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">B - Important</span></td>
+                                            <td>3</td>
+                                            <td>Significant impact, substitute may be available</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-info">C - General</span></td>
+                                            <td>1</td>
+                                            <td>Low impact, easily worked around</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="schedule-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Resource Availability Constraints</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Technician</th>
+                                            <th>Skill</th>
+                                            <th>Available Hours Today</th>
+                                            <th>Scheduled Hours</th>
+                                            <th>Available</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John Smith</td>
+                                            <td>CNC, Robotics</td>
+                                            <td>8 hrs</td>
+                                            <td>6 hrs</td>
+                                            <td><span class="badge badge-success">2 hrs free</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mike Johnson</td>
+                                            <td>HVAC, Electrical</td>
+                                            <td>8 hrs</td>
+                                            <td>8 hrs</td>
+                                            <td><span class="badge badge-warning">Fully booked</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tom Wilson</td>
+                                            <td>General, Hydraulics</td>
+                                            <td>8 hrs</td>
+                                            <td>4 hrs</td>
+                                            <td><span class="badge badge-success">4 hrs free</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sarah Davis</td>
+                                            <td>Electrical, PLC</td>
+                                            <td>8 hrs</td>
+                                            <td>5 hrs</td>
+                                            <td><span class="badge badge-success">3 hrs free</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Scheduling Recommendation</h2>
+                            <button class="btn btn-primary btn-sm">Optimize Schedule</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success">
+                                <strong>Suggested Dispatch:</strong> Assign WO-2025-0892 (Emergency, 4.7 score) to John Smith - available 2 hours starting 2:00 PM.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

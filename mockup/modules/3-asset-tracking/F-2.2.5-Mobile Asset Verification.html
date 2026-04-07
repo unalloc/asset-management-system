@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.5 - Mobile Asset Verification</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.5
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.5 - Mobile Asset Verification</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.5-Mobile%20Asset%20Verification.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Verification Dashboard -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Verification Status Dashboard</h2>
+                        <div class="d-flex gap-sm">
+                            <select class="form-control" style="width: auto;">
+                                <option>All Plants</option>
+                                <option>Chicago Plant</option>
+                                <option>Munich Facility</option>
+                                <option>Detroit Plant</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm">Refresh</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">847</div>
+                                <div style="color: var(--text-secondary);">Verified (30d)</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--warning);">156</div>
+                                <div style="color: var(--text-secondary);">Pending</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--danger);">23</div>
+                                <div style="color: var(--text-secondary);">Overdue</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--info);">8</div>
+                                <div style="color: var(--text-secondary);">Exceptions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Verification Simulator -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Mobile Verification Simulator</h2>
+                        <span class="badge badge-info">Offline Mode: Connected</span>
+                    </div>
+                    <div class="card-body">
+                        <form id="verificationForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Scan Asset ID</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="scannedAssetId" name="scannedAssetId" placeholder="Scan barcode/QR or enter ID">
+                                        <span class="input-icon">📷</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Technician ID</label>
+                                    <input type="text" class="form-control" id="technicianId" name="technicianId" value="TECH-001">
+                                </div>
+                            </div>
+
+                            <!-- Asset Details (populated after scan) -->
+                            <div id="assetDetailsSection" style="display: none;">
+                                <div class="alert alert-info mb-lg">
+                                    <strong>Asset Found:</strong> <span id="displayAssetName">AST-2024-001 - CNC Machine #1</span><br>
+                                    <strong>Expected Location:</strong> <span id="displayExpectedLocation">Chicago Plant / Assembly / Line A</span><br>
+                                    <strong>Last Verified:</strong> <span id="displayLastVerified">2025-03-15</span><br>
+                                    <strong>Condition Score:</strong> <span id="displayConditionScore">4.2 / 5.0</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Actual Condition Rating</label>
+                                        <select class="form-control" id="conditionRating" name="conditionRating">
+                                            <option value="">Select rating</option>
+                                            <option value="5">5 - Excellent</option>
+                                            <option value="4">4 - Good</option>
+                                            <option value="3">3 - Fair</option>
+                                            <option value="2">2 - Poor</option>
+                                            <option value="1">1 - Critical</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm Location</label>
+                                        <select class="form-control" id="locationConfirm" name="locationConfirm">
+                                            <option value="">Select</option>
+                                            <option value="yes">Yes - Location Correct</option>
+                                            <option value="no">No - Location Changed</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>New Location (if changed)</label>
+                                        <input type="text" class="form-control" id="newLocation" name="newLocation" placeholder="Enter new location">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>GPS Coordinates</label>
+                                        <div class="d-flex gap-sm">
+                                            <input type="text" class="form-control" id="gpsLat" name="gpsLat" placeholder="Latitude">
+                                            <input type="text" class="form-control" id="gpsLon" name="gpsLon" placeholder="Longitude">
+                                        </div>
+                                        <div class="form-hint">Optional - Lat: -90 to 90, Lon: -180 to 180</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Photo Documentation</label>
+                                    <div style="border: 2px dashed var(--border); border-radius: var(--radius-md); padding: var(--spacing-xl); text-align: center; background: var(--bg-primary);">
+                                        <p>Click to capture or drop photo</p>
+                                        <p class="text-muted" style="font-size: 0.75rem;">Max 10MB per photo (compressed if over 5MB)</p>
+                                        <button type="button" class="btn btn-outline btn-sm mt-md">📷 Add Photo</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Verification Notes</label>
+                                    <textarea class="form-control" id="verificationNotes" name="verificationNotes" rows="3" placeholder="Enter any additional notes or observations"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="discrepancyFlag"> 
+                                        Report Discrepancy
+                                    </label>
+                                    <div id="discrepancySection" style="display: none; margin-top: var(--spacing-md);">
+                                        <textarea class="form-control" id="discrepancyNotes" name="discrepancyNotes" rows="2" placeholder="Describe the discrepancy"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-sm">
+                                <button type="button" class="btn btn-primary" onclick="closeModal('changesModal')">Submit Verification</button>
+                                <button type="button" class="btn btn-outline" onclick="closeModal('changesModal')">Simulate Scan</button>
+                                <button type="reset" class="btn btn-outline">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Pending Verifications -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pending Verifications</h2>
+                        <div class="d-flex gap-sm">
+                            <select class="form-control" style="width: auto;">
+                                <option>All Status</option>
+                                <option>Pending Sync</option>
+                                <option>Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Asset Name</th>
+                                        <th>Location</th>
+                                        <th>Scheduled</th>
+                                        <th>Technician</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AST-2024-015</td>
+                                        <td>Compressor Unit</td>
+                                        <td>Chicago Plant / Maintenance</td>
+                                        <td>2025-04-05</td>
+                                        <td>Mike Wilson (TECH-002)</td>
+                                        <td><span class="badge badge-warning">Pending Sync</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-outline">Sync</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2024-022</td>
+                                        <td>Delivery Vehicle #5</td>
+                                        <td>Detroit Plant / Transport</td>
+                                        <td>2025-04-03</td>
+                                        <td>Lisa Chen (TECH-001)</td>
+                                        <td><span class="badge badge-danger">Overdue</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-outline">Verify Now</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2024-008</td>
+                                        <td>Power Generator</td>
+                                        <td>Munich Facility / Backup</td>
+                                        <td>2025-04-06</td>
+                                        <td>Hans Mueller (TECH-003)</td>
+                                        <td><span class="badge badge-info">Scheduled</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sync Queue -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Sync Queue</h2>
+                        <div class="d-flex gap-sm">
+                            <span class="badge badge-success">Online</span>
+                            <button class="btn btn-outline btn-sm">Sync All</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Queue ID</th>
+                                        <th>Asset ID</th>
+                                        <th>Verification Data</th>
+                                        <th>Captured At</th>
+                                        <th>Sync Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>SYNC-2025-089</td>
+                                        <td>AST-2024-015</td>
+                                        <td>Condition: 4, Location: Confirmed</td>
+                                        <td>2025-04-05 10:32:15</td>
+                                        <td><span class="badge badge-warning">PENDING_SYNC</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">Retry</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SYNC-2025-088</td>
+                                        <td>AST-2024-033</td>
+                                        <td>Condition: 3, Location: Changed</td>
+                                        <td>2025-04-05 09:15:00</td>
+                                        <td><span class="badge badge-success">SYNCED</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SYNC-2025-087</td>
+                                        <td>AST-2024-041</td>
+                                        <td>Condition: 5, Photo attached</td>
+                                        <td>2025-04-04 16:45:30</td>
+                                        <td><span class="badge badge-success">SYNCED</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

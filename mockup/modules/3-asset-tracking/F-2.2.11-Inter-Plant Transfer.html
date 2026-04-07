@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.11 - Inter-Plant Transfer</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.11
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.11 - Inter-Plant Transfer</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.11-Inter-Plant%20Transfer.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Transfer Request Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Create Inter-Plant Transfer Request</h2>
+                        <div class="d-flex gap-sm">
+                            <button class="btn btn-outline btn-sm" onclick="document.getElementById('transferForm').reset()">Reset</button>
+                            <button class="btn btn-primary btn-sm" onclick="closeModal('transferModal')">Submit Request</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="transferForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Source Plant</label>
+                                    <select class="form-control" id="sourcePlant">
+                                        <option value="">Select Source Plant</option>
+                                        <option value="chicago">Chicago Plant (US-MIDWEST)</option>
+                                        <option value="detroit">Detroit Facility (US-MIDWEST)</option>
+                                        <option value="munich">Munich Facility (EU-CENTRAL)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Plant</label>
+                                    <select class="form-control" id="targetPlant">
+                                        <option value="">Select Target Plant</option>
+                                        <option value="chicago">Chicago Plant (US-MIDWEST)</option>
+                                        <option value="detroit">Detroit Facility (US-MIDWEST)</option>
+                                        <option value="munich">Munich Facility (EU-CENTRAL)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Transfer Type</label>
+                                    <select class="form-control" id="transferType">
+                                        <option value="">Select Transfer Type</option>
+                                        <option value="same-division">Same Division</option>
+                                        <option value="different-division">Different Division</option>
+                                        <option value="cross-company">Cross-Company</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Requested By</label>
+                                    <input type="text" class="form-control" id="requestedBy">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Assets to Transfer</label>
+                                <div id="assetSelector" class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" id="selectAllAssets"></th>
+                                                <th>Asset ID</th>
+                                                <th>Asset Name</th>
+                                                <th>Current Location</th>
+                                                <th>Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" class="asset-checkbox" value="AST-2024-001"></td>
+                                                <td>AST-2024-001</td>
+                                                <td>CNC Machine #1</td>
+                                                <td>Chicago Plant / Assembly</td>
+                                                <td>$125,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="asset-checkbox" value="AST-2024-015"></td>
+                                                <td>AST-2024-015</td>
+                                                <td>Compressor Unit</td>
+                                                <td>Chicago Plant / Maintenance</td>
+                                                <td>$45,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" class="asset-checkbox" value="AST-2024-022"></td>
+                                                <td>AST-2024-022</td>
+                                                <td>Delivery Vehicle #5</td>
+                                                <td>Detroit Facility</td>
+                                                <td>$68,000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Transportation Mode</label>
+                                    <select class="form-control" id="transportMode">
+                                        <option value="">Select Mode</option>
+                                        <option value="truck">Truck</option>
+                                        <option value="rail">Rail</option>
+                                        <option value="air">Air</option>
+                                        <option value="sea">Sea</option>
+                                        <option value="courier">Courier</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estimated Cost</label>
+                                    <input type="number" class="form-control" id="estimatedCost">
+                                    <div class="form-hint">Cost will be allocated between source and target plants</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Source Cost Portion (%)</label>
+                                    <input type="number" class="form-control" id="sourceCostPortion" value="50">
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Cost Portion (%)</label>
+                                    <input type="number" class="form-control" id="targetCostPortion" value="50">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Notes / Reason for Transfer</label>
+                                <textarea class="form-control" id="transferNotes" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Transfer Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Transfers</h2>
+                        <div class="d-flex gap-sm">
+                            <input type="text" class="form-control" placeholder="Search transfers..." style="width: 200px;">
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transfer ID</th>
+                                        <th>Assets</th>
+                                        <th>Route</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>ETA</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TRF-2025-042</td>
+                                        <td>AST-2024-001, AST-2024-015</td>
+                                        <td>Chicago → Detroit</td>
+                                        <td><span class="tag">Same Division</span></td>
+                                        <td><span class="badge badge-info">In Transit</span></td>
+                                        <td>2025-04-08 14:00</td>
+                                        <td><button class="btn btn-sm btn-outline">Track</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-041</td>
+                                        <td>AST-2024-008</td>
+                                        <td>Munich → Chicago</td>
+                                        <td><span class="tag">Different Division</span></td>
+                                        <td><span class="badge badge-warning">Pending Target Approval</span></td>
+                                        <td>-</td>
+                                        <td><button class="btn btn-sm btn-outline">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-040</td>
+                                        <td>AST-2024-022</td>
+                                        <td>Detroit → Munich</td>
+                                        <td><span class="tag">Cross-Company</span></td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>2025-04-02 09:30</td>
+                                        <td><button class="btn btn-sm btn-outline">View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transfer States Info -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Transfer State Workflow</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex gap-md" style="flex-wrap: wrap;">
+                            <div class="tag">DRAFT</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">PENDING_SOURCE_APPROVAL</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">PENDING_TARGET_APPROVAL</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">PENDING_TRANSIT</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">IN_TRANSIT</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">ARRIVED</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag">PENDING_RECEIVING</div>
+                            <span class="text-muted">→</span>
+                            <div class="tag badge-success">COMPLETED</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Transfer Details Modal -->
+    <div class="modal-overlay" id="transferModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Transfer Request Details</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Transfer ID</label>
+                        <p id="modalTransferId">TRF-2025-042</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <p><span class="badge badge-info">In Transit</span></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Approval Route</label>
+                    <div id="approvalTimeline" class="d-flex gap-sm" style="flex-wrap: wrap;">
+                        <div class="badge badge-success">✓ Source Plant Manager</div>
+                        <div class="badge badge-success">✓ Division Manager</div>
+                        <div class="badge badge-warning">○ Target Plant Manager</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cost Allocation</label>
+                    <p>Source: $6,250 (50%) | Target: $6,250 (50%) | Transport: $500</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+                <button class="btn btn-primary" onclick="closeModal()">Approve</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function closeModal() {
+            document.getElementById('transferModal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

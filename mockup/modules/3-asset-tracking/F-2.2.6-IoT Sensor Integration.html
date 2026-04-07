@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.6 - IoT Sensor Integration</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 3: Asset Tracking</span> / F-2.2.6
+                </div>
+                <div class="user-info">
+                    <span>Plant Manager</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.6 - IoT Sensor Integration</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.6-IoT%20Sensor%20Integration.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Sensor Configuration</h2>
+                        <button class="btn btn-primary" onclick="openModal('addSensorModal')">+ Register Sensor</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Filter by Asset</label>
+                                <select class="form-control" id="filterAsset">
+                                    <option value="">-- All Assets --</option>
+                                    <option value="AST-001">CNC Machine #1 (AST-001)</option>
+                                    <option value="AST-002">Hydraulic Press #2 (AST-002)</option>
+                                    <option value="AST-003">Conveyor Belt #3 (AST-003)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sensor Type</label>
+                                <select class="form-control" id="filterType">
+                                    <option value="">-- All Types --</option>
+                                    <option value="temperature">Temperature</option>
+                                    <option value="vibration">Vibration</option>
+                                    <option value="pressure">Pressure</option>
+                                    <option value="humidity">Humidity</option>
+                                    <option value="current">Current</option>
+                                    <option value="voltage">Voltage</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" id="filterStatus">
+                                    <option value="">-- All Status --</option>
+                                    <option value="ACTIVE">Active</option>
+                                    <option value="INACTIVE">Inactive</option>
+                                    <option value="FAULT">Fault</option>
+                                    <option value="CALIBRATION">Calibration</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Registered Sensors</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sensor ID</th>
+                                        <th>Type</th>
+                                        <th>Asset</th>
+                                        <th>Status</th>
+                                        <th>Last Reading</th>
+                                        <th>Health Score</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sensorTable">
+                                    <tr>
+                                        <td>SEN-TEMP-001</td>
+                                        <td><span class="badge badge-primary">Temperature</span></td>
+                                        <td>CNC Machine #1</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>72.5°C (2 min ago)</td>
+                                        <td>
+                                            <div class="d-flex align-center gap-sm">
+                                                <div style="width:60px;height:6px;background:#e2e8f0;border-radius:3px">
+                                                    <div style="width:85%;height:100%;background:#16a34a;border-radius:3px"></div>
+                                                </div>
+                                                <span>85%</span>
+                                            </div>
+                                        </td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('viewSensorModal')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Config</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SEN-VIB-001</td>
+                                        <td><span class="badge badge-warning">Vibration</span></td>
+                                        <td>CNC Machine #1</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>0.42 mm/s (1 min ago)</td>
+                                        <td>
+                                            <div class="d-flex align-center gap-sm">
+                                                <div style="width:60px;height:6px;background:#e2e8f0;border-radius:3px">
+                                                    <div style="width:72%;height:100%;background:#ca8a04;border-radius:3px"></div>
+                                                </div>
+                                                <span>72%</span>
+                                            </div>
+                                        </td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('viewSensorModal')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Config</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SEN-PRES-001</td>
+                                        <td><span class="badge badge-info">Pressure</span></td>
+                                        <td>Hydraulic Press #2</td>
+                                        <td><span class="badge badge-danger">FAULT</span></td>
+                                        <td>-- (offline)</td>
+                                        <td>
+                                            <div class="d-flex align-center gap-sm">
+                                                <div style="width:60px;height:6px;background:#e2e8f0;border-radius:3px">
+                                                    <div style="width:15%;height:100%;background:#dc2626;border-radius:3px"></div>
+                                                </div>
+                                                <span class="text-danger">15%</span>
+                                            </div>
+                                        </td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('viewSensorModal')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Config</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>SEN-TEMP-002</td>
+                                        <td><span class="badge badge-primary">Temperature</span></td>
+                                        <td>Conveyor Belt #3</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>45.2°C (30 sec ago)</td>
+                                        <td>
+                                            <div class="d-flex align-center gap-sm">
+                                                <div style="width:60px;height:6px;background:#e2e8f0;border-radius:3px">
+                                                    <div style="width:92%;height:100%;background:#16a34a;border-radius:3px"></div>
+                                                </div>
+                                                <span>92%</span>
+                                            </div>
+                                        </td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('viewSensorModal')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Config</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Alert Thresholds Configuration</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sensor Type</th>
+                                        <th>Unit</th>
+                                        <th>Warning Threshold</th>
+                                        <th>Critical Threshold</th>
+                                        <th>Measurement Range</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Temperature</span></td>
+                                        <td>°C</td>
+                                        <td>70</td>
+                                        <td>85</td>
+                                        <td>-40 to 120</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">Vibration</span></td>
+                                        <td>mm/s</td>
+                                        <td>0.5</td>
+                                        <td>1.2</td>
+                                        <td>0 to 50</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Pressure</span></td>
+                                        <td>bar</td>
+                                        <td>150</td>
+                                        <td>200</td>
+                                        <td>0 to 300</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-success">Humidity</span></td>
+                                        <td>%</td>
+                                        <td>75</td>
+                                        <td>90</td>
+                                        <td>0 to 100</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-danger">Current</span></td>
+                                        <td>A</td>
+                                        <td>15</td>
+                                        <td>20</td>
+                                        <td>0 to 50</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-secondary">Voltage</span></td>
+                                        <td>V</td>
+                                        <td>420</td>
+                                        <td>450</td>
+                                        <td>0 to 500</td>
+                                        <td><button class="btn btn-sm btn-outline" onclick="openModal('configureSensorModal')">Edit</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Health Score</h2>
+                        <p class="text-muted" style="font-size:0.875rem">Weighted average of sensor readings</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Vibration Factor (30%)</label>
+                                <p><strong>72%</strong></p>
+                                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:4px">
+                                    <div style="width:72%;height:100%;background:#ca8a04;border-radius:4px"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Temperature Factor (25%)</label>
+                                <p><strong>85%</strong></p>
+                                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:4px">
+                                    <div style="width:85%;height:100%;background:#16a34a;border-radius:4px"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Pressure Factor (20%)</label>
+                                <p><strong class="text-danger">15%</strong></p>
+                                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:4px">
+                                    <div style="width:15%;height:100%;background:#dc2626;border-radius:4px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Humidity Factor (15%)</label>
+                                <p><strong>88%</strong></p>
+                                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:4px">
+                                    <div style="width:88%;height:100%;background:#16a34a;border-radius:4px"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Electrical Factor (10%)</label>
+                                <p><strong>78%</strong></p>
+                                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:4px">
+                                    <div style="width:78%;height:100%;background:#ca8a04;border-radius:4px"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-lg">
+                            <h3>Overall Asset Health: <span class="text-warning">67%</span></h3>
+                            <div style="width:100%;height:12px;background:#e2e8f0;border-radius:6px">
+                                <div style="width:67%;height:100%;background:#ca8a04;border-radius:6px"></div>
+                            </div>
+                            <p class="text-muted mt-sm">Predictive maintenance recommended within 14 days</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addSensorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Register New Sensor</h3>
+                <button class="modal-close" onclick="closeModal('addSensorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addSensorForm">
+                    <div class="form-group">
+                        <label>Sensor Type</label>
+                        <select class="form-control" id="sensorType">
+                            <option value="">-- Select Type --</option>
+                            <option value="temperature">Temperature</option>
+                            <option value="vibration">Vibration</option>
+                            <option value="pressure">Pressure</option>
+                            <option value="humidity">Humidity</option>
+                            <option value="current">Current</option>
+                            <option value="voltage">Voltage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sensor ID</label>
+                        <input type="text" class="form-control" id="sensorId" placeholder="e.g., SEN-TEMP-001">
+                        <p class="form-hint">Format: SEN-{TYPE}-{NUMBER}</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Associated Asset</label>
+                        <select class="form-control" id="assetId">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-001">CNC Machine #1 (AST-001)</option>
+                            <option value="AST-002">Hydraulic Press #2 (AST-002)</option>
+                            <option value="AST-003">Conveyor Belt #3 (AST-003)</option>
+                        </select>
+                        <p class="form-hint">Asset must be IoT-enabled</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Measurement Range Min</label>
+                            <input type="number" class="form-control" id="rangeMin" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Measurement Range Max</label>
+                            <input type="number" class="form-control" id="rangeMax" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Warning Threshold</label>
+                            <input type="number" class="form-control" id="warningThreshold" step="0.01">
+                            <p class="form-hint">Trigger warning alert when exceeded</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Critical Threshold</label>
+                            <input type="number" class="form-control" id="criticalThreshold" step="0.01">
+                            <p class="form-hint">Trigger critical alert when exceeded</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data Collection Interval (seconds)</label>
+                        <input type="number" class="form-control" id="collectionInterval" value="60">
+                        <p class="form-hint">How often sensor transmits data (10-3600 seconds)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expected Sensor Status</label>
+                        <select class="form-control" id="expectedStatus">
+                            <option value="ACTIVE">Active</option>
+                            <option value="INACTIVE">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addSensorModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addSensorModal')">Register Sensor</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewSensorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Sensor Details</h3>
+                <button class="modal-close" onclick="closeModal('viewSensorModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewSensorContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewSensorModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="configureSensorModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Configure Sensor</h3>
+                <button class="modal-close" onclick="closeModal('configureSensorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="configureSensorForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Warning Threshold</label>
+                            <input type="number" class="form-control" id="configWarningThreshold" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Critical Threshold</label>
+                            <input type="number" class="form-control" id="configCriticalThreshold" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Data Collection Interval (seconds)</label>
+                        <input type="number" class="form-control" id="configInterval">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="configStatus">
+                            <option value="ACTIVE">Active</option>
+                            <option value="INACTIVE">Inactive</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('configureSensorModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('configureSensorModal')">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

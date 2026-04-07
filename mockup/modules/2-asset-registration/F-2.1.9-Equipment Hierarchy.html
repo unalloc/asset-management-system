@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.9 - Equipment Hierarchy</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.9
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.9 - Equipment Hierarchy</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.9-Equipment%20Hierarchy.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>ISA-95 Equipment Hierarchy</h2>
+                        <button class="btn btn-primary" onclick="openModal('addNodeModal')">+ Add Node</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Plant</label>
+                                <select class="form-control" id="plantSelector" onchange="loadHierarchy()">
+                                    <option value="US-PLANT-01">US-PLANT-01 - Chicago Manufacturing</option>
+                                    <option value="EU-PLANT-01">EU-PLANT-01 - Munich Facility</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 24px;">
+                            <div style="padding: 16px; background: var(--bg-primary); border-radius: 8px; margin-bottom: 16px;">
+                                <h4 style="margin-bottom: 12px;"><span class="badge badge-success">PLANT</span> US-PLANT-01 - Chicago Manufacturing</h4>
+                                
+                                <div style="padding-left: 24px; border-left: 2px solid var(--primary);">
+                                    <div style="padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px;">
+                                        <p style="margin-bottom: 8px;"><span class="badge badge-primary">PRODUCTION_LINE</span> <strong>PROD-LINE-A</strong> - Assembly Line A</p>
+                                        
+                                        <div style="padding-left: 24px; border-left: 1px solid var(--border);">
+                                            <div style="padding: 12px; background: var(--bg-primary); border-radius: 8px; margin-bottom: 12px;">
+                                                <p style="margin-bottom: 8px;"><span class="badge badge-warning">WORK_CENTER</span> <strong>WC-ASSEMBLY-A1</strong> - Assembly Work Center 1</p>
+                                                
+                                                <div style="padding-left: 24px; border-left: 1px solid var(--border);">
+                                                    <p style="margin-bottom: 8px;"><span class="badge badge-info">MACHINE</span> <strong>CNC-001</strong> - CNC Milling Machine #1 <span class="badge badge-success">ACTIVE</span></p>
+                                                    <p style="margin-bottom: 8px;"><span class="badge badge-info">MACHINE</span> <strong>CNC-002</strong> - CNC Milling Machine #2 <span class="badge badge-success">ACTIVE</span></p>
+                                                    <p style="margin-bottom: 0px;"><span class="badge badge-info">MACHINE</span> <strong>ROBOT-001</strong> - Assembly Robot Arm <span class="badge badge-success">ACTIVE</span></p>
+                                                </div>
+                                            </div>
+                                            <div style="padding: 12px; background: var(--bg-primary); border-radius: 8px; margin-bottom: 0px;">
+                                                <p style="margin-bottom: 8px;"><span class="badge badge-warning">WORK_CENTER</span> <strong>WC-PAINT-A1</strong> - Paint Work Center</p>
+                                                
+                                                <div style="padding-left: 24px; border-left: 1px solid var(--border);">
+                                                    <p style="margin-bottom: 0px;"><span class="badge badge-info">MACHINE</span> <strong>SPRAY-001</strong> - Paint Spray Booth <span class="badge badge-success">ACTIVE</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 12px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0px;">
+                                        <p style="margin-bottom: 8px;"><span class="badge badge-primary">PRODUCTION_LINE</span> <strong>PROD-LINE-B</strong> - Packaging Line B</p>
+                                        
+                                        <div style="padding-left: 24px; border-left: 1px solid var(--border);">
+                                            <div style="padding: 12px; background: var(--bg-primary); border-radius: 8px; margin-bottom: 0px;">
+                                                <p style="margin-bottom: 8px;"><span class="badge badge-warning">WORK_CENTER</span> <strong>WC-PACK-B1</strong> - Packaging Work Center</p>
+                                                
+                                                <div style="padding-left: 24px; border-left: 1px solid var(--border);">
+                                                    <p style="margin-bottom: 0px;"><span class="badge badge-info">MACHINE</span> <strong>PACKER-001</strong> - Auto Packer <span class="badge badge-warning">INACTIVE</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Hierarchy Nodes</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Node Code</th>
+                                        <th>Node Name</th>
+                                        <th>Level</th>
+                                        <th>Parent</th>
+                                        <th>Status</th>
+                                        <th>Child Count</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nodesTable">
+                                    <tr>
+                                        <td>US-PLANT-01</td>
+                                        <td>Chicago Manufacturing</td>
+                                        <td><span class="badge badge-success">PLANT</span></td>
+                                        <td>—</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>2</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNode('US-PLANT-01')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PROD-LINE-A</td>
+                                        <td>Assembly Line A</td>
+                                        <td><span class="badge badge-primary">PRODUCTION_LINE</span></td>
+                                        <td>US-PLANT-01</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>2</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNode('PROD-LINE-A')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>WC-ASSEMBLY-A1</td>
+                                        <td>Assembly Work Center 1</td>
+                                        <td><span class="badge badge-warning">WORK_CENTER</span></td>
+                                        <td>PROD-LINE-A</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>3</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNode('WC-ASSEMBLY-A1')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CNC-001</td>
+                                        <td>CNC Milling Machine #1</td>
+                                        <td><span class="badge badge-info">MACHINE</span></td>
+                                        <td>WC-ASSEMBLY-A1</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNode('CNC-001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PACKER-001</td>
+                                        <td>Auto Packer</td>
+                                        <td><span class="badge badge-info">MACHINE</span></td>
+                                        <td>WC-PACK-B1</td>
+                                        <td><span class="badge badge-warning">INACTIVE</span></td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNode('PACKER-001')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addNodeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Hierarchy Node</h3>
+                <button class="modal-close" onclick="closeModal('addNodeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addNodeForm">
+                    <div class="form-group">
+                        <label>Node Type</label>
+                        <select class="form-control" id="nodeType" onchange="updateParentOptions()">
+                            <option value="">-- Select Level --</option>
+                            <option value="PLANT">PLANT</option>
+                            <option value="PRODUCTION_LINE">PRODUCTION_LINE</option>
+                            <option value="WORK_CENTER">WORK_CENTER</option>
+                            <option value="MACHINE">MACHINE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Node Code</label>
+                        <input type="text" class="form-control" id="nodeCode"
+                               placeholder="e.g., PROD-LINE-A">
+                        <p class="form-hint">Must be unique within parent</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Node Name</label>
+                        <input type="text" class="form-control" id="nodeName"
+                               placeholder="e.g., Assembly Line A">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Plant ID</label>
+                        <select class="form-control" id="plantId">
+                            <option value="">-- Select Plant --</option>
+                            <option value="US-PLANT-01">US-PLANT-01</option>
+                            <option value="EU-PLANT-01">EU-PLANT-01</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="parentNodeGroup">
+                        <label>Parent Node</label>
+                        <select class="form-control" id="parentNode">
+                            <option value="">-- No Parent (Top Level) --</option>
+                        </select>
+                        <p class="form-hint">Required for levels below PLANT</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Level Attributes (JSON)</label>
+                        <textarea class="form-control" id="levelAttrs"
+                                  placeholder='{"capacity": 1000, "shift_hours": 8}'></textarea>
+                        <p class="form-hint">Type-specific attributes as JSON</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location Info</label>
+                        <textarea class="form-control" id="locationInfo"
+                                  placeholder='{"building": "A", "floor": 2, "area": "Assembly"}'></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addNodeModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addNodeModal')">Add Node</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewNodeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Node Details</h3>
+                <button class="modal-close" onclick="closeModal('viewNodeModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewNodeContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewNodeModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function updateParentOptions() {
+            const nodeType = document.getElementById('nodeType').value;
+            const parentSelect = document.getElementById('parentNode');
+            
+            parentSelect.innerHTML = '<option value="">-- No Parent (Top Level) --</option>';
+            
+            if (nodeType === 'PRODUCTION_LINE') {
+                parentSelect.innerHTML += '<option value="US-PLANT-01">US-PLANT-01 - Chicago Manufacturing</option><option value="EU-PLANT-01">EU-PLANT-01 - Munich Facility</option>';
+            } else if (nodeType === 'WORK_CENTER') {
+                parentSelect.innerHTML += '<option value="PROD-LINE-A">PROD-LINE-A - Assembly Line A</option><option value="PROD-LINE-B">PROD-LINE-B - Packaging Line B</option>';
+            } else if (nodeType === 'MACHINE') {
+                parentSelect.innerHTML += '<option value="WC-ASSEMBLY-A1">WC-ASSEMBLY-A1 - Assembly Work Center 1</option><option value="WC-PAINT-A1">WC-PAINT-A1 - Paint Work Center</option><option value="WC-PACK-B1">WC-PACK-B1 - Packaging Work Center</option>';
+            }
+        }
+
+        function viewNode(code) {
+            const nodeData = {
+                'US-PLANT-01': { name: 'Chicago Manufacturing', level: 'PLANT', parent: '—', status: 'ACTIVE', children: 2 },
+                'PROD-LINE-A': { name: 'Assembly Line A', level: 'PRODUCTION_LINE', parent: 'US-PLANT-01', status: 'ACTIVE', children: 2 },
+                'WC-ASSEMBLY-A1': { name: 'Assembly Work Center 1', level: 'WORK_CENTER', parent: 'PROD-LINE-A', status: 'ACTIVE', children: 3 },
+                'CNC-001': { name: 'CNC Milling Machine #1', level: 'MACHINE', parent: 'WC-ASSEMBLY-A1', status: 'ACTIVE', children: 0 },
+                'PACKER-001': { name: 'Auto Packer', level: 'MACHINE', parent: 'WC-PACK-B1', status: 'INACTIVE', children: 0 }
+            };
+            
+            const node = nodeData[code] || {};
+            const levelBadge = {
+                'PLANT': 'badge-success',
+                'PRODUCTION_LINE': 'badge-primary',
+                'WORK_CENTER': 'badge-warning',
+                'MACHINE': 'badge-info'
+            }[node.level] || 'badge-primary';
+            
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Node Code</label>
+                        <p><strong>${code}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Level</label>
+                        <span class="badge ${levelBadge}">${node.level || 'UNKNOWN'}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Node Name</label>
+                    <p>${node.name || 'N/A'}</p>
+                </div>
+                <div class="form-group">
+                    <label>Parent Node</label>
+                    <p>${node.parent || '—'}</p>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <span class="badge ${node.status === 'ACTIVE' ? 'badge-success' : 'badge-warning'}">${node.status}</span>
+                </div>
+                <div class="form-group">
+                    <label>Child Nodes</label>
+                    <p>${node.children || 0} child nodes</p>
+                </div>
+            `;
+            document.getElementById('viewNodeContent').innerHTML = content;
+            openModal('viewNodeModal');
+        }
+
+        function loadHierarchy() {
+            console.log('Loading hierarchy for:', document.getElementById('plantSelector').value);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

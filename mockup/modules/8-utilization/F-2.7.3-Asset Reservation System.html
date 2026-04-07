@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.3 - Asset Reservation System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.3
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.3 - Asset Reservation System</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.3-Asset%20Reservation%20System.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Availability Overview -->
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Available Now</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">78%</h2>
+                            <p>98 of 126 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Reserved</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">18%</h2>
+                            <p>23 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">In Maintenance</p>
+                            <h2 style="font-size: 1.5rem; color: var(--danger);">4%</h2>
+                            <p>5 assets</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('reservations')">Reservations</button>
+                    <button class="tab" onclick="switchTab('availability')">Availability</button>
+                    <button class="tab" onclick="switchTab('requests')">Requests</button>
+                </div>
+
+                <!-- Reservations Tab -->
+                <div class="tab-content active" id="reservations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Reservations</h2>
+                            <button class="btn btn-primary" onclick="openModal('newReservationModal')">+ New Reservation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Reserved For</th>
+                                            <th>Department</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Excavator #1 (AST-2022-045)</td>
+                                            <td>Project Alpha</td>
+                                            <td>Construction</td>
+                                            <td>2025-04-10</td>
+                                            <td>2025-04-25</td>
+                                            <td><span class="badge badge-primary">Confirmed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Cancel</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Generator #2 (AST-2021-033)</td>
+                                            <td>Backup Power</td>
+                                            <td>Operations</td>
+                                            <td>2025-04-15</td>
+                                            <td>2025-04-30</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Conference Projector (AST-2023-089)</td>
+                                            <td>Q2 All-Hands Meeting</td>
+                                            <td>Executive</td>
+                                            <td>2025-04-20</td>
+                                            <td>2025-04-20</td>
+                                            <td><span class="badge badge-success">Confirmed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Cancel</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Availability Tab -->
+                <div class="tab-content" id="availability-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Availability Calendar</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>Select Asset...</option>
+                                    <option>Excavator #1</option>
+                                    <option>Generator #2</option>
+                                    <option>CNC Machine #1</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">&lt; March</button>
+                                <button class="btn btn-outline btn-sm">April 2025</button>
+                                <button class="btn btn-outline btn-sm">May &gt;</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div style="background: #f8fafc; padding: 2rem; border-radius: 8px; text-align: center;">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.5;">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <p style="margin-top: 1rem;">Calendar View</p>
+                                <p class="text-muted" style="font-size: 0.75rem;">Shows asset reservations by date with availability status</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requests Tab -->
+                <div class="tab-content" id="requests-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Reservation Requests</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset</th>
+                                            <th>Requested By</th>
+                                            <th>Date Range</th>
+                                            <th>Purpose</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>REQ-2025-042</td>
+                                            <td>Generator #2</td>
+                                            <td>Sarah Connor</td>
+                                            <td>Apr 15 - Apr 20</td>
+                                            <td>Construction Site B</td>
+                                            <td><span class="badge badge-warning">Pending Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary btn-sm">Approve</button>
+                                                <button class="btn btn-sm btn-outline btn-sm">Reject</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>REQ-2025-041</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>Tom Wilson</td>
+                                            <td>Apr 12 - Apr 14</td>
+                                            <td>Special Order #123</td>
+                                            <td><span class="badge badge-warning">Pending Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary btn-sm">Approve</button>
+                                                <button class="btn btn-sm btn-outline btn-sm">Reject</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- New Reservation Modal -->
+    <div class="modal-overlay" id="newReservationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Asset Reservation</h3>
+                <button class="modal-close" onclick="closeModal('newReservationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reservationForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="resAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2022-045">Excavator #1 - Available</option>
+                            <option value="AST-2021-033">Generator #2 - Available</option>
+                            <option value="AST-2023-089">Conference Projector - Available</option>
+                            <option value="AST-2024-001">CNC Machine #1 - In Use</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Purpose/Project</label>
+                            <input type="text" class="form-control" id="purpose" placeholder="e.g., Project Alpha">
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select class="form-control" id="resDept">
+                                <option value="">-- Select Department --</option>
+                                <option value="CONST">Construction</option>
+                                <option value="OPS">Operations</option>
+                                <option value="MAINT">Maintenance</option>
+                                <option value="EXEC">Executive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="notes" rows="2" placeholder="Additional requirements..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newReservationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newReservationModal')">Create Reservation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

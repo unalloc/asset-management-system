@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.1 - Multiple Asset Types Support</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.1
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.1 - Multiple Asset Types Support</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.1-Multiple%20Asset%20Types%20Support.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Asset Type List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Types</h2>
+                        <button class="btn btn-primary" onclick="openModal('addTypeModal')">+ Add Asset Type</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Type Code</th>
+                                        <th>Type Name</th>
+                                        <th>Parent Type</th>
+                                        <th>Status</th>
+                                        <th>Asset Count</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assetTypeTable">
+                                    <tr>
+                                        <td>PROD-MACH</td>
+                                        <td>Production Machinery</td>
+                                        <td>—</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>156</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('PROD-MACH')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('PROD-MACH')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IT-SERVER</td>
+                                        <td>IT Server</td>
+                                        <td>IT-EQUIP</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>42</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('IT-SERVER')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('IT-SERVER')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IT-EQUIP</td>
+                                        <td>IT Equipment</td>
+                                        <td>—</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>89</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('IT-EQUIP')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('IT-EQUIP')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VEH-CAR</td>
+                                        <td>Company Vehicle</td>
+                                        <td>VEHICLE</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>28</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('VEH-CAR')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('VEH-CAR')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VEHICLE</td>
+                                        <td>Vehicles</td>
+                                        <td>—</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>35</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('VEHICLE')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('VEHICLE')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>OFF-FURN</td>
+                                        <td>Office Furniture</td>
+                                        <td>—</td>
+                                        <td><span class="badge badge-warning">Inactive</span></td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewType('OFF-FURN')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editType('OFF-FURN')">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Asset Type Modal -->
+    <div class="modal-overlay" id="addTypeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Asset Type</h3>
+                <button class="modal-close" onclick="closeModal('addTypeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addTypeForm">
+                    <div class="form-group">
+                        <label>Type Code</label>
+                        <input type="text" class="form-control" id="typeCode"
+                               placeholder="e.g., PROD-MACH">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type Name</label>
+                        <input type="text" class="form-control" id="typeName"
+                               placeholder="e.g., Production Machinery">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="typeDesc"
+                                  placeholder="Detailed description of the asset type"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Type</label>
+                        <select class="form-control" id="parentType">
+                            <option value="">-- No Parent --</option>
+                            <option value="IT-EQUIP">IT Equipment</option>
+                            <option value="VEHICLE">Vehicles</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="typeStatus">
+                            <option value="Draft">Draft</option>
+                            <option value="Active" selected>Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Deprecated">Deprecated</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addTypeModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addTypeModal')">Add Asset Type</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Type Modal -->
+    <div class="modal-overlay" id="viewTypeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Asset Type Details</h3>
+                <button class="modal-close" onclick="closeModal('viewTypeModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewTypeContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewTypeModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewType(code) {
+            openModal('viewTypeModal');
+        }
+
+        function editType(code) {
+            openModal('addTypeModal');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

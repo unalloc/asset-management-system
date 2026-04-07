@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management System - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: skewX(-15deg);
+        }
+
+        .hero h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hero p {
+            opacity: 0.9;
+            font-size: 0.875rem;
+            max-width: 500px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero-stat .label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .module-portal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .module-portal:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            text-decoration: none;
+        }
+
+        .module-portal .portal-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .module-portal .portal-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .module-portal .portal-icon.blue { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .module-portal .portal-icon.green { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .module-portal .portal-icon.orange { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .module-portal .portal-icon.purple { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .module-portal .portal-icon.red { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+        .module-portal .portal-icon.cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+        .module-portal .portal-icon.pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+        .module-portal .portal-icon.indigo { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+
+        .module-portal .portal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .module-portal .portal-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .module-portal .portal-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.4;
+        }
+
+        .module-portal .portal-stats {
+            display: flex;
+            gap: var(--spacing-md);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--border);
+        }
+
+        .module-portal .portal-stat {
+            text-align: center;
+        }
+
+        .module-portal .portal-stat .value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .module-portal .portal-stat .label {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .module-portal .portal-arrow {
+            margin-left: auto;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+        }
+
+        .quick-links {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+        }
+
+        .quick-links h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .quick-link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .quick-link-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .quick-link-item:hover {
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+        }
+
+        .quick-link-item .icon {
+            font-size: 1.25rem;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        @media (max-width: 1024px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .activity-feed {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+        }
+
+        .activity-feed h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .activity-item {
+            display: flex;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.blue { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .activity-icon.green { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .activity-icon.orange { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content .title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .activity-content .desc {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .activity-content .time {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Dashboard</span>
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option value="US001">US Manufacturing Inc.</option>
+                        <option value="EU001">EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content" style="overflow-y: auto;">
+                <div class="hero">
+                    <h1>Asset Management System</h1>
+                    <p>Enterprise EAM platform for manufacturing with full lifecycle tracking, maintenance management, and multi-plant support.</p>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="value">45,892</div>
+                            <div class="label">Total Assets</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="value">$128M</div>
+                            <div class="label">Total Value</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="value">98.7%</div>
+                            <div class="label">Uptime</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="value">342</div>
+                            <div class="label">Open Work Orders</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Module Portal</h2>
+                <div class="module-grid">
+                        <a href="modules/asset-central/Asset-Central-Hub.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon blue">🏢</div>
+                                <div>
+                                    <div class="portal-title">Asset Central</div>
+                                    <div class="portal-subtitle">Module 1 - Foundation</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Central hub for all asset management. Access asset details, work orders, vendors, spare parts, and organization structure.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">12,458</div>
+                                    <div class="label">Assets</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">342</div>
+                                    <div class="label">Work Orders</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">156</div>
+                                    <div class="label">Vendors</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/2-asset-registration/Asset-Registration-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon green">📋</div>
+                                <div>
+                                    <div class="portal-title">Asset Registration</div>
+                                    <div class="portal-subtitle">Module 2</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Register assets with multiple types, custom categories, bulk import, barcode/QR generation, and RFID integration.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">15</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">98.5%</div>
+                                    <div class="label">Tagged</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">24</div>
+                                    <div class="label">Pending</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/3-asset-tracking/Asset-Tracking-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon orange">📍</div>
+                                <div>
+                                    <div class="portal-title">Asset Tracking</div>
+                                    <div class="portal-subtitle">Module 3</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Real-time location tracking, check-in/out, transfer management, audit trail, and IoT sensor integration.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">10</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">8,234</div>
+                                    <div class="label">Tracked</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">98.2%</div>
+                                    <div class="label">Verified</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/4-maintenance/Maintenance-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon purple">🔧</div>
+                                <div>
+                                    <div class="portal-title">Maintenance</div>
+                                    <div class="portal-subtitle">Module 4</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Scheduled maintenance planning, preventive workflows, predictive maintenance, RCM strategies, and KPIs.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">17</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">1,847</div>
+                                    <div class="label">Work Orders</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">94.2%</div>
+                                    <div class="label">Complete</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/5-financial/Financial-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon red">💰</div>
+                                <div>
+                                    <div class="portal-title">Financial</div>
+                                    <div class="portal-subtitle">Module 5</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Multi-currency support, automated depreciation, insurance tracking, TCO analysis, and tax compliance.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">14</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">$48.2M</div>
+                                    <div class="label">Asset Value</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">$12.4M</div>
+                                    <div class="label">Depreciation</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/6-multi-plant/Multi-Plant-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon cyan">🏭</div>
+                                <div>
+                                    <div class="portal-title">Multi-Plant</div>
+                                    <div class="portal-subtitle">Module 6</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Hierarchical factory structure, cross-factory reporting, standardized classification, and transfer management.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">8</div>
+                                    <div class="label">Plants</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">45,231</div>
+                                    <div class="label">Assets</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">3</div>
+                                    <div class="label">Regions</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/7-lifecycle/Lifecycle-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon pink">🔄</div>
+                                <div>
+                                    <div class="portal-title">Lifecycle</div>
+                                    <div class="portal-subtitle">Module 7</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Procurement, receiving, capitalization, deployment, borrowing, inventory counting, and disposal workflows.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">18</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">1,247</div>
+                                    <div class="label">In Procurement</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">156</div>
+                                    <div class="label">Pending</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/8-utilization/Utilization-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon indigo">📊</div>
+                                <div>
+                                    <div class="portal-title">Utilization</div>
+                                    <div class="portal-subtitle">Module 8</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Asset allocation planning, reservation system, real-time availability, usage contracts, and cost allocation.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">18</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">78.4%</div>
+                                    <div class="label">Utilization</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">342</div>
+                                    <div class="label">Reserved</div>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="modules/9-multi-company/Multi-Company-Overview.html" class="module-portal">
+                            <div class="portal-header">
+                                <div class="portal-icon blue">🌐</div>
+                                <div>
+                                    <div class="portal-title">Multi-Company</div>
+                                    <div class="portal-subtitle">Module 9</div>
+                                </div>
+                                <div class="portal-arrow">→</div>
+                            </div>
+                            <p class="portal-desc">Multi-level org hierarchy, legal entity management, data isolation, consolidated reporting, and inter-company transfers.</p>
+                            <div class="portal-stats">
+                                <div class="portal-stat">
+                                    <div class="value">22</div>
+                                    <div class="label">Features</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">5</div>
+                                    <div class="label">Companies</div>
+                                </div>
+                                <div class="portal-stat">
+                                    <div class="value">12</div>
+                                    <div class="label">Divisions</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="quick-links">
+                            <h3>Quick Actions</h3>
+                            <div class="quick-link-grid">
+                                <a href="modules/asset-central/Asset-Central-Hub.html" class="quick-link-item">
+                                    <span class="icon">🔍</span>
+                                    Search Assets
+                                </a>
+                                <a href="modules/2-asset-registration/Asset-Registration-Overview.html" class="quick-link-item">
+                                    <span class="icon">➕</span>
+                                    Register Asset
+                                </a>
+                                <a href="modules/4-maintenance/Maintenance-Overview.html" class="quick-link-item">
+                                    <span class="icon">🔧</span>
+                                    Create Work Order
+                                </a>
+                                <a href="modules/3-asset-tracking/Asset-Tracking-Overview.html" class="quick-link-item">
+                                    <span class="icon">📍</span>
+                                    Track Asset
+                                </a>
+                                <a href="modules/asset-central/Vendor-Hub.html" class="quick-link-item">
+                                    <span class="icon">🏭</span>
+                                    Manage Vendors
+                                </a>
+                                <a href="modules/asset-central/Spare-Part-Hub.html" class="quick-link-item">
+                                    <span class="icon">🔩</span>
+                                    Spare Parts
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="activity-feed">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-item">
+                                <div class="activity-icon green">✓</div>
+                                <div class="activity-content">
+                                    <div class="title">Work Order WO-2024-1847 Completed</div>
+                                    <div class="desc">CNC Machine Model-X preventive maintenance</div>
+                                    <div class="time">10 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon blue">📍</div>
+                                <div class="activity-content">
+                                    <div class="title">Asset AST-0045 Transferred</div>
+                                    <div class="desc">Plant A - Line 3 → Plant B - Warehouse</div>
+                                    <div class="time">25 minutes ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon orange">⚠</div>
+                                <div class="activity-content">
+                                    <div class="title">Calibration Due Soon</div>
+                                    <div class="desc">CMM-001 expires in 7 days</div>
+                                    <div class="time">1 hour ago</div>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon green">✓</div>
+                                <div class="activity-content">
+                                    <div class="title">Asset AST-0089 Registered</div>
+                                    <div class="desc">New forklift added to fleet</div>
+                                    <div class="time">2 hours ago</div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    <script>
+        loadNavigation();
+    </script>
+</body>
+</html>

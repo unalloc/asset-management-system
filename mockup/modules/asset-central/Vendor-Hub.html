@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Central - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .vendor-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .vendor-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .vendor-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .vendor-type-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .vendor-type-badge.service { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .vendor-type-badge.parts { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .vendor-type-badge.iot { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .vendor-type-badge.hvac { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .status-indicator.active::before { background: var(--success); }
+        .status-indicator.suspended::before { background: var(--danger); }
+        .status-indicator.pending::before { background: var(--warning); }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+        .cert-badge {
+            display: inline-flex;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .cert-badge.valid { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .cert-badge.expiring { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .cert-badge.expired { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Vendor Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">🏢</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Vendor Central</h1>
+                    <div class="action-buttons">
+                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html" class="btn btn-primary">+ Add Vendor</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search vendors by code, name, or type...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Vendors</div>
+                        <div class="stat-value">48</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active</div>
+                        <div class="stat-value" style="color: var(--success);">42</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Suspended</div>
+                        <div class="stat-value" style="color: var(--danger);">3</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Certifications Expiring</div>
+                        <div class="stat-value" style="color: var(--warning);">7</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending Qualification</div>
+                        <div class="stat-value" style="color: var(--secondary);">5</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="service">Service</option>
+                        <option value="parts">Parts</option>
+                        <option value="iot">IoT</option>
+                        <option value="hvac">HVAC</option>
+                    </select>
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="suspended">Suspended</option>
+                        <option value="pending">Pending Qualification</option>
+                    </select>
+                    <select>
+                        <option value="">All Sizes</option>
+                        <option value="large">Large</option>
+                        <option value="medium">Medium</option>
+                        <option value="small">Small</option>
+                    </select>
+                    <select>
+                        <option value="">All Certifications</option>
+                        <option value="valid">Valid</option>
+                        <option value="expiring">Expiring Soon</option>
+                        <option value="expired">Expired</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="vendor-table">
+                        <thead>
+                            <tr>
+                                <th>Vendor Code</th>
+                                <th>Vendor Name</th>
+                                <th>Type</th>
+                                <th>Size</th>
+                                <th>Status</th>
+                                <th>Certifications</th>
+                                <th>Active Contracts</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-001" class="asset-link">VEN-001</a></td>
+                                <td><strong>Acme Industrial Services</strong></td>
+                                <td><span class="vendor-type-badge service">Service</span></td>
+                                <td>Large</td>
+                                <td><span class="status-indicator active">Active</span></td>
+                                <td>
+                                    <span class="cert-badge valid">ISO 9001</span>
+                                    <span class="cert-badge valid">OSHA</span>
+                                </td>
+                                <td>3</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-001" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">Contracts</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-002" class="asset-link">VEN-002</a></td>
+                                <td><strong>TechMaintenance Corp</strong></td>
+                                <td><span class="vendor-type-badge iot">IoT</span></td>
+                                <td>Medium</td>
+                                <td><span class="status-indicator active">Active</span></td>
+                                <td>
+                                    <span class="cert-badge expiring">ISO 9001</span>
+                                </td>
+                                <td>2</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-002" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">Contracts</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-003" class="asset-link">VEN-003</a></td>
+                                <td><strong>SafetyFirst Equipment</strong></td>
+                                <td><span class="vendor-type-badge parts">Parts</span></td>
+                                <td>Small</td>
+                                <td><span class="status-indicator suspended">Suspended</span></td>
+                                <td>
+                                    <span class="cert-badge expired">EPA Expired</span>
+                                </td>
+                                <td>0</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-003" class="btn btn-sm btn-outline">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-004" class="asset-link">VEN-004</a></td>
+                                <td><strong>Global HVAC Solutions</strong></td>
+                                <td><span class="vendor-type-badge hvac">HVAC</span></td>
+                                <td>Large</td>
+                                <td><span class="status-indicator active">Active</span></td>
+                                <td>
+                                    <span class="cert-badge valid">EPA Certified</span>
+                                    <span class="cert-badge valid">ISO 14001</span>
+                                </td>
+                                <td>5</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-004" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">Contracts</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-005" class="asset-link">VEN-005</a></td>
+                                <td><strong>Precision Parts Co.</strong></td>
+                                <td><span class="vendor-type-badge parts">Parts</span></td>
+                                <td>Medium</td>
+                                <td><span class="status-indicator active">Active</span></td>
+                                <td>
+                                    <span class="cert-badge valid">ISO 9001</span>
+                                </td>
+                                <td>4</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="../4-maintenance/F-2.3.6-Vendor%20Management.html?vendor=VEN-005" class="btn btn-sm btn-outline">View</a>
+                                        <a href="../4-maintenance/F-2.3.4-Service%20Contract%20Management.html" class="btn btn-sm btn-outline">Contracts</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 48 vendors</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">...</button>
+                        <button class="btn btn-sm btn-outline">10</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Vendors for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

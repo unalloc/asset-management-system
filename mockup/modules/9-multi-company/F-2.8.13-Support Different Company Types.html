@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.13 - Support Different Company Types</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.13
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.13 - Support Different Company Types</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.13-Support%20Different%20Company%20Types.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Company Type Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Ownership</th>
+                                        <th>Control</th>
+                                        <th>Consolidation</th>
+                                        <th>Data Access</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-success">Wholly-Owned</span></td>
+                                        <td>100%</td>
+                                        <td>Full</td>
+                                        <td>Full</td>
+                                        <td>Full integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Controlling</span></td>
+                                        <td>>50%</td>
+                                        <td>Full</td>
+                                        <td>Full + NCI</td>
+                                        <td>Full integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">Minority</span></td>
+                                        <td>≤50%</td>
+                                        <td>Limited</td>
+                                        <td>Equity/Cost</td>
+                                        <td>Limited integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Joint Venture</span></td>
+                                        <td>Variable</td>
+                                        <td>Shared</td>
+                                        <td>Proportionate/Equity</td>
+                                        <td>Interface integration</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-secondary">Branch</span></td>
+                                        <td>N/A</td>
+                                        <td>Full</td>
+                                        <td>Integrated</td>
+                                        <td>Full integration</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Companies by Type</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newCompanyTypeModal')">+ Configure Company Type</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Company Code</th>
+                                        <th>Company Name</th>
+                                        <th>Type</th>
+                                        <th>Ownership</th>
+                                        <th>Consolidation Method</th>
+                                        <th>Integration Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>US0001</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-success">WHOLLY_OWNED</span></td>
+                                        <td>100%</td>
+                                        <td><span class="badge badge-success">FULL</span></td>
+                                        <td><span class="badge badge-success">FULL</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>EU0001</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-success">WHOLLY_OWNED</span></td>
+                                        <td>100%</td>
+                                        <td><span class="badge badge-success">FULL</span></td>
+                                        <td><span class="badge badge-success">FULL</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>JV0001</td>
+                                        <td>Asia Pacific JV Ltd.</td>
+                                        <td><span class="badge badge-info">JOINT_VENTURE</span></td>
+                                        <td>45%</td>
+                                        <td><span class="badge badge-warning">EQUITY</span></td>
+                                        <td><span class="badge badge-warning">INTERFACE</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>MIN001</td>
+                                        <td>Minority Invest Co.</td>
+                                        <td><span class="badge badge-warning">MINORITY</span></td>
+                                        <td>30%</td>
+                                        <td><span class="badge badge-warning">EQUITY</span></td>
+                                        <td><span class="badge badge-info">LIMITED</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newCompanyTypeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Configure Company Type</h3>
+                <button class="modal-close" onclick="closeModal('newCompanyTypeModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="companyTypeForm">
+                    <div class="form-group">
+                        <label>Company</label>
+                        <select class="form-control" name="company">
+                            <option value="">Select Company</option>
+                            <option value="US0001">US Manufacturing Inc.</option>
+                            <option value="EU0001">EU Holdings GmbH</option>
+                            <option value="JV0001">Asia Pacific JV Ltd.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Type</label>
+                        <select class="form-control" name="companyType">
+                            <option value="">Select Type</option>
+                            <option value="WHOLLY_OWNED">Wholly Owned</option>
+                            <option value="CONTROLLING">Controlling</option>
+                            <option value="MINORITY">Minority</option>
+                            <option value="JOINT_VENTURE">Joint Venture</option>
+                            <option value="BRANCH">Branch</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ownership %</label>
+                            <input type="number" class="form-control" name="ownershipPct" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Consolidation Method</label>
+                            <select class="form-control" name="consolidationMethod">
+                                <option value="">Select Method</option>
+                                <option value="FULL">Full</option>
+                                <option value="PROPORTIONATE">Proportionate</option>
+                                <option value="EQUITY">Equity</option>
+                                <option value="COST">Cost</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Data Integration Level</label>
+                        <select class="form-control" name="integrationLevel">
+                            <option value="">Select Level</option>
+                            <option value="FULL">Full</option>
+                            <option value="LIMITED">Limited</option>
+                            <option value="INTERFACE">Interface</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newCompanyTypeModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newCompanyTypeModal')">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

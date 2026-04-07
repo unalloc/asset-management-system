@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.20 - Data Hierarchy and Access Control</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.20
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.20 - Data Hierarchy and Access Control</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">Critical</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.20-Data%20Hierarchy%20and%20Access%20Control.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Organizational Hierarchy</h2>
+                        <button class="btn btn-primary btn-sm">+ Add Entity</button>
+                    </div>
+                    <div class="card-body">
+                        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+                            <div style="text-align: center; margin-bottom: 1.5rem;">
+                                <span class="badge badge-primary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Global Manufacturing Corp</span>
+                                <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">GROUP (Level 1)</p>
+                            </div>
+                            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <span class="badge badge-success" style="font-size: 0.8rem; padding: 0.5rem 1rem;">US Manufacturing Inc.</span>
+                                    <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">COMPANY (Level 2)</p>
+                                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
+                                        <span class="tag">North America Division</span>
+                                        <span class="tag">APAC Division</span>
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span class="badge badge-success" style="font-size: 0.8rem; padding: 0.5rem 1rem;">EU Holdings GmbH</span>
+                                    <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">COMPANY (Level 2)</p>
+                                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
+                                        <span class="tag">EU Division</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Hierarchy Level Specifications</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Level</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Mandatory</th>
+                                        <th>Regulatory Boundary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Group</td>
+                                        <td>Ultimate parent organization</td>
+                                        <td>Yes</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Company</td>
+                                        <td>Legal entity with corporate registration</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td>Tax, legal, financial reporting</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Division</td>
+                                        <td>Business unit or operating segment</td>
+                                        <td>No</td>
+                                        <td>Operational management</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Plant</td>
+                                        <td>Physical facility or manufacturing site</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td>Environmental (EPA/EU), Safety (OSHA)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Department</td>
+                                        <td>Operational unit within plant</td>
+                                        <td>No</td>
+                                        <td>Workplace safety, training</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Cost Center</td>
+                                        <td>Financial accounting unit</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td>Cost tracking, budgeting</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Role-Based Access Control Matrix</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Group</th>
+                                        <th>Company</th>
+                                        <th>Division</th>
+                                        <th>Plant</th>
+                                        <th>Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Group Administrator</strong></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Company Administrator</strong></td>
+                                        <td>Read</td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Division Administrator</strong></td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Plant Administrator</strong></td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td><span class="text-success">Full</span></td>
+                                        <td><span class="text-success">Full</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Technician</strong></td>
+                                        <td>-</td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td><span class="text-muted">Own</span></td>
+                                        <td><span class="text-muted">Own</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Viewer</strong></td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                        <td>Read</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Segregation of Duties</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Role Combination</th>
+                                        <th>Restricted Action</th>
+                                        <th>Enforcement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Asset Owner + Asset Approver</td>
+                                        <td>Cannot approve own asset transactions</td>
+                                        <td><span class="badge badge-success">Enforced</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Requester + Approver</td>
+                                        <td>Cannot approve own requests</td>
+                                        <td><span class="badge badge-success">Enforced</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Technician + Supervisor</td>
+                                        <td>Cannot approve own work orders</td>
+                                        <td><span class="badge badge-success">Enforced</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Finance + Asset Manager</td>
+                                        <td>Cannot post own depreciation</td>
+                                        <td><span class="badge badge-success">Enforced</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Data Isolation Rules</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <strong>Security Model:</strong> All data queries automatically include organization scope filters. Company A users cannot access Company B data.
+                        </div>
+                        <ul style="margin-top: 1rem;">
+                            <li>All data queries must include organization scope filter</li>
+                            <li>Company Code required for all asset-related queries</li>
+                            <li>Cross-company access requires explicit inter-company agreements</li>
+                            <li>API endpoints enforce scope-based access control</li>
+                            <li>UI prevents navigation to unauthorized data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Consolidation Rules</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Consolidation Type</th>
+                                        <th>Cost Center</th>
+                                        <th>Department</th>
+                                        <th>Plant</th>
+                                        <th>Division</th>
+                                        <th>Company</th>
+                                        <th>Group</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Asset Count</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asset Value (NBV)</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Depreciation Expense</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                        <td>Sum</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Intercompany Elimination</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Currency Translation</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+    </script>
+</body>
+</html>

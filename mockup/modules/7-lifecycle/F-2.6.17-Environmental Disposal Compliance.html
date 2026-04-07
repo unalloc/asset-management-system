@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.17 - Environmental Disposal Compliance</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.17
+                </div>
+                <div class="user-info">
+                    <span>Environmental Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.17 - Environmental Disposal Compliance</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.17-Environmental%20Disposal%20Compliance.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Review</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Hazardous Assets</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Certificates Valid</p>
+                            <h2 style="font-size: 1.5rem;">89</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Regulations Updated</p>
+                            <h2 style="font-size: 1.5rem;">45 days ago</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('review')">Environmental Review</button>
+                    <button class="tab" onclick="switchTab('weee')">WEEE Compliance</button>
+                    <button class="tab" onclick="switchTab('hazardous')">Hazardous Materials</button>
+                    <button class="tab" onclick="switchTab('certificates')">Certificates</button>
+                    <button class="tab" onclick="switchTab('regulations')">Regulations</button>
+                </div>
+
+                <div class="tab-content active" id="review-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Environmental Compliance Review</h2>
+                            <button class="btn btn-primary" onclick="openModal('newReviewModal')">+ Start Review</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Hazardous</th>
+                                            <th>WEEE</th>
+                                            <th>RoHS</th>
+                                            <th>SVHC</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2018-022</td>
+                                            <td>IT Server</td>
+                                            <td><span class="badge badge-danger">Yes</span></td>
+                                            <td><span class="badge badge-success">Compliant</span></td>
+                                            <td><span class="badge badge-success">Compliant</span></td>
+                                            <td><span class="badge badge-warning">Check</span></td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="reviewAsset('AST-2018-022')">Review</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="weee-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>WEEE Compliance Records</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>WEEE Requirement:</strong> Electronic components require WEEE-certified processor and recycling certificate
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Certificate ID</th>
+                                            <th>Asset</th>
+                                            <th>Processor</th>
+                                            <th>Issue Date</th>
+                                            <th>Expiry</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WEEE-2025-012</td>
+                                            <td>IT Server (AST-2018-022)</td>
+                                            <td>EcoRecycle Inc.</td>
+                                            <td>2025-03-15</td>
+                                            <td>2026-03-15</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="hazardous-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Hazardous Materials Processing</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>RCRA Requirement:</strong> Hazardous waste requires EPA manifest from EPA-certified handler
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Manifest ID</th>
+                                            <th>Asset</th>
+                                            <th>Material Type</th>
+                                            <th>Handler</th>
+                                            <th>EPA ID</th>
+                                            <th>Issue Date</th>
+                                            <th>Retention</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EPA-8700-2025-089</td>
+                                            <td>Battery Bank (AST-2019-045)</td>
+                                            <td><span class="tag">Lead Acid</span></td>
+                                            <td>ToxFree Solutions</td>
+                                            <td>EPA-05234</td>
+                                            <td>2025-04-01</td>
+                                            <td>3 years</td>
+                                            <td><span class="badge badge-success">Compliant</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="certificates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Compliance Certificates</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Certificate ID</th>
+                                            <th>Type</th>
+                                            <th>Asset</th>
+                                            <th>Issued</th>
+                                            <th>Expiry</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RoHS-2025-008</td>
+                                            <td><span class="tag">RoHS Declaration</span></td>
+                                            <td>IT Server</td>
+                                            <td>2025-03-20</td>
+                                            <td>2035-03-20</td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SVHC-2025-003</td>
+                                            <td><span class="tag">SVHC Notification</span></td>
+                                            <td>Battery Bank</td>
+                                            <td>2025-04-01</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-info">Notified</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="regulations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Regulation Database</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Rule:</strong> Regulation database must be current (within 90 days)
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Regulation</th>
+                                            <th>Region</th>
+                                            <th>Last Update</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WEEE Directive</td>
+                                            <td>EU</td>
+                                            <td>2025-01-15</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>EPA RCRA</td>
+                                            <td>US</td>
+                                            <td>2025-02-01</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>RoHS</td>
+                                            <td>EU/Global</td>
+                                            <td>2025-01-20</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>REACH</td>
+                                            <td>EU</td>
+                                            <td>2025-03-01</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newReviewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Environmental Compliance Review</h3>
+                <button class="modal-close" onclick="closeModal('newReviewModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="revAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2018-022">IT Server (AST-2018-022) - Electronic</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Substance Type</label>
+                        <select class="form-control" id="revSubstance">
+                            <option value="">-- Select Type --</option>
+                            <option value="LEAD">Lead</option>
+                            <option value="MERCURY">Mercury</option>
+                            <option value="CADMIUM">Cadmium</option>
+                            <option value="CR6">Chromium 6+</option>
+                            <option value="PBB">PBB</option>
+                            <option value="PBDE">PBDE</option>
+                            <option value="BATTERY">Battery</option>
+                            <option value="ELECTRONIC">Electronic</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Concentration (%)</label>
+                            <input type="number" class="form-control" id="revConcentration">
+                        </div>
+                        <div class="form-group">
+                            <label>Certified Processor</label>
+                            <select class="form-control" id="revProcessor">
+                                <option value="">-- Select Processor --</option>
+                                <option value="PROC001">EcoRecycle Inc. (WEEE Certified)</option>
+                                <option value="PROC002">ToxFree Solutions (EPA Certified)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>RoHS Compliant Declaration</label>
+                        <label class="d-flex align-center gap-sm"><input type="checkbox" id="revRoHS"> Supplier RoHS compliance declaration received</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="revNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newReviewModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newReviewModal')">Submit Review</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function reviewAsset(id) { alert('Reviewing asset: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

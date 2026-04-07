@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order Hub - Asset Management System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .hub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .hub-header h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0 var(--spacing-md);
+        }
+        .search-container:focus-within {
+            border-color: var(--primary);
+        }
+        .search-container .search-icon {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-right: var(--spacing-sm);
+        }
+        .search-container input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: var(--spacing-md) 0;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border);
+        }
+        .stat-card .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .filters-bar {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .table-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .wo-table th {
+            padding: var(--spacing-md) var(--spacing-lg);
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .wo-table td {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .wo-table tr:hover {
+            background: var(--bg-primary);
+        }
+        .priority-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .priority-badge.emergency { background: rgba(220, 38, 38, 0.1); color: var(--danger); }
+        .priority-badge.high { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .priority-badge.medium { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .priority-badge.low { background: rgba(100, 116, 139, 0.1); color: var(--secondary); }
+        .status-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .status-badge.pending { background: rgba(100, 116, 139, 0.1); color: var(--secondary); }
+        .status-badge.assigned { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+        .status-badge.in-progress { background: rgba(234, 179, 8, 0.1); color: var(--warning); }
+        .status-badge.completed { background: rgba(22, 163, 74, 0.1); color: var(--success); }
+        .asset-link {
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .asset-context-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .asset-context-banner.visible {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / Work Order Central
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div id="asset-context-banner" class="asset-context-banner">
+                    <div class="asset-info">
+                        <div class="asset-icon">🔧</div>
+                        <div>
+                            <h3>Filtered by Asset</h3>
+                            <p>Asset ID: <span id="banner-asset-id"></span></p>
+                        </div>
+                    </div>
+                    <a href="#" id="banner-asset-link" class="btn">View Asset Details →</a>
+                </div>
+
+                <div class="hub-header">
+                    <h1>Work Order Central</h1>
+                    <div class="action-buttons">
+                        <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html" class="btn btn-primary">+ Create Work Order</a>
+                        <button class="btn btn-outline">Export</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search work orders by ID, asset, or technician...">
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Work Orders</div>
+                        <div class="stat-value">156</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value" style="color: var(--secondary);">23</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">In Progress</div>
+                        <div class="stat-value" style="color: var(--warning);">42</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Completed Today</div>
+                        <div class="stat-value" style="color: var(--success);">8</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Overdue</div>
+                        <div class="stat-value" style="color: var(--danger);">5</div>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <select>
+                        <option value="">All Priorities</option>
+                        <option value="emergency">Emergency</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select>
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <select>
+                        <option value="">All Types</option>
+                        <option value="preventive">Preventive</option>
+                        <option value="corrective">Corrective</option>
+                        <option value="predictive">Predictive</option>
+                        <option value="inspection">Inspection</option>
+                    </select>
+                    <select>
+                        <option value="">All Plants</option>
+                        <option value="plant-a">Plant A - Detroit</option>
+                        <option value="plant-b">Plant B - Chicago</option>
+                        <option value="plant-c">Plant C - Munich</option>
+                    </select>
+                    <select>
+                        <option value="">All Technicians</option>
+                        <option value="john">John Smith</option>
+                        <option value="mike">Mike Johnson</option>
+                        <option value="tom">Tom Wilson</option>
+                    </select>
+                    <div class="filter-actions">
+                        <button class="btn btn-sm btn-outline">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="wo-table">
+                        <thead>
+                            <tr>
+                                <th>WO Number</th>
+                                <th>Asset</th>
+                                <th>Description</th>
+                                <th>Priority</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Technician</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?wo=WO-2026-0892" class="asset-link">WO-2026-0892</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-001" class="asset-link">CNC Machine #1</a> <span class="text-muted">(AST-001)</span></td>
+                                <td>Quarterly Maintenance - Lubrication and inspection</td>
+                                <td><span class="priority-badge medium">Medium</span></td>
+                                <td><span class="tag">Preventive</span></td>
+                                <td><span class="status-badge assigned">Assigned</span></td>
+                                <td>John Smith</td>
+                                <td>Apr 10, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-001&tab=maintenance" class="btn btn-sm btn-outline">View Asset</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?wo=WO-2026-0856" class="asset-link">WO-2026-0856</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-001" class="asset-link">CNC Machine #1</a> <span class="text-muted">(AST-001)</span></td>
+                                <td>Spindle Bearing Replacement</td>
+                                <td><span class="priority-badge high">High</span></td>
+                                <td><span class="tag">Corrective</span></td>
+                                <td><span class="status-badge in-progress">In Progress</span></td>
+                                <td>Mike Johnson</td>
+                                <td>Mar 30, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-001&tab=maintenance" class="btn btn-sm btn-outline">View Asset</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?wo=WO-2026-0895" class="asset-link">WO-2026-0895</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-002" class="asset-link">Overhead Crane 5T</a> <span class="text-muted">(AST-002)</span></td>
+                                <td>Emergency Brake Inspection</td>
+                                <td><span class="priority-badge emergency">Emergency</span></td>
+                                <td><span class="tag">Inspection</span></td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>Unassigned</td>
+                                <td>Today</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-002&tab=maintenance" class="btn btn-sm btn-outline">View Asset</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?wo=WO-2026-0891" class="asset-link">WO-2026-0891</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-004" class="asset-link">Injection Molding Press</a> <span class="text-muted">(AST-004)</span></td>
+                                <td>Hydraulic System Check</td>
+                                <td><span class="priority-badge medium">Medium</span></td>
+                                <td><span class="tag">Preventive</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>Tom Wilson</td>
+                                <td>Mar 28, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-004&tab=maintenance" class="btn btn-sm btn-outline">View Asset</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?wo=WO-2026-0888" class="asset-link">WO-2026-0888</a></td>
+                                <td><a href="Asset-Detail.html?asset=AST-005" class="asset-link">Coordinate Measuring Machine</a> <span class="text-muted">(AST-005)</span></td>
+                                <td>Annual Calibration</td>
+                                <td><span class="priority-badge low">Low</span></td>
+                                <td><span class="tag">Calibration</span></td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>John Smith</td>
+                                <td>Jan 10, 2026</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="Asset-Detail.html?asset=AST-005&tab=maintenance" class="btn btn-sm btn-outline">View Asset</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="padding: var(--spacing-lg); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                    <div class="pagination-info">Showing 1-5 of 156 work orders</div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm btn-outline" disabled>← Previous</button>
+                        <button class="btn btn-sm btn-primary">1</button>
+                        <button class="btn btn-sm btn-outline">2</button>
+                        <button class="btn btn-sm btn-outline">3</button>
+                        <button class="btn btn-sm btn-outline">...</button>
+                        <button class="btn btn-sm btn-outline">32</button>
+                        <button class="btn btn-sm btn-outline">Next →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        const params = new URLSearchParams(window.location.search);
+        const assetId = params.get('asset');
+        
+        if (assetId) {
+            const banner = document.getElementById('asset-context-banner');
+            banner.classList.add('visible');
+            document.getElementById('banner-asset-id').textContent = assetId;
+            document.getElementById('banner-asset-link').href = 'Asset-Detail.html?asset=' + assetId;
+            document.querySelector('.hub-header h1').textContent = 'Work Orders for Asset ' + assetId;
+        }
+    </script>
+</body>
+</html>

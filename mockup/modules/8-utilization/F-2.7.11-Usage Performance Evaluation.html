@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.11 - Usage Performance Evaluation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.11
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.11 - Usage Performance Evaluation</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.11-Usage%20Performance%20Evaluation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Overall Score</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">82%</h2>
+                            <p>Grade B</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Grade A Assets</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">34</h2>
+                            <p>(≥ 90%)</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Needs Improvement</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">12</h2>
+                            <p>(&lt; 60%)</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Improvement Plans</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">8</h2>
+                            <p>Active</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('evaluations')">Evaluations</button>
+                    <button class="tab" onclick="switchTab('dimensions')">Dimensions</button>
+                    <button class="tab" onclick="switchTab('plans')">Improvement Plans</button>
+                </div>
+
+                <div class="tab-content active" id="evaluations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Performance Evaluations</h2>
+                            <button class="btn btn-primary" onclick="openModal('newEvaluationModal')">+ Run Evaluation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Period</th>
+                                            <th>Efficiency</th>
+                                            <th>Cost</th>
+                                            <th>Safety</th>
+                                            <th>Overall</th>
+                                            <th>Grade</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Excavator #1</td>
+                                            <td>Q1 2025</td>
+                                            <td>88%</td>
+                                            <td>85%</td>
+                                            <td>95%</td>
+                                            <td><strong>89%</strong></td>
+                                            <td><span class="badge badge-success">A</span></td>
+                                            <td><span class="badge badge-success">Published</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Generator #2</td>
+                                            <td>Q1 2025</td>
+                                            <td>78%</td>
+                                            <td>72%</td>
+                                            <td>90%</td>
+                                            <td><strong>80%</strong></td>
+                                            <td><span class="badge badge-primary">B</span></td>
+                                            <td><span class="badge badge-success">Published</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td>Q1 2025</td>
+                                            <td>55%</td>
+                                            <td>65%</td>
+                                            <td>88%</td>
+                                            <td><strong>58%</strong></td>
+                                            <td><span class="badge badge-danger">D</span></td>
+                                            <td><span class="badge badge-warning">Review</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="dimensions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Performance Dimensions</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Dimension</th>
+                                            <th>Description</th>
+                                            <th>KPIs</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>EFFICIENCY</strong></td>
+                                            <td>Utilization rate, output per hour</td>
+                                            <td>Time Utilization, Capacity Utilization</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>COST</strong></td>
+                                            <td>Unit cost, ROI, cost per output</td>
+                                            <td>Cost Per Unit, ROI, Asset ROI</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>COMPLIANCE</strong></td>
+                                            <td>Policy adherence, violation count</td>
+                                            <td>Policy Adherence Rate, Violation Count</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>SAFETY</strong></td>
+                                            <td>Incident rate, training compliance</td>
+                                            <td>Incident Rate, Training Compliance</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>QUALITY</strong></td>
+                                            <td>Output quality, user satisfaction</td>
+                                            <td>Quality Score, User Satisfaction</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-lg">
+                                <h3>Scoring Weights Configuration</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Efficiency Weight</label>
+                                        <input type="number" class="form-control" value="30" min="0" max="100">%
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cost Weight</label>
+                                        <input type="number" class="form-control" value="25" min="0" max="100">%
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Safety Weight</label>
+                                        <input type="number" class="form-control" value="20" min="0" max="100">%
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quality Weight</label>
+                                        <input type="number" class="form-control" value="15" min="0" max="100">%
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Compliance Weight</label>
+                                        <input type="number" class="form-control" value="10" min="0" max="100">%
+                                    </div>
+                                </div>
+                                <p class="form-hint text-danger">Weights must sum to 100%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="plans-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Improvement Plans</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Score</th>
+                                            <th>Target Score</th>
+                                            <th>Actions</th>
+                                            <th>Due Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td>58%</td>
+                                            <td>75%</td>
+                                            <td>Replace worn tooling, schedule preventive maintenance</td>
+                                            <td>Jun 30, 2025</td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newEvaluationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Run Performance Evaluation</h3>
+                <button class="modal-close" onclick="closeModal('newEvaluationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="evalForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="asset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2022-045">Excavator #1</option>
+                            <option value="AST-2021-033">Generator #2</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Period Start</label>
+                            <input type="date" class="form-control" id="periodStart">
+                        </div>
+                        <div class="form-group">
+                            <label>Period End</label>
+                            <input type="date" class="form-control" id="periodEnd">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newEvaluationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newEvaluationModal')">Run Evaluation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

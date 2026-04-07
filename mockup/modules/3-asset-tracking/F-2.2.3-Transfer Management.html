@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.3 - Transfer Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.3
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.3 - Transfer Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.3-Transfer%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Active Transfers Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Transfers</h2>
+                        <div class="d-flex gap-sm">
+                            <select class="form-control" style="width: auto;">
+                                <option>All Status</option>
+                                <option>Pending Approval</option>
+                                <option>In Transit</option>
+                                <option>Completed</option>
+                            </select>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('newTransferModal')">+ New Transfer</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transfer ID</th>
+                                        <th>Assets</th>
+                                        <th>From Location</th>
+                                        <th>To Location</th>
+                                        <th>Requested Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TRF-2025-015</td>
+                                        <td>AST-2024-001, AST-2024-002 (2 assets)</td>
+                                        <td>Chicago Plant / Assembly</td>
+                                        <td>Munich Facility / Production</td>
+                                        <td>2025-04-05</td>
+                                        <td><span class="badge badge-warning">Pending Approval</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">Approve</button>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-014</td>
+                                        <td>AST-2024-008 (1 asset)</td>
+                                        <td>Detroit Plant / Warehouse</td>
+                                        <td>Chicago Plant / Assembly</td>
+                                        <td>2025-04-04</td>
+                                        <td><span class="badge badge-info">In Transit</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">Confirm Receipt</button>
+                                            <button class="btn btn-sm btn-outline">Track</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-013</td>
+                                        <td>AST-2024-020, AST-2024-021, AST-2024-022 (3 assets)</td>
+                                        <td>Munich Facility / QA</td>
+                                        <td>Berlin Site / Engineering</td>
+                                        <td>2025-04-01</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Transfer Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Create Transfer Request</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="transferForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Source Location</label>
+                                    <select class="form-control" id="sourceLocation" name="sourceLocation">
+                                        <option value="">Select source location</option>
+                                        <option value="chicago-assembly">Chicago Plant / Assembly</option>
+                                        <option value="chicago-warehouse">Chicago Plant / Warehouse</option>
+                                        <option value="munich-production">Munich Facility / Production</option>
+                                        <option value="munich-qa">Munich Facility / QA</option>
+                                        <option value="detroit-plant">Detroit Plant</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Location</label>
+                                    <select class="form-control" id="targetLocation" name="targetLocation">
+                                        <option value="">Select target location</option>
+                                        <option value="chicago-assembly">Chicago Plant / Assembly</option>
+                                        <option value="chicago-warehouse">Chicago Plant / Warehouse</option>
+                                        <option value="munich-production">Munich Facility / Production</option>
+                                        <option value="munich-qa">Munich Facility / QA</option>
+                                        <option value="detroit-plant">Detroit Plant</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Assets</label>
+                                <div class="table-container" style="max-height: 200px; border: 1px solid var(--border); border-radius: var(--radius-md);">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 40px;"><input type="checkbox" id="selectAll"></th>
+                                                <th>Asset ID</th>
+                                                <th>Asset Name</th>
+                                                <th>Current Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="checkbox" name="assets" value="AST-2024-001"></td>
+                                                <td>AST-2024-001</td>
+                                                <td>CNC Machine #1</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" name="assets" value="AST-2024-002"></td>
+                                                <td>AST-2024-002</td>
+                                                <td>CNC Machine #2</td>
+                                                <td><span class="badge badge-success">Active</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="checkbox" name="assets" value="AST-2024-003"></td>
+                                                <td>AST-2024-003</td>
+                                                <td>Assembly Robot Arm</td>
+                                                <td><span class="badge badge-warning">On Loan</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-hint">Selected: <span id="selectedCount">0</span> assets (Batch limit: 10)</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expected Transfer Date</label>
+                                    <input type="date" class="form-control" id="expectedDate" name="expectedDate">
+                                    <div class="form-hint">Optional - defaults to today</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Transfer Priority</label>
+                                    <select class="form-control" id="priority" name="priority">
+                                        <option value="normal">Normal</option>
+                                        <option value="urgent">Urgent</option>
+                                        <option value="emergency">Emergency</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Transfer Reason</label>
+                                <textarea class="form-control" id="transferReason" name="transferReason" rows="3"></textarea>
+                                <div class="form-hint">Minimum 10 characters - business justification required</div>
+                            </div>
+                            <div class="d-flex gap-sm">
+                                <button type="button" class="btn btn-primary" onclick="closeModal('newTransferModal')">Submit Transfer Request</button>
+                                <button type="reset" class="btn btn-outline">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Transfer History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Transfer History</h2>
+                        <button class="btn btn-outline btn-sm">Export</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transfer ID</th>
+                                        <th>Assets</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Costs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TRF-2025-012</td>
+                                        <td>AST-2024-005 (1 asset)</td>
+                                        <td>Detroit Plant</td>
+                                        <td>Chicago Plant</td>
+                                        <td>2025-04-02</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>$450.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-011</td>
+                                        <td>AST-2024-010, AST-2024-011 (2 assets)</td>
+                                        <td>Chicago Plant</td>
+                                        <td>Munich Facility</td>
+                                        <td>2025-03-28</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>$1,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TRF-2025-010</td>
+                                        <td>AST-2024-018 (1 asset)</td>
+                                        <td>Munich Facility</td>
+                                        <td>Berlin Site</td>
+                                        <td>2025-03-25</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>$320.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- New Transfer Modal -->
+    <div class="modal-overlay" id="newTransferModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Transfer Request</h3>
+                <button class="modal-close" onclick="closeModal('newTransferModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="quickTransferForm">
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <input type="text" class="form-control" id="modalAssetId" name="assetId" placeholder="Scan or enter asset ID">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Location</label>
+                        <select class="form-control" id="modalTargetLocation" name="targetLocation">
+                            <option value="">Select target</option>
+                            <option value="chicago-assembly">Chicago Plant / Assembly</option>
+                            <option value="munich-production">Munich Facility / Production</option>
+                            <option value="detroit-plant">Detroit Plant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <textarea class="form-control" id="modalReason" name="reason" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newTransferModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newTransferModal')">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

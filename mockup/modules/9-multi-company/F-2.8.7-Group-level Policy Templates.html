@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.7 - Group-level Policy Templates</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.7
+                </div>
+                <div class="user-info">
+                    <span>Group Policy Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.7 - Group-level Policy Templates</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.7-Group-level%20Policy%20Templates.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Policy Templates</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newPolicyModal')">+ Create Policy</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Policy Code</th>
+                                        <th>Policy Name</th>
+                                        <th>Type</th>
+                                        <th>Version</th>
+                                        <th>Status</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>POL-001</td>
+                                        <td>Procurement Standards</td>
+                                        <td><span class="badge badge-primary">PROCUREMENT</span></td>
+                                        <td>2.1</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>2026-03-15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>POL-002</td>
+                                        <td>Depreciation Methods</td>
+                                        <td><span class="badge badge-warning">DEPRECIATION</span></td>
+                                        <td>1.3</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td>2026-02-20</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>POL-003</td>
+                                        <td>Asset Disposal Procedures</td>
+                                        <td><span class="badge badge-danger">DISPOSAL</span></td>
+                                        <td>1.0</td>
+                                        <td><span class="badge badge-warning">REVIEW</span></td>
+                                        <td>2026-01-10</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Policy Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-5">
+                            <div style="text-align: center; padding: 1rem;">
+                                <span class="badge badge-primary" style="font-size: 0.75rem;">PROCUREMENT</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Asset acquisition rules</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <span class="badge badge-warning" style="font-size: 0.75rem;">DEPRECIATION</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Depreciation methods</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <span class="badge badge-danger" style="font-size: 0.75rem;">DISPOSAL</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Asset disposal rules</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <span class="badge badge-success" style="font-size: 0.75rem;">MAINTENANCE</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Maintenance standards</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <span class="badge badge-info" style="font-size: 0.75rem;">USAGE</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Usage policies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Local Customizations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Policy</th>
+                                        <th>Company</th>
+                                        <th>Customization Level</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>POL-001 (Procurement)</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-warning">MINOR</span></td>
+                                        <td><span class="badge badge-success">APPROVED</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>POL-002 (Depreciation)</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-secondary">NONE</span></td>
+                                        <td><span class="badge badge-secondary">INHERITED</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newPolicyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Policy Template</h3>
+                <button class="modal-close" onclick="closeModal('newPolicyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="policyForm">
+                    <div class="form-group">
+                        <label>Policy Code</label>
+                        <input type="text" class="form-control" name="policyCode" placeholder="POL-XXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Policy Name</label>
+                        <input type="text" class="form-control" name="policyName">
+                    </div>
+                    <div class="form-group">
+                        <label>Policy Type</label>
+                        <select class="form-control" name="policyType">
+                            <option value="">Select Type</option>
+                            <option value="PROCUREMENT">Procurement</option>
+                            <option value="DEPRECIATION">Depreciation</option>
+                            <option value="DISPOSAL">Disposal</option>
+                            <option value="MAINTENANCE">Maintenance</option>
+                            <option value="USAGE">Usage</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Version</label>
+                        <input type="text" class="form-control" name="version" placeholder="e.g., 1.0">
+                    </div>
+                    <div class="form-group">
+                        <label>Policy Content</label>
+                        <textarea class="form-control" name="content" style="min-height: 150px;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newPolicyModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newPolicyModal')">Create Policy</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

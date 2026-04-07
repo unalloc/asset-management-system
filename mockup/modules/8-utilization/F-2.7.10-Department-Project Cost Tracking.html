@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.10 - Department-Project Usage Cost Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.10
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.10 - Department-Project Usage Cost Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.10-Department-Project%20Usage%20Cost%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Cost (Q1)</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">$1.24M</h2>
+                            <p>Across 12 Cost Centers</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">vs Budget</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">-3.2%</h2>
+                            <p>$41K Under Budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Projects</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">18</h2>
+                            <p>Tracking 6 Departments</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Cost Per Unit</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">$12.45</h2>
+                            <p>Avg across Operations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('costs')">Cost Tracking</button>
+                    <button class="tab" onclick="switchTab('variance')">Variance Analysis</button>
+                    <button class="tab" onclick="switchTab('trends')">Trends</button>
+                </div>
+
+                <div class="tab-content active" id="costs-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Cost by Department/Project</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>2025-Q1</option>
+                                    <option>2025-Q2</option>
+                                    <option>2024-Q4</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Cost Center</th>
+                                            <th>Project</th>
+                                            <th>Actual Cost</th>
+                                            <th>Budget</th>
+                                            <th>Variance</th>
+                                            <th>Variance %</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Construction</td>
+                                            <td>Project Alpha</td>
+                                            <td>$245,000</td>
+                                            <td>$250,000</td>
+                                            <td class="text-success">-$5,000</td>
+                                            <td class="text-success">-2.0%</td>
+                                            <td><span class="badge badge-success">On Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operations</td>
+                                            <td>Line Expansion</td>
+                                            <td>$380,000</td>
+                                            <td>$350,000</td>
+                                            <td class="text-danger">+$30,000</td>
+                                            <td class="text-danger">+8.6%</td>
+                                            <td><span class="badge badge-danger">Over Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maintenance</td>
+                                            <td>Preventive Maint</td>
+                                            <td>$125,000</td>
+                                            <td>$130,000</td>
+                                            <td class="text-success">-$5,000</td>
+                                            <td class="text-success">-3.8%</td>
+                                            <td><span class="badge badge-success">Under Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>R&D</td>
+                                            <td>Lab Equipment</td>
+                                            <td>$89,000</td>
+                                            <td>$85,000</td>
+                                            <td class="text-danger">+$4,000</td>
+                                            <td class="text-danger">+4.7%</td>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="variance-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Variance Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Cost Center</th>
+                                            <th>Variance Amount</th>
+                                            <th>Variance %</th>
+                                            <th>Root Cause</th>
+                                            <th>Trend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Operations</td>
+                                            <td class="text-danger">+$30,000</td>
+                                            <td class="text-danger">+8.6%</td>
+                                            <td>Higher energy costs</td>
+                                            <td><span class="badge badge-danger">Increasing</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>R&D</td>
+                                            <td class="text-danger">+$4,000</td>
+                                            <td class="text-danger">+4.7%</td>
+                                            <td>Extended equipment usage</td>
+                                            <td><span class="badge badge-warning">Stable</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="trends-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Cost Trends</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Cost Center</th>
+                                            <th>Q4 2024</th>
+                                            <th>Q1 2025</th>
+                                            <th>Growth Rate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Construction</td>
+                                            <td>$238,000</td>
+                                            <td>$245,000</td>
+                                            <td><span class="badge badge-success">+2.9%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operations</td>
+                                            <td>$355,000</td>
+                                            <td>$380,000</td>
+                                            <td><span class="badge badge-danger">+7.0%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

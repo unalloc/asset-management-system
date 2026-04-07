@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.9 - Usage Cost Allocation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.9
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.9 - Usage Cost Allocation</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.9-Usage%20Cost%20Allocation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Allocated (MTD)</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">$342,500</h2>
+                            <p>Across 8 Departments</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Variance from Budget</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">-2.3%</h2>
+                            <p>$8,200 Under Budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Allocation</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">$12,400</h2>
+                            <p>Awaiting Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('allocations')">Allocations</button>
+                    <button class="tab" onclick="switchTab('methods')">Methods</button>
+                    <button class="tab" onclick="switchTab('journal')">Journal Entries</button>
+                </div>
+
+                <div class="tab-content active" id="allocations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Cost Allocations</h2>
+                            <button class="btn btn-primary" onclick="openModal('newAllocationModal')">+ Run Allocation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Period</th>
+                                            <th>Department</th>
+                                            <th>Asset</th>
+                                            <th>Cost Element</th>
+                                            <th>Amount</th>
+                                            <th>Method</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04</td>
+                                            <td>Construction</td>
+                                            <td>Excavator #1</td>
+                                            <td>DEP</td>
+                                            <td>$4,250</td>
+                                            <td>TIME</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04</td>
+                                            <td>Operations</td>
+                                            <td>Generator #2</td>
+                                            <td>ENERGY</td>
+                                            <td>$2,100</td>
+                                            <td>OUTPUT</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04</td>
+                                            <td>Maintenance</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>MAINT</td>
+                                            <td>$1,850</td>
+                                            <td>FIXED</td>
+                                            <td><span class="badge badge-warning">Review</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="methods-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Allocation Methods Configuration</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Description</th>
+                                            <th>Formula</th>
+                                            <th>Active</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>TIME</strong></td>
+                                            <td>Time Proportion</td>
+                                            <td>(UsageHours / TotalHours) * TotalCost</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>OUTPUT</strong></td>
+                                            <td>Output Proportion</td>
+                                            <td>(OutputUnits / TotalOutput) * TotalCost</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>FIXED</strong></td>
+                                            <td>Fixed Rate</td>
+                                            <td>FixedRatePerHour * UsageHours</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>VALUE</strong></td>
+                                            <td>Value Proportion</td>
+                                            <td>(AssetValue / TotalValue) * TotalCost</td>
+                                            <td><span class="badge badge-warning">No</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>MIXED</strong></td>
+                                            <td>Weighted Combination</td>
+                                            <td>w1*Time + w2*Output + w3*Fixed</td>
+                                            <td><span class="badge badge-warning">No</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="journal-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Journal Entries</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Entry ID</th>
+                                            <th>Allocation ID</th>
+                                            <th>Account</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>JE-2025-042</td>
+                                            <td>ALLOC-2025-089</td>
+                                            <td>Cost Center 5010</td>
+                                            <td>$4,250</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>JE-2025-042</td>
+                                            <td>ALLOC-2025-089</td>
+                                            <td>Asset Accumulated Depreciation</td>
+                                            <td>-</td>
+                                            <td>$4,250</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newAllocationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Run Cost Allocation</h3>
+                <button class="modal-close" onclick="closeModal('newAllocationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="allocationForm">
+                    <div class="form-group">
+                        <label>Period</label>
+                        <input type="month" class="form-control" id="period" value="2025-04">
+                    </div>
+                    <div class="form-group">
+                        <label>Allocation Method</label>
+                        <select class="form-control" id="method">
+                            <option value="">-- Select Method --</option>
+                            <option value="TIME">Time Proportion</option>
+                            <option value="OUTPUT">Output Proportion</option>
+                            <option value="FIXED">Fixed Rate</option>
+                            <option value="VALUE">Value Proportion</option>
+                            <option value="MIXED">Mixed (Weighted)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Department Filter</label>
+                        <select class="form-control">
+                            <option>All Departments</option>
+                            <option>Construction</option>
+                            <option>Operations</option>
+                            <option>Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Note:</strong> Financial period must be OPEN for allocation to proceed.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newAllocationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newAllocationModal')">Run Allocation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

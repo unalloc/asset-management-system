@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.5 - Borrowing-Return System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.5
+                </div>
+                <div class="user-info">
+                    <span>Asset Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.5 - Borrowing-Return System</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.5-Borrowing-Return%20System.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Borrowings</p>
+                            <h2 style="font-size: 1.5rem;">15</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Approval</p>
+                            <h2 style="font-size: 1.5rem;">4</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Overdue</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Available Assets</p>
+                            <h2 style="font-size: 1.5rem;">48</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('active')">Active Borrowings</button>
+                    <button class="tab" onclick="switchTab('pending')">Pending Approval</button>
+                    <button class="tab" onclick="switchTab('overdue')">Overdue</button>
+                    <button class="tab" onclick="switchTab('available')">Available Assets</button>
+                    <button class="tab" onclick="switchTab('reservations')">Reservations</button>
+                </div>
+
+                <div class="tab-content active" id="active-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Active Borrowings</h2>
+                            <button class="btn btn-primary" onclick="openModal('newBorrowingModal')">+ New Borrowing</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset</th>
+                                            <th>Borrower</th>
+                                            <th>Borrowed Date</th>
+                                            <th>Due Date</th>
+                                            <th>Purpose</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BOR-2025-022</td>
+                                            <td>Projector (AST-2021-045)</td>
+                                            <td>Sarah Johnson</td>
+                                            <td>2025-04-01</td>
+                                            <td>2025-04-08</td>
+                                            <td>Client presentation</td>
+                                            <td><span class="badge badge-primary">Borrowed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewBorrowing('BOR-2025-022')">View</button>
+                                                <button class="btn btn-sm btn-success" onclick="returnAsset('BOR-2025-022')">Return</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BOR-2025-021</td>
+                                            <td>Camera Kit (AST-2022-078)</td>
+                                            <td>Mike Williams</td>
+                                            <td>2025-03-28</td>
+                                            <td>2025-04-04</td>
+                                            <td>Marketing shoot</td>
+                                            <td><span class="badge badge-danger">Overdue</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewBorrowing('BOR-2025-021')">View</button>
+                                                <button class="btn btn-sm btn-success" onclick="returnAsset('BOR-2025-021')">Return</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="pending-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Approval Requests</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Request ID</th>
+                                            <th>Asset</th>
+                                            <th>Requestor</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Purpose</th>
+                                            <th>Approval Level</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>REQ-2025-018</td>
+                                            <td>Excavator (AST-2019-012)</td>
+                                            <td>Tom Brown</td>
+                                            <td>2025-04-10</td>
+                                            <td>2025-04-15</td>
+                                            <td>Construction project</td>
+                                            <td><span class="badge badge-warning">VP Approval</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewRequest('REQ-2025-018')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="approveRequest('REQ-2025-018')">Approve</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="overdue-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Overdue Borrowings</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>Warning:</strong> 2 assets are overdue for return. Borrowers may be blocked from new requests.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset</th>
+                                            <th>Borrower</th>
+                                            <th>Due Date</th>
+                                            <th>Days Overdue</th>
+                                            <th>Blacklist Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BOR-2025-021</td>
+                                            <td>Camera Kit (AST-2022-078)</td>
+                                            <td>Mike Williams</td>
+                                            <td>2025-04-04</td>
+                                            <td><span class="text-danger">2 days</span></td>
+                                            <td><span class="badge badge-warning">At Risk</span></td>
+                                            <td><button class="btn btn-sm btn-primary" onclick="returnAsset('BOR-2025-021')">Process Return</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="available-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Available Assets for Borrowing</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Category</th>
+                                            <th>Condition</th>
+                                            <th>Location</th>
+                                            <th>Value</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2021-045</td>
+                                            <td>Projector</td>
+                                            <td>AV Equipment</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                            <td>Equipment Room</td>
+                                            <td>$1,200</td>
+                                            <td><button class="btn btn-sm btn-outline" onclick="requestBorrow('AST-2021-045')">Request</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2022-078</td>
+                                            <td>Camera Kit</td>
+                                            <td>AV Equipment</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                            <td>Equipment Room</td>
+                                            <td>$3,500</td>
+                                            <td><button class="btn btn-sm btn-outline" disabled>Unavailable</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="reservations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Reservations</h2>
+                            <button class="btn btn-primary" onclick="openModal('newReservationModal')">+ New Reservation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Reservation ID</th>
+                                            <th>Asset</th>
+                                            <th>Reserved For</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RES-2025-005</td>
+                                            <td>Projector (AST-2021-045)</td>
+                                            <td>Sarah Johnson</td>
+                                            <td>2025-04-15</td>
+                                            <td>2025-04-17</td>
+                                            <td><span class="badge badge-info">Reserved</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newBorrowingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Borrowing Request</h3>
+                <button class="modal-close" onclick="closeModal('newBorrowingModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="borrowingForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="borrowAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2021-045">Projector - $1,200 (Auto-approve)</option>
+                            <option value="AST-2023-102">Laptop Cart - $8,500 (Dept Manager)</option>
+                            <option value="AST-2019-012">Excavator - $85,000 (VP Approval)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Borrower</label>
+                        <select class="form-control" id="borrowBorrower">
+                            <option value="">-- Select Employee --</option>
+                            <option value="EMP001">Sarah Johnson - Marketing</option>
+                            <option value="EMP002">Tom Brown - Operations</option>
+                            <option value="EMP003">Lisa Davis - HR</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="borrowStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="borrowEndDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Purpose</label>
+                        <textarea class="form-control" id="borrowPurpose" rows="2" placeholder="Reason for borrowing"></textarea>
+                    </div>
+
+                    <div class="alert alert-info" id="approvalInfo">
+                        <strong>Approval Level:</strong> Will be determined based on asset value
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newBorrowingModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newBorrowingModal')">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="returnModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Process Return</h3>
+                <button class="modal-close" onclick="closeModal('returnModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="returnForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <input type="text" class="form-control" id="returnAsset" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Borrower</label>
+                        <input type="text" class="form-control" id="returnBorrower" disabled>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Condition at Return</label>
+                        <select class="form-control" id="returnCondition" onchange="toggleDamageFields()">
+                            <option value="">-- Select Condition --</option>
+                            <option value="GOOD">GOOD - No damage</option>
+                            <option value="DAMAGED">DAMAGED - Minor damage</option>
+                            <option value="WORSE">WORSE - Significant damage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="damageDescGroup" style="display:none;">
+                        <label>Damage Description</label>
+                        <textarea class="form-control" id="damageDescription" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Return Notes</label>
+                        <textarea class="form-control" id="returnNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('returnModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('returnModal')">Process Return</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewBorrowing(id) { alert('Viewing borrowing: ' + id); }
+        function viewRequest(id) { alert('Viewing request: ' + id); }
+        function approveRequest(id) { alert('Approving request: ' + id); }
+        function requestBorrow(id) {
+            document.getElementById('borrowAsset').value = id;
+            openModal('newBorrowingModal');
+        }
+
+        function returnAsset(id) {
+            document.getElementById('returnAsset').value = 'Camera Kit (AST-2022-078)';
+            document.getElementById('returnBorrower').value = 'Mike Williams';
+            openModal('returnModal');
+        }
+
+        function toggleDamageFields() {
+            const condition = document.getElementById('returnCondition').value;
+            document.getElementById('damageDescGroup').style.display =
+                (condition === 'DAMAGED' || condition === 'WORSE') ? 'block' : 'none';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

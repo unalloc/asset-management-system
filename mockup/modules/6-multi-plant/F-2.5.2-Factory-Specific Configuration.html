@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.2 - Factory-Specific Asset Configuration</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.2 - Factory-Specific Asset Configuration</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.2-Factory-Specific%20Asset%20Configuration.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Configuration Templates</h2>
+                        <button class="btn btn-primary" onclick="openModal('addConfigModal')">+ Add Configuration</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="tabs">
+                            <button class="tab active" onclick="switchTab(this, 'groupConfigs')">Group Level</button>
+                            <button class="tab" onclick="switchTab(this, 'companyConfigs')">Company Level</button>
+                            <button class="tab" onclick="switchTab(this, 'plantConfigs')">Plant Level</button>
+                        </div>
+                        <div id="groupConfigs" class="tab-content active">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Config Name</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Version</th>
+                                        <th>Last Modified</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Default Depreciation Method</td>
+                                        <td><span class="badge badge-danger">MANDATORY</span></td>
+                                        <td>Straight-Line</td>
+                                        <td>3</td>
+                                        <td>2025-03-15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('DEP001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maintenance Interval (Days)</td>
+                                        <td><span class="badge badge-warning">PLANT_OVERRIDABLE</span></td>
+                                        <td>90</td>
+                                        <td>5</td>
+                                        <td>2025-04-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAINT001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('MAINT001')">Override</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asset Tag Prefix</td>
+                                        <td><span class="badge badge-success">OPTIONAL</span></td>
+                                        <td>AST-</td>
+                                        <td>2</td>
+                                        <td>2025-02-20</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('TAG001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('TAG001')">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="companyConfigs" class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Config Name</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Version</th>
+                                        <th>Last Modified</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Maintenance Interval (Days)</td>
+                                        <td><span class="badge badge-warning">PLANT_OVERRIDABLE</span></td>
+                                        <td>60 (inherited from Group: 90)</td>
+                                        <td>1</td>
+                                        <td>2025-03-01</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAINT002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('MAINT002')">Override</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="plantConfigs" class="tab-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Config Name</th>
+                                        <th>Type</th>
+                                        <th>Value</th>
+                                        <th>Source</th>
+                                        <th>Version</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Maintenance Interval (Days)</td>
+                                        <td><span class="badge badge-warning">PLANT_OVERRIDABLE</span></td>
+                                        <td>45</td>
+                                        <td>US01-USEQ01 (overridden)</td>
+                                        <td>2</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAINT003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('MAINT003')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="rollbackConfig('MAINT003')">Rollback</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Circular configuration dependencies are not allowed. MANDATORY configs cannot be overridden.
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addConfigModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Configuration</h3>
+                <button class="modal-close" onclick="closeModal('addConfigModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addConfigForm">
+                    <div class="form-group">
+                        <label>Configuration Template</label>
+                        <select class="form-control" id="configTemplate">
+                            <option value="">-- Select Template --</option>
+                            <option value="MAINT001">Maintenance Interval (Days)</option>
+                            <option value="TAG001">Asset Tag Prefix</option>
+                            <option value="CAL001">Calendar Working Hours</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Organization</label>
+                        <select class="form-control" id="orgSelect">
+                            <option value="">-- Select Organization --</option>
+                            <option value="GRP01">GRP01 - Global Manufacturing Group</option>
+                            <option value="US01">US01 - US Manufacturing Inc.</option>
+                            <option value="USEQ01">USEQ01 - US East Quality Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Configuration Value</label>
+                        <input type="text" class="form-control" id="configValue"
+                               placeholder="e.g., 90, AST-, {&quot;hours&quot;: &quot;8-17&quot;}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Effective Date</label>
+                        <input type="date" class="form-control" id="effectiveDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expiration Date</label>
+                        <input type="date" class="form-control" id="expirationDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Change Reason</label>
+                        <textarea class="form-control" id="changeReason"
+                                  placeholder="Reason for configuration change"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addConfigModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addConfigModal')">Add Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewConfigModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Configuration Details</h3>
+                <button class="modal-close" onclick="closeModal('viewConfigModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewConfigContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewConfigModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function switchTab(button, tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            button.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function viewConfig(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Configuration ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <span class="badge badge-warning">PLANT_OVERRIDABLE</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Current Value</label>
+                    <p>90</p>
+                </div>
+                <div class="form-group">
+                    <label>Version History</label>
+                    <table>
+                        <thead>
+                            <tr><th>Version</th><th>Date</th><th>Changed By</th><th>Value</th><th>Reason</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>5</td><td>2025-04-01</td><td>Admin</td><td>90</td><td>Updated standard interval</td></tr>
+                            <tr><td>4</td><td>2025-03-15</td><td>Admin</td><td>120</td><td>Temporary increase</td></tr>
+                            <tr><td>3</td><td>2025-01-10</td><td>Admin</td><td>90</td><td>Initial configuration</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            document.getElementById('viewConfigContent').innerHTML = content;
+            openModal('viewConfigModal');
+        }
+
+        function editConfig(id) {
+            alert('Edit/Override configuration: ' + id);
+        }
+
+        function rollbackConfig(id) {
+            if (confirm('Rollback to previous version?')) {
+                alert('Configuration rolled back successfully');
+            }
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

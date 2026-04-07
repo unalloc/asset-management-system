@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.18 - Usage Compliance Monitoring</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.18
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.18 - Usage Compliance Monitoring</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.18-Usage%20Compliance%20Monitoring.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Compliance Rate</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">94%</h2>
+                            <p>Target: 95%</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Violations</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">8</h2>
+                            <p>3 Major, 1 Critical</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">MTTD</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">4.2h</h2>
+                            <p>Mean Time to Detect</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Policies Active</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">24</h2>
+                            <p>Across 4 Regions</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('violations')">Violations</button>
+                    <button class="tab" onclick="switchTab('policies')">Policies</button>
+                    <button class="tab" onclick="switchTab('corrections')">Corrections</button>
+                </div>
+
+                <div class="tab-content active" id="violations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Detected Violations</h2>
+                            <button class="btn btn-primary" onclick="openModal('newViolationModal')">+ Add Violation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Violation ID</th>
+                                            <th>Asset</th>
+                                            <th>User</th>
+                                            <th>Type</th>
+                                            <th>Severity</th>
+                                            <th>Detected</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>VIOL-2025-042</td>
+                                            <td>Generator #2</td>
+                                            <td>John Smith</td>
+                                            <td><span class="badge badge-warning">UNAUTHORIZED_USAGE</span></td>
+                                            <td><span class="badge badge-danger">CRITICAL</span></td>
+                                            <td>Apr 7, 2025</td>
+                                            <td><span class="badge badge-warning">Correction in Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Manage</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIOL-2025-041</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>Sarah Connor</td>
+                                            <td><span class="badge badge-info">SAFETY</span></td>
+                                            <td><span class="badge badge-warning">MAJOR</span></td>
+                                            <td>Apr 6, 2025</td>
+                                            <td><span class="badge badge-info">Notified</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIOL-2025-040</td>
+                                            <td>Laptop Pool #3</td>
+                                            <td>Tom Wilson</td>
+                                            <td><span class="badge badge-primary">DATA_SECURITY</span></td>
+                                            <td><span class="badge badge-warning">MAJOR</span></td>
+                                            <td>Apr 5, 2025</td>
+                                            <td><span class="badge badge-success">Closed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIOL-2025-039</td>
+                                            <td>Excavator #1</td>
+                                            <td>Mike Johnson</td>
+                                            <td><span class="badge badge-primary">POLICY_ADHERENCE</span></td>
+                                            <td><span class="badge badge-info">MINOR</span></td>
+                                            <td>Apr 4, 2025</td>
+                                            <td><span class="badge badge-info">Training Required</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="policies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Compliance Policies</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Policy ID</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Region</th>
+                                            <th>Effective Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>POL-001</td>
+                                            <td>Equipment Safety Procedures</td>
+                                            <td><span class="badge badge-info">SAFETY</span></td>
+                                            <td>US</td>
+                                            <td>Jan 1, 2025</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-002</td>
+                                            <td>Data Security Handling</td>
+                                            <td><span class="badge badge-primary">SECURITY</span></td>
+                                            <td>EU</td>
+                                            <td>Feb 1, 2025</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>POL-003</td>
+                                            <td>Environmental Compliance</td>
+                                            <td><span class="badge badge-warning">ENVIRONMENTAL</span></td>
+                                            <td>ALL</td>
+                                            <td>Mar 1, 2025</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="corrections-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Correction Tracking</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Violation</th>
+                                            <th>Correction Type</th>
+                                            <th>Assigned To</th>
+                                            <th>Due Date</th>
+                                            <th>Completion</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>VIOL-2025-042</td>
+                                            <td><span class="badge badge-danger">INVESTIGATION</span></td>
+                                            <td>Compliance Team</td>
+                                            <td>Apr 14, 2025</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIOL-2025-041</td>
+                                            <td><span class="badge badge-info">TRAINING</span></td>
+                                            <td>Sarah Connor</td>
+                                            <td>Apr 10, 2025</td>
+                                            <td>Apr 8, 2025</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>VIOL-2025-039</td>
+                                            <td><span class="badge badge-info">TRAINING</span></td>
+                                            <td>Mike Johnson</td>
+                                            <td>Apr 12, 2025</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newViolationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Report Violation</h3>
+                <button class="modal-close" onclick="closeModal('newViolationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="violationForm">
+                    <div class="form-group">
+                        <label>Violation Type</label>
+                        <select class="form-control" id="violationType">
+                            <option value="">-- Select Type --</option>
+                            <option value="POLICY_ADHERENCE">Policy Adherence</option>
+                            <option value="SAFETY">Safety</option>
+                            <option value="UNAUTHORIZED_USAGE">Unauthorized Usage</option>
+                            <option value="DATA_SECURITY">Data Security</option>
+                            <option value="ENVIRONMENTAL">Environmental</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Asset</label>
+                            <select class="form-control" id="asset">
+                                <option value="">-- Select Asset --</option>
+                                <option value="AST-2021-033">Generator #2</option>
+                                <option value="AST-2024-001">CNC Machine #1</option>
+                                <option value="AST-2022-045">Excavator #1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>User</label>
+                            <select class="form-control">
+                                <option value="">-- Select User --</option>
+                                <option value="USR-001">John Smith</option>
+                                <option value="USR-002">Sarah Connor</option>
+                                <option value="USR-003">Tom Wilson</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Severity</label>
+                        <select class="form-control" id="severity">
+                            <option value="">-- Select Severity --</option>
+                            <option value="MINOR">Minor - Warning + Training</option>
+                            <option value="MAJOR">Major - Suspension + Investigation</option>
+                            <option value="CRITICAL">Critical - Immediate action + Management</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Policy</label>
+                        <select class="form-control" id="policy">
+                            <option value="">-- Select Policy --</option>
+                            <option value="POL-001">Equipment Safety Procedures</option>
+                            <option value="POL-002">Data Security Handling</option>
+                            <option value="POL-003">Environmental Compliance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Describe the violation"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newViolationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newViolationModal')">Submit Violation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

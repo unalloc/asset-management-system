@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.5 - Usage Contract Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.5
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.5 - Usage Contract Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.5-Usage%20Contract%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Contracts</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">24</h2>
+                            <p>$1.2M Monthly Value</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Expiring Soon</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">5</h2>
+                            <p>Within 90 Days</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">SLA Compliance</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">96%</h2>
+                            <p>Met This Quarter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('contracts')">Contracts</button>
+                    <button class="tab" onclick="switchTab('sla')">SLA Monitoring</button>
+                    <button class="tab" onclick="switchTab('renewals')">Renewals</button>
+                </div>
+
+                <div class="tab-content active" id="contracts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Usage Contracts</h2>
+                            <button class="btn btn-primary" onclick="openModal('newContractModal')">+ New Contract</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contract Number</th>
+                                            <th>Type</th>
+                                            <th>Providing Party</th>
+                                            <th>Using Party</th>
+                                            <th>Period</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNT-INT-2025-001</td>
+                                            <td><span class="badge badge-primary">Internal Lease</span></td>
+                                            <td>Operations Division</td>
+                                            <td>Construction Dept</td>
+                                            <td>Jan 1 - Dec 31, 2025</td>
+                                            <td><span class="badge badge-success">Effective</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNT-DEP-2025-002</td>
+                                            <td><span class="badge badge-primary">Dept Agreement</span></td>
+                                            <td>Maintenance</td>
+                                            <td>Executive</td>
+                                            <td>Apr 1 - Sep 30, 2025</td>
+                                            <td><span class="badge badge-success">Effective</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNT-PROJ-2025-003</td>
+                                            <td><span class="badge badge-warning">Project Contract</span></td>
+                                            <td>IT Services</td>
+                                            <td>Project Alpha</td>
+                                            <td>Mar 1 - Jun 30, 2025</td>
+                                            <td><span class="badge badge-warning">Under Review</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="sla-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>SLA Performance</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contract</th>
+                                            <th>Metric</th>
+                                            <th>Target</th>
+                                            <th>Current</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNT-INT-2025-001</td>
+                                            <td>Uptime</td>
+                                            <td>99.5%</td>
+                                            <td>99.8%</td>
+                                            <td><span class="badge badge-success">Met</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNT-INT-2025-001</td>
+                                            <td>Response Time</td>
+                                            <td>&lt; 4 hours</td>
+                                            <td>2.5 hours</td>
+                                            <td><span class="badge badge-success">Met</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNT-PROJ-2025-003</td>
+                                            <td>Availability</td>
+                                            <td>98%</td>
+                                            <td>95%</td>
+                                            <td><span class="badge badge-danger">Breached</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="renewals-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Upcoming Renewals</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contract</th>
+                                            <th>Expiry Date</th>
+                                            <th>Days Remaining</th>
+                                            <th>Auto-Renewal</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNT-DEP-2025-002</td>
+                                            <td>Sep 30, 2025</td>
+                                            <td>178 days</td>
+                                            <td><span class="badge badge-warning">Yes</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Review</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNT-INT-2024-015</td>
+                                            <td>Jun 30, 2025</td>
+                                            <td>86 days</td>
+                                            <td><span class="badge badge-warning">Yes</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Review</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newContractModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Usage Contract</h3>
+                <button class="modal-close" onclick="closeModal('newContractModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Contract Type</label>
+                            <select class="form-control" id="contractType">
+                                <option value="">-- Select Type --</option>
+                                <option value="DEPARTMENT_AGREEMENT">Department Agreement</option>
+                                <option value="PROJECT_CONTRACT">Project Contract</option>
+                                <option value="INTERNAL_LEASE">Internal Lease</option>
+                                <option value="SERVICE_CONTRACT">Service Contract</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contract Number</label>
+                            <input type="text" class="form-control" id="contractNumber" placeholder="CNT-XXX-YYYY-NNN">
+                            <p class="form-hint">Auto-generated if blank</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Providing Party</label>
+                            <select class="form-control" id="providingParty">
+                                <option value="">-- Select Party --</option>
+                                <option value="OPS">Operations Division</option>
+                                <option value="MAINT">Maintenance Dept</option>
+                                <option value="IT">IT Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Using Party</label>
+                            <select class="form-control" id="usingParty">
+                                <option value="">-- Select Party --</option>
+                                <option value="CONST">Construction Dept</option>
+                                <option value="EXEC">Executive</option>
+                                <option value="PROJ">Project Teams</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newContractModal')">Cancel</button>
+                <button class="btn btn-primary" type="submit" form="contractForm" onclick="closeModal('newContractModal')">Create Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

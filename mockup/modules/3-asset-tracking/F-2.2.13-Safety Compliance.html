@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.13 - Safety Compliance</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.13
+                </div>
+                <div class="user-info">
+                    <span>Safety Manager</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.13 - Safety Compliance Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.13-Safety%20Compliance.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Safety Overview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Safety Compliance Dashboard</h2>
+                        <div class="d-flex gap-sm">
+                            <button class="btn btn-outline btn-sm">Generate Report</button>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('inspectionModal')">+ New Inspection</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div class="alert alert-success" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">142</div>
+                                <div>Compliant</div>
+                            </div>
+                            <div class="alert alert-info" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">8</div>
+                                <div>Inspection Due</div>
+                            </div>
+                            <div class="alert alert-warning" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">3</div>
+                                <div>Open Violations</div>
+                            </div>
+                            <div class="alert alert-danger" style="margin-bottom: 0;">
+                                <div style="font-size: 2rem; font-weight: 700;">1</div>
+                                <div>Quarantined</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active LOTO -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Lockout/Tagout (LOTO)</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('lotoModal')">+ Apply LOTO</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>LOTO ID</th>
+                                        <th>Equipment</th>
+                                        <th>Applied By</th>
+                                        <th>Applied At</th>
+                                        <th>Expires</th>
+                                        <th>Energy Sources</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LOTO-2025-012</td>
+                                        <td>CNC Machine #3 (AST-2024-008)</td>
+                                        <td>Mike Johnson (LOTO-2024-003)</td>
+                                        <td>2025-04-05 08:00</td>
+                                        <td>2025-04-05 16:00</td>
+                                        <td>Electrical, Hydraulic</td>
+                                        <td><span class="badge badge-warning">APPLIED</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="closeModal('lotoModal')">Complete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LOTO-2025-011</td>
+                                        <td>Compressor Unit (AST-2024-015)</td>
+                                        <td>Sarah Williams (LOTO-2024-007)</td>
+                                        <td>2025-04-05 07:30</td>
+                                        <td>2025-04-05 15:30</td>
+                                        <td>Electrical, Pneumatic</td>
+                                        <td><span class="badge badge-warning">APPLIED</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="closeModal('lotoModal')">Complete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Equipment Safety Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Equipment Safety Status</h2>
+                        <div class="d-flex gap-sm">
+                            <input type="text" class="form-control" placeholder="Search equipment..." style="width: 200px;">
+                            <select class="form-control" style="width: 150px;">
+                                <option>All Status</option>
+                                <option>Compliant</option>
+                                <option>Inspection Due</option>
+                                <option>Overdue</option>
+                                <option>Violation</option>
+                                <option>Quarantined</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Asset ID</th>
+                                        <th>Equipment Name</th>
+                                        <th>Type</th>
+                                        <th>Last Inspection</th>
+                                        <th>Next Due</th>
+                                        <th>LOTO Required</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>AST-2024-001</td>
+                                        <td>CNC Machine #1</td>
+                                        <td>Heavy Machinery</td>
+                                        <td>2025-03-15</td>
+                                        <td>2025-06-15</td>
+                                        <td><span class="tag">Yes</span></td>
+                                        <td><span class="badge badge-success">COMPLIANT</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('inspectionModal')">Inspect</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2024-008</td>
+                                        <td>CNC Machine #3</td>
+                                        <td>Heavy Machinery</td>
+                                        <td>2025-02-20</td>
+                                        <td>2025-05-20</td>
+                                        <td><span class="tag">Yes</span></td>
+                                        <td><span class="badge badge-warning">INSPECTION_DUE</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                            <button class="btn btn-sm btn-primary" onclick="openModal('inspectionModal')">Inspect</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2024-015</td>
+                                        <td>Compressor Unit</td>
+                                        <td>Pressure Equipment</td>
+                                        <td>2025-01-10</td>
+                                        <td>2025-04-10</td>
+                                        <td><span class="tag">Yes</span></td>
+                                        <td><span class="badge badge-danger">VIOLATION</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                            <button class="btn btn-sm btn-outline">View Violation</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2024-022</td>
+                                        <td>Delivery Vehicle #5</td>
+                                        <td>Mobile Equipment</td>
+                                        <td>2025-03-01</td>
+                                        <td>2025-06-01</td>
+                                        <td><span class="tag">No</span></td>
+                                        <td><span class="badge badge-success">COMPLIANT</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">History</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Open Violations -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Open Safety Violations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Violation ID</th>
+                                        <th>Equipment</th>
+                                        <th>Inspection ID</th>
+                                        <th>Severity</th>
+                                        <th>Description</th>
+                                        <th>Reported</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>VIO-2025-003</td>
+                                        <td>Compressor Unit</td>
+                                        <td>INS-2025-015</td>
+                                        <td><span class="badge badge-danger">HIGH</span></td>
+                                        <td>Safety guard missing on rotating component</td>
+                                        <td>2025-04-01</td>
+                                        <td><span class="badge badge-warning">Open</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                            <button class="btn btn-sm btn-primary">Correct</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VIO-2025-002</td>
+                                        <td>Forklift #2</td>
+                                        <td>INS-2025-012</td>
+                                        <td><span class="badge badge-warning">MEDIUM</span></td>
+                                        <td>Backup alarm not functioning</td>
+                                        <td>2025-03-28</td>
+                                        <td><span class="badge badge-info">In Progress</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training Certifications -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Training Certifications</h2>
+                        <button class="btn btn-outline btn-sm">View All Training</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Certification</th>
+                                        <th>Valid From</th>
+                                        <th>Expires</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mike Johnson</td>
+                                        <td>LOTO Authorization</td>
+                                        <td>2024-01-15</td>
+                                        <td>2026-01-15</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sarah Williams</td>
+                                        <td>LOTO Authorization</td>
+                                        <td>2024-03-20</td>
+                                        <td>2025-04-15</td>
+                                        <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>John Smith</td>
+                                        <td>Safety Inspector</td>
+                                        <td>2023-06-01</td>
+                                        <td>2025-06-01</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- States Reference -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Equipment Safety & LOTO States</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Equipment Safety States</label>
+                                <div class="d-flex gap-sm" style="flex-wrap: wrap;">
+                                    <span class="tag badge-success">COMPLIANT</span>
+                                    <span class="tag">INSPECTION_DUE</span>
+                                    <span class="tag">OVERDUE</span>
+                                    <span class="tag badge-danger">VIOLATION</span>
+                                    <span class="tag badge-danger">QUARANTINE</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>LOTO States</label>
+                                <div class="d-flex gap-sm" style="flex-wrap: wrap;">
+                                    <span class="tag">NOT_APPLIED</span>
+                                    <span class="tag badge-warning">APPLIED</span>
+                                    <span class="tag">COMPLETED</span>
+                                    <span class="tag badge-danger">EXPIRED</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Inspection Modal -->
+    <div class="modal-overlay" id="inspectionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Safety Inspection</h3>
+                <button class="modal-close" onclick="closeModal('inspectionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="inspectionForm">
+                    <div class="form-group">
+                        <label>Equipment</label>
+                        <select class="form-control" id="inspEquipment">
+                            <option value="">Select Equipment</option>
+                            <option value="AST-2024-008">CNC Machine #3</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Inspector</label>
+                        <select class="form-control" id="inspInspector">
+                            <option value="">Select Inspector</option>
+                            <option value="INS-001">John Smith (CERT-SAFETY-2024-003) - Valid</option>
+                            <option value="INS-002">Jane Doe (CERT-SAFETY-2024-007) - Valid</option>
+                            <option value="INS-003">Bob Wilson (CERT-SAFETY-2023-001) - Expired</option>
+                        </select>
+                        <div class="form-hint">Inspector must have valid safety inspection certification</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Inspection Date</label>
+                        <input type="date" class="form-control" id="inspDate" value="2025-04-05">
+                    </div>
+                    <fieldset style="border: 1px solid var(--border); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+                        <legend>Safety Inspection Checklist</legend>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkGuard"> Safety guards in place and functional
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkEmergency"> Emergency stop button functional
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkWarning"> Warning labels clearly visible
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkElectrical"> Electrical connections secure
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkLOTO"> LOTO points clearly marked
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="chkHousekeeping"> Area free of hazards/debris
+                            </label>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <label>Overall Result</label>
+                        <select class="form-control" id="inspResult">
+                            <option value="">Select Result</option>
+                            <option value="PASS">PASS</option>
+                            <option value="FAIL">FAIL</option>
+                            <option value="CONDITIONAL">CONDITIONAL</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="violationSection" style="display: none;">
+                        <label>Violation Severity</label>
+                        <select class="form-control" id="violationSeverity">
+                            <option value="">Select Severity</option>
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM">MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                            <option value="CRITICAL">CRITICAL</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="violationDescSection" style="display: none;">
+                        <label>Violation Description</label>
+                        <textarea class="form-control" id="violationDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="inspNotes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('inspectionModal')">Cancel</button>
+                <button class="btn btn-secondary" onclick="closeModal('inspectionModal')">Save Draft</button>
+                <button class="btn btn-primary" onclick="closeModal('inspectionModal')">Submit Inspection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOTO Modal -->
+    <div class="modal-overlay" id="lotoModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Apply Lockout/Tagout (LOTO)</h3>
+                <button class="modal-close" onclick="closeModal('lotoModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="lotoForm">
+                    <div class="form-group">
+                        <label>Equipment</label>
+                        <select class="form-control" id="lotoEquipment">
+                            <option value="">Select Equipment</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                            <option value="AST-2024-008">CNC Machine #3</option>
+                            <option value="AST-2024-015">Compressor Unit</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Authorized Technician</label>
+                        <select class="form-control" id="lotoTechnician">
+                            <option value="">Select Technician</option>
+                            <option value="TECH-001">Mike Johnson (LOTO-2024-003)</option>
+                            <option value="TECH-002">Sarah Williams (LOTO-2024-007)</option>
+                        </select>
+                        <div class="form-hint">Technician must have LOTO authorization</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Energy Sources to Isolate</label>
+                        <div>
+                            <label><input type="checkbox" name="energySource" value="electrical"> Electrical</label><br>
+                            <label><input type="checkbox" name="energySource" value="hydraulic"> Hydraulic</label><br>
+                            <label><input type="checkbox" name="energySource" value="pneumatic"> Pneumatic</label><br>
+                            <label><input type="checkbox" name="energySource" value="mechanical"> Mechanical</label><br>
+                            <label><input type="checkbox" name="energySource" value="thermal"> Thermal</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Application Date/Time</label>
+                            <input type="datetime-local" class="form-control" id="lotoStart" value="2025-04-05T08:00">
+                        </div>
+                        <div class="form-group">
+                            <label>Expected Duration</label>
+                            <select class="form-control" id="lotoDuration">
+                                <option value="4">4 hours</option>
+                                <option value="8">8 hours (1 shift)</option>
+                                <option value="16">16 hours (2 shifts)</option>
+                                <option value="24">24 hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Work Description</label>
+                        <textarea class="form-control" id="lotoWorkDesc" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('lotoModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('lotoModal')">Apply LOTO</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

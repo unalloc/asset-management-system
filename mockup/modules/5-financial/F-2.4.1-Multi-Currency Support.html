@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.1 - Multi-Currency Support</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.1
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.1 - Multi-Currency Support</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.1-Multi-Currency%20Support.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Currency Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Assets (USD)</p>
+                            <h2 style="font-size: 1.5rem;">$12,450,000</h2>
+                            <p class="text-muted">156 assets</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Exchange Rate Source</p>
+                            <h2 style="font-size: 1.5rem;">Central Bank</h2>
+                            <p class="text-success">Last updated: Today</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Currencies Tracked</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                            <p class="text-muted">EUR, GBP, JPY, CNY, etc.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Unrealized G/L</p>
+                            <h2 style="font-size: 1.5rem;">+$45,230</h2>
+                            <p class="text-warning">Pending settlement</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('assets')">Asset Values</button>
+                    <button class="tab" onclick="switchTab('rates')">Exchange Rates</button>
+                    <button class="tab" onclick="switchTab('conversions')">Conversions</button>
+                    <button class="tab" onclick="switchTab('reports')">Reports</button>
+                </div>
+
+                <!-- Assets Tab -->
+                <div class="tab-content active" id="assets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Multi-Currency Asset Register</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Companies</option>
+                                    <option>US Manufacturing</option>
+                                    <option>EU Holdings</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('add-asset-modal')">+ Add Asset</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Asset Name</th>
+                                            <th>Functional Currency</th>
+                                            <th>Acquisition Currency</th>
+                                            <th>Acquisition Cost</th>
+                                            <th>Functional Value</th>
+                                            <th>Exchange Rate</th>
+                                            <th>Rate Method</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2022-001</td>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td><span class="tag">EUR</span></td>
+                                            <td>€142,500</td>
+                                            <td>$156,750</td>
+                                            <td>1.1000</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2023-015</td>
+                                            <td>IT Server Cluster</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td>$85,000</td>
+                                            <td>$85,000</td>
+                                            <td>1.0000</td>
+                                            <td><span class="tag">N/A</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-008</td>
+                                            <td>Delivery Vehicle #5</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td><span class="tag">GBP</span></td>
+                                            <td>£52,000</td>
+                                            <td>$65,780</td>
+                                            <td>1.2650</td>
+                                            <td><span class="badge badge-warning">Temporal</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2024-022</td>
+                                            <td>Tokyo Factory Equipment</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td><span class="tag">JPY</span></td>
+                                            <td>¥12,500,000</td>
+                                            <td>$83,333</td>
+                                            <td>0.0067</td>
+                                            <td><span class="badge badge-success">Current</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exchange Rates Tab -->
+                <div class="tab-content" id="rates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Exchange Rate Management</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('add-rate-modal')">+ Add Rate</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                Rates are sourced from Central Bank by default. Corporate rates require manual approval.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Currency</th>
+                                            <th>Rate to USD</th>
+                                            <th>Source</th>
+                                            <th>Effective Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="tag">EUR</span></td>
+                                            <td>1.1000</td>
+                                            <td>Central Bank</td>
+                                            <td>2025-04-05</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">GBP</span></td>
+                                            <td>1.2650</td>
+                                            <td>Central Bank</td>
+                                            <td>2025-04-05</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">JPY</span></td>
+                                            <td>0.0067</td>
+                                            <td>Corporate</td>
+                                            <td>2025-04-01</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Approve</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="tag">CNY</span></td>
+                                            <td>0.1375</td>
+                                            <td>Central Bank</td>
+                                            <td>2025-04-05</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conversions Tab -->
+                <div class="tab-content" id="conversions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Currency Conversion Records</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Asset ID</th>
+                                            <th>From Currency</th>
+                                            <th>Amount</th>
+                                            <th>Rate</th>
+                                            <th>To Currency</th>
+                                            <th>Converted Amount</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-01</td>
+                                            <td>AST-2024-022</td>
+                                            <td><span class="tag">JPY</span></td>
+                                            <td>¥12,500,000</td>
+                                            <td>0.0067</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td>$83,333</td>
+                                            <td><span class="badge badge-warning">Unrealized</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-03-15</td>
+                                            <td>AST-2022-001</td>
+                                            <td><span class="tag">EUR</span></td>
+                                            <td>€142,500</td>
+                                            <td>1.0850</td>
+                                            <td><span class="tag">USD</span></td>
+                                            <td>$154,613</td>
+                                            <td><span class="badge badge-success">Realized</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Tab -->
+                <div class="tab-content" id="reports-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Multi-Currency Reports</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>Currency Exposure</h3>
+                                        <p class="text-muted">Assets by currency breakdown</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>FX Gains/Losses</h3>
+                                        <p class="text-muted">Realized and unrealized currency adjustments</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>Translation Report</h3>
+                                        <p class="text-muted">Financial statement translation</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Asset Modal -->
+    <div class="modal-overlay" id="add-asset-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Multi-Currency Asset</h3>
+                <button class="modal-close" onclick="closeModal('add-asset-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-asset-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Asset Code</label>
+                            <input type="text" class="form-control" name="assetCode">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Code</label>
+                            <select class="form-control" name="companyCode">
+                                <option value="">Select Company</option>
+                                <option value="US001">US Manufacturing Inc.</option>
+                                <option value="EU001">EU Holdings GmbH</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Functional Currency</label>
+                            <select class="form-control" name="functionalCurrency">
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Acquisition Currency</label>
+                            <select class="form-control" name="acquisitionCurrency">
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                                <option value="CNY">CNY - Chinese Yuan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Acquisition Cost</label>
+                            <input type="number" class="form-control" name="acquisitionCost">
+                        </div>
+                        <div class="form-group">
+                            <label>Acquisition Date</label>
+                            <input type="date" class="form-control" name="acquisitionDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Exchange Rate</label>
+                            <input type="number" class="form-control" name="exchangeRate" step="0.0001" placeholder="Auto-fetched if blank">
+                            <div class="form-hint">Leave blank to use current rate from source</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Conversion Method</label>
+                            <select class="form-control" name="conversionMethod">
+                                <option value="temporal">Temporal (Assets &lt; 12 months)</option>
+                                <option value="current">Current Rate (Long-term assets)</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('add-asset-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('add-asset-modal')">Add Asset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Rate Modal -->
+    <div class="modal-overlay" id="add-rate-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Exchange Rate</h3>
+                <button class="modal-close" onclick="closeModal('add-rate-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-rate-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Currency Code</label>
+                            <input type="text" class="form-control" name="currencyCode" placeholder="e.g., EUR">
+                            <div class="form-hint">Must be valid ISO 4217 code (3 uppercase letters)</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Rate to USD</label>
+                            <input type="number" class="form-control" name="rateToUSD">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Rate Source</label>
+                            <select class="form-control" name="rateSource">
+                                <option value="">Select Source</option>
+                                <option value="centralbank">Central Bank</option>
+                                <option value="corporate">Corporate</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Effective Date</label>
+                            <input type="date" class="form-control" name="effectiveDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('add-rate-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('add-rate-modal')">Add Rate</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+        <script>
+            loadNavigation();
+
+            function switchTab(tabName) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            }
+
+            function openModal(modalId) {
+                document.getElementById(modalId).classList.add('active');
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.remove('active');
+            }
+
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) {
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.7 - Physical Inventory Counting</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.7
+                </div>
+                <div class="user-info">
+                    <span>Plant Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.7 - Physical Inventory Counting</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.7-Physical%20Inventory%20Counting.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Plans</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">In Progress</p>
+                            <h2 style="font-size: 1.5rem;">1</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Variances Found</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Completed This Month</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('plans')">Counting Plans</button>
+                    <button class="tab" onclick="switchTab('tasks')">Count Tasks</button>
+                    <button class="tab" onclick="switchTab('progress')">In Progress</button>
+                    <button class="tab" onclick="switchTab('variances')">Variances</button>
+                    <button class="tab" onclick="switchTab('completed')">Completed</button>
+                </div>
+
+                <div class="tab-content active" id="plans-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Counting Plans</h2>
+                            <button class="btn btn-primary" onclick="openModal('newPlanModal')">+ Create Plan</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Plan Number</th>
+                                            <th>Type</th>
+                                            <th>Scope</th>
+                                            <th>Start Date</th>
+                                            <th>Assets</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CP-2025-012</td>
+                                            <td><span class="tag">FULL</span></td>
+                                            <td>Building A - All Departments</td>
+                                            <td>2025-04-15</td>
+                                            <td>245</td>
+                                            <td><span class="badge badge-info">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewPlan('CP-2025-012')">View</button>
+                                                <button class="btn btn-sm btn-primary" onclick="startPlan('CP-2025-012')">Start</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CP-2025-011</td>
+                                            <td><span class="tag">PARTIAL</span></td>
+                                            <td>Warehouse Area</td>
+                                            <td>2025-04-10</td>
+                                            <td>52</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline" onclick="viewPlan('CP-2025-011')">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tasks-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Counting Tasks</h2>
+                            <button class="btn btn-primary" onclick="openModal('assignTaskModal')">+ Assign Tasks</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Task ID</th>
+                                            <th>Plan</th>
+                                            <th>Assigned To</th>
+                                            <th>Area</th>
+                                            <th>Assets to Count</th>
+                                            <th>Due Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TASK-2025-045</td>
+                                            <td>CP-2025-012</td>
+                                            <td>John Smith</td>
+                                            <td>Floor 1</td>
+                                            <td>45</td>
+                                            <td>2025-04-16</td>
+                                            <td><span class="badge badge-warning">Assigned</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="startCounting('TASK-2025-045')">Start</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="progress-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>In Progress Counts</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Count ID</th>
+                                            <th>Task</th>
+                                            <th>Counter</th>
+                                            <th>Progress</th>
+                                            <th>Counted</th>
+                                            <th>Remaining</th>
+                                            <th>Variances</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNT-2025-028</td>
+                                            <td>TASK-2025-044</td>
+                                            <td>Jane Doe</td>
+                                            <td>
+                                                <div style="width:120px;height:8px;background:#e2e8f0;border-radius:4px;">
+                                                    <div style="width:65%;height:100%;background:var(--primary);border-radius:4px;"></div>
+                                                </div>
+                                            </td>
+                                            <td>26</td>
+                                            <td>14</td>
+                                            <td>2</td>
+                                            <td><button class="btn btn-sm btn-outline" onclick="viewCount('CNT-2025-028')">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="variances-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Variance Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Variance ID</th>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>System Qty</th>
+                                            <th>Counted Qty</th>
+                                            <th>Variance</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>VAR-2025-012</td>
+                                            <td>AST-2020-089</td>
+                                            <td>Forklift #3</td>
+                                            <td>1</td>
+                                            <td>0</td>
+                                            <td><span class="text-danger">-1</span></td>
+                                            <td><span class="badge badge-danger">MAJOR</span></td>
+                                            <td><span class="badge badge-warning">Investigating</span></td>
+                                            <td><button class="btn btn-sm btn-primary" onclick="investigate('VAR-2025-012')">Investigate</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>VAR-2025-011</td>
+                                            <td>AST-2021-034</td>
+                                            <td>Office Chair</td>
+                                            <td>5</td>
+                                            <td>4</td>
+                                            <td><span class="text-warning">-1</span></td>
+                                            <td><span class="badge badge-warning">MINOR</span></td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td><button class="btn btn-sm btn-outline" onclick="viewVariance('VAR-2025-011')">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="completed-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Completed Counts</h2>
+                            <button class="btn btn-outline btn-sm">Export Report</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Plan</th>
+                                            <th>Completed Date</th>
+                                            <th>Total Assets</th>
+                                            <th>Variances</th>
+                                            <th>Accuracy</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CP-2025-011</td>
+                                            <td>2025-04-11</td>
+                                            <td>52</td>
+                                            <td>3</td>
+                                            <td>94.2%</td>
+                                            <td><span class="badge badge-success">Closed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newPlanModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Counting Plan</h3>
+                <button class="modal-close" onclick="closeModal('newPlanModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="planForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label>Plan Number</label>
+                        <input type="text" class="form-control" id="planNumber" placeholder="e.g., CP-2025-013">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Counting Type</label>
+                            <select class="form-control" id="planType">
+                                <option value="">-- Select Type --</option>
+                                <option value="FULL">FULL - Complete inventory</option>
+                                <option value="PARTIAL">PARTIAL - Specific area</option>
+                                <option value="AREA">AREA - Location-based</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="planStartDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Scope</label>
+                        <textarea class="form-control" id="planScope" rows="2" placeholder="Description of assets included"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="planNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newPlanModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newPlanModal')">Create Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewPlan(id) { alert('Viewing plan: ' + id); }
+        function startPlan(id) { alert('Starting plan: ' + id); }
+        function viewCount(id) { alert('Viewing count: ' + id); }
+        function startCounting(id) { alert('Starting counting: ' + id); }
+        function investigate(id) { alert('Investigating variance: ' + id); }
+        function viewVariance(id) { alert('Viewing variance: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

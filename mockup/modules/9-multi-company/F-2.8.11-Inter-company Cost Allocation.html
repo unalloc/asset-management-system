@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.11 - Inter-company Cost Allocation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.11
+                </div>
+                <div class="user-info">
+                    <span>Group Finance</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.11 - Inter-company Cost Allocation</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.11-Inter-company%20Cost%20Allocation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Cost Allocation Summary</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newAllocationModal')">+ Create Allocation</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--primary); margin: 0;">$2.4M</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Shared Services</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--warning); margin: 0;">$850K</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Procurement Costs</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">$320K</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Management Fees</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--info); margin: 0;">$180K</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Facility Costs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Allocation Methods</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-3">
+                            <div class="card" style="margin-bottom: 0; border: 2px solid var(--primary);">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--primary); font-size: 0.9rem;">DIRECT ALLOCATION</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Allocate directly to beneficiaries</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom: 0;">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--warning); font-size: 0.9rem;">STEP ALLOCATION</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Sequential cascading services</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom: 0;">
+                                <div class="card-body" style="text-align: center;">
+                                    <h3 style="color: var(--success); font-size: 0.9rem;">RECIPROCAL</h3>
+                                    <p class="text-muted" style="font-size: 0.75rem; margin-top: 0.5rem;">Simultaneous solution</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Allocation Basis</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Basis Type</th>
+                                        <th>Description</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">HEADCOUNT</span></td>
+                                        <td>Allocate by employee count</td>
+                                        <td>HR, Admin services</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">REVENUE</span></td>
+                                        <td>Allocate by revenue proportion</td>
+                                        <td>Marketing, Sales</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-success">ASSETS</span></td>
+                                        <td>Allocate by asset value</td>
+                                        <td>Insurance, Facilities</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">USAGE</span></td>
+                                        <td>Allocate by measured usage</td>
+                                        <td>IT, Utilities</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Cost Allocations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pool ID</th>
+                                        <th>Cost Type</th>
+                                        <th>Amount</th>
+                                        <th>Period</th>
+                                        <th>Beneficiaries</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>POOL-2026-Q1-001</td>
+                                        <td><span class="badge badge-primary">SHARED_SERVICE</span></td>
+                                        <td>$2,400,000</td>
+                                        <td>2026-Q1</td>
+                                        <td>US0001, EU0001</td>
+                                        <td><span class="badge badge-success">SETTLED</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>POOL-2026-Q1-002</td>
+                                        <td><span class="badge badge-warning">PROCUREMENT</span></td>
+                                        <td>$850,000</td>
+                                        <td>2026-Q1</td>
+                                        <td>US0001, EU0001</td>
+                                        <td><span class="badge badge-warning">PENDING</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newAllocationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Cost Allocation</h3>
+                <button class="modal-close" onclick="closeModal('newAllocationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="allocationForm">
+                    <div class="form-group">
+                        <label>Cost Type</label>
+                        <select class="form-control" name="costType">
+                            <option value="">Select Type</option>
+                            <option value="SHARED_SERVICE">Shared Service</option>
+                            <option value="PROCUREMENT">Procurement</option>
+                            <option value="MANAGEMENT_FEE">Management Fee</option>
+                            <option value="FACILITY">Facility</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Pool Amount</label>
+                            <input type="number" class="form-control" name="amount" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Currency</label>
+                            <select class="form-control" name="currency">
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Allocation Period</label>
+                        <input type="text" class="form-control" name="period" placeholder="e.g., 2026-Q1">
+                    </div>
+                    <div class="form-group">
+                        <label>Allocation Basis</label>
+                        <select class="form-control" name="basisType">
+                            <option value="">Select Basis</option>
+                            <option value="HEADCOUNT">Headcount</option>
+                            <option value="REVENUE">Revenue</option>
+                            <option value="ASSETS">Assets</option>
+                            <option value="USAGE">Usage</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newAllocationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newAllocationModal')">Create Allocation</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

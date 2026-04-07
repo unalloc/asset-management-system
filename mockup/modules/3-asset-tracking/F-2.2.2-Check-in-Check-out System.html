@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.2 - Check-in-Check-out System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.2 - Check-in-Check-out System</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.2-Check-in-Check-out%20System.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Active Loans Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Active Loans</h2>
+                        <div class="d-flex gap-sm">
+                            <input type="text" class="form-control" placeholder="Search loans..." style="width: 200px;">
+                            <button class="btn btn-primary btn-sm" onclick="openModal('checkoutModal')">+ New Check-out</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Loan ID</th>
+                                        <th>Asset</th>
+                                        <th>Borrower</th>
+                                        <th>Check-out Date</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LOAN-2025-001</td>
+                                        <td>AST-2024-015 (Compressor Unit)</td>
+                                        <td>John Smith (EMP-001)</td>
+                                        <td>2025-04-01</td>
+                                        <td>2025-04-15</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('returnModal')">Return</button>
+                                            <button class="btn btn-sm btn-outline">Renew</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LOAN-2025-002</td>
+                                        <td>AST-2024-022 (Delivery Vehicle #5)</td>
+                                        <td>Maria Garcia (EMP-003)</td>
+                                        <td>2025-04-03</td>
+                                        <td>2025-04-10</td>
+                                        <td><span class="badge badge-warning">Due Soon</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('returnModal')">Return</button>
+                                            <button class="btn btn-sm btn-outline">Renew</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LOAN-2025-003</td>
+                                        <td>AST-2024-008 (Power Generator)</td>
+                                        <td>Robert Johnson (EMP-005)</td>
+                                        <td>2025-03-28</td>
+                                        <td>2025-04-04</td>
+                                        <td><span class="badge badge-danger">Overdue</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('returnModal')">Return</button>
+                                            <button class="btn btn-sm btn-outline">Escalate</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Check-out Form Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Quick Check-out</h2>
+                        <button class="btn btn-outline btn-sm">Advanced Mode</button>
+                    </div>
+                    <div class="card-body">
+                        <form id="checkoutForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Asset ID</label>
+                                    <input type="text" class="form-control" id="assetId" name="assetId">
+                                    <div class="form-hint">Scan barcode or enter asset ID</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Borrower ID</label>
+                                    <input type="text" class="form-control" id="borrowerId" name="borrowerId">
+                                    <div class="form-hint">Enter employee ID</div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Loan Type</label>
+                                    <select class="form-control" id="loanType" name="loanType">
+                                        <option value="">Select loan type</option>
+                                        <option value="internal">Internal Employee Loan</option>
+                                        <option value="external">External Customer/Partner Loan</option>
+                                        <option value="training">Training Loan</option>
+                                        <option value="maintenance">Maintenance Loan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Requested Duration (days)</label>
+                                    <input type="number" class="form-control" id="duration" name="duration">
+                                    <div class="form-hint">Policy max: 30 days (standard), 90 days (with approval)</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Purpose</label>
+                                <textarea class="form-control" id="purpose" name="purpose" rows="3"></textarea>
+                                <div class="form-hint">Minimum 10 characters - business justification required</div>
+                            </div>
+                            <div class="d-flex gap-sm">
+                                <button type="button" class="btn btn-primary" onclick="closeModal('checkoutModal')">Submit Check-out</button>
+                                <button type="reset" class="btn btn-outline">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Loan History -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent Loan History</h2>
+                        <div class="d-flex gap-sm">
+                            <select class="form-control" style="width: auto;">
+                                <option>Last 30 Days</option>
+                                <option>Last 90 Days</option>
+                                <option>Last Year</option>
+                            </select>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Loan ID</th>
+                                        <th>Asset</th>
+                                        <th>Borrower</th>
+                                        <th>Out</th>
+                                        <th>In</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LOAN-2025-004</td>
+                                        <td>AST-2024-012 (Measuring Tool Set)</td>
+                                        <td>Sarah Williams (EMP-007)</td>
+                                        <td>2025-03-15</td>
+                                        <td>2025-03-22</td>
+                                        <td>7 days</td>
+                                        <td><span class="badge badge-success">Returned</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LOAN-2025-005</td>
+                                        <td>AST-2024-018 (Welding Equipment)</td>
+                                        <td>David Brown (EMP-002)</td>
+                                        <td>2025-03-20</td>
+                                        <td>2025-03-27</td>
+                                        <td>7 days</td>
+                                        <td><span class="badge badge-success">Returned</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LOAN-2025-006</td>
+                                        <td>AST-2024-025 (Camera System)</td>
+                                        <td>Emily Davis (EMP-008)</td>
+                                        <td>2025-03-25</td>
+                                        <td>-</td>
+                                        <td>10+ days</td>
+                                        <td><span class="badge badge-warning">Overdue</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Return Modal -->
+    <div class="modal-overlay" id="returnModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Asset Return</h3>
+                <button class="modal-close" onclick="closeModal('returnModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="returnForm">
+                    <div class="form-group">
+                        <label>Loan ID</label>
+                        <input type="text" class="form-control" value="LOAN-2025-001" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <input type="text" class="form-control" value="AST-2024-015" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Return Date</label>
+                        <input type="date" class="form-control" id="returnDate" name="returnDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Asset Condition</label>
+                        <select class="form-control" id="condition" name="condition">
+                            <option value="">Select condition</option>
+                            <option value="good">Good - No issues</option>
+                            <option value="fair">Fair - Minor wear</option>
+                            <option value="damage">Damaged - Needs repair</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="returnNotes" name="returnNotes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('returnModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('returnModal')">Process Return</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Check-out Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Check-out</h3>
+                <button class="modal-close" onclick="closeModal('checkoutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="newCheckoutForm">
+                    <div class="form-group">
+                        <label>Asset ID</label>
+                        <input type="text" class="form-control" id="modalAssetId" name="assetId">
+                    </div>
+                    <div class="form-group">
+                        <label>Borrower ID</label>
+                        <input type="text" class="form-control" id="modalBorrowerId" name="borrowerId">
+                    </div>
+                    <div class="form-group">
+                        <label>Loan Type</label>
+                        <select class="form-control" id="modalLoanType" name="loanType">
+                            <option value="">Select loan type</option>
+                            <option value="internal">Internal Employee Loan</option>
+                            <option value="external">External Customer/Partner Loan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (days)</label>
+                        <input type="number" class="form-control" id="modalDuration" name="duration">
+                    </div>
+                    <div class="form-group">
+                        <label>Purpose</label>
+                        <textarea class="form-control" id="modalPurpose" name="purpose" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('checkoutModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('checkoutModal')">Check Out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

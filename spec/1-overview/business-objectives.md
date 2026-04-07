@@ -14,7 +14,7 @@
 - Optimize asset retirement and disposal decisions
 
 ### 3. Compliance Assurance
-- Ensure compliance with international regulations (GDPR, SOX, etc.)
+- Ensure compliance with international regulations (GDPR, SOX, ISO 55000)
 - Meet country-specific regulatory requirements
 - Support audit trails and documentation requirements
 - Maintain data integrity and accuracy
@@ -27,7 +27,7 @@
 
 ### 5. Financial Transparency
 - Accurate multi-currency financial tracking
-- Automated depreciation calculation
+- Automated depreciation calculation (US GAAP / IFRS)
 - Total Cost of Ownership (TCO) analysis
 - Budget vs actual spending visibility
 
@@ -37,17 +37,17 @@
 - Manage assets across multiple legal entities
 - Support different accounting standards per entity
 - Enable consolidated group reporting
-- Facilitate inter-company asset transfers
+- Facilitate inter-company asset transfers with transfer pricing
 
 ### 7. Manufacturing Efficiency
-- Track production metrics and OEE
+- Track equipment hierarchies and locations
 - Support shift-based scheduling
-- Manage equipment hierarchies
-- Monitor energy and utility consumption
+- Manage maintenance workflows
+- Monitor maintenance history and KPIs
 
-### 8. Local Market Adaptation
-- Support for domestic requirements in China
-- Integration with local tax and banking systems
+### 8. Western Market Adaptation
+- Support for US and EU regulatory requirements
+- Multi-currency and multi-language capabilities
 - Compliance with local regulations and standards
 - Native language interface support
 

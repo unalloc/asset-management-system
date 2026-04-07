@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.16 - Lifecycle Cost Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.16
+                </div>
+                <div class="user-info">
+                    <span>Finance Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.16 - Lifecycle Cost Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.16-Lifecycle%20Cost%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total TCO</p>
+                            <h2 style="font-size: 1.5rem;">$2.4M</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg. ROI</p>
+                            <h2 style="font-size: 1.5rem;">18.5%</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Assets Tracked</p>
+                            <h2 style="font-size: 1.5rem;">245</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">This Month's Cost</p>
+                            <h2 style="font-size: 1.5rem;">$45,200</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('tco')">TCO Analysis</button>
+                    <button class="tab" onclick="switchTab('costs')">Cost Records</button>
+                    <button class="tab" onclick="switchTab('roi')">ROI Analysis</button>
+                    <button class="tab" onclick="switchTab('breakdown')">Cost Breakdown</button>
+                </div>
+
+                <div class="tab-content active" id="tco-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Total Cost of Ownership Analysis</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Acquisition</th>
+                                            <th>Operating</th>
+                                            <th>Maintenance</th>
+                                            <th>Disposal</th>
+                                            <th>TCO</th>
+                                            <th>Residual</th>
+                                            <th>Net Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>$85,000</td>
+                                            <td>$32,000</td>
+                                            <td>$18,500</td>
+                                            <td>$2,000</td>
+                                            <td>$137,500</td>
+                                            <td>$12,000</td>
+                                            <td><strong>$125,500</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-045</td>
+                                            <td>Delivery Van #2</td>
+                                            <td>$45,000</td>
+                                            <td>$28,000</td>
+                                            <td>$8,200</td>
+                                            <td>$3,500</td>
+                                            <td>$84,700</td>
+                                            <td>$8,000</td>
+                                            <td><strong>$76,700</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="costs-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Lifecycle Cost Records</h2>
+                            <button class="btn btn-primary" onclick="openModal('newCostModal')">+ Add Cost</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Asset ID</th>
+                                            <th>Cost Type</th>
+                                            <th>Amount</th>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LC-2025-089</td>
+                                            <td>AST-2020-015</td>
+                                            <td><span class="tag">MAINTENANCE</span></td>
+                                            <td>$1,250</td>
+                                            <td>2025-04-02</td>
+                                            <td>Scheduled maintenance</td>
+                                            <td><button class="btn btn-sm btn-outline" onclick="viewCost('LC-2025-089')">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="roi-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>ROI Calculations</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Formula:</strong> ROI = (Benefits Generated - TCO) / TCO × 100
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>TCO</th>
+                                            <th>Benefits</th>
+                                            <th>ROI %</th>
+                                            <th>Annual Cost</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>$137,500</td>
+                                            <td>$185,000</td>
+                                            <td><span class="text-success">+34.5%</span></td>
+                                            <td>$13,750/yr</td>
+                                            <td><span class="badge badge-success">Profitable</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>AST-2021-045</td>
+                                            <td>Delivery Van #2</td>
+                                            <td>$84,700</td>
+                                            <td>$78,000</td>
+                                            <td><span class="text-danger">-7.9%</span></td>
+                                            <td>$16,940/yr</td>
+                                            <td><span class="badge badge-danger">Review</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="breakdown-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Cost Breakdown by Category</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset ID</th>
+                                            <th>Description</th>
+                                            <th>Acquisition %</th>
+                                            <th>Operating %</th>
+                                            <th>Maintenance %</th>
+                                            <th>Disposal %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>AST-2020-015</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>61.8%</td>
+                                            <td>23.3%</td>
+                                            <td>13.5%</td>
+                                            <td>1.5%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="newCostModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Lifecycle Cost</h3>
+                <button class="modal-close" onclick="closeModal('newCostModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="costForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="costAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2020-015">CNC Machine #1 - Acq. Cost: $85,000</option>
+                            <option value="AST-2021-045">Delivery Van #2 - Acq. Cost: $45,000</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cost Type</label>
+                        <select class="form-control" id="costType">
+                            <option value="">-- Select Type --</option>
+                            <option value="ACQUISITION">ACQUISITION</option>
+                            <option value="OPERATING">OPERATING</option>
+                            <option value="MAINTENANCE">MAINTENANCE</option>
+                            <option value="DISPOSAL">DISPOSAL</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="number" class="form-control" id="costAmount">
+                        </div>
+                        <div class="form-group">
+                            <label>Cost Date</label>
+                            <input type="date" class="form-control" id="costDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="costDescription" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newCostModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newCostModal')">Add Cost</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function viewCost(id) { alert('Viewing cost: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

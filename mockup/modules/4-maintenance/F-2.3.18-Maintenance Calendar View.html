@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.18 - Maintenance Calendar View</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.18
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.18 - Maintenance Calendar View</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.18-Maintenance%20Calendar%20View.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('gantt')">Gantt View</button>
+                    <button class="tab" onclick="switchTab('calendar')">Calendar View</button>
+                    <button class="tab" onclick="switchTab('resources')">Resource Calendar</button>
+                </div>
+
+                <div class="tab-content active" id="gantt-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Gantt Chart</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: 150px;">
+                                    <option>April 2025</option>
+                                    <option>May 2025</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">&lt; Previous</button>
+                                <button class="btn btn-outline btn-sm">Today</button>
+                                <button class="btn btn-outline btn-sm">Next &gt;</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div style="overflow-x: auto;">
+                                <div style="min-width: 800px;">
+                                    <div style="display: grid; grid-template-columns: 200px repeat(30, 30px); gap: 1px; background: var(--border); border: 1px solid var(--border);">
+                                        <div style="background: var(--bg-primary); padding: 10px; font-weight: 600;">Work Order</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">1</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">2</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">3</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">4</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">5</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">6</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">7</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">8</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">9</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">10</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">11</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">12</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">13</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">14</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">15</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">16</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">17</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">18</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">19</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">20</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">21</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">22</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">23</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">24</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">25</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">26</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">27</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">28</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">29</div>
+                                        <div style="background: var(--bg-primary); padding: 5px; text-align: center; font-size: 0.7rem;">30</div>
+                                        
+                                        <div style="background: white; padding: 10px; font-size: 0.85rem;">WO-2025-0892 (CNC #1)</div>
+                                        <div style="grid-column: 5 / 10; background: var(--primary); border-radius: 2px;"></div>
+                                        
+                                        <div style="background: white; padding: 10px; font-size: 0.85rem;">WO-2025-0891 (HVAC)</div>
+                                        <div style="grid-column: 8 / 13; background: var(--success); border-radius: 2px;"></div>
+                                        
+                                        <div style="background: white; padding: 10px; font-size: 0.85rem;">WO-2025-0890 (Compressor)</div>
+                                        <div style="grid-column: 3 / 7; background: var(--danger); border-radius: 2px;"></div>
+                                        
+                                        <div style="background: white; padding: 10px; font-size: 0.85rem;">WO-2025-0889 (Forklift)</div>
+                                        <div style="grid-column: 12 / 16; background: var(--warning); border-radius: 2px;"></div>
+                                        
+                                        <div style="background: white; padding: 10px; font-size: 0.85rem;">WO-2025-0888 (Conveyor)</div>
+                                        <div style="grid-column: 18 / 24; background: var(--primary); border-radius: 2px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-md mt-md">
+                                <span class="badge badge-primary" style="background: var(--primary);">Scheduled</span>
+                                <span class="badge badge-success" style="background: var(--success);">In Progress</span>
+                                <span class="badge badge-danger" style="background: var(--danger);">Critical</span>
+                                <span class="badge badge-warning" style="background: var(--warning);">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Dependency View</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Work Order</th>
+                                            <th>Predecessor</th>
+                                            <th>Dependency Type</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0891 (HVAC)</td>
+                                            <td>WO-2025-0892 (CNC #1)</td>
+                                            <td><span class="tag">Finish-to-Start</span></td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0888 (Conveyor)</td>
+                                            <td>WO-2025-0889 (Forklift)</td>
+                                            <td><span class="tag">Finish-to-Start</span></td>
+                                            <td><span class="badge badge-success">Valid</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-warning mt-md">
+                                <strong>Dependency Rule:</strong> Successor cannot start before predecessor completes (Finish-to-Start).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="calendar-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Calendar - April 2025</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">Day</button>
+                                <button class="btn btn-outline btn-sm">Week</button>
+                                <button class="btn btn-primary btn-sm">Month</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border);">
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Sun</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Mon</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Tue</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Wed</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Thu</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Fri</div>
+                                <div style="background: var(--bg-primary); padding: 10px; text-align: center; font-weight: 600;">Sat</div>
+                                
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">30</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">31</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">1</div>
+                                    <div style="background: var(--danger); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0890</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">2</div>
+                                    <div style="background: var(--danger); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0890</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">3</div>
+                                    <div style="background: var(--primary); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0892</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">4</div>
+                                    <div style="background: var(--primary); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0892</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">5</div>
+                                    <div style="background: var(--warning); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0889</div>
+                                </div>
+                                
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">6</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">7</div>
+                                    <div style="background: var(--success); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0891</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">8</div>
+                                    <div style="background: var(--success); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0891</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">9</div>
+                                    <div style="background: var(--success); color: white; padding: 2px 4px; border-radius: 2px; font-size: 0.7rem; margin-top: 4px;">WO-0891</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">10</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">11</div>
+                                </div>
+                                <div style="background: white; padding: 10px; min-height: 100px;">
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="resources-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Resource Calendar - Technicians</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('scheduleWOModal')">+ Schedule Work Order</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Technician</th>
+                                            <th>Monday</th>
+                                            <th>Tuesday</th>
+                                            <th>Wednesday</th>
+                                            <th>Thursday</th>
+                                            <th>Friday</th>
+                                            <th>Utilization</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>John Smith</strong></td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem; margin-bottom: 2px;">WO-0892 8hrs</div>
+                                                <div style="background: var(--info); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0888 4hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0888 8hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--warning); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Training 4hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td><span class="badge badge-warning">80%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Mike Johnson</strong></td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0891 8hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0891 8hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0891 8hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--primary); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0889 4hrs</div>
+                                            </td>
+                                            <td><span class="badge badge-danger">100%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tom Wilson</strong></td>
+                                            <td>
+                                                <div style="background: var(--danger); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0890 8hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--danger); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">WO-0890 4hrs</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td>
+                                                <div style="background: var(--success); color: white; padding: 4px; border-radius: 2px; font-size: 0.75rem;">Available</div>
+                                            </td>
+                                            <td><span class="badge badge-primary">60%</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-danger mt-md">
+                                <strong>Overbooking Alert:</strong> Mike Johnson is at 100% utilization. Consider redistributing work orders.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Maintenance Windows</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('addWindowModal')">+ Add Window</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Window Name</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Type</th>
+                                            <th>Assets</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Production Changeover</td>
+                                            <td>2025-04-15 06:00</td>
+                                            <td>2025-04-15 14:00</td>
+                                            <td><span class="badge badge-danger">Blackout</span></td>
+                                            <td>Line A, Line B</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Weekend Maintenance</td>
+                                            <td>2025-04-19 08:00</td>
+                                            <td>2025-04-20 18:00</td>
+                                            <td><span class="badge badge-success">Available</span></td>
+                                            <td>All Assets</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Conflict Detection</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-success">
+                                <strong>No Conflicts Detected:</strong> All scheduled work orders have valid resource assignments and no overlapping dependencies.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="scheduleWOModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Schedule Work Order</h3>
+                <button class="modal-close" onclick="closeModal('scheduleWOModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Work Order</label>
+                        <select class="form-control">
+                            <option value="">-- Select Work Order --</option>
+                            <option value="WO-2025-0895">WO-2025-0895 - Conveyor Belt</option>
+                            <option value="WO-2025-0896">WO-2025-0896 - Pump Station</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Assigned Technician</label>
+                            <select class="form-control">
+                                <option value="">-- Select Technician --</option>
+                                <option value="JS001">John Smith</option>
+                                <option value="MJ001">Mike Johnson</option>
+                                <option value="TW001">Tom Wilson</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estimated Hours</label>
+                            <input type="number" class="form-control" value="8">
+                        </div>
+                    </div>
+                </form>
+                <div class="alert alert-warning mt-md">
+                    <strong>Conflict Check:</strong> System will validate no resource conflicts before scheduling.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('scheduleWOModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('scheduleWOModal')">Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addWindowModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Maintenance Window</h3>
+                <button class="modal-close" onclick="closeModal('addWindowModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Window Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start</label>
+                            <input type="datetime-local" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>End</label>
+                            <input type="datetime-local" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Window Type</label>
+                        <select class="form-control">
+                            <option value="Available">Available for Maintenance</option>
+                            <option value="Blackout">Production Blackout</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Affected Assets</label>
+                        <select class="form-control" multiple>
+                            <option value="All">All Assets</option>
+                            <option value="Line A">Line A</option>
+                            <option value="Line B">Line B</option>
+                            <option value="CNC-001">CNC Machine #1</option>
+                        </select>
+                        <p class="form-hint">Hold Ctrl/Cmd to select multiple</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addWindowModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addWindowModal')">Add Window</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

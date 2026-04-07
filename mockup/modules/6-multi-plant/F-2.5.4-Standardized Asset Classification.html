@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.4 - Standardized Asset Classification</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.4 - Standardized Asset Classification</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.4-Standardized%20Asset%20Classification.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Asset Classifications</h2>
+                        <button class="btn btn-primary" onclick="openModal('addClassModal')">+ Add Classification</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Class Code</th>
+                                        <th>Class Name</th>
+                                        <th>Level</th>
+                                        <th>Parent</th>
+                                        <th>Depreciation Key</th>
+                                        <th>Useful Life</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PROD001</td>
+                                        <td>Production Equipment</td>
+                                        <td><span class="badge badge-primary">Category</span></td>
+                                        <td>—</td>
+                                        <td>DP-STD-7Y</td>
+                                        <td>7 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('PROD001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PROD002</td>
+                                        <td>CNC Machines</td>
+                                        <td><span class="badge badge-warning">Class</span></td>
+                                        <td>PROD001</td>
+                                        <td>DP-MACH-10Y</td>
+                                        <td>10 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('PROD002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClass('PROD002')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>PROD003</td>
+                                        <td>5-Axis CNC</td>
+                                        <td><span class="badge badge-info">Subclass</span></td>
+                                        <td>PROD002</td>
+                                        <td>DP-MACH-12Y</td>
+                                        <td>12 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('PROD003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editClass('PROD003')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IT001</td>
+                                        <td>IT Equipment</td>
+                                        <td><span class="badge badge-primary">Category</span></td>
+                                        <td>—</td>
+                                        <td>DP-IT-5Y</td>
+                                        <td>5 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('IT001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>VEHI001</td>
+                                        <td>Vehicles</td>
+                                        <td><span class="badge badge-primary">Category</span></td>
+                                        <td>—</td>
+                                        <td>DP-VEH-5Y</td>
+                                        <td>5 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('VEHI001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>BLDG001</td>
+                                        <td>Buildings</td>
+                                        <td><span class="badge badge-primary">Category</span></td>
+                                        <td>—</td>
+                                        <td>DP-BLDG-39Y</td>
+                                        <td>39 years</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewClass('BLDG001')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Legacy Classification Mappings</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Legacy Code</th>
+                                        <th>Legacy Name</th>
+                                        <th>Standard Classification</th>
+                                        <th>Company</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>MACH-EU</td>
+                                        <td>EU Legacy Machine</td>
+                                        <td>PROD002 - CNC Machines</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>SERVER-OLD</td>
+                                        <td>Legacy Server Type</td>
+                                        <td>IT001 - IT Equipment</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-warning">Pending Review</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Classification with assigned assets cannot be deleted. DepreciationKeyID must reference an existing depreciation key.
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addClassModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Classification</h3>
+                <button class="modal-close" onclick="closeModal('addClassModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addClassForm">
+                    <div class="form-group">
+                        <label>Level</label>
+                        <select class="form-control" id="classLevel">
+                            <option value="">-- Select Level --</option>
+                            <option value="GROUP">GROUP (Top Level)</option>
+                            <option value="COMPANY">COMPANY</option>
+                            <option value="PLANT">PLANT</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class Code</label>
+                        <input type="text" class="form-control" id="classCode"
+                               placeholder="e.g., PROD001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class Name</label>
+                        <input type="text" class="form-control" id="className"
+                               placeholder="e.g., Production Equipment">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Classification</label>
+                        <select class="form-control" id="parentClass">
+                            <option value="">-- No Parent (Root) --</option>
+                            <option value="PROD001">PROD001 - Production Equipment</option>
+                            <option value="IT001">IT001 - IT Equipment</option>
+                            <option value="VEHI001">VEHI001 - Vehicles</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Depreciation Key</label>
+                        <select class="form-control" id="depreciationKey">
+                            <option value="">-- Select Depreciation Key --</option>
+                            <option value="DP-STD-7Y">DP-STD-7Y (Standard 7-Year)</option>
+                            <option value="DP-MACH-10Y">DP-MACH-10Y (Machinery 10-Year)</option>
+                            <option value="DP-IT-5Y">DP-IT-5Y (IT 5-Year)</option>
+                            <option value="DP-VEH-5Y">DP-VEH-5Y (Vehicle 5-Year)</option>
+                            <option value="DP-BLDG-39Y">DP-BLDG-39Y (Building 39-Year)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Useful Life (Years)</label>
+                        <input type="number" class="form-control" id="usefulLife"
+                               placeholder="e.g., 7">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" id="classStatus">
+                            <option value="ACTIVE" selected>Active</option>
+                            <option value="INACTIVE">Inactive</option>
+                            <option value="DEPRECATED">Deprecated</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addClassModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addClassModal')">Add Classification</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewClassModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Classification Details</h3>
+                <button class="modal-close" onclick="closeModal('viewClassModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewClassContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewClassContent')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewClass(code) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Class Code</label>
+                        <p><strong>${code}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Level</label>
+                        <span class="badge badge-primary">Category</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Class Name</label>
+                    <p>Production Equipment</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Depreciation Key</label>
+                        <p>DP-STD-7Y</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Useful Life</label>
+                        <p>7 years</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <span class="badge badge-success">Active</span>
+                </div>
+                <div class="form-group">
+                    <label>Classification Hierarchy</label>
+                    <p>PROD001 - Production Equipment</p>
+                </div>
+                <div class="form-group">
+                    <label>Assets in Classification</label>
+                    <p>156 assets</p>
+                </div>
+            `;
+            document.getElementById('viewClassContent').innerHTML = content;
+            openModal('viewClassModal');
+        }
+
+        function editClass(code) {
+            alert('Edit classification: ' + code);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

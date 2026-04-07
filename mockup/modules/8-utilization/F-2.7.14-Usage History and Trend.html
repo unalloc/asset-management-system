@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.14 - Usage History and Trend Analysis</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.14
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.14 - Usage History and Trend Analysis</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.14-Usage%20History%20and%20Trend%20Analysis.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Data Points (2 yrs)</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">24,500</h2>
+                            <p>Usage records</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Anomalies Detected</p>
+                            <h2 style="font-size: 1.5rem; color: var(--danger);">12</h2>
+                            <p>This Quarter</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Seasonal Patterns</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">8</h2>
+                            <p>Identified</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Confidence Level</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">94%</h2>
+                            <p>Analysis accuracy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('history')">History</button>
+                    <button class="tab" onclick="switchTab('patterns')">Patterns</button>
+                    <button class="tab" onclick="switchTab('anomalies')">Anomalies</button>
+                </div>
+
+                <div class="tab-content active" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Usage History Records</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Assets</option>
+                                    <option>Excavator #1</option>
+                                    <option>Generator #2</option>
+                                    <option>CNC Machine #1</option>
+                                </select>
+                                <select class="form-control" style="width: auto;">
+                                    <option>Last 6 Months</option>
+                                    <option>Last Year</option>
+                                    <option>Last 2 Years</option>
+                                </select>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Asset</th>
+                                            <th>Usage Hours</th>
+                                            <th>Output Units</th>
+                                            <th>Efficiency</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Apr 7, 2025</td>
+                                            <td>Excavator #1</td>
+                                            <td>8.5</td>
+                                            <td>-</td>
+                                            <td>85%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Apr 6, 2025</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>7.2</td>
+                                            <td>1,450</td>
+                                            <td>92%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Apr 5, 2025</td>
+                                            <td>Generator #2</td>
+                                            <td>24.0</td>
+                                            <td>12,500 kWh</td>
+                                            <td>88%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="patterns-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Identified Patterns</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Pattern Type</th>
+                                            <th>Description</th>
+                                            <th>Confidence</th>
+                                            <th>Trend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Excavator #1</td>
+                                            <td><span class="badge badge-info">DAILY</span></td>
+                                            <td>Peak usage 7-11 AM</td>
+                                            <td>92%</td>
+                                            <td><span class="badge badge-success">Stable</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td><span class="badge badge-primary">WEEKLY</span></td>
+                                            <td>Higher output Mon-Wed</td>
+                                            <td>88%</td>
+                                            <td><span class="badge badge-warning">Decreasing</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Generator #2</td>
+                                            <td><span class="badge badge-warning">SEASONAL</span></td>
+                                            <td>+15% demand Q4 (heating)</td>
+                                            <td>85%</td>
+                                            <td><span class="badge badge-success">Increasing</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="anomalies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Detected Anomalies</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Asset</th>
+                                            <th>Expected</th>
+                                            <th>Actual</th>
+                                            <th>Deviation</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Mar 28, 2025</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>1,500 units</td>
+                                            <td>850 units</td>
+                                            <td class="text-danger">-43%</td>
+                                            <td><span class="badge badge-warning">Investigating</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mar 15, 2025</td>
+                                            <td>Generator #2</td>
+                                            <td>10,000 kWh</td>
+                                            <td>15,200 kWh</td>
+                                            <td class="text-danger">+52%</td>
+                                            <td><span class="badge badge-success">Explained</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

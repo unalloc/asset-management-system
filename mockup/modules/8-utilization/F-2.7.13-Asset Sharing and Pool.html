@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.13 - Asset Sharing and Pool Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.13
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.13 - Asset Sharing and Pool Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.13-Asset%20Sharing%20and%20Pool%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Pools</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">6</h2>
+                            <p>3 Specialized, 2 General, 1 Regional</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pool Assets</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">48</h2>
+                            <p>Available for sharing</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pool Utilization</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">72%</h2>
+                            <p>Target: 80%</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Wait Time</p>
+                            <h2 style="font-size: 1.5rem; color: var(--info);">2.3 days</h2>
+                            <p>Pool Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('pools')">Pools</button>
+                    <button class="tab" onclick="switchTab('allocations')">Allocations</button>
+                    <button class="tab" onclick="switchTab('waitlist')">Wait List</button>
+                </div>
+
+                <div class="tab-content active" id="pools-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Shared Asset Pools</h2>
+                            <button class="btn btn-primary" onclick="openModal('newPoolModal')">+ Create Pool</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Pool Name</th>
+                                            <th>Type</th>
+                                            <th>Location</th>
+                                            <th>Assets</th>
+                                            <th>Utilization</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Testing Equipment Pool</td>
+                                            <td><span class="badge badge-info">SPECIALIZED</span></td>
+                                            <td>Plant 1</td>
+                                            <td>12</td>
+                                            <td>85%</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Manage</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Office Equipment Pool</td>
+                                            <td><span class="badge badge-primary">GENERAL</span></td>
+                                            <td>HQ Building</td>
+                                            <td>28</td>
+                                            <td>65%</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Regional Heavy Equipment</td>
+                                            <td><span class="badge badge-warning">REGIONAL</span></td>
+                                            <td>Multi-Site</td>
+                                            <td>8</td>
+                                            <td>78%</td>
+                                            <td><span class="badge badge-warning">Expansion</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="allocations-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pool Allocations</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Pool</th>
+                                            <th>Allocated To</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>3D Scanner #1</td>
+                                            <td>Testing Equipment</td>
+                                            <td>R&D Department</td>
+                                            <td>Apr 1, 2025</td>
+                                            <td>Apr 30, 2025</td>
+                                            <td><span class="badge badge-danger">5</span></td>
+                                            <td><span class="badge badge-success">Allocated</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Oscilloscope #2</td>
+                                            <td>Testing Equipment</td>
+                                            <td>Quality Assurance</td>
+                                            <td>Apr 5, 2025</td>
+                                            <td>Apr 15, 2025</td>
+                                            <td><span class="badge badge-warning">3</span></td>
+                                            <td><span class="badge badge-success">Allocated</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Laptop Pool #1</td>
+                                            <td>Office Equipment</td>
+                                            <td>Sales Team</td>
+                                            <td>Apr 8, 2025</td>
+                                            <td>Apr 12, 2025</td>
+                                            <td><span class="badge badge-primary">1</span></td>
+                                            <td><span class="badge badge-warning">Wait List</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="waitlist-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Wait List</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Requestor</th>
+                                            <th>Asset Type</th>
+                                            <th>Pool</th>
+                                            <th>Request Date</th>
+                                            <th>Priority</th>
+                                            <th>Est. Wait</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Marketing Dept</td>
+                                            <td>Laptop</td>
+                                            <td>Office Equipment</td>
+                                            <td>Apr 5, 2025</td>
+                                            <td><span class="badge badge-primary">1</span></td>
+                                            <td>3 days</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Cancel</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="newPoolModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Shared Pool</h3>
+                <button class="modal-close" onclick="closeModal('newPoolModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="poolForm">
+                    <div class="form-group">
+                        <label>Pool Name</label>
+                        <input type="text" class="form-control" id="poolName" placeholder="Enter pool name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Pool Type</label>
+                            <select class="form-control" id="poolType">
+                                <option value="">-- Select Type --</option>
+                                <option value="GENERAL">General</option>
+                                <option value="SPECIALIZED">Specialized</option>
+                                <option value="REGIONAL">Regional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <select class="form-control">
+                                <option value="">-- Select Location --</option>
+                                <option value="PLANT1">Plant 1</option>
+                                <option value="HQ">HQ Building</option>
+                                <option value="MULTI">Multi-Site</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('newPoolModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newPoolModal')">Create Pool</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

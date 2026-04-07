@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.10 - Spare Parts Criticality</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.10
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.10 - Spare Parts Criticality</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.10-Spare%20Parts%20Criticality.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('criticality')">Criticality Analysis</button>
+                    <button class="tab" onclick="switchTab('inventory')">Inventory Strategy</button>
+                    <button class="tab" onclick="switchTab('forecast')">Demand Forecast</button>
+                </div>
+
+                <div class="tab-content active" id="criticality-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Spare Parts Criticality Classification</h2>
+                            <button class="btn btn-primary" onclick="openModal('addPartModal')">+ Classify Part</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Part Number</th>
+                                            <th>Description</th>
+                                            <th>Class</th>
+                                            <th>Equipment Impact</th>
+                                            <th>Lead Time</th>
+                                            <th>Unit Cost</th>
+                                            <th>Stock Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SP-001</td>
+                                            <td>CNC Machine Spindle Bearing</td>
+                                            <td><span class="badge badge-danger">A - Critical</span></td>
+                                            <td>5 - Production Stop</td>
+                                            <td>14 days</td>
+                                            <td>$2,450.00</td>
+                                            <td><span class="badge badge-success">100% Stocked</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SP-002</td>
+                                            <td>HVAC Compressor Valve</td>
+                                            <td><span class="badge badge-warning">B - Important</span></td>
+                                            <td>4 - Significant Impact</td>
+                                            <td>7 days</td>
+                                            <td>$380.00</td>
+                                            <td><span class="badge badge-success">80% Stocked</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SP-003</td>
+                                            <td>Conveyor Belt (Standard)</td>
+                                            <td><span class="badge badge-info">C - General</span></td>
+                                            <td>2 - Low Impact</td>
+                                            <td>3 days</td>
+                                            <td>$85.00</td>
+                                            <td><span class="badge badge-info">50% Stocked</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>SP-004</td>
+                                            <td>Robot Arm Servo Motor</td>
+                                            <td><span class="badge badge-danger">A - Critical</span></td>
+                                            <td>5 - Production Stop</td>
+                                            <td>21 days</td>
+                                            <td>$4,200.00</td>
+                                            <td><span class="badge badge-warning">Low Stock</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="inventory-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Inventory Strategy Parameters</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Part Class</th>
+                                            <th>Stock Level</th>
+                                            <th>Safety Stock Factor</th>
+                                            <th>Reorder Point</th>
+                                            <th>EOQ Enabled</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">A - Critical</span></td>
+                                            <td>100%</td>
+                                            <td>2x Lead Time</td>
+                                            <td>Safety Stock + (Avg Usage x Lead Time)</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">B - Important</span></td>
+                                            <td>80%</td>
+                                            <td>1.5x Lead Time</td>
+                                            <td>Safety Stock + (Avg Usage x Lead Time)</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-info">C - General</span></td>
+                                            <td>50%</td>
+                                            <td>Reorder Point Only</td>
+                                            <td>Average Usage x Lead Time</td>
+                                            <td><span class="badge badge-secondary">No</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>EOQ Calculation Formula</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="formula-box">
+                                <code>EOQ = sqrt((2 x Demand x Order Cost) / Holding Cost)</code>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Annual Demand</label>
+                                    <p class="form-hint">Units per year</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Order Cost</label>
+                                    <p class="form-hint">Cost to place one order</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Holding Cost Rate</label>
+                                    <p class="form-hint">Annual holding cost as % of unit cost</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="forecast-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Demand Forecasting & Simulation</h2>
+                            <button class="btn btn-primary btn-sm">Run Simulation</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> At least 6 months of usage history is required for accurate demand forecasting.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Part Number</th>
+                                            <th>Avg Monthly Usage</th>
+                                            <th>Std Deviation</th>
+                                            <th>Service Level</th>
+                                            <th>Z-Factor</th>
+                                            <th>Safety Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>SP-001</td>
+                                            <td>2.5 units</td>
+                                            <td>0.8</td>
+                                            <td>99%</td>
+                                            <td>2.33</td>
+                                            <td>11 units</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SP-002</td>
+                                            <td>5.0 units</td>
+                                            <td>1.5</td>
+                                            <td>95%</td>
+                                            <td>1.65</td>
+                                            <td>15 units</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SP-003</td>
+                                            <td>12.0 units</td>
+                                            <td>3.0</td>
+                                            <td>90%</td>
+                                            <td>1.28</td>
+                                            <td>8 units</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addPartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Classify Spare Part</h3>
+                <button class="modal-close" onclick="closeModal('addPartModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Part Number</label>
+                        <input type="text" class="form-control" id="partNumber">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" id="partDesc">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Criticality Class</label>
+                            <select class="form-control" id="critClass">
+                                <option value="">-- Select Class --</option>
+                                <option value="A">A - Critical</option>
+                                <option value="B">B - Important</option>
+                                <option value="C">C - General</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Equipment Impact</label>
+                            <select class="form-control" id="equipImpact">
+                                <option value="">-- Select Impact --</option>
+                                <option value="5">5 - Production Stop</option>
+                                <option value="4">4 - Significant Impact</option>
+                                <option value="3">3 - Moderate Impact</option>
+                                <option value="2">2 - Low Impact</option>
+                                <option value="1">1 - Minimal Impact</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Lead Time (Days)</label>
+                            <input type="number" class="form-control" id="leadTime">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Cost ($)</label>
+                            <input type="number" class="form-control" id="unitCost">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Holding Cost Rate (%)</label>
+                            <input type="number" class="form-control" id="holdingRate" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label>Order Cost ($)</label>
+                            <input type="number" class="form-control" id="orderCost" value="50">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Service Level Target (%)</label>
+                            <input type="number" class="form-control" id="serviceLevel" value="95">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Level Target</label>
+                            <input type="text" class="form-control" id="stockTarget" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Has Substitute Available</label>
+                        <label class="d-flex align-center gap-sm">
+                            <input type="checkbox" id="hasSubstitute">
+                            Yes, substitute is available
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addPartModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addPartModal')">Classify Part</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

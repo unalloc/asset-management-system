@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.7.17 - Critical Asset Emergency Allocation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 8: Utilization</span> / F-2.7.17
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.7.17 - Critical Asset Emergency Allocation</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/8-utilization/F-2.7.17-Critical%20Asset%20Emergency%20Allocation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Emergencies</p>
+                            <h2 style="font-size: 1.5rem; color: var(--danger);">2</h2>
+                            <p>Level 4-5</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg Response Time</p>
+                            <h2 style="font-size: 1.5rem; color: var(--success);">2.4h</h2>
+                            <p>Last 30 days</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Critical Assets</p>
+                            <h2 style="font-size: 1.5rem; color: var(--primary);">18</h2>
+                            <p>In Registry</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Preemptions</p>
+                            <h2 style="font-size: 1.5rem; color: var(--warning);">3</h2>
+                            <p>This Quarter</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('emergencies')">Emergencies</button>
+                    <button class="tab" onclick="switchTab('critical')">Critical Assets</button>
+                    <button class="tab" onclick="switchTab('history')">History</button>
+                </div>
+
+                <div class="tab-content active" id="emergencies-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Emergency Allocations</h2>
+                            <button class="btn btn-danger" onclick="openModal('emergencyModal')">+ Emergency Request</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Type</th>
+                                            <th>Asset</th>
+                                            <th>Requestor</th>
+                                            <th>Level</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EMG-2025-012</td>
+                                            <td><span class="badge badge-danger">EQUIPMENT_FAILURE</span></td>
+                                            <td>Generator #1 (Critical)</td>
+                                            <td>Operations</td>
+                                            <td><span class="badge badge-danger">4</span></td>
+                                            <td><span class="badge badge-warning">Allocated</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-primary">Manage</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>EMG-2025-011</td>
+                                            <td><span class="badge badge-danger">PRODUCTION_INTERRUPTION</span></td>
+                                            <td>CNC Machine #2 (Critical)</td>
+                                            <td>Construction</td>
+                                            <td><span class="badge badge-danger">5</span></td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>EMG-2025-010</td>
+                                            <td><span class="badge badge-warning">SAFETY_ACCIDENT</span></td>
+                                            <td>Crane #1</td>
+                                            <td>Safety Dept</td>
+                                            <td><span class="badge badge-warning">3</span></td>
+                                            <td><span class="badge badge-success">Returned</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="critical-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Critical Asset Registry</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Category</th>
+                                            <th>Primary Location</th>
+                                            <th>Backup Location</th>
+                                            <th>Available</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Generator #1</td>
+                                            <td>Power Supply</td>
+                                            <td>Plant 1</td>
+                                            <td>Plant 2</td>
+                                            <td><span class="badge badge-danger">No</span></td>
+                                            <td><span class="badge badge-danger">In Use (Emergency)</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #2</td>
+                                            <td>Production</td>
+                                            <td>Plant 1</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-success">Available</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Crane #1</td>
+                                            <td>Heavy Lift</td>
+                                            <td>Site A</td>
+                                            <td>Site B</td>
+                                            <td><span class="badge badge-success">Yes</span></td>
+                                            <td><span class="badge badge-success">Available</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="history-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Emergency History</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Type</th>
+                                            <th>Asset</th>
+                                            <th>Response Time</th>
+                                            <th>Impact Score</th>
+                                            <th>Compensation</th>
+                                            <th>Lessons Learned</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>EMG-2025-008</td>
+                                            <td>EQUIPMENT_FAILURE</td>
+                                            <td>Generator #2</td>
+                                            <td>1.8h</td>
+                                            <td>45</td>
+                                            <td>$2,500</td>
+                                            <td><button class="btn btn-sm btn-outline">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="emergencyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Emergency Allocation Request</h3>
+                <button class="modal-close" onclick="closeModal('emergencyModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="emergencyForm">
+                    <div class="alert alert-danger">
+                        <strong>WARNING:</strong> This is an emergency request. False alarms may result in disciplinary action.
+                    </div>
+                    <div class="form-group">
+                        <label>Emergency Type</label>
+                        <select class="form-control" id="emergencyType">
+                            <option value="">-- Select Type --</option>
+                            <option value="PRODUCTION_INTERRUPTION">Production Interruption</option>
+                            <option value="SAFETY_ACCIDENT">Safety Accident</option>
+                            <option value="NATURAL_DISASTER">Natural Disaster</option>
+                            <option value="EQUIPMENT_FAILURE">Equipment Failure</option>
+                            <option value="CRITICAL_MISSION_SUPPORT">Critical Mission Support</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Critical Asset</label>
+                        <select class="form-control" id="criticalAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-CRIT-001">Generator #1 (Critical)</option>
+                            <option value="AST-CRIT-002">CNC Machine #2 (Critical)</option>
+                            <option value="AST-CRIT-003">Crane #1 (Critical)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Emergency Level</label>
+                            <select class="form-control" id="emergencyLevel">
+                                <option value="">-- Select Level --</option>
+                                <option value="1">1 - Minimal</option>
+                                <option value="2">2 - Low</option>
+                                <option value="3">3 - Moderate</option>
+                                <option value="4">4 - High</option>
+                                <option value="5">5 - Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Requestor Department</label>
+                            <select class="form-control">
+                                <option>Operations</option>
+                                <option>Construction</option>
+                                <option>Safety</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Justification</label>
+                        <textarea class="form-control" id="justification" rows="4" placeholder="Describe the emergency situation"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('emergencyModal')">Cancel</button>
+                <button class="btn btn-danger" onclick="closeModal('emergencyModal')">Submit Emergency Request</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

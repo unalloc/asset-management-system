@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.16 - Centralized Notification System</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.16
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.16 - Centralized Notification System</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.16-Centralized%20Notification%20System.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('notifications')">Notifications</button>
+                    <button class="tab" onclick="switchTab('templates')">Templates</button>
+                    <button class="tab" onclick="switchTab('escalation')">Escalation Rules</button>
+                    <button class="tab" onclick="switchTab('preferences')">Preferences</button>
+                </div>
+
+                <div class="tab-content active" id="notifications-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Notification Inbox</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('createNotificationModal')">+ New Notification</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-between align-center mb-md">
+                                <div class="d-flex gap-sm">
+                                    <button class="btn btn-outline btn-sm">All</button>
+                                    <button class="btn btn-outline btn-sm">Unread</button>
+                                    <button class="btn btn-outline btn-sm">Critical</button>
+                                </div>
+                                <select class="form-control" style="width: 200px;">
+                                    <option>Filter by Type</option>
+                                    <option>Work Order</option>
+                                    <option>Maintenance</option>
+                                    <option>Alert</option>
+                                    <option>System</option>
+                                </select>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Priority</th>
+                                            <th>Subject</th>
+                                            <th>Type</th>
+                                            <th>Sent</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td><strong>URGENT: Compressor failure detected</strong></td>
+                                            <td><span class="tag">Alert</span></td>
+                                            <td>2025-04-05 14:32</td>
+                                            <td><span class="badge badge-warning">Unread</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Acknowledge</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">High</span></td>
+                                            <td>Work Order WO-2025-0892 overdue</td>
+                                            <td><span class="tag">Work Order</span></td>
+                                            <td>2025-04-05 10:15</td>
+                                            <td><span class="badge badge-warning">Unread</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Acknowledge</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Normal</span></td>
+                                            <td>Preventive maintenance due tomorrow</td>
+                                            <td><span class="tag">Maintenance</span></td>
+                                            <td>2025-04-05 09:00</td>
+                                            <td><span class="badge badge-success">Read</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Normal</span></td>
+                                            <td>Parts shipment arrived</td>
+                                            <td><span class="tag">System</span></td>
+                                            <td>2025-04-04 16:45</td>
+                                            <td><span class="badge badge-success">Read</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-warning">High</span></td>
+                                            <td>Escalation: Unacknowledged work order</td>
+                                            <td><span class="tag">Escalation</span></td>
+                                            <td>2025-04-04 14:00</td>
+                                            <td><span class="badge badge-success">Acknowledged</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="templates-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Notification Templates</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('createTemplateModal')">+ Create Template</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Template Name</th>
+                                            <th>Type</th>
+                                            <th>Channel</th>
+                                            <th>Last Used</th>
+                                            <th>Usage Count</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Work Order Overdue</td>
+                                            <td><span class="tag">Work Order</span></td>
+                                            <td>Email, SMS, Push</td>
+                                            <td>2025-04-05</td>
+                                            <td>156</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                                <button class="btn btn-sm btn-outline">Preview</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maintenance Due Reminder</td>
+                                            <td><span class="tag">Maintenance</span></td>
+                                            <td>Email, In-App</td>
+                                            <td>2025-04-05</td>
+                                            <td>89</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                                <button class="btn btn-sm btn-outline">Preview</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Critical Asset Alert</td>
+                                            <td><span class="tag">Alert</span></td>
+                                            <td>SMS, Push, In-App</td>
+                                            <td>2025-04-05</td>
+                                            <td>42</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                                <button class="btn btn-sm btn-outline">Preview</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Parts Availability</td>
+                                            <td><span class="tag">Inventory</span></td>
+                                            <td>Email</td>
+                                            <td>2025-04-03</td>
+                                            <td>23</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                                <button class="btn btn-sm btn-outline">Preview</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="escalation-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Escalation Rules</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('createEscalationModal')">+ Add Rule</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>How Escalation Works:</strong> When acknowledgment time exceeds threshold, the notification is escalated to the next level.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Rule Name</th>
+                                            <th>Priority</th>
+                                            <th>Threshold</th>
+                                            <th>Escalate To</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Critical WO Escalation</td>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td>15 minutes</td>
+                                            <td>Maintenance Manager</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>High Priority Alert</td>
+                                            <td><span class="badge badge-warning">High</span></td>
+                                            <td>1 hour</td>
+                                            <td>Plant Supervisor</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Normal Reminder</td>
+                                            <td><span class="badge badge-primary">Normal</span></td>
+                                            <td>4 hours</td>
+                                            <td>Technician Lead</td>
+                                            <td><span class="badge badge-success">Active</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="preferences-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Notification Preferences</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Email Notifications</label>
+                                        <select class="form-control">
+                                            <option>Enabled</option>
+                                            <option>Disabled</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>SMS Notifications</label>
+                                        <select class="form-control">
+                                            <option>Enabled</option>
+                                            <option>Disabled</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Push Notifications</label>
+                                        <select class="form-control">
+                                            <option>Enabled</option>
+                                            <option>Disabled</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>In-App Notifications</label>
+                                        <select class="form-control">
+                                            <option>Enabled</option>
+                                            <option>Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="background: var(--bg-primary);">
+                                    <div class="card-header">
+                                        <h2>Do Not Disturb Schedule</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Enabled</label>
+                                                <select class="form-control">
+                                                    <option>Yes</option>
+                                                    <option>No</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Start Time</label>
+                                                <input type="time" class="form-control" value="22:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>End Time</label>
+                                                <input type="time" class="form-control" value="07:00">
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-warning">
+                                            <strong>Note:</strong> Critical notifications can override do-not-disturb settings.
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="createNotificationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Notification</h3>
+                <button class="modal-close" onclick="closeModal('createNotificationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Notification Type</label>
+                            <select class="form-control">
+                                <option value="">-- Select Type --</option>
+                                <option value="Work Order">Work Order</option>
+                                <option value="Alert">Alert</option>
+                                <option value="Maintenance">Maintenance</option>
+                                <option value="System">System</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select class="form-control">
+                                <option value="Low">Low</option>
+                                <option value="Normal" selected>Normal</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Channel</label>
+                            <select class="form-control">
+                                <option value="">-- Select Channel --</option>
+                                <option value="Email">Email</option>
+                                <option value="SMS">SMS</option>
+                                <option value="Push">Push Notification</option>
+                                <option value="In-App">In-App</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Recipient</label>
+                            <select class="form-control">
+                                <option value="">-- Select Recipient --</option>
+                                <option value="JS001">John Smith (Technician)</option>
+                                <option value="MJ001">Mike Johnson (Supervisor)</option>
+                                <option value="TW001">Tom Wilson (Manager)</option>
+                                <option value="ROLE-MAINT">Maintenance Team</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Template</label>
+                        <select class="form-control">
+                            <option value="">-- Use Custom Message --</option>
+                            <option value="wo-overdue">Work Order Overdue</option>
+                            <option value="maint-due">Maintenance Due Reminder</option>
+                            <option value="critical-alert">Critical Asset Alert</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Escalation Rule</label>
+                        <select class="form-control">
+                            <option value="">-- No Escalation --</option>
+                            <option value="critical-15m">Critical: Escalate after 15 min</option>
+                            <option value="high-1h">High: Escalate after 1 hour</option>
+                            <option value="normal-4h">Normal: Escalate after 4 hours</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createNotificationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('createNotificationModal')">Send Notification</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="createTemplateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Notification Template</h3>
+                <button class="modal-close" onclick="closeModal('createTemplateModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Template Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Notification Type</label>
+                            <select class="form-control">
+                                <option>Work Order</option>
+                                <option>Alert</option>
+                                <option>Maintenance</option>
+                                <option>System</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Channel</label>
+                            <select class="form-control">
+                                <option>Email</option>
+                                <option>SMS</option>
+                                <option>Push</option>
+                                <option>In-App</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject Template</label>
+                        <input type="text" class="form-control" placeholder="e.g., Work Order {WO_NUMBER} is {STATUS}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message Template</label>
+                        <textarea class="form-control" rows="4" placeholder="Use placeholders like {ASSET_NAME}, {WO_NUMBER}, {DUE_DATE}..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createTemplateModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('createTemplateModal')">Create Template</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="createEscalationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Escalation Rule</h3>
+                <button class="modal-close" onclick="closeModal('createEscalationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Rule Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select class="form-control">
+                                <option value="Critical">Critical</option>
+                                <option value="High">High</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Threshold</label>
+                            <input type="number" class="form-control" value="15">
+                            <p class="form-hint">Minutes to wait before escalation</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Escalate To</label>
+                        <select class="form-control">
+                            <option value="">-- Select Recipient --</option>
+                            <option value="MJ001">Mike Johnson (Plant Supervisor)</option>
+                            <option value="TW001">Tom Wilson (Maintenance Manager)</option>
+                            <option value="ROLE-MAINT">Maintenance Team</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('createEscalationModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('createEscalationModal')">Create Rule</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

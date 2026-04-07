@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.2 - Legal Entity Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.2
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.2 - Legal Entity Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.2-Legal%20Entity%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Legal Entities</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('addEntityModal')">+ Add Legal Entity</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Company Code</th>
+                                        <th>Legal Name</th>
+                                        <th>Type</th>
+                                        <th>Jurisdiction</th>
+                                        <th>Ownership</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>US0001</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td><span class="badge badge-success">WHOLLY_OWNED</span></td>
+                                        <td>US</td>
+                                        <td>100%</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EU0001</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td><span class="badge badge-success">WHOLLY_OWNED</span></td>
+                                        <td>DE</td>
+                                        <td>100%</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>JV0001</td>
+                                        <td>Asia Pacific Joint Venture Ltd.</td>
+                                        <td><span class="badge badge-warning">JOINT_VENTURE</span></td>
+                                        <td>SG</td>
+                                        <td>45%</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Entity Types & Consolidation Methods</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Entity Type</th>
+                                        <th>Ownership</th>
+                                        <th>Consolidation Method</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-success">WHOLLY_OWNED</span></td>
+                                        <td>100%</td>
+                                        <td>Full Consolidation</td>
+                                        <td>100% ownership, full control</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-primary">CONTROLLING</span></td>
+                                        <td>>50%</td>
+                                        <td>Full Consolidation + NCI</td>
+                                        <td>Control with non-controlling interest</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">MINORITY</span></td>
+                                        <td><50%</td>
+                                        <td>Equity Method / Cost Method</td>
+                                        <td>Limited influence, significant investment</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">JOINT_VENTURE</span></td>
+                                        <td>Variable (2-5 owners)</td>
+                                        <td>Proportionate / Equity</td>
+                                        <td>Shared control with 2-5 owners</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+
+        </main>
+
+    <div class="modal-overlay" id="addEntityModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Legal Entity</h3>
+                <button class="modal-close" onclick="closeModal('addEntityModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addEntityForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Company Code</label>
+                            <input type="text" class="form-control" name="companyCode">
+                        </div>
+                        <div class="form-group">
+                            <label>Company Type</label>
+                            <select class="form-control" name="companyType">
+                                <option value="">Select Type</option>
+                                <option value="WHOLLY_OWNED">Wholly Owned</option>
+                                <option value="CONTROLLING">Controlling</option>
+                                <option value="MINORITY">Minority</option>
+                                <option value="JOINT_VENTURE">Joint Venture</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Legal Name</label>
+                        <input type="text" class="form-control" name="legalName">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Registration Number</label>
+                            <input type="text" class="form-control" name="registrationNumber">
+                        </div>
+                        <div class="form-group">
+                            <label>VAT Registration</label>
+                            <input type="text" class="form-control" name="vatNumber" placeholder="e.g., DE123456789">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jurisdiction</label>
+                            <input type="text" class="form-control" name="jurisdiction" placeholder="e.g., US, DE">
+                        </div>
+                        <div class="form-group">
+                            <label>Ownership %</label>
+                            <input type="number" class="form-control" name="ownershipPct" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Business Term Start</label>
+                            <input type="date" class="form-control" name="termStart">
+                        </div>
+                        <div class="form-group">
+                            <label>Business Term End</label>
+                            <input type="date" class="form-control" name="termEnd">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Accounting Standard</label>
+                            <select class="form-control" name="accountingStandard">
+                                <option value="">Select Standard</option>
+                                <option value="US_GAAP">US GAAP</option>
+                                <option value="IFRS">IFRS</option>
+                                <option value="LOCAL_GAAP">Local GAAP</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Base Currency</label>
+                            <select class="form-control" name="baseCurrency">
+                                <option value="">Select Currency</option>
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" name="status">
+                            <option value="PENDING">Pending</option>
+                            <option value="ACTIVE">Active</option>
+                            <option value="RESTRUCTURED">Restructured</option>
+                            <option value="LIQUIDATION">Liquidation</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('addEntityModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addEntityModal')">Add Entity</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

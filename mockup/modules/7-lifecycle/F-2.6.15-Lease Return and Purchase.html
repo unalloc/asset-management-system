@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.6.15 - Lease Return and Purchase Options</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 7: Lifecycle</span> / F-2.6.15
+                </div>
+                <div class="user-info">
+                    <span>Finance Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.6.15 - Lease Return and Purchase Options</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/7-lifecycle/F-2.6.15-Lease%20Return%20and%20Purchase%20Options.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Expiring Within 90 Days</p>
+                            <h2 style="font-size: 1.5rem;">4</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Decision</p>
+                            <h2 style="font-size: 1.5rem;">2</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Returning This Month</p>
+                            <h2 style="font-size: 1.5rem;">1</h2>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Purchase Options</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('expiring')">Expiring Leases</button>
+                    <button class="tab" onclick="switchTab('decisions')">Pending Decisions</button>
+                    <button class="tab" onclick="switchTab('returns')">Return Inspections</button>
+                    <button class="tab" onclick="switchTab('purchases')">Purchase Records</button>
+                </div>
+
+                <div class="tab-content active" id="expiring-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Leases Expiring Within 90 Days</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-warning">
+                                <strong>Workflow Trigger:</strong> Lease within 90 days of expiration triggers workflow
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Contract ID</th>
+                                            <th>Asset</th>
+                                            <th>Lessor</th>
+                                            <th>Expiry Date</th>
+                                            <th>Days Left</th>
+                                            <th>Option Price</th>
+                                            <th>FMV</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LC-2022-045</td>
+                                            <td>Production Equipment (AST-2022-045)</td>
+                                            <td>Leasing Corp</td>
+                                            <td>2025-06-15</td>
+                                            <td><span class="text-warning">72 days</span></td>
+                                            <td>$45,000</td>
+                                            <td>$52,000</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary" onclick="makeDecision('LC-2022-045')">Decide</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="decisions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Lease Decision Requests</h2>
+                            <button class="btn btn-primary" onclick="openModal('decisionModal')">+ New Decision</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Decision ID</th>
+                                            <th>Contract</th>
+                                            <th>Asset</th>
+                                            <th>Decision Type</th>
+                                            <th>Submitted</th>
+                                            <th>Budget Status</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LD-2025-008</td>
+                                            <td>LC-2022-045</td>
+                                            <td>Production Equipment</td>
+                                            <td><span class="tag">PURCHASE</span></td>
+                                            <td>2025-04-02</td>
+                                            <td><span class="badge badge-warning">Pending Approval</span></td>
+                                            <td><span class="badge badge-warning">In Review</span></td>
+                                            <td><button class="btn btn-sm btn-outline" onclick="viewDecision('LD-2025-008')">View</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="returns-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Return Inspections</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Inspection ID</th>
+                                            <th>Contract</th>
+                                            <th>Asset</th>
+                                            <th>Scheduled Date</th>
+                                            <th>Condition</th>
+                                            <th>Damage Assessment</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RI-2025-005</td>
+                                            <td>LC-2021-032</td>
+                                            <td>CNC Machine (AST-2021-032)</td>
+                                            <td>2025-04-10</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-info">Scheduled</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="purchases-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Ownership Transfer Records</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Record ID</th>
+                                            <th>Contract</th>
+                                            <th>Asset</th>
+                                            <th>Purchase Price</th>
+                                            <th>Transfer Date</th>
+                                            <th>FMV Appraisal</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>OT-2025-003</td>
+                                            <td>LC-2020-018</td>
+                                            <td>Office Equipment (AST-2020-018)</td>
+                                            <td>$12,000</td>
+                                            <td>2025-03-15</td>
+                                            <td>$14,500</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </main>
+
+    <div class="modal-overlay" id="decisionModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Lease Decision</h3>
+                <button class="modal-close" onclick="closeModal('decisionModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="decisionForm">
+                    <div class="form-group">
+                        <label>Contract</label>
+                        <select class="form-control" id="decContract">
+                            <option value="">-- Select Contract --</option>
+                            <option value="LC-2022-045">LC-2022-045 - Production Equipment - Expires: 2025-06-15</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Decision Type</label>
+                        <select class="form-control" id="decType">
+                            <option value="">-- Select Decision --</option>
+                            <option value="PURCHASE">PURCHASE - Buy the asset</option>
+                            <option value="RETURN">RETURN - Return to lessor</option>
+                            <option value="RENEW">RENEW - Extend the lease</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fair Market Value (if appraisal required)</label>
+                        <input type="number" class="form-control" id="decFMV">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Decision Date</label>
+                        <input type="date" class="form-control" id="decDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="decNotes" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('decisionModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('decisionModal')">Submit Decision</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
+        function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+        function makeDecision(id) { document.getElementById('decContract').value = id; openModal('decisionModal'); }
+        function viewDecision(id) { alert('Viewing decision: ' + id); }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>

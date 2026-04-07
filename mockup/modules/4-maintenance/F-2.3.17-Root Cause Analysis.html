@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.17 - Root Cause Analysis</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.17
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.17 - Root Cause Analysis</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.17-Root%20Cause%20Analysis.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('analyses')">RCA Analyses</button>
+                    <button class="tab" onclick="switchTab('create')">Create New</button>
+                    <button class="tab" onclick="switchTab('knowledge')">Knowledge Base</button>
+                </div>
+
+                <div class="tab-content active" id="analyses-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Root Cause Analyses</h2>
+                            <button class="btn btn-primary btn-sm" onclick="switchTab('create')">+ New Analysis</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex gap-sm mb-md">
+                                <select class="form-control" style="width: 200px;">
+                                    <option>All Status</option>
+                                    <option>Open</option>
+                                    <option>In Progress</option>
+                                    <option>Completed</option>
+                                    <option>Verified</option>
+                                    <option>Closed</option>
+                                </select>
+                                <select class="form-control" style="width: 200px;">
+                                    <option>All Assets</option>
+                                    <option>CNC Machine</option>
+                                    <option>HVAC</option>
+                                    <option>Compressor</option>
+                                </select>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>RCA Number</th>
+                                            <th>Work Order</th>
+                                            <th>Asset</th>
+                                            <th>Failure Symptom</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RCA-2025-001</td>
+                                            <td>WO-2025-0885</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>Excessive vibration at 3000 RPM</td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                            <td>2025-04-03</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Continue</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RCA-2025-002</td>
+                                            <td>WO-2025-0872</td>
+                                            <td>HVAC System</td>
+                                            <td>Cooling inefficiency</td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                            <td>2025-03-28</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RCA-2025-003</td>
+                                            <td>WO-2025-0855</td>
+                                            <td>Compressor Unit</td>
+                                            <td>Unexpected shutdown</td>
+                                            <td><span class="badge badge-primary">Open</span></td>
+                                            <td>2025-04-05</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Start</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>5-Why Analysis Example</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Level</th>
+                                            <th>Question</th>
+                                            <th>Answer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Why 1</span></td>
+                                            <td>Why did the CNC machine stop?</td>
+                                            <td>Overload protection tripped</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Why 2</span></td>
+                                            <td>Why did overload protection trip?</td>
+                                            <td>Motor drew excessive current</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Why 3</span></td>
+                                            <td>Why did motor draw excessive current?</td>
+                                            <td> bearings were seizing</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Why 4</span></td>
+                                            <td>Why were bearings seizing?</td>
+                                            <td>Lubrication was insufficient</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="badge badge-primary">Why 5</span></td>
+                                            <td>Why was lubrication insufficient?</td>
+                                            <td><strong>Oil filter was clogged and not replaced during last service</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-success mt-md">
+                                <strong>Root Cause Identified:</strong> Oil filter replacement was missed during preventive maintenance service on 2025-02-15.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="create-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Create New RCA</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Work Order</label>
+                                        <select class="form-control">
+                                            <option value="">-- Select Work Order --</option>
+                                            <option value="WO-2025-0885">WO-2025-0885 - CNC Machine #1</option>
+                                            <option value="WO-2025-0855">WO-2025-0855 - Compressor Unit</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Asset</label>
+                                        <select class="form-control">
+                                            <option value="">-- Select Asset --</option>
+                                            <option value="AST-2024-001">CNC Machine #1 (AST-2024-001)</option>
+                                            <option value="AST-2024-015">Compressor Unit (AST-2024-015)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Failure Symptom</label>
+                                    <textarea class="form-control" rows="2" placeholder="Describe the observable failure..."></textarea>
+                                </div>
+
+                                <div class="card" style="background: var(--bg-primary);">
+                                    <div class="card-header">
+                                        <h2>5-Why Analysis</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>Why #1</label>
+                                            <p class="form-hint">Why did the failure occur?</p>
+                                            <textarea class="form-control" rows="2"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Why #2</label>
+                                            <p class="form-hint">Why did that happen?</p>
+                                            <textarea class="form-control" rows="2"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Why #3</label>
+                                            <p class="form-hint">Why did that happen?</p>
+                                            <textarea class="form-control" rows="2"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Why #4</label>
+                                            <p class="form-hint">Why did that happen?</p>
+                                            <textarea class="form-control" rows="2"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Why #5 (Root Cause)</label>
+                                            <p class="form-hint">Why did that happen? (Continue until fundamental cause)</p>
+                                            <textarea class="form-control" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="background: var(--bg-primary);">
+                                    <div class="card-header">
+                                        <h2>Fishbone Diagram (6M Categories)</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Machine</label>
+                                                <textarea class="form-control" rows="2" placeholder="Equipment-related causes..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Method</label>
+                                                <textarea class="form-control" rows="2" placeholder="Process-related causes..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Material</label>
+                                                <textarea class="form-control" rows="2" placeholder="Material-related causes..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Man</label>
+                                                <textarea class="form-control" rows="2" placeholder="People-related causes..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Measurement</label>
+                                                <textarea class="form-control" rows="2" placeholder="Measurement-related causes..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Maintenance</label>
+                                                <textarea class="form-control" rows="2" placeholder="Maintenance-related causes..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="background: var(--bg-primary);">
+                                    <div class="card-header">
+                                        <h2>Corrective Actions</h2>
+                                        <button type="button" class="btn btn-outline btn-sm" onclick="addCorrectiveAction()">+ Add Action</button>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="correctiveActions">
+                                            <div class="form-row">
+                                                <div class="form-group" style="flex: 2;">
+                                                    <label>Action Description</label>
+                                                    <input type="text" class="form-control" placeholder="Describe corrective action...">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Owner</label>
+                                                    <select class="form-control">
+                                                        <option value="">-- Select --</option>
+                                                        <option value="JS001">John Smith</option>
+                                                        <option value="MJ001">Mike Johnson</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Due Date</label>
+                                                    <input type="date" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="d-flex align-center gap-sm">
+                                        <input type="checkbox" id="createKB">
+                                        Create Knowledge Base Article
+                                    </label>
+                                </div>
+
+                                <div id="kbSection" style="display: none;">
+                                    <div class="card" style="background: var(--bg-primary);">
+                                        <div class="card-header">
+                                            <h2>Knowledge Base Article</h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <input type="text" class="form-control" placeholder="Article title...">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Summary</label>
+                                                <textarea class="form-control" rows="3" placeholder="Brief summary of the issue and solution..."></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Solution</label>
+                                                <textarea class="form-control" rows="3" placeholder="Detailed solution..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-outline">Save Draft</button>
+                            <button class="btn btn-primary" onclick="closeModal()">Submit for Approval</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="knowledge-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Knowledge Base</h2>
+                            <div class="d-flex gap-sm">
+                                <input type="text" class="form-control" placeholder="Search knowledge base..." style="width: 250px;">
+                                <button class="btn btn-outline btn-sm">Search</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Article ID</th>
+                                            <th>Title</th>
+                                            <th>Related Asset</th>
+                                            <th>Created</th>
+                                            <th>Usage Count</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>KB-2025-001</td>
+                                            <td>CNC Bearing Failure - Oil Filter Missed</td>
+                                            <td>CNC Machine</td>
+                                            <td>2025-04-03</td>
+                                            <td>3</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Link</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KB-2025-002</td>
+                                            <td>HVAC Cooling Inefficiency - Coil Cleaning</td>
+                                            <td>HVAC System</td>
+                                            <td>2025-03-30</td>
+                                            <td>7</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Link</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>KB-2024-015</td>
+                                            <td>Compressor Unexpected Shutdown - Power Supply</td>
+                                            <td>Compressor</td>
+                                            <td>2025-01-15</td>
+                                            <td>12</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">View</button>
+                                                <button class="btn btn-sm btn-outline">Link</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        let actionCount = 1;
+        function addCorrectiveAction() {
+            actionCount++;
+            const container = document.getElementById('correctiveActions');
+            const div = document.createElement('div');
+            div.className = 'form-row';
+            div.innerHTML = `
+                <div class="form-group" style="flex: 2;">
+                    <label>Action Description</label>
+                    <input type="text" class="form-control" placeholder="Describe corrective action...">
+                </div>
+                <div class="form-group">
+                    <label>Owner</label>
+                    <select class="form-control">
+                        <option value="">-- Select --</option>
+                        <option value="JS001">John Smith</option>
+                        <option value="MJ001">Mike Johnson</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date" class="form-control">
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        document.getElementById('createKB').addEventListener('change', function() {
+            document.getElementById('kbSection').style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.14 - Multi-company Benchmarking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.14
+                </div>
+                <div class="user-info">
+                    <span>Group Performance Analyst</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.14 - Multi-company Asset Performance Benchmarking</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.14-Multi-company%20Asset%20Performance%20Benchmarking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Benchmarking Overview</h2>
+                        <button class="btn btn-primary btn-sm">+ Run Analysis</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">78.5%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Avg Utilization</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--primary); margin: 0;">4.2%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Maint Cost Ratio</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--warning); margin: 0;">2,450 hrs</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Avg MTBF</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--info); margin: 0;">94.2%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Avg Availability</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Benchmarking Metrics</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Metric</th>
+                                        <th>Definition</th>
+                                        <th>Unit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Asset Utilization</span></td>
+                                        <td>Actual usage / Maximum capacity</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">Maintenance Cost Ratio</span></td>
+                                        <td>Maintenance cost / Asset value</td>
+                                        <td>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-success">MTBF</span></td>
+                                        <td>Total operating time / Failure count</td>
+                                        <td>Hours</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Lifecycle Cost</span></td>
+                                        <td>Total cost over life / Life years</td>
+                                        <td>$/year</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-secondary">Availability</span></td>
+                                        <td>Uptime / Total time</td>
+                                        <td>%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Company Performance Comparison</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Utilization</th>
+                                        <th>Maint Cost Ratio</th>
+                                        <th>MTBF</th>
+                                        <th>Availability</th>
+                                        <th>Rank</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: rgba(22, 163, 74, 0.1);">
+                                        <td><strong>US Manufacturing Inc.</strong></td>
+                                        <td><span class="text-success">85.2%</span></td>
+                                        <td><span class="text-success">3.5%</span></td>
+                                        <td><span class="text-success">2,850 hrs</span></td>
+                                        <td><span class="text-success">96.5%</span></td>
+                                        <td><span class="badge badge-success">#1</span></td>
+                                    </tr>
+                                    <tr style="background: rgba(37, 99, 235, 0.1);">
+                                        <td><strong>EU Holdings GmbH</strong></td>
+                                        <td><span class="text-primary">78.8%</span></td>
+                                        <td><span class="text-primary">4.2%</span></td>
+                                        <td><span class="text-primary">2,450 hrs</span></td>
+                                        <td><span class="text-primary">94.2%</span></td>
+                                        <td><span class="badge badge-primary">#2</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asia Pacific JV Ltd.</td>
+                                        <td>72.5%</td>
+                                        <td>5.8%</td>
+                                        <td>1,950 hrs</td>
+                                        <td>91.0%</td>
+                                        <td><span class="badge badge-warning">#3</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+    </script>
+</body>
+</html>

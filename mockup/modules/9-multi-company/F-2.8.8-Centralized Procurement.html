@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.8 - Centralized Procurement</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.8
+                </div>
+                <div class="user-info">
+                    <span>Group Procurement</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.8 - Centralized Procurement</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.8-Centralized%20Procurement%20and%20Company%20Allocation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Centralized Procurement Dashboard</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 2rem; color: var(--primary); margin: 0;">$12.5M</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Active Contracts</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 2rem; color: var(--success); margin: 0;">156</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Pending Allocations</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 2rem; color: var(--warning); margin: 0;">18%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Volume Discount</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 2rem; color: var(--info); margin: 0;">3</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Suppliers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Procurement Contracts</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newContractModal')">+ New Contract</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract ID</th>
+                                        <th>Supplier</th>
+                                        <th>Asset Type</th>
+                                        <th>Value</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CP-2026-001</td>
+                                        <td>Siemens AG</td>
+                                        <td>CNC Machines</td>
+                                        <td>$5,200,000</td>
+                                        <td><span class="badge badge-success">ACTIVE</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Allocate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CP-2026-002</td>
+                                        <td>Caterpillar Inc.</td>
+                                        <td>Heavy Equipment</td>
+                                        <td>$3,800,000</td>
+                                        <td><span class="badge badge-warning">IN_PROGRESS</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                            <button class="btn btn-outline btn-sm">Allocate</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Company Allocations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Allocation ID</th>
+                                        <th>Contract</th>
+                                        <th>Company</th>
+                                        <th>Quantity</th>
+                                        <th>Allocation Ratio</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ALL-001</td>
+                                        <td>CP-2026-001</td>
+                                        <td>US Manufacturing Inc.</td>
+                                        <td>5</td>
+                                        <td>60%</td>
+                                        <td>$3,120,000</td>
+                                        <td><span class="badge badge-success">APPROVED</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ALL-002</td>
+                                        <td>CP-2026-001</td>
+                                        <td>EU Holdings GmbH</td>
+                                        <td>3</td>
+                                        <td>40%</td>
+                                        <td>$2,080,000</td>
+                                        <td><span class="badge badge-warning">PENDING</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Allocation Methods</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Description</th>
+                                        <th>Use Case</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">FIXED_RATIO</span></td>
+                                        <td>Fixed percentage allocation</td>
+                                        <td>When allocation ratios are predetermined</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">USAGE_BASED</span></td>
+                                        <td>Based on usage metrics</td>
+                                        <td>When actual usage varies significantly</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-success">BENCHMARK</span></td>
+                                        <td>Based on benchmarking</td>
+                                        <td>When competitive bidding determines shares</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newContractModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>New Centralized Contract</h3>
+                <button class="modal-close" onclick="closeModal('newContractModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contractForm">
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <select class="form-control" name="supplierId">
+                            <option value="">Select Supplier</option>
+                            <option value="SUP-001">Siemens AG</option>
+                            <option value="SUP-002">Caterpillar Inc.</option>
+                            <option value="SUP-003">ABB Ltd</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Asset Type</label>
+                        <input type="text" class="form-control" name="assetType">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="form-control" name="quantity">
+                        </div>
+                        <div class="form-group">
+                            <label>Contract Value</label>
+                            <input type="number" class="form-control" name="contractValue" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Terms</label>
+                        <textarea class="form-control" name="terms"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newContractModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newContractModal')">Create Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

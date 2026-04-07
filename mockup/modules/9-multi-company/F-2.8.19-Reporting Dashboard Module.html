@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.19 - Reporting and Dashboard Module</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.19
+                </div>
+                <div class="user-info">
+                    <span>Group Reporter</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.19 - Reporting and Dashboard Module</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.19-Reporting%20and%20Dashboard%20Module.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Executive Dashboard</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--primary); margin: 0;">2,140</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Total Assets</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">$85.4M</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Total Asset Value</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--warning); margin: 0;">78.5%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Avg Utilization</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--info); margin: 0;">94.2%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Avg Availability</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Report Types</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-primary" style="font-size: 0.8rem;">STANDARD REPORTS</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Pre-built templates</p>
+                                <p style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 0.25rem;">Asset Register, Depreciation Schedule</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-warning" style="font-size: 0.8rem;">CUSTOM REPORTS</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">User-built ad-hoc analysis</p>
+                                <p style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 0.25rem;">Flexible queries</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-success" style="font-size: 0.8rem;">DASHBOARDS</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Real-time visualization</p>
+                                <p style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 0.25rem;">KPI gauges, trend charts</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <span class="badge badge-info" style="font-size: 0.8rem;">SCHEDULED REPORTS</span>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 0.5rem;">Automated delivery</p>
+                                <p style="font-size: 0.65rem; color: var(--text-secondary); margin-top: 0.25rem;">Monthly summary, exceptions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Available Reports</h2>
+                        <button class="btn btn-primary btn-sm" onclick="openModal('newReportModal')">+ Create Report</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Report Name</th>
+                                        <th>Type</th>
+                                        <th>Last Run</th>
+                                        <th>Frequency</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Asset Register Summary</td>
+                                        <td><span class="badge badge-primary">STANDARD</span></td>
+                                        <td>2026-04-05</td>
+                                        <td>Monthly</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Run</button>
+                                            <button class="btn btn-outline btn-sm">Export</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Depreciation Schedule</td>
+                                        <td><span class="badge badge-primary">STANDARD</span></td>
+                                        <td>2026-04-01</td>
+                                        <td>Monthly</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Run</button>
+                                            <button class="btn btn-outline btn-sm">Export</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maintenance KPIs</td>
+                                        <td><span class="badge badge-success">DASHBOARD</span></td>
+                                        <td>Real-time</td>
+                                        <td>Daily</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cross-company Utilization</td>
+                                        <td><span class="badge badge-warning">CUSTOM</span></td>
+                                        <td>2026-04-03</td>
+                                        <td>On-demand</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-outline btn-sm">Run</button>
+                                            <button class="btn btn-outline btn-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <div class="modal-overlay" id="newReportModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Custom Report</h3>
+                <button class="modal-close" onclick="closeModal('newReportModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm">
+                    <div class="form-group">
+                        <label>Report Name</label>
+                        <input type="text" class="form-control" name="reportName" placeholder="Enter report name">
+                    </div>
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <select class="form-control" name="reportType">
+                            <option value="">Select Type</option>
+                            <option value="ASSET_REGISTER">Asset Register</option>
+                            <option value="DEPRECIATION">Depreciation Schedule</option>
+                            <option value="MAINTENANCE">Maintenance Report</option>
+                            <option value="UTILIZATION">Utilization Report</option>
+                            <option value="FINANCIAL">Financial Report</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date Range</label>
+                            <input type="date" class="form-control" name="startDate">
+                        </div>
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <input type="date" class="form-control" name="endDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Export Format</label>
+                        <select class="form-control" name="exportFormat">
+                            <option value="">Select Format</option>
+                            <option value="PDF">PDF</option>
+                            <option value="EXCEL">Excel</option>
+                            <option value="CSV">CSV</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Schedule</label>
+                        <select class="form-control" name="schedule">
+                            <option value="">One-time (On-demand)</option>
+                            <option value="DAILY">Daily</option>
+                            <option value="WEEKLY">Weekly</option>
+                            <option value="MONTHLY">Monthly</option>
+                            <option value="QUARTERLY">Quarterly</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('newReportModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('newReportModal')">Create Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

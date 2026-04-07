@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.7 - Predictive Maintenance (IoT)</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.7
+                </div>
+                <div class="user-info">
+                    <span>Maintenance Manager</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.7 - Predictive Maintenance (IoT)</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.7-Predictive%20Maintenance%20(IoT).md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>System Status:</strong> IoT monitoring active on 24 assets | Last sync: 2 minutes ago
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('health')">Asset Health</button>
+                    <button class="tab" onclick="switchTab('sensors')">Sensor Data</button>
+                    <button class="tab" onclick="switchTab('alerts')">Alerts</button>
+                    <button class="tab" onclick="switchTab('predictions')">Predictions</button>
+                </div>
+
+                <div class="tab-content active" id="health-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Asset Health Overview</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">Filter</button>
+                                <button class="btn btn-outline btn-sm">Export</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-4">
+                                <div class="card" style="margin-bottom:0; background: rgba(22, 163, 74, 0.1);">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--success);">18</h3>
+                                        <p class="text-muted">Healthy Assets</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0; background: rgba(202, 138, 4, 0.1);">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--warning);">4</h3>
+                                        <p class="text-muted">Warning</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0; background: rgba(220, 38, 38, 0.1);">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--danger);">2</h3>
+                                        <p class="text-muted">Critical</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="margin-bottom:0; background: rgba(100, 116, 139, 0.1);">
+                                    <div class="card-body text-center">
+                                        <h3 style="font-size: 2rem; color: var(--secondary);">0</h3>
+                                        <p class="text-muted">Offline</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-container mt-lg">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Health Score</th>
+                                            <th>Status</th>
+                                            <th>Last Reading</th>
+                                            <th>RUL (Days)</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                        <div style="width: 85%; height: 100%; background: var(--success); border-radius: 3px;"></div>
+                                                    </div>
+                                                    85
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-success">Healthy</span></td>
+                                            <td>2025-04-05 14:30</td>
+                                            <td>45</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Details</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                        <div style="width: 62%; height: 100%; background: var(--warning); border-radius: 3px;"></div>
+                                                    </div>
+                                                    62
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td>2025-04-05 14:28</td>
+                                            <td>18</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Details</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>HVAC System (AST-2023-045)</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                        <div style="width: 38%; height: 100%; background: var(--danger); border-radius: 3px;"></div>
+                                                    </div>
+                                                    38
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td>2025-04-05 14:25</td>
+                                            <td>5</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-danger">Work Order</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Assembly Robot #3 (AST-2024-022)</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 8px;">
+                                                    <div style="width: 60px; height: 6px; background: var(--border); border-radius: 3px;">
+                                                        <div style="width: 91%; height: 100%; background: var(--success); border-radius: 3px;"></div>
+                                                    </div>
+                                                    91
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-success">Healthy</span></td>
+                                            <td>2025-04-05 14:29</td>
+                                            <td>62</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Details</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="sensors-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Real-time Sensor Data</h2>
+                            <select class="form-control" style="width: 200px;">
+                                <option>Last 24 Hours</option>
+                                <option>Last 7 Days</option>
+                                <option>Last 30 Days</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div style="height: 300px; background: var(--bg-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--spacing-lg);">
+                                <div class="text-center text-muted">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    <p style="margin-top: 1rem;">Sensor Data Trend Chart</p>
+                                    <p class="text-sm">Temperature, Vibration, Pressure readings over time</p>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Asset</th>
+                                            <th>Sensor Type</th>
+                                            <th>Value</th>
+                                            <th>Unit</th>
+                                            <th>Quality</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-05 14:30:00</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>Temperature</td>
+                                            <td>72.5</td>
+                                            <td>°F</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05 14:30:00</td>
+                                            <td>CNC Machine #1</td>
+                                            <td>Vibration</td>
+                                            <td>0.42</td>
+                                            <td>mm/s</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05 14:29:45</td>
+                                            <td>Compressor Unit</td>
+                                            <td>Pressure</td>
+                                            <td>148.2</td>
+                                            <td>PSI</td>
+                                            <td><span class="badge badge-success">Good</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05 14:29:30</td>
+                                            <td>HVAC System</td>
+                                            <td>Temperature</td>
+                                            <td>89.3</td>
+                                            <td>°F</td>
+                                            <td><span class="badge badge-warning">Marginal</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="alerts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Anomaly & Threshold Alerts</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">Acknowledge All</button>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('configThresholdsModal')">Configure Thresholds</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-danger">
+                                <strong>Critical Alert:</strong> HVAC System temperature exceeds critical threshold (85°F). Maintenance recommended immediately.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Alert Time</th>
+                                            <th>Asset</th>
+                                            <th>Type</th>
+                                            <th>Sensor Value</th>
+                                            <th>Threshold</th>
+                                            <th>Severity</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-05 14:25</td>
+                                            <td>HVAC System</td>
+                                            <td>Temperature</td>
+                                            <td>89.3°F</td>
+                                            <td>Critical: 85°F</td>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05 12:15</td>
+                                            <td>Compressor Unit</td>
+                                            <td>Vibration</td>
+                                            <td>5.2 mm/s</td>
+                                            <td>Warning: 4.5 mm/s</td>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td><span class="badge badge-success">Acknowledged</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05 09:30</td>
+                                            <td>Assembly Robot #3</td>
+                                            <td>Current</td>
+                                            <td>4.8A</td>
+                                            <td>Warning: 4.5A</td>
+                                            <td><span class="badge badge-warning">Warning</span></td>
+                                            <td><span class="badge badge-success">Resolved</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="predictions-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>RUL Predictions & Recommendations</h2>
+                            <button class="btn btn-outline btn-sm">Retrain Model</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Asset</th>
+                                            <th>Current Health</th>
+                                            <th>Decline Rate</th>
+                                            <th>Estimated RUL</th>
+                                            <th>Recommendation</th>
+                                            <th>Confidence</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>HVAC System</td>
+                                            <td>38%</td>
+                                            <td>High (-2.1%/day)</td>
+                                            <td><span class="text-danger">5 days</span></td>
+                                            <td><span class="tag">Schedule PM Now</span></td>
+                                            <td>94%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compressor Unit</td>
+                                            <td>62%</td>
+                                            <td>Moderate (-0.8%/day)</td>
+                                            <td><span class="text-warning">18 days</span></td>
+                                            <td><span class="tag">Plan Maintenance</span></td>
+                                            <td>89%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CNC Machine #1</td>
+                                            <td>85%</td>
+                                            <td>Low (-0.2%/day)</td>
+                                            <td><span class="text-success">45 days</span></td>
+                                            <td><span class="tag">Continue Monitoring</span></td>
+                                            <td>91%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="alert alert-info mt-lg">
+                                <strong>Model Status:</strong> Prediction models retrained on 2025-04-01. Next scheduled retrain: 2025-05-01 or after 1000 new data points.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="configThresholdsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Configure Alert Thresholds</h3>
+                <button class="modal-close" onclick="closeModal('configThresholdsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <select class="form-control" id="thresholdAsset">
+                            <option value="">-- Select Asset --</option>
+                            <option value="AST-2024-001">CNC Machine #1</option>
+                            <option value="AST-2024-015">Compressor Unit</option>
+                            <option value="AST-2023-045">HVAC System</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Warning Threshold</label>
+                            <input type="number" class="form-control" id="warningThreshold">
+                        </div>
+                        <div class="form-group">
+                            <label>Critical Threshold</label>
+                            <input type="number" class="form-control" id="criticalThreshold">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sensor Type</label>
+                        <select class="form-control" id="sensorType">
+                            <option value="Temperature">Temperature</option>
+                            <option value="Vibration">Vibration</option>
+                            <option value="Pressure">Pressure</option>
+                            <option value="Current">Current</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('configThresholdsModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('configThresholdsModal')">Save Thresholds</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

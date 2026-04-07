@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Detail - AST-001 CNC Machine Model-X</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-header-left {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+        .asset-icon-large {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+        .asset-main-info h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+        .asset-main-info .asset-id {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-badge.active {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--success);
+        }
+        .status-badge.idle {
+            background: rgba(202, 138, 4, 0.1);
+            color: var(--warning);
+        }
+        .status-badge.maintenance {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .status-badge::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        .detail-header-right {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+        .breadcrumb-nav {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        .breadcrumb-nav a {
+            color: var(--primary);
+        }
+        .breadcrumb-nav span {
+            color: var(--text-secondary);
+        }
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: var(--spacing-xl);
+        }
+        .tab {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: var(--transition);
+        }
+        .tab:hover {
+            color: var(--primary);
+            background: var(--bg-primary);
+        }
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        .info-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+        .info-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-row .label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        .info-row .value {
+            font-weight: 500;
+            text-align: right;
+        }
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+        .quick-action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-lg);
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .quick-action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            text-decoration: none;
+        }
+        .quick-action-btn .icon {
+            font-size: 1.5rem;
+        }
+        .quick-action-btn .label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .action-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+        .action-header h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .sub-tabs {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        .sub-tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .sub-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .work-order-list, .maintenance-history {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+        }
+        .wo-header, .mh-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wo-item, .mh-item {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wo-item:last-child, .mh-item:last-child {
+            border-bottom: none;
+        }
+        .wo-info h4 {
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+        }
+        .wo-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        .wo-status {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .wo-badge {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .wo-badge.scheduled {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+        .wo-badge.in-progress {
+            background: rgba(202, 138, 4, 0.1);
+            color: var(--warning);
+        }
+        .wo-badge.completed {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--success);
+        }
+        .financial-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        .fin-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+        .fin-card .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-sm);
+        }
+        .fin-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .depreciation-chart {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            height: 250px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding-bottom: var(--spacing-xl);
+        }
+        .chart-bar {
+            width: 60px;
+            background: var(--primary);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: var(--transition);
+        }
+        .chart-bar:hover {
+            background: var(--primary-dark);
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-around);
+            margin-top: var(--spacing-md);
+        }
+        .chart-labels span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .document-list {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+        }
+        .doc-item {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+        .doc-item:last-child {
+            border-bottom: none;
+        }
+        .doc-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .doc-info {
+            flex: 1;
+        }
+        .doc-info h4 {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .doc-info p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .location-map {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+        .hierarchy-tree {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+        .tree-item {
+            padding: var(--spacing-sm) 0;
+        }
+        .tree-item.level-0 {
+            padding-left: 0;
+        }
+        .tree-item.level-1 {
+            padding-left: var(--spacing-xl);
+        }
+        .tree-item.level-2 {
+            padding-left: var(--spacing-xl) * 2;
+        }
+        .tree-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        .tree-toggle:hover {
+            color: var(--primary);
+        }
+        .tree-children {
+            display: none;
+        }
+        .tree-children.expanded {
+            display: block;
+        }
+        .req-doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--info);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+        }
+        .req-doc-link:hover {
+            background: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="Asset-Central-Hub.html">Asset Central</a> / AST-001
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option value="US001">US Manufacturing Inc.</option>
+                        <option value="EU001">EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="detail-header">
+                    <div class="detail-header-left">
+                        <div class="asset-icon-large">🏭</div>
+                        <div class="asset-main-info">
+                            <h1>CNC Machine Model-X</h1>
+                            <div class="asset-id">Asset ID: AST-001 | Serial: SN2024-0892 | Barcode: 1234567890123</div>
+                            <span class="status-badge active">Active</span>
+                        </div>
+                    </div>
+                    <div class="detail-header-right">
+                        <a href="../2-asset-registration/F-2.1.0-Register New Asset.html?id=AST-001" class="btn btn-outline">✏️ Edit Asset</a>
+                        <a href="../6-multi-plant/F-2.5.5-Cross-Factory Asset Transfer.html?asset=AST-001" class="btn btn-outline">🔄 Transfer</a>
+                        <button class="btn btn-primary">⋮ More Actions</button>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" data-tab="overview">Overview</button>
+                    <button class="tab" data-tab="maintenance">Maintenance</button>
+                    <button class="tab" data-tab="financial">Financial</button>
+                    <button class="tab" data-tab="documents">Documents</button>
+                    <button class="tab" data-tab="history">History</button>
+                    <button class="tab" data-tab="hierarchy">Hierarchy</button>
+                    <button class="tab" data-tab="tracking">Tracking</button>
+                </div>
+
+                <div id="tab-overview" class="tab-content active">
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Basic Information</h3>
+                            <div class="info-row">
+                                <span class="label">Asset Type</span>
+                                <span class="value">Manufacturing Equipment</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Category</span>
+                                <span class="value">CNC Machines</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Criticality</span>
+                                <span class="value" style="color: var(--danger);">Class A - Critical</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Manufacturer</span>
+                                <span class="value">Haas Automation</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Model</span>
+                                <span class="value">VF-4SS</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Acquisition Date</span>
+                                <span class="value">2023-05-15</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Location & Organization</h3>
+                            <div class="info-row">
+                                <span class="label">Company</span>
+                                <span class="value">US Manufacturing Inc.</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Plant</span>
+                                <span class="value">Plant A - Detroit</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Production Line</span>
+                                <span class="value">Line 3</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Department</span>
+                                <span class="value">Assembly</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Cost Center</span>
+                                <span class="value">CC-1001</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Physical Location</span>
+                                <span class="value">Building A, Zone 2</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Technical Specifications</h3>
+                            <div class="info-row">
+                                <span class="label">Power Rating</span>
+                                <span class="value">30 HP</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Voltage</span>
+                                <span class="value">480V 3-Phase</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Weight</span>
+                                <span class="value">12,500 lbs</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Year Built</span>
+                                <span class="value">2023</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Installed Date</span>
+                                <span class="value">2023-06-01</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Warranty Expires</span>
+                                <span class="value">2026-06-01</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Current Status</h3>
+                            <div class="info-row">
+                                <span class="label">Operating Status</span>
+                                <span class="value" style="color: var(--success);">Operating</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Last Inspection</span>
+                                <span class="value">2026-03-15</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Next Maintenance</span>
+                                <span class="value">2026-04-10</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Utilization Rate</span>
+                                <span class="value">87%</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Total Operating Hours</span>
+                                <span class="value">4,250 hrs</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Components</span>
+                                <span class="value">12 sub-components</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📋</span>
+                            <span class="label">Create Work Order</span>
+                        </a>
+                        <a href="../3-asset-tracking/F-2.2.2-Check-in-Check-out System.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📝</span>
+                            <span class="label">Record Inspection</span>
+                        </a>
+                        <a href="../7-lifecycle/F-2.6.5-Borrowing-Return System.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🔄</span>
+                            <span class="label">Borrow / Return</span>
+                        </a>
+                        <a href="../8-utilization/F-2.7.3-Asset Reservation System.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📅</span>
+                            <span class="label">Reserve Asset</span>
+                        </a>
+                        <a href="../4-maintenance/F-2.3.4-Service Contract Management.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📄</span>
+                            <span class="label">View Contracts</span>
+                        </a>
+                        <a href="../7-lifecycle/F-2.6.9-Asset Disposal Workflow.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🗑️</span>
+                            <span class="label">Dispose Asset</span>
+                        </a>
+                        <a href="../3-asset-tracking/F-2.2.6-IoT Sensor Integration.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📊</span>
+                            <span class="label">View IoT Data</span>
+                        </a>
+                        <a href="../3-asset-tracking/F-2.2.12-Calibration Management.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📐</span>
+                            <span class="label">Calibration</span>
+                        </a>
+                        <a href="../2-asset-registration/F-2.1.4-Barcode-QR Code Generation.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📇</span>
+                            <span class="label">Print Label</span>
+                        </a>
+                        <a href="Work-Order-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🔧</span>
+                            <span class="label">Work Orders Hub</span>
+                        </a>
+                        <a href="Vendor-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🏢</span>
+                            <span class="label">Vendor Hub</span>
+                        </a>
+                        <a href="Spare-Part-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🔩</span>
+                            <span class="label">Spare Parts Hub</span>
+                        </a>
+                        <a href="Service-Contract-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📝</span>
+                            <span class="label">Contracts Hub</span>
+                        </a>
+                        <a href="Insurance-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">🛡️</span>
+                            <span class="label">Insurance Hub</span>
+                        </a>
+                        <a href="Disposal-Hub.html?asset=AST-001" class="quick-action-btn">
+                            <span class="icon">📦</span>
+                            <span class="label">Disposal Hub</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-maintenance" class="tab-content">
+                    <div class="action-header">
+                        <h2>Maintenance & Work Orders</h2>
+                        <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?asset=AST-001" class="btn btn-primary">+ Create Work Order</a>
+                    </div>
+                    
+                    <div class="sub-tabs">
+                        <button class="sub-tab active" onclick="switchMaintSubTab(this, 'work-orders')">Work Orders (5)</button>
+                        <button class="sub-tab" onclick="switchMaintSubTab(this, 'preventive')">Preventive Schedule</button>
+                        <button class="sub-tab" onclick="switchMaintSubTab(this, 'predictive')">Predictive Data</button>
+                        <button class="sub-tab" onclick="switchMaintSubTab(this, 'spares')">Spare Parts</button>
+                    </div>
+
+                    <div id="maint-work-orders" class="sub-tab-content active">
+                        <!-- Work orders list shown above -->
+                    </div>
+
+                    <div id="maint-preventive" class="sub-tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>Preventive Maintenance Schedule</h3>
+                                <div class="info-row">
+                                    <span class="label">Next PM</span>
+                                    <span class="value">Apr 10, 2026</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">PM Type</span>
+                                    <span class="value">Quarterly Lubrication</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Frequency</span>
+                                    <span class="value">Every 90 days</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../4-maintenance/F-2.3.2-Preventive Maintenance Workflow.html?asset=AST-001" class="btn btn-sm btn-outline">Manage PM Schedule →</a>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>Maintenance Tasks</h3>
+                                <div class="info-row">
+                                    <span class="label">Lubrication</span>
+                                    <span class="value" style="color: var(--success);">✓ Due in 15 days</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Filter Replacement</span>
+                                    <span class="value" style="color: var(--warning);">⚠ Due in 5 days</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Calibration</span>
+                                    <span class="value">Due in 30 days</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="maint-predictive" class="sub-tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>Predictive Analytics</h3>
+                                <div class="info-row">
+                                    <span class="label">Health Score</span>
+                                    <span class="value" style="color: var(--success);">92%</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Predicted Failure</span>
+                                    <span class="value">Spindle - 45 days</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">AI Confidence</span>
+                                    <span class="value">87%</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../4-maintenance/F-2.3.7-Predictive Maintenance (IoT).html?asset=AST-001" class="btn btn-sm btn-outline">View Predictive Dashboard →</a>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>IoT Health Metrics</h3>
+                                <div class="info-row">
+                                    <span class="label">Vibration Trend</span>
+                                    <span class="value">↑ Increasing (+15%)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Temperature Trend</span>
+                                    <span class="value">→ Stable</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Power Consumption</span>
+                                    <span class="value">↓ Decreasing (-5%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="maint-spares" class="sub-tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>Linked Spare Parts</h3>
+                                <div class="info-row">
+                                    <span class="label">Spindle Bearing</span>
+                                    <span class="value">In Stock (5)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Coolant Filter</span>
+                                    <span class="value">In Stock (12)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Drive Belt</span>
+                                    <span class="value">In Stock (3)</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../4-maintenance/F-2.3.5-Spare Parts Inventory Linkage.html?asset=AST-001" class="btn btn-sm btn-outline">Manage Spare Parts →</a>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>Parts Usage History</h3>
+                                <div class="info-row">
+                                    <span class="label">This Year</span>
+                                    <span class="value">$2,450</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Replacement</span>
+                                    <span class="value">Mar 28, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="work-order-list">
+                        <div class="wo-header">
+                            <span style="font-weight: 500;">Active Work Orders</span>
+                            <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?asset=AST-001" style="font-size: 0.875rem;">View All →</a>
+                        </div>
+                        <div class="wo-item">
+                            <div class="wo-info">
+                                <h4>WO-2026-0892 - Quarterly Maintenance</h4>
+                                <p>Scheduled: Apr 10, 2026 | Assigned to: John Smith</p>
+                            </div>
+                            <div class="wo-status">
+                                <span class="wo-badge scheduled">Scheduled</span>
+                                <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?asset=AST-001&wo=WO-2026-0892" style="color: var(--primary);">View →</a>
+                            </div>
+                        </div>
+                        <div class="wo-item">
+                            <div class="wo-info">
+                                <h4>WO-2026-0856 - Spindle Bearing Replacement</h4>
+                                <p>Started: Mar 28, 2026 | Assigned to: Mike Johnson</p>
+                            </div>
+                            <div class="wo-status">
+                                <span class="wo-badge in-progress">In Progress</span>
+                                <a href="../4-maintenance/F-2.3.1-Scheduled Maintenance Planning.html?asset=AST-001&wo=WO-2026-0856" style="color: var(--primary);">View →</a>
+                            </div>
+                        </div>
+                        <div class="wo-item">
+                            <div class="wo-info">
+                                <h4>WO-2026-0789 - Coolant System Check</h4>
+                                <p>Completed: Mar 15, 2026 | Completed by: John Smith</p>
+                            </div>
+                            <div class="wo-status">
+                                <span class="wo-badge completed">Completed</span>
+                                <a href="../4-maintenance/F-2.3.3-Maintenance History Tracking.html?asset=AST-001" style="color: var(--primary);">View →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-header" style="margin-top: var(--spacing-xl);">
+                        <h2>Maintenance History</h2>
+                    </div>
+
+                    <div class="maintenance-history">
+                        <div class="mh-header">
+                            <span style="font-weight: 500;">Recent Maintenance Records</span>
+                            <a href="#" style="font-size: 0.875rem;">Export</a>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Spindle Bearing Replacement</h4>
+                                <p>Mar 28, 2026 | Type: Corrective | Duration: 4 hrs</p>
+                            </div>
+                            <span class="text-success">$1,250 parts + labor</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Quarterly Lubrication</h4>
+                                <p>Mar 15, 2026 | Type: Preventive | Duration: 2 hrs</p>
+                            </div>
+                            <span class="text-muted">$150 parts + labor</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Annual Calibration</h4>
+                                <p>Jan 10, 2026 | Type: Calibration | Duration: 3 hrs</p>
+                            </div>
+                            <span class="text-muted">$450 parts + labor</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-financial" class="tab-content">
+                    <div class="financial-summary">
+                        <div class="fin-card">
+                            <div class="label">Original Cost</div>
+                            <div class="value">$125,000</div>
+                        </div>
+                        <div class="fin-card">
+                            <div class="label">Current Book Value</div>
+                            <div class="value">$98,750</div>
+                        </div>
+                        <div class="fin-card">
+                            <div class="label">Accumulated Depreciation</div>
+                            <div class="value">$26,250</div>
+                        </div>
+                        <div class="fin-card">
+                            <div class="label">Residual Value</div>
+                            <div class="value">$12,500</div>
+                        </div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Depreciation Details</h3>
+                            <div class="info-row">
+                                <span class="label">Method</span>
+                                <span class="value">Straight-Line (US GAAP)</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Useful Life</span>
+                                <span class="value">10 Years</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Salvage Value</span>
+                                <span class="value">$12,500 (10%)</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Depreciation Start</span>
+                                <span class="value">2023-06-01</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Monthly Depreciation</span>
+                                <span class="value">$937.50</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Remaining Life</span>
+                                <span class="value">7.5 Years</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Insurance & Tax</h3>
+                            <div class="info-row">
+                                <span class="label">Insurance Policy</span>
+                                <span class="value">POL-2026-4521</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Insurance Value</span>
+                                <span class="value">$130,000</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Tax Classification</span>
+                                <span class="value">5-Year MACRS</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Property Tax</span>
+                                <span class="value">$1,250/year</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Last Appraisal</span>
+                                <span class="value">2026-01-15</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-header" style="margin-top: var(--spacing-xl);">
+                        <h2>Depreciation Schedule</h2>
+                    </div>
+                    <div class="depreciation-chart">
+                        <div class="chart-bar" style="height: 90%;"></div>
+                        <div class="chart-bar" style="height: 81%;"></div>
+                        <div class="chart-bar" style="height: 72%;"></div>
+                        <div class="chart-bar" style="height: 63%;"></div>
+                        <div class="chart-bar" style="height: 54%;"></div>
+                        <div class="chart-bar" style="height: 45%;"></div>
+                        <div class="chart-bar" style="height: 36%;"></div>
+                        <div class="chart-bar" style="height: 27%;"></div>
+                        <div class="chart-bar" style="height: 18%;"></div>
+                        <div class="chart-bar" style="height: 10%;"></div>
+                    </div>
+                    <div class="chart-labels">
+                        <span>2023</span>
+                        <span>2024</span>
+                        <span>2025</span>
+                        <span>2026</span>
+                        <span>2027</span>
+                        <span>2028</span>
+                        <span>2029</span>
+                        <span>2030</span>
+                        <span>2031</span>
+                        <span>2033</span>
+                    </div>
+                </div>
+
+                <div id="tab-documents" class="tab-content">
+                    <div class="action-header">
+                        <h2>Asset Documents</h2>
+                        <button class="btn btn-primary">+ Upload Document</button>
+                    </div>
+
+                    <div class="info-grid" style="margin-bottom: var(--spacing-xl);">
+                        <div class="info-card">
+                            <h3>Certificate of Origin</h3>
+                            <div class="info-row">
+                                <span class="label">Document Type</span>
+                                <span class="value">Certificate</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Issue Date</span>
+                                <span class="value">2023-05-15</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Expiry Date</span>
+                                <span class="value">N/A</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Warranty Certificate</h3>
+                            <div class="info-row">
+                                <span class="label">Document Type</span>
+                                <span class="value">Warranty</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Warranty Period</span>
+                                <span class="value">3 Years</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Expiry Date</span>
+                                <span class="value" style="color: var(--warning);">2026-06-01</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="document-list">
+                        <div class="doc-item">
+                            <div class="doc-icon">📄</div>
+                            <div class="doc-info">
+                                <h4>Certificate of Origin.pdf</h4>
+                                <p>Uploaded: May 15, 2023 | Size: 245 KB</p>
+                            </div>
+                            <button class="btn btn-sm btn-outline">Download</button>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📄</div>
+                            <div class="doc-info">
+                                <h4>Warranty Certificate.pdf</h4>
+                                <p>Uploaded: May 15, 2023 | Size: 128 KB</p>
+                            </div>
+                            <button class="btn btn-sm btn-outline">Download</button>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">📄</div>
+                            <div class="doc-info">
+                                <h4>Technical Specifications.pdf</h4>
+                                <p>Uploaded: May 15, 2023 | Size: 1.2 MB</p>
+                            </div>
+                            <button class="btn btn-sm btn-outline">Download</button>
+                        </div>
+                        <div class="doc-item">
+                            <div class="doc-icon">🖼️</div>
+                            <div class="doc-info">
+                                <h4>Asset Photos.zip</h4>
+                                <p>Uploaded: Jun 1, 2023 | Size: 15.6 MB</p>
+                            </div>
+                            <button class="btn btn-sm btn-outline">Download</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-history" class="tab-content">
+                    <div class="action-header">
+                        <h2>Asset History Timeline</h2>
+                        <button class="btn btn-outline">Export History</button>
+                    </div>
+
+                    <div class="maintenance-history">
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Location Changed</h4>
+                                <p>Mar 20, 2026 | Moved from Line 1 to Line 3</p>
+                            </div>
+                            <span class="text-muted">By: System Admin</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Status Changed to Active</h4>
+                                <p>Mar 15, 2026 | Completed maintenance</p>
+                            </div>
+                            <span class="text-muted">By: John Smith</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Work Order Completed</h4>
+                                <p>Mar 15, 2026 | WO-2026-0789: Coolant System Check</p>
+                            </div>
+                            <span class="text-success">$150</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Status Changed to Maintenance</h4>
+                                <p>Mar 10, 2026 | Spindle bearing issue reported</p>
+                            </div>
+                            <span class="text-muted">By: Mike Johnson</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Annual Calibration</h4>
+                                <p>Jan 10, 2026 | Calibration completed</p>
+                            </div>
+                            <span class="text-muted">$450</span>
+                        </div>
+                        <div class="mh-item">
+                            <div class="wo-info">
+                                <h4>Inspection Passed</h4>
+                                <p>Oct 5, 2025 | Quarterly safety inspection</p>
+                            </div>
+                            <span class="text-muted">By: Safety Team</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-hierarchy" class="tab-content">
+                    <div class="action-header">
+                        <h2>Asset Hierarchy</h2>
+                        <button class="btn btn-outline">Edit Hierarchy</button>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3>Parent Asset</h3>
+                            <div class="info-row">
+                                <span class="label">Parent</span>
+                                <span class="value" style="color: var(--primary);">Assembly Line 3</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Parent ID</span>
+                                <span class="value">AST-LINE-003</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3>Child Components (12)</h3>
+                            <div class="info-row">
+                                <span class="label">Spindle Motor</span>
+                                <span class="value">AST-001-C01</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Coolant System</span>
+                                <span class="value">AST-001-C02</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Control System</span>
+                                <span class="value">AST-001-C03</span>
+                            </div>
+                            <div style="text-align: center; margin-top: var(--spacing-md);">
+                                <a href="../2-asset-registration/F-2.1.12-Asset Componentization.html?asset=AST-001" class="btn btn-sm btn-outline">View All Components →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hierarchy-tree" style="margin-top: var(--spacing-xl);">
+                        <div class="tree-item level-0">
+                            <div class="tree-toggle">🏭 <strong>US Manufacturing Inc.</strong></div>
+                        </div>
+                        <div class="tree-item level-0">
+                            <div class="tree-toggle">🏢 <strong>Plant A - Detroit</strong></div>
+                        </div>
+                        <div class="tree-item level-1">
+                            <div class="tree-toggle">📦 <strong>Assembly Line 3</strong> (Parent)</div>
+                        </div>
+                        <div class="tree-item level-2">
+                            <div class="tree-toggle" style="color: var(--primary);">⚙️ <strong>CNC Machine Model-X</strong> (AST-001) ← This Asset</div>
+                        </div>
+                        <div class="tree-item level-3">
+                            <span style="color: var(--text-secondary);">├─ Spindle Motor (AST-001-C01)</span>
+                        </div>
+                        <div class="tree-item level-3">
+                            <span style="color: var(--text-secondary);">├─ Coolant System (AST-001-C02)</span>
+                        </div>
+                        <div class="tree-item level-3">
+                            <span style="color: var(--text-secondary);">└─ Control System (AST-001-C03)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-tracking" class="tab-content">
+                    <div class="action-header">
+                        <h2>Location & Tracking</h2>
+                        <div style="display: flex; gap: var(--spacing-sm);">
+                            <button class="btn btn-outline">📍 Update Location</button>
+                            <button class="btn btn-outline">📋 Physical Inventory</button>
+                        </div>
+                    </div>
+
+                    <div class="sub-tabs">
+                        <button class="sub-tab active">Location & Status</button>
+                        <button class="sub-tab">RFID & Barcode</button>
+                        <button class="sub-tab">IoT Sensors</button>
+                        <button class="sub-tab">Transfer History</button>
+                    </div>
+
+                    <div id="tracking-location" class="sub-tab-content active">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>Current Location</h3>
+                                <div class="info-row">
+                                    <span class="label">Building</span>
+                                    <span class="value">Building A</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Zone</span>
+                                    <span class="value">Zone 2</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Line/Station</span>
+                                    <span class="value">Line 3, Station 5</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">GPS Coordinates</span>
+                                    <span class="value">42.3314° N, 83.0458° W</span>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>Check-in/Check-out</h3>
+                                <div class="info-row">
+                                    <span class="label">Current Status</span>
+                                    <span class="value" style="color: var(--success);">Checked In</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Check-in</span>
+                                    <span class="value">Mar 6, 2026 08:00 AM</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Checked out by</span>
+                                    <span class="value">N/A</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Transfer</span>
+                                    <span class="value">Mar 20, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-map">
+                            📍 Map View - Plant A Floor Plan showing asset location at Line 3, Station 5
+                        </div>
+                    </div>
+
+                    <div id="tracking-rfid" class="sub-tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>RFID Tag Information</h3>
+                                <div class="info-row">
+                                    <span class="label">RFID Tag UID</span>
+                                    <span class="value">30003333FDEF1234</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Tag Type</span>
+                                    <span class="value">UHF (Ultra High Frequency)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Reader</span>
+                                    <span class="value">RFID-READER-01 (Plant A Entrance)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Detected</span>
+                                    <span class="value">Mar 22, 2026 16:45:23</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Signal Strength</span>
+                                    <span class="value" style="color: var(--success);">● Strong (-42 dBm)</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../2-asset-registration/F-2.1.5-RFID Tag Integration.html?asset=AST-001" class="btn btn-sm btn-outline">Manage RFID Tags →</a>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>Barcode / QR Code</h3>
+                                <div class="info-row">
+                                    <span class="label">Barcode</span>
+                                    <span class="value">1234567890123</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">QR Code</span>
+                                    <span class="value">AST-001-CNC-VF4</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Print Status</span>
+                                    <span class="value" style="color: var(--success);">● Printed</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Printed</span>
+                                    <span class="value">Mar 15, 2026</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../2-asset-registration/F-2.1.4-Barcode-QR Code Generation.html?asset=AST-001" class="btn btn-sm btn-outline">Manage Barcodes →</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tracking-iot" class="sub-tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h3>IoT Sensors</h3>
+                                <div class="info-row">
+                                    <span class="label">Temperature Sensor</span>
+                                    <span class="value" style="color: var(--success);">● Normal (68°F)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Vibration Sensor</span>
+                                    <span class="value" style="color: var(--success);">● Normal (0.5g)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Power Consumption</span>
+                                    <span class="value">24.5 kWh (today)</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Operating Hours</span>
+                                    <span class="value">4,250 hrs total</span>
+                                </div>
+                                <div style="margin-top: var(--spacing-md);">
+                                    <a href="../3-asset-tracking/F-2.2.6-IoT Sensor Integration.html?asset=AST-001" class="btn btn-sm btn-outline">View IoT Dashboard →</a>
+                                </div>
+                            </div>
+                            <div class="info-card">
+                                <h3>Real-time Monitoring</h3>
+                                <div class="info-row">
+                                    <span class="label">Connection Status</span>
+                                    <span class="value" style="color: var(--success);">● Online</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Last Data Sync</span>
+                                    <span class="value">Mar 22, 2026 16:50:00</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Data Interval</span>
+                                    <span class="value">Every 30 seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tracking-transfer" class="sub-tab-content">
+                        <div class="action-header">
+                            <h2>Transfer History</h2>
+                        </div>
+                        <div class="maintenance-history">
+                            <div class="mh-item">
+                                <div class="wo-info">
+                                    <h4>Inter-Line Transfer</h4>
+                                    <p>Mar 20, 2026 | Line 1 → Line 3</p>
+                                </div>
+                                <span class="text-muted">Approved by: Plant Manager</span>
+                            </div>
+                            <div class="mh-item">
+                                <div class="wo-info">
+                                    <h4>Inter-Plant Transfer Request</h4>
+                                    <p>Jan 15, 2026 | Plant B → Plant A (Rejected)</p>
+                                </div>
+                                <span class="text-muted">Reason: Capacity issues</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+        
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('.tab-content .sub-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const parent = this.closest('.tab-content');
+                parent.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+                parent.querySelectorAll('.sub-tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                
+                if (parent.id === 'tab-tracking') {
+                    if (this.textContent.includes('RFID') || this.textContent.includes('Barcode')) {
+                        parent.querySelector('#tracking-rfid').classList.add('active');
+                    } else if (this.textContent.includes('IoT')) {
+                        parent.querySelector('#tracking-iot').classList.add('active');
+                    } else if (this.textContent.includes('Transfer')) {
+                        parent.querySelector('#tracking-transfer').classList.add('active');
+                    } else {
+                        parent.querySelector('#tracking-location').classList.add('active');
+                    }
+                } else if (parent.id === 'tab-maintenance') {
+                    if (this.textContent.includes('Preventive')) {
+                        parent.querySelector('#maint-preventive').classList.add('active');
+                    } else if (this.textContent.includes('Predictive')) {
+                        parent.querySelector('#maint-predictive').classList.add('active');
+                    } else if (this.textContent.includes('Spare')) {
+                        parent.querySelector('#maint-spares').classList.add('active');
+                    } else {
+                        parent.querySelector('#maint-work-orders').classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

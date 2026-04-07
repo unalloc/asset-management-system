@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.3.15 - Mobile Workforce Management</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 4: Maintenance</span> / F-2.3.15
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.3.15 - Mobile Workforce Management</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/4-maintenance/F-2.3.15-Mobile%20Workforce%20Management.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('workOrders')">Work Orders</button>
+                    <button class="tab" onclick="switchTab('sync')">Offline Sync</button>
+                    <button class="tab" onclick="switchTab('parts')">Parts Usage</button>
+                </div>
+
+                <div class="tab-content active" id="workOrders-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Assigned Work Orders</h2>
+                            <div class="d-flex gap-sm">
+                                <button class="btn btn-outline btn-sm">Sync Now</button>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('completeWorkOrderModal')">Complete WO</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Offline Mode:</strong> 3 work orders synced. Last sync: 10 minutes ago.
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>WO Number</th>
+                                            <th>Asset</th>
+                                            <th>Type</th>
+                                            <th>Priority</th>
+                                            <th>Status</th>
+                                            <th>Due Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>WO-2025-0892</td>
+                                            <td>CNC Machine #1 (AST-2024-001)</td>
+                                            <td><span class="tag">Preventive</span></td>
+                                            <td><span class="badge badge-danger">High</span></td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                            <td>2025-04-05</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Execute</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0891</td>
+                                            <td>HVAC System (AST-2023-045)</td>
+                                            <td><span class="tag">Inspection</span></td>
+                                            <td><span class="badge badge-warning">Medium</span></td>
+                                            <td><span class="badge badge-primary">Assigned</span></td>
+                                            <td>2025-04-06</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Execute</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WO-2025-0890</td>
+                                            <td>Compressor Unit (AST-2024-015)</td>
+                                            <td><span class="tag">Corrective</span></td>
+                                            <td><span class="badge badge-danger">Critical</span></td>
+                                            <td><span class="badge badge-warning">In Progress</span></td>
+                                            <td>2025-04-05</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-primary">Execute</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Work Order Execution</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Work Order</label>
+                                        <input type="text" class="form-control" value="WO-2025-0892" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Asset</label>
+                                        <input type="text" class="form-control" value="CNC Machine #1" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="card" style="background: var(--bg-primary);">
+                                    <div class="card-header">
+                                        <h2>Checklist</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="d-flex align-center gap-sm">
+                                                <input type="checkbox" checked>
+                                                Inspect hydraulic fluid level
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-center gap-sm">
+                                                <input type="checkbox" checked>
+                                                Check for oil leaks
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-center gap-sm">
+                                                <input type="checkbox">
+                                                Clean filter elements
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-center gap-sm">
+                                                <input type="checkbox">
+                                                Verify safety guards are in place
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="d-flex align-center gap-sm">
+                                                <input type="checkbox">
+                                                Test emergency stop functionality
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Labor Hours</label>
+                                        <input type="number" class="form-control" value="2.5">
+                                        <p class="form-hint">Use start/stop to track time automatically</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Technician Signature</label>
+                                        <div style="border: 1px dashed var(--border); padding: 20px; text-align: center; border-radius: var(--radius-md);">
+                                            <p class="text-muted">Tap to sign</p>
+                                            <button type="button" class="btn btn-outline btn-sm" onclick="openModal('signatureModal')">Capture Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Notes</label>
+                                    <textarea class="form-control" rows="3" placeholder="Work completion notes..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Attachments</label>
+                                    <div class="d-flex gap-sm">
+                                        <button type="button" class="btn btn-outline btn-sm">+ Add Photo</button>
+                                        <button type="button" class="btn btn-outline btn-sm">+ Add Document</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="sync-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Offline Data Sync</h2>
+                            <span class="badge badge-success">Connected</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                <strong>Sync Status:</strong> All data is synchronized with the server.
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Sync Priority</label>
+                                    <select class="form-control" disabled>
+                                        <option>1. Completions</option>
+                                        <option>2. Time Recordings</option>
+                                        <option>3. Parts Usage</option>
+                                        <option>4. Asset Readings</option>
+                                        <option>5. Photos</option>
+                                    </select>
+                                    <p class="form-hint">Server wins for Work Order Status, Assignment<br>Client wins for Actual hours, parts used, notes</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pending Sync Items</label>
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Count</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Completed WOs</td>
+                                                    <td>0</td>
+                                                    <td><span class="badge badge-success">Synced</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Time Entries</td>
+                                                    <td>0</td>
+                                                    <td><span class="badge badge-success">Synced</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Parts Usage</td>
+                                                    <td>0</td>
+                                                    <td><span class="badge badge-success">Synced</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Photos</td>
+                                                    <td>2</td>
+                                                    <td><span class="badge badge-warning">Pending</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-warning">
+                                <strong>Security:</strong> Offline data encrypted with AES-256. Remote wipe capability available for lost devices.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="parts-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Parts Consumption Recording</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('addPartModal')">+ Record Part</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Part Number</th>
+                                            <th>Description</th>
+                                            <th>Quantity</th>
+                                            <th>From Location</th>
+                                            <th>Work Order</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>FLT-2025-001</td>
+                                            <td>Hydraulic Filter</td>
+                                            <td>2</td>
+                                            <td>Main Warehouse - Bin A-15</td>
+                                            <td>WO-2025-0892</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>OIL-2025-010</td>
+                                            <td>Hydraulic Fluid 5L</td>
+                                            <td>1</td>
+                                            <td>Main Warehouse - Bin B-03</td>
+                                            <td>WO-2025-0892</td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-sm btn-outline">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="completeWorkOrderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Complete Work Order</h3>
+                <button class="modal-close" onclick="closeModal('completeWorkOrderModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Work Order</label>
+                        <select class="form-control">
+                            <option value="">-- Select Work Order --</option>
+                            <option value="WO-2025-0892">WO-2025-0892 - CNC Machine #1</option>
+                            <option value="WO-2025-0891">WO-2025-0891 - HVAC System</option>
+                            <option value="WO-2025-0890">WO-2025-0890 - Compressor Unit</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Actual Hours</label>
+                            <input type="number" class="form-control" value="2.5">
+                        </div>
+                        <div class="form-group">
+                            <label>Completion Date</label>
+                            <input type="date" class="form-control" value="2025-04-05">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Completion Notes</label>
+                        <textarea class="form-control" rows="3" placeholder="Work completion notes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Signature</label>
+                        <div style="border: 1px dashed var(--border); padding: 20px; text-align: center; border-radius: var(--radius-md);">
+                            <p class="text-muted">No signature captured</p>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="openModal('signatureModal')">Capture Signature</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('completeWorkOrderModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('completeWorkOrderModal')">Complete Work Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="signatureModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Capture Signature</h3>
+                <button class="modal-close" onclick="closeModal('signatureModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="border: 2px solid var(--border); border-radius: var(--radius-md); height: 200px; display: flex; align-items: center; justify-content: center; background: #f8fafc;">
+                    <p class="text-muted">Signature capture area</p>
+                </div>
+                <p class="form-hint mt-md">By signing, I certify that the work described has been completed satisfactorily.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('signatureModal')">Clear</button>
+                <button class="btn btn-primary" onclick="closeModal('signatureModal')">Confirm Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="addPartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Record Parts Usage</h3>
+                <button class="modal-close" onclick="closeModal('addPartModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label>Part Number</label>
+                        <select class="form-control">
+                            <option value="">-- Select Part --</option>
+                            <option value="FLT-2025-001">FLT-2025-001 - Hydraulic Filter</option>
+                            <option value="OIL-2025-010">OIL-2025-010 - Hydraulic Fluid 5L</option>
+                            <option value="BLT-2025-015">BLT-2025-015 - Air Filter</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" class="form-control" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Work Order</label>
+                            <select class="form-control">
+                                <option value="WO-2025-0892">WO-2025-0892</option>
+                                <option value="WO-2025-0891">WO-2025-0891</option>
+                                <option value="WO-2025-0890">WO-2025-0890</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addPartModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addPartModal')">Add Part</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

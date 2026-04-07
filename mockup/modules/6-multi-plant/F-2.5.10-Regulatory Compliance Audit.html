@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.10 - Regulatory Compliance Audit Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.10
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.10 - Regulatory Compliance Audit Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.10-Regulatory%20Compliance%20Audit%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Log Search</h2>
+                        <button class="btn btn-primary" onclick="openModal('advancedSearchModal')">Advanced Search</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Entity Type</label>
+                                <select class="form-control" id="entityType">
+                                    <option value="">-- All Types --</option>
+                                    <option value="Asset">Asset</option>
+                                    <option value="Organization">Organization</option>
+                                    <option value="User">User</option>
+                                    <option value="WorkOrder">Work Order</option>
+                                    <option value="Document">Document</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Action</label>
+                                <select class="form-control" id="actionType">
+                                    <option value="">-- All Actions --</option>
+                                    <option value="CREATE">CREATE</option>
+                                    <option value="UPDATE">UPDATE</option>
+                                    <option value="DELETE">DELETE</option>
+                                    <option value="READ">READ</option>
+                                    <option value="LOGIN">LOGIN</option>
+                                    <option value="LOGOUT">LOGOUT</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Range</label>
+                                <div class="d-flex gap-sm">
+                                    <input type="date" class="form-control" id="startDate" placeholder="Start">
+                                    <input type="date" class="form-control" id="endDate" placeholder="End">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Search Text</label>
+                            <input type="text" class="form-control" id="searchText" placeholder="Search by entity ID, user, or details...">
+                        </div>
+                        <button class="btn btn-primary" onclick="searchAuditLogs()">Search Logs</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Trail</h2>
+                        <div class="d-flex gap-sm">
+                            <button class="btn btn-outline" onclick="exportAuditLogs()">Export CSV</button>
+                            <button class="btn btn-outline" onclick="generateReport()">Generate Report</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>User</th>
+                                        <th>Action</th>
+                                        <th>Entity Type</th>
+                                        <th>Entity ID</th>
+                                        <th>IP Address</th>
+                                        <th>Hash</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditTable">
+                                    <tr>
+                                        <td>2026-04-05 14:32:01.123456</td>
+                                        <td>john.smith@usmanuf.com</td>
+                                        <td><span class="badge badge-primary">UPDATE</span></td>
+                                        <td>Asset</td>
+                                        <td>AST-2024-001</td>
+                                        <td>192.168.1.105</td>
+                                        <td><code class="text-muted">a7f3c8...</code></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAuditDetail('a7f3c8')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 14:28:45.002341</td>
+                                        <td>jane.doe@euhold.com</td>
+                                        <td><span class="badge badge-success">CREATE</span></td>
+                                        <td>WorkOrder</td>
+                                        <td>WO-2026-0892</td>
+                                        <td>10.0.2.45</td>
+                                        <td><code class="text-muted">b9d2e1...</code></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAuditDetail('b9d2e1')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 14:25:12.876543</td>
+                                        <td>system@usmanuf.com</td>
+                                        <td><span class="badge badge-warning">LOGIN</span></td>
+                                        <td>User</td>
+                                        <td>USR-105</td>
+                                        <td>192.168.1.100</td>
+                                        <td><code class="text-muted">c4f8a2...</code></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAuditDetail('c4f8a2')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 14:20:33.445212</td>
+                                        <td>mike.wilson@usmanuf.com</td>
+                                        <td><span class="badge badge-danger">DELETE</span></td>
+                                        <td>Document</td>
+                                        <td>DOC-2026-044</td>
+                                        <td>192.168.1.112</td>
+                                        <td><code class="text-muted">d1h5k9...</code></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewAuditDetail('d1h5k9')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-lg text-center">
+                            <button class="btn btn-outline">Load More</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Compliance Frameworks</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-3">
+                            <div class="card" style="margin-bottom:0">
+                                <div class="card-body">
+                                    <h3 class="mb-sm">SOX Compliance</h3>
+                                    <p class="text-muted mb-sm">Section 302 and 404</p>
+                                    <span class="badge badge-success">Active</span>
+                                    <p class="mt-sm text-muted" style="font-size:0.75rem">Audit trail foundational for financial controls</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom:0">
+                                <div class="card-body">
+                                    <h3 class="mb-sm">GDPR</h3>
+                                    <p class="text-muted mb-sm">Art. 5(2), 30, 32</p>
+                                    <span class="badge badge-success">Active</span>
+                                    <p class="mt-sm text-muted" style="font-size:0.75rem">Accountability, Records of Processing, Security Logging</p>
+                                </div>
+                            </div>
+                            <div class="card" style="margin-bottom:0">
+                                <div class="card-body">
+                                    <h3 class="mb-sm">ISO 55000</h3>
+                                    <p class="text-muted mb-sm">Clause 9.2</p>
+                                    <span class="badge badge-success">Active</span>
+                                    <p class="mt-sm text-muted" style="font-size:0.75rem">Documented audit program requirement</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>User Reference</label>
+                                <p class="form-hint">UserID must reference an existing user</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Storage Capacity</label>
+                                <p class="form-hint">Audit storage must have capacity before event capture</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Hash Chain Verification</label>
+                                <p class="form-hint">SHA-256 hash chain verified for tamper detection</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="advancedSearchModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Advanced Audit Search</h3>
+                <button class="modal-close" onclick="closeModal('advancedSearchModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="advancedSearchForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Entity Type</label>
+                            <select class="form-control" id="advEntityType">
+                                <option value="">-- Select Type --</option>
+                                <option value="Asset">Asset</option>
+                                <option value="Organization">Organization</option>
+                                <option value="User">User</option>
+                                <option value="WorkOrder">Work Order</option>
+                                <option value="Document">Document</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Entity ID</label>
+                            <input type="text" class="form-control" id="advEntityId" placeholder="e.g., AST-2024-001">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Action</label>
+                            <select class="form-control" id="advAction">
+                                <option value="">-- Select Action --</option>
+                                <option value="CREATE">CREATE</option>
+                                <option value="UPDATE">UPDATE</option>
+                                <option value="DELETE">DELETE</option>
+                                <option value="READ">READ</option>
+                                <option value="LOGIN">LOGIN</option>
+                                <option value="LOGOUT">LOGOUT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>User</label>
+                            <input type="text" class="form-control" id="advUser" placeholder="Username or email">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Date/Time</label>
+                            <input type="datetime-local" class="form-control" id="advStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date/Time</label>
+                            <input type="datetime-local" class="form-control" id="advEndDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Changed Fields</label>
+                        <input type="text" class="form-control" id="advChangedFields" placeholder="Comma-separated field names">
+                    </div>
+
+                    <div class="form-group">
+                        <label>IP Address</label>
+                        <input type="text" class="form-control" id="advIpAddress" placeholder="e.g., 192.168.1.105">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Company Scope</label>
+                        <select class="form-control" id="advCompanyScope">
+                            <option value="">All Companies</option>
+                            <option value="US001">US Manufacturing Inc.</option>
+                            <option value="EU001">EU Holdings GmbH</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('advancedSearchModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('advancedSearchModal')">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewAuditModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Audit Log Detail</h3>
+                <button class="modal-close" onclick="closeModal('viewAuditModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewAuditContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="verifyHash()">Verify Hash</button>
+                <button class="btn btn-outline" onclick="closeModal('viewAuditModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function searchAuditLogs() {
+            alert('Searching audit logs...');
+        }
+
+        function viewAuditDetail(hash) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Audit Log ID</label>
+                        <p><strong>AUD-2026-0405-1432-001</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Timestamp</label>
+                        <p>2026-04-05 14:32:01.123456</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>User ID</label>
+                        <p>USR-105</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <p>john.smith@usmanuf.com</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Action</label>
+                        <span class="badge badge-primary">UPDATE</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Entity Type</label>
+                        <p>Asset</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Entity ID</label>
+                    <p>AST-2024-001</p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>IP Address</label>
+                        <p>192.168.1.105</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Session ID</label>
+                        <p>SES-2026-0405-1425</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Old Value</label>
+                    <pre style="background:#f1f5f9;padding:10px;border-radius:4px;">{"status": "Active", "location": "Plant-A"}</pre>
+                </div>
+                <div class="form-group">
+                    <label>New Value</label>
+                    <pre style="background:#f1f5f9;padding:10px;border-radius:4px;">{"status": "Active", "location": "Plant-B"}</pre>
+                </div>
+                <div class="form-group">
+                    <label>Changed Fields</label>
+                    <p>location</p>
+                </div>
+                <div class="form-group">
+                    <label>Reason</label>
+                    <p>Asset transferred to new location</p>
+                </div>
+                <div class="form-group">
+                    <label>SHA-256 Hash</label>
+                    <p><code>a7f3c8d2e1b4a5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6</code></p>
+                    <p class="text-success mt-sm">Hash chain verified - No tampering detected</p>
+                </div>
+            `;
+            document.getElementById('viewAuditContent').innerHTML = content;
+            openModal('viewAuditModal');
+        }
+
+        function verifyHash() {
+            alert('Hash verification complete: Chain intact, no tampering detected.');
+        }
+
+        function exportAuditLogs() {
+            alert('Exporting audit logs to CSV...');
+        }
+
+        function generateReport() {
+            alert('Generating compliance report...');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

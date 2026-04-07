@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.8.12 - Group Audit Tracking</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 9: Multi-Company</span> / F-2.8.12
+                </div>
+                <div class="user-info">
+                    <span>Group Internal Audit</span>
+                    <select id="company-selector">
+                        <option>Global Manufacturing Corp (Group)</option>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.8.12 - Group Audit Tracking</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High</span>
+                        <span class="req-link">
+                            <a href="../../../spec/9-multi-company/F-2.8.12-Group%20Audit%20Tracking.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Log Summary</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4" style="margin-bottom: 1.5rem;">
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--primary); margin: 0;">125,430</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Total Events (30d)</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--success); margin: 0;">99.8%</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">System Uptime</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--danger); margin: 0;">3</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Violations</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 8px;">
+                                <h3 style="font-size: 1.75rem; color: var(--info); margin: 0;">7 Yrs</h3>
+                                <p class="text-muted" style="margin: 0.5rem 0 0;">Retention Period</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Event Categories</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Events</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge badge-primary">Asset Transactions</span></td>
+                                        <td>CREATE, UPDATE, DELETE, TRANSFER, DISPOSE</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-warning">Configuration</span></td>
+                                        <td>CREATE, UPDATE, DELETE</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-info">Access</span></td>
+                                        <td>LOGIN, LOGOUT, READ (sensitive data)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-success">Approval</span></td>
+                                        <td>SUBMIT, APPROVE, REJECT</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge badge-secondary">System</span></td>
+                                        <td>EXPORT, INTEGRATION_CALL</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent Audit Events</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>User</th>
+                                        <th>Action</th>
+                                        <th>Entity Type</th>
+                                        <th>Entity ID</th>
+                                        <th>Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2026-04-05 19:42:15</td>
+                                        <td>admin@group.com</td>
+                                        <td>UPDATE</td>
+                                        <td>Asset</td>
+                                        <td>AST-2026-042</td>
+                                        <td><span class="badge badge-success">SUCCESS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 19:38:22</td>
+                                        <td>jsmith@us0001.com</td>
+                                        <td>TRANSFER</td>
+                                        <td>Asset</td>
+                                        <td>AST-2026-018</td>
+                                        <td><span class="badge badge-success">SUCCESS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 19:35:01</td>
+                                        <td>kmiller@eu0001.com</td>
+                                        <td>READ</td>
+                                        <td>Financial</td>
+                                        <td>RPT-2026-Q1</td>
+                                        <td><span class="badge badge-success">SUCCESS</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 19:30:45</td>
+                                        <td>unknown@external.com</td>
+                                        <td>LOGIN</td>
+                                        <td>System</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-danger">BLOCKED</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+                </div>
+        </main>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+    </script>
+</body>
+</html>

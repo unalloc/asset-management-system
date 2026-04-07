@@ -1,0 +1,354 @@
+# Asset Management System - Entity Relationship Diagram
+
+## Mermaid ER Diagram
+
+```mermaid
+erDiagram
+    ORGANIZATION ||--o{ ORGANIZATION : "contains"
+    ORGANIZATION ||--o{ ASSET : "owns"
+    ORGANIZATION ||--o{ COST_CENTER : "contains"
+    ORGANIZATION ||--o{ DEPARTMENT : "contains"
+    
+    ASSET ||--|| DEPRECIATION_SCHEDULE : "has"
+    ASSET ||--o| RFID_TAG : "has"
+    ASSET ||--o| BARCODE : "has"
+    ASSET ||--o| IoT_SENSOR : "has"
+    ASSET ||--o| DOCUMENT : "has"
+    ASSET ||--o| LOCATION : "has"
+    ASSET ||--o| LOAN_TICKET : "borrowed_via"
+    ASSET ||--o| TRANSFER_TICKET : "transferred_via"
+    ASSET ||--o| WORK_ORDER : "maintained_by"
+    ASSET ||--o| MAINTENANCE_PLAN : "planned_for"
+    ASSET ||--o| MAINTENANCE_HISTORY : "history_of"
+    ASSET }o--|| ASSET : "parent_child"
+    
+    ASSET ||--o{ INSURANCE_POLICY : "insured_by"
+    ASSET ||--o{ DISPOSAL_RECORD : "disposed_via"
+    ASSET ||--o{ BORROWING_RECORD : "borrowed_via"
+    ASSET ||--o| ASSET_RESERVATION : "reserved_for"
+    ASSET ||--o| USAGE_RECORD : "usage_of"
+    
+    WORK_ORDER ||--|| MAINTENANCE_HISTORY : "creates"
+    WORK_ORDER ||--o| SPARE_PART : "uses"
+    WORK_ORDER ||--|| EMPLOYEE : "assigned_to"
+    
+    MAINTENANCE_PLAN ||--o| WORK_ORDER : "generates"
+    MAINTENANCE_PLAN ||--|| EMPLOYEE : "assigned_to"
+    
+    VENDOR ||--o{ SERVICE_CONTRACT : "provides"
+    VENDOR ||--o{ PURCHASE_ORDER : "supplies"
+    
+    SERVICE_CONTRACT ||--o| INSURANCE_CLAIM : "claims"
+    
+    CAPITAL_PROJECT ||--o{ BUDGET : "has"
+    CAPITAL_PROJECT ||--o{ ASSET : "capitalizes"
+    
+    ALLOCATION_PLAN ||--o{ ASSET : "allocates"
+    ALLOCATION_PLAN ||--o| USAGE_CONTRACT : "terms"
+    
+    USER ||--|| ROLE : "has"
+    USER ||--o| DATA_ACCESS_GRANT : "granted"
+    DATA_ACCESS_GRANT ||--|| ORGANIZATION : "from_org"
+    DATA_ACCESS_GRANT ||--|| ORGANIZATION : "to_org"
+    
+    EMPLOYEE ||--o| USER : "is"
+    
+    ASSET_TYPE ||--o{ ASSET : "classifies"
+    ASSET_CATEGORY ||--o{ ASSET : "categorizes"
+
+    ORGANIZATION {
+        string org_id PK
+        string org_code
+        string org_name
+        string org_type
+        string parent_org_id FK
+        string materialized_path
+        int level
+        string currency_code
+        date effective_date
+    }
+    
+    ASSET {
+        string asset_id PK
+        string asset_name
+        string asset_type_id FK
+        string serial_number
+        string status
+        decimal book_value
+        date acquisition_date
+        decimal acquisition_cost
+        string location_id FK
+        string organization_id FK
+        string parent_asset_id FK
+        string manufacturer
+        string model
+        date warranty_expiry
+        string criticality
+    }
+    
+    ASSET_TYPE {
+        string asset_type_id PK
+        string type_code
+        string type_name
+        string parent_type_id FK
+        text description
+        string status
+    }
+    
+    DEPRECIATION_SCHEDULE {
+        string schedule_id PK
+        string asset_id FK
+        string depreciation_method
+        decimal acquisition_cost
+        int useful_life_years
+        decimal residual_value
+        date depreciation_start_date
+        string gaap_type
+        decimal accumulated_depreciation
+        decimal net_book_value
+    }
+    
+    RFID_TAG {
+        string tag_uid PK
+        string tag_type
+        string asset_id FK
+        string status
+        datetime assigned_date
+    }
+    
+    IoT_SENSOR {
+        string sensor_id PK
+        string asset_id FK
+        string sensor_type
+        decimal threshold_warning
+        decimal threshold_critical
+        string status
+        int health_score
+    }
+    
+    WORK_ORDER {
+        string work_order_id PK
+        string wo_code
+        string plan_id FK
+        string asset_id FK
+        string priority
+        date scheduled_date
+        string assigned_technician_id FK
+        decimal estimated_hours
+        decimal estimated_cost
+        string status
+        decimal actual_hours
+        decimal actual_cost
+    }
+    
+    MAINTENANCE_HISTORY {
+        string history_id PK
+        string work_order_id FK
+        string asset_id FK
+        string maintenance_type
+        string result
+        datetime start_time
+        datetime end_time
+        decimal labor_cost
+        decimal parts_cost
+        string performed_by_id FK
+    }
+    
+    VENDOR {
+        string vendor_id PK
+        string vendor_code
+        string vendor_name
+        string vendor_type
+        string contact_email
+        string contact_phone
+        text address
+        boolean active_status
+    }
+    
+    SPARE_PART {
+        string part_id PK
+        string part_number
+        string part_name
+        decimal unit_cost
+        int quantity_on_hand
+        int reorder_point
+        string status
+    }
+    
+    LOCATION {
+        string location_id PK
+        string asset_id FK
+        decimal latitude
+        decimal longitude
+        decimal altitude
+        string building
+        string zone
+        string line_station
+    }
+    
+    LOAN_TICKET {
+        string loan_ticket_id PK
+        string asset_id FK
+        string borrower_id FK
+        string loan_type
+        datetime checkout_time
+        datetime return_time
+        date due_date
+        string status
+    }
+    
+    TRANSFER_TICKET {
+        string transfer_id PK
+        string asset_id FK
+        string source_org_id FK
+        string target_org_id FK
+        string transfer_reason
+        string requester_id FK
+        string approval_status
+        date transfer_date
+    }
+    
+    AUDIT_LOG {
+        string audit_id PK
+        string event_type
+        string entity_type
+        string entity_id
+        string operator_id
+        datetime timestamp
+        json old_value
+        json new_value
+        string reason
+    }
+    
+    ORGANIZATION {
+        string org_id PK
+        string org_code
+        string org_name
+        string org_type
+        string parent_org_id FK
+        string materialized_path
+        int level
+    }
+    
+    COST_CENTER {
+        string cc_id PK
+        string cc_code
+        string name
+        string department_id FK
+        string company_code FK
+    }
+    
+    INSURANCE_POLICY {
+        string policy_id PK
+        string policy_number
+        string insurer_name
+        string policy_type
+        decimal coverage_amount
+        decimal premium_amount
+        date start_date
+        date end_date
+    }
+    
+    CAPITAL_PROJECT {
+        string project_id PK
+        string project_code
+        string project_name
+        decimal budget_amount
+        date start_date
+        date estimated_end_date
+        string status
+    }
+    
+    USER {
+        string user_id PK
+        string username
+        string email
+        string role_id FK
+        string company_code FK
+        string status
+    }
+    
+    ROLE {
+        string role_id PK
+        string role_name
+        json permissions
+    }
+    
+    DATA_ACCESS_GRANT {
+        string grant_id PK
+        string user_id FK
+        string from_company_id FK
+        string to_company_id FK
+        string access_level
+        date effective_date
+        date expiration_date
+    }
+```
+
+## Organizational Hierarchy
+
+```mermaid
+graph TD
+    G[GROUP] --> C1[COMPANY: US Manufacturing]
+    G --> C2[COMPANY: EU Holdings GmbH]
+    C1 --> D1[DIVISION: North America]
+    C2 --> D2[DIVISION: Europe]
+    D1 --> P1[PLANT: Detroit]
+    D1 --> P2[PLANT: Chicago]
+    D2 --> P3[PLANT: Munich]
+    P1 --> DE1[DEPARTMENT: Assembly]
+    P1 --> DE2[DEPARTMENT: Machining]
+    P1 --> DE3[DEPARTMENT: QC]
+    DE1 --> CC1[COST CENTER: CC-1001]
+    DE2 --> CC2[COST CENTER: CC-1002]
+```
+
+## Asset Central Hub
+
+```mermaid
+graph TD
+    subgraph "Asset Central Hub"
+        H[Asset Central Hub] --> S[Search & Filter]
+        H --> D[Dashboard Statistics]
+        H --> L[Asset List Table]
+    end
+    
+    L -->|click| DTL[Asset Detail]
+    
+    subgraph "Asset Detail Tabs"
+        DTL --> O[Overview]
+        DTL --> M[Maintenance]
+        DTL --> F[Financial]
+        DTL --> DC[Documents]
+        DTL --> HY[Hierarchy]
+        DTL --> T[Tracking]
+        DTL --> HI[History]
+    end
+    
+    O -->|Quick Actions| M
+    O -->|Quick Actions| F
+    O -->|Quick Actions| DC
+    O -->|Quick Actions| T
+    
+    M --> WO[Work Orders] --> WOH[Maintenance History]
+    F --> DEP[Depreciation] --> INS[Insurance]
+    T --> RFID[RFID/Barcode] --> IOT[IoT Sensors]
+```
+
+## Asset Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Procurement
+    Procurement --> Receiving
+    Receiving --> Commissioning
+    Commissioning --> ActiveUse
+    ActiveUse --> Maintenance
+    ActiveUse --> Transfer
+    ActiveUse --> Allocation
+    Transfer --> ActiveUse
+    Allocation --> ActiveUse
+    Maintenance --> ActiveUse
+    ActiveUse --> Disposal
+    Disposal --> [*]
+```

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.4 - Barcode/QR Code Generation</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.4 - Barcode/QR Code Generation</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.4-Barcode-QR%20Code%20Generation.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Label Templates</h2>
+                        <button class="btn btn-primary" onclick="openModal('templateModal')">+ New Template</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Template Name</th>
+                                        <th>Format</th>
+                                        <th>Label Size</th>
+                                        <th>Default</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="templateTable">
+                                    <tr>
+                                        <td>Standard Asset Label</td>
+                                        <td><span class="tag">QR Code</span></td>
+                                        <td>2" x 1"</td>
+                                        <td><span class="badge badge-primary">Yes</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="editTemplate('STD-001')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewTemplate('STD-001')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Large Asset Label</td>
+                                        <td><span class="tag">CODE128</span></td>
+                                        <td>4" x 2"</td>
+                                        <td>No</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="editTemplate('LARGE-001')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewTemplate('LARGE-001')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rack Mount Label</td>
+                                        <td><span class="tag">DATAMATRIX</span></td>
+                                        <td>1" x 0.5"</td>
+                                        <td>No</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="editTemplate('RACK-001')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewTemplate('RACK-001')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vehicle Label</td>
+                                        <td><span class="tag">PDF417</span></td>
+                                        <td>4" x 2"</td>
+                                        <td>No</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="editTemplate('VEH-001')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewTemplate('VEH-001')">Preview</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Generate Labels</h2>
+                        <button class="btn btn-primary" onclick="openModal('generateModal')">+ Generate Labels</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Asset Code</th>
+                                        <th>Asset Name</th>
+                                        <th>Format</th>
+                                        <th>Last Printed</th>
+                                        <th>Print Count</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assetTable">
+                                    <tr>
+                                        <td>AST-2025-001</td>
+                                        <td>CNC Milling Machine #1</td>
+                                        <td><span class="tag">QR</span></td>
+                                        <td>2025-03-15</td>
+                                        <td>5</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="printLabel('AST-2025-001')">Print</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewLabel('AST-2025-001')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2025-002</td>
+                                        <td>IT Server Rack A1</td>
+                                        <td><span class="tag">CODE128</span></td>
+                                        <td>2025-03-10</td>
+                                        <td>3</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="printLabel('AST-2025-002')">Print</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewLabel('AST-2025-002')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2025-003</td>
+                                        <td>Forklift #3</td>
+                                        <td><span class="tag">QR</span></td>
+                                        <td>2025-03-18</td>
+                                        <td>2</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="printLabel('AST-2025-003')">Print</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewLabel('AST-2025-003')">Preview</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>AST-2025-004</td>
+                                        <td>Assembly Robot Arm #2</td>
+                                        <td><span class="tag">DATAMATRIX</span></td>
+                                        <td>—</td>
+                                        <td>0</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="printLabel('AST-2025-004')">Print</button>
+                                            <button class="btn btn-sm btn-outline" onclick="previewLabel('AST-2025-004')">Preview</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Print History</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Print ID</th>
+                                        <th>Date</th>
+                                        <th>Asset</th>
+                                        <th>Format</th>
+                                        <th>Quantity</th>
+                                        <th>User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>PRINT-2025-089</td>
+                                        <td>2025-03-20 14:30</td>
+                                        <td>AST-2025-001</td>
+                                        <td>QR</td>
+                                        <td>5</td>
+                                        <td>admin@usmfg.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRINT-2025-088</td>
+                                        <td>2025-03-20 11:15</td>
+                                        <td>AST-2025-002</td>
+                                        <td>CODE128</td>
+                                        <td>2</td>
+                                        <td>admin@usmfg.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PRINT-2025-087</td>
+                                        <td>2025-03-18 09:45</td>
+                                        <td>AST-2025-003</td>
+                                        <td>QR</td>
+                                        <td>3</td>
+                                        <td>ops@usmfg.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="generateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Generate Labels</h3>
+                <button class="modal-close" onclick="closeModal('generateModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="generateForm">
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <input type="text" class="form-control" id="assetCode"
+                               placeholder="e.g., AST-2025-001"
+                               list="assetList">
+                        <datalist id="assetList">
+                            <option value="AST-2025-001">CNC Milling Machine #1</option>
+                            <option value="AST-2025-002">IT Server Rack A1</option>
+                            <option value="AST-2025-003">Forklift #3</option>
+                            <option value="AST-2025-004">Assembly Robot Arm #2</option>
+                        </datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Barcode Format</label>
+                        <select class="form-control" id="barcodeFormat">
+                            <option value="QR">QR Code</option>
+                            <option value="CODE128">CODE128</option>
+                            <option value="CODE39">CODE39</option>
+                            <option value="DATAMATRIX">DATAMATRIX</option>
+                            <option value="PDF417">PDF417</option>
+                        </select>
+                        <p class="form-hint">Select barcode type</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Label Template</label>
+                        <select class="form-control" id="labelTemplate">
+                            <option value="STD-001" selected>Standard Asset Label (2" x 1")</option>
+                            <option value="LARGE-001">Large Asset Label (4" x 2")</option>
+                            <option value="RACK-001">Rack Mount Label (1" x 0.5")</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Print Quantity</label>
+                        <input type="number" class="form-control" id="printQuantity"
+                               value="1">
+                        <p class="form-hint">1-100 labels per request</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Include Human Readable Text</label>
+                        <select class="form-control" id="includeText">
+                            <option value="yes" selected>Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('generateModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('generateModal')">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="previewModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Label Preview</h3>
+                <button class="modal-close" onclick="closeModal('previewModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="previewContent">
+                <div class="label-preview">
+                    <div class="barcode-placeholder">[BARCODE IMAGE]</div>
+                    <div class="label-text">
+                        <div class="asset-code">AST-2025-001</div>
+                        <div class="asset-name">CNC Milling Machine #1</div>
+                        <div class="company-code">USMF-2025</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('previewModal')">Close</button>
+                <button class="btn btn-primary" onclick="closeModal('previewModal')">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="templateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Label Template</h3>
+                <button class="modal-close" onclick="closeModal('templateModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Template management coming soon...</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('templateModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function printLabel(assetCode) {
+            document.getElementById('assetCode').value = assetCode;
+            openModal('generateModal');
+        }
+
+        function previewLabel(assetCode) {
+            if (!assetCode) return;
+            document.getElementById('previewContent').innerHTML = `
+                <div class="label-preview" style="border: 2px dashed #ccc; padding: 20px; text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">[QR CODE]</div>
+                    <div style="font-family: monospace; font-size: 14px;">
+                        <div><strong>Asset:</strong> ${assetCode}</div>
+                        <div><strong>Name:</strong> CNC Milling Machine #1</div>
+                        <div><strong>Company:</strong> US Manufacturing Inc.</div>
+                    </div>
+                </div>
+            `;
+            openModal('previewModal');
+        }
+
+        function previewTemplate(templateId) {
+            alert('Preview template: ' + templateId);
+        }
+
+        function editTemplate(templateId) {
+            alert('Edit template: ' + templateId);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

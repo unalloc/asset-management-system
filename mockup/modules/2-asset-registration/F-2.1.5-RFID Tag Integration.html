@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.5 - RFID Tag Integration</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="../asset-central/Asset-Central-Hub.html">Asset Central</a>
+                    <span id="asset-context" style="display:none;"> / <a href="#" id="asset-context-link">AST-001</a></span>
+                    <span> / F-2.1.5</span>
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.5 - RFID Tag Integration</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.5-RFID%20Tag%20Integration.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Reader Status</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Connected Reader</label>
+                                <p><span class="badge badge-success">● Online</span></p>
+                                <p class="text-muted">RFID-READER-01 at Plant A Entrance</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Reader Type</label>
+                                <p>Impinj R700 UHF Reader</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Communication</label>
+                                <p>2025-03-22 16:45:23</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Tags Read (24h)</label>
+                                <p>1,247</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>RFID Tag Assignments</h2>
+                        <button class="btn btn-primary" onclick="openModal('assignTagModal')">+ Assign Tag</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tag UID</th>
+                                        <th>Tag Type</th>
+                                        <th>Asset Code</th>
+                                        <th>Asset Name</th>
+                                        <th>Status</th>
+                                        <th>Assigned Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tagTable">
+                                    <tr>
+                                        <td>30003333FDEF1234</td>
+                                        <td><span class="tag">UHF</span></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-001" class="asset-link">AST-2025-001</a></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-001" class="asset-link">CNC Milling Machine #1</a></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2025-02-15</td>
+                                        <td class="table-actions">
+                                            <a href="../asset-central/Asset-Detail.html?asset=AST-2025-001" class="btn btn-sm btn-outline">View Asset</a>
+                                            <button class="btn btn-sm btn-outline" onclick="unassignTag('30003333FDEF1234')">Unassign</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30003333FDEF5678</td>
+                                        <td><span class="tag">UHF</span></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-002" class="asset-link">AST-2025-002</a></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-002" class="asset-link">IT Server Rack A1</a></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2025-02-20</td>
+                                        <td class="table-actions">
+                                            <a href="../asset-central/Asset-Detail.html?asset=AST-2025-002" class="btn btn-sm btn-outline">View Asset</a>
+                                            <button class="btn btn-sm btn-outline" onclick="unassignTag('30003333FDEF5678')">Unassign</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30003333FDEF9012</td>
+                                        <td><span class="tag">UHF</span></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-003" class="asset-link">AST-2025-003</a></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-003" class="asset-link">Forklift #3</a></td>
+                                        <td><span class="badge badge-warning">Inactive</span></td>
+                                        <td>2025-01-10</td>
+                                        <td class="table-actions">
+                                            <a href="../asset-central/Asset-Detail.html?asset=AST-2025-003" class="btn btn-sm btn-outline">View Asset</a>
+                                            <button class="btn btn-sm btn-outline" onclick="reactivateTag('30003333FDEF9012')">Reactivate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30003333FEDC4567</td>
+                                        <td><span class="tag">UHF</span></td>
+                                        <td>—</td>
+                                        <td><span class="text-muted">Unassigned</span></td>
+                                        <td><span class="badge badge-secondary">Available</span></td>
+                                        <td>—</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewTag('30003333FEDC4567')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="assignTag('30003333FEDC4567')">Assign</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>30004444FDEF7890</td>
+                                        <td><span class="tag">LF</span></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-004" class="asset-link">AST-2025-004</a></td>
+                                        <td><a href="../asset-central/Asset-Detail.html?asset=AST-2025-004" class="asset-link">Assembly Robot Arm #2</a></td>
+                                        <td><span class="badge badge-danger">Lost</span></td>
+                                        <td>2025-03-01</td>
+                                        <td class="table-actions">
+                                            <a href="../asset-central/Asset-Detail.html?asset=AST-2025-004" class="btn btn-sm btn-outline">View Asset</a>
+                                            <button class="btn btn-sm btn-outline" onclick="replaceTag('30004444FDEF7890')">Replace</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Scan Operations</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Scan Mode</label>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" onclick="startScan('inventory')">Inventory Scan</button>
+                                    <button class="btn btn-outline" onclick="startScan('location')">Location Scan</button>
+                                    <button class="btn btn-outline" onclick="startScan('verify')">Verify Scan</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Scan Result</label>
+                                <div id="scanResult" class="alert alert-info">
+                                    Click a scan mode to begin reading tags...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Tag History</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Operation</th>
+                                        <th>Tag UID</th>
+                                        <th>Asset</th>
+                                        <th>User</th>
+                                        <th>Date/Time</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="tag">ASSIGN</span></td>
+                                        <td>30003333FDEF1234</td>
+                                        <td>AST-2025-001</td>
+                                        <td>admin@usmfg.com</td>
+                                        <td>2025-02-15 10:30</td>
+                                        <td>Initial assignment</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">READ</span></td>
+                                        <td>30003333FDEF1234</td>
+                                        <td>AST-2025-001</td>
+                                        <td>system</td>
+                                        <td>2025-03-22 08:15</td>
+                                        <td>Inventory scan at Plant A</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">MARK_LOST</span></td>
+                                        <td>30004444FDEF7890</td>
+                                        <td>AST-2025-004</td>
+                                        <td>admin@usmfg.com</td>
+                                        <td>2025-03-18 14:22</td>
+                                        <td>Tag not responding</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">UNASSIGN</span></td>
+                                        <td>30003333FDEF9012</td>
+                                        <td>AST-2025-003</td>
+                                        <td>admin@usmfg.com</td>
+                                        <td>2025-03-20 09:45</td>
+                                        <td>Asset retired</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="assignTagModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Assign RFID Tag</h3>
+                <button class="modal-close" onclick="closeModal('assignTagModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="assignTagForm">
+                    <div class="form-group">
+                        <label>Tag UID</label>
+                        <input type="text" class="form-control" id="tagUid"
+                               placeholder="e.g., 30003333FDEF1234">
+                        <p class="form-hint">16 hexadecimal characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tag Type</label>
+                        <select class="form-control" id="tagType">
+                            <option value="UHF" selected>UHF (Ultra High Frequency)</option>
+                            <option value="HF">HF (High Frequency)</option>
+                            <option value="LF">LF (Low Frequency)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Asset</label>
+                        <input type="text" class="form-control" id="assetCode"
+                               placeholder="e.g., AST-2025-001"
+                               list="assetList">
+                        <datalist id="assetList">
+                            <option value="AST-2025-001">CNC Milling Machine #1</option>
+                            <option value="AST-2025-002">IT Server Rack A1</option>
+                            <option value="AST-2025-003">Forklift #3</option>
+                            <option value="AST-2025-004">Assembly Robot Arm #2</option>
+                        </datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Write Data (Optional)</label>
+                        <textarea class="form-control" id="writeData"
+                                  placeholder="Additional data to write to tag memory"></textarea>
+                        <p class="form-hint">Maximum 128 characters</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Important:</strong> Once assigned, the tag cannot be assigned to another asset until unassigned.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('assignTagModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('assignTagModal')">Assign Tag</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewTagModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Tag Details</h3>
+                <button class="modal-close" onclick="closeModal('viewTagModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewTagContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewTagModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="replaceTagModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Replace Lost Tag</h3>
+                <button class="modal-close" onclick="closeModal('replaceTagModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="replaceTagForm">
+                    <div class="form-group">
+                        <label>Lost Tag UID</label>
+                        <p><strong id="lostTagUid">30004444FDEF7890</strong></p>
+                        <p class="text-muted">This tag will be marked as LOST</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>New Tag UID</label>
+                        <input type="text" class="form-control" id="newTagUid"
+                               placeholder="e.g., 30005555FDEF9999">
+                        <p class="form-hint">16 hexadecimal characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>New Tag Type</label>
+                        <select class="form-control" id="newTagType">
+                            <option value="UHF" selected>UHF (Ultra High Frequency)</option>
+                            <option value="HF">HF (High Frequency)</option>
+                            <option value="LF">LF (Low Frequency)</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('replaceTagModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('replaceTagModal')">Replace Tag</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewTag(tagUid) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tag UID</label>
+                        <p><strong>${tagUid}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Tag Type</label>
+                        <span class="tag">UHF</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Asset</label>
+                        <p>AST-2025-001 - CNC Milling Machine #1</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('viewTagContent').innerHTML = content;
+            openModal('viewTagModal');
+        }
+
+        function assignTag(tagUid) {
+            document.getElementById('tagUid').value = tagUid;
+            openModal('assignTagModal');
+        }
+
+        function unassignTag(tagUid) {
+            if (confirm('Are you sure you want to unassign tag ' + tagUid + '?')) {
+                alert('Tag unassigned: ' + tagUid);
+            }
+        }
+
+        function replaceTag(tagUid) {
+            document.getElementById('lostTagUid').textContent = tagUid;
+            openModal('replaceTagModal');
+        }
+
+        function reactivateTag(tagUid) {
+            if (confirm('Reactivate tag ' + tagUid + '?')) {
+                alert('Tag reactivated: ' + tagUid);
+            }
+        }
+
+        function startScan(mode) {
+            const resultDiv = document.getElementById('scanResult');
+            resultDiv.className = 'alert alert-info';
+            resultDiv.innerHTML = '<strong>Scanning...</strong> Place tags near reader...';
+            
+            setTimeout(() => {
+                resultDiv.className = 'alert alert-success';
+                resultDiv.innerHTML = `
+                    <strong>Scan Complete</strong><br>
+                    Tags found: 3<br>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>30003333FDEF1234 - AST-2025-001</li>
+                        <li>30003333FDEF5678 - AST-2025-002</li>
+                        <li>30003333FEDC4567 - (Unassigned)</li>
+                    </ul>
+                `;
+            }, 2000);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

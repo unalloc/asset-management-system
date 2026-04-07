@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.5 - Budget vs Actual</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.5
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.5 - Budget vs Actual</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.5-Budget%20vs%20Actual.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Budget Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Budget</p>
+                            <h2 style="font-size: 1.5rem;">$4,250,000</h2>
+                            <p class="text-muted">Q2 2025</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Actual Spend</p>
+                            <h2 style="font-size: 1.5rem;">$3,185,000</h2>
+                            <p class="text-success">74.9% of budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Variance</p>
+                            <h2 style="font-size: 1.5rem;">$1,065,000</h2>
+                            <p class="text-success">Under budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Over Budget Items</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                            <p class="text-danger">Requires attention</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alert -->
+                <div class="alert alert-warning">
+                    <strong>3 budgets exceeded threshold:</strong> Maintenance Budget (105%), Emergency Repairs (112%), Parts Inventory (108%)
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('budgets')">Budgets</button>
+                    <button class="tab" onclick="switchTab('actuals')">Actuals</button>
+                    <button class="tab" onclick="switchTab('variance')">Variance Analysis</button>
+                    <button class="tab" onclick="switchTab('commitments')">Commitments</button>
+                </div>
+
+                <!-- Budgets Tab -->
+                <div class="tab-content active" id="budgets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Budget Management</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Cost Centers</option>
+                                    <option>Manufacturing</option>
+                                    <option>Maintenance</option>
+                                    <option>Operations</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('create-budget-modal')">+ Create Budget</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Budget Code</th>
+                                            <th>Description</th>
+                                            <th>Cost Center</th>
+                                            <th>Account</th>
+                                            <th>Period</th>
+                                            <th>Budget Amount</th>
+                                            <th>Threshold</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BUD-2025-Q2-001</td>
+                                            <td>Planned Maintenance</td>
+                                            <td>Manufacturing</td>
+                                            <td>6100-Maint</td>
+                                            <td>Q2 2025</td>
+                                            <td>$1,200,000</td>
+                                            <td>5%</td>
+                                            <td><span class="badge badge-danger">Over Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-002</td>
+                                            <td>Emergency Repairs</td>
+                                            <td>Maintenance</td>
+                                            <td>6200-Repairs</td>
+                                            <td>Q2 2025</td>
+                                            <td>$450,000</td>
+                                            <td>10%</td>
+                                            <td><span class="badge badge-danger">Over Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-003</td>
+                                            <td>Capital Projects</td>
+                                            <td>Operations</td>
+                                            <td>6300-Capital</td>
+                                            <td>Q2 2025</td>
+                                            <td>$1,500,000</td>
+                                            <td>5%</td>
+                                            <td><span class="badge badge-success">On Track</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-004</td>
+                                            <td>Parts Inventory</td>
+                                            <td>Warehouse</td>
+                                            <td>6400-Inventory</td>
+                                            <td>Q2 2025</td>
+                                            <td>$800,000</td>
+                                            <td>8%</td>
+                                            <td><span class="badge badge-danger">Over Budget</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-005</td>
+                                            <td>New Equipment</td>
+                                            <td>Manufacturing</td>
+                                            <td>6500-Equipment</td>
+                                            <td>Q2 2025</td>
+                                            <td>$300,000</td>
+                                            <td>5%</td>
+                                            <td><span class="badge badge-success">On Track</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actuals Tab -->
+                <div class="tab-content" id="actuals-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Actual Expenditures</h2>
+                            <button class="btn btn-outline btn-sm">Export to ERP</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Budget Code</th>
+                                            <th>Description</th>
+                                            <th>Vendor</th>
+                                            <th>Amount</th>
+                                            <th>PO Number</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-02</td>
+                                            <td>BUD-2025-Q2-001</td>
+                                            <td>CNC Machine Service</td>
+                                            <td>TechServ Inc.</td>
+                                            <td>$15,500</td>
+                                            <td>PO-2025-0123</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-03</td>
+                                            <td>BUD-2025-Q2-002</td>
+                                            <td>Emergency Pump Repair</td>
+                                            <td>Industrial Repair Co.</td>
+                                            <td>$28,000</td>
+                                            <td>PO-2025-0124</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-04</td>
+                                            <td>BUD-2025-Q2-003</td>
+                                            <td>Assembly Line Upgrade</td>
+                                            <td>Automation Systems</td>
+                                            <td>$125,000</td>
+                                            <td>PO-2025-0125</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05</td>
+                                            <td>BUD-2025-Q2-004</td>
+                                            <td>Spare Parts Order</td>
+                                            <td>Parts Unlimited</td>
+                                            <td>$45,200</td>
+                                            <td>PO-2025-0126</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05</td>
+                                            <td>BUD-2025-Q2-005</td>
+                                            <td>Welding Robot</td>
+                                            <td>RobotTech</td>
+                                            <td>$85,000</td>
+                                            <td>PO-2025-0127</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Variance Analysis Tab -->
+                <div class="tab-content" id="variance-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Variance Analysis</h2>
+                            <select class="form-control" style="width: auto;">
+                                <option>Q2 2025</option>
+                                <option>Q1 2025</option>
+                                <option>Q4 2024</option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Budget Code</th>
+                                            <th>Budget</th>
+                                            <th>Actual</th>
+                                            <th>Commitment</th>
+                                            <th>Total</th>
+                                            <th>Variance ($)</th>
+                                            <th>Variance (%)</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BUD-2025-Q2-001</td>
+                                            <td>$1,200,000</td>
+                                            <td>$1,260,000</td>
+                                            <td>$45,000</td>
+                                            <td>$1,305,000</td>
+                                            <td><span class="text-danger">-$105,000</span></td>
+                                            <td><span class="text-danger">8.75%</span></td>
+                                            <td><span class="badge badge-danger">Over</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-002</td>
+                                            <td>$450,000</td>
+                                            <td>$504,000</td>
+                                            <td>$12,000</td>
+                                            <td>$516,000</td>
+                                            <td><span class="text-danger">-$66,000</span></td>
+                                            <td><span class="text-danger">14.67%</span></td>
+                                            <td><span class="badge badge-danger">Over</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-003</td>
+                                            <td>$1,500,000</td>
+                                            <td>$1,125,000</td>
+                                            <td>$280,000</td>
+                                            <td>$1,405,000</td>
+                                            <td><span class="text-success">+$95,000</span></td>
+                                            <td><span class="text-success">6.33%</span></td>
+                                            <td><span class="badge badge-success">Under</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-004</td>
+                                            <td>$800,000</td>
+                                            <td>$864,000</td>
+                                            <td>$0</td>
+                                            <td>$864,000</td>
+                                            <td><span class="text-danger">-$64,000</span></td>
+                                            <td><span class="text-danger">8.00%</span></td>
+                                            <td><span class="badge badge-danger">Over</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>BUD-2025-Q2-005</td>
+                                            <td>$300,000</td>
+                                            <td>$245,000</td>
+                                            <td>$0</td>
+                                            <td>$245,000</td>
+                                            <td><span class="text-success">+$55,000</span></td>
+                                            <td><span class="text-success">18.33%</span></td>
+                                            <td><span class="badge badge-success">Under</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commitments Tab -->
+                <div class="tab-content" id="commitments-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Commitment Accounting</h2>
+                            <p class="text-muted" style="margin: 0;">POs issued but not yet received</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>PO Number</th>
+                                            <th>Budget Code</th>
+                                            <th>Vendor</th>
+                                            <th>Description</th>
+                                            <th>PO Amount</th>
+                                            <th>Received</th>
+                                            <th>Balance</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PO-2025-0123</td>
+                                            <td>BUD-2025-Q2-001</td>
+                                            <td>TechServ Inc.</td>
+                                            <td>CNC Service - Final</td>
+                                            <td>$5,500</td>
+                                            <td>$0</td>
+                                            <td>$5,500</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PO-2025-0126</td>
+                                            <td>BUD-2025-Q2-004</td>
+                                            <td>Parts Unlimited</td>
+                                            <td>Spare Parts Shipment</td>
+                                            <td>$45,200</td>
+                                            <td>$0</td>
+                                            <td>$45,200</td>
+                                            <td><span class="badge badge-warning">In Transit</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PO-2025-0128</td>
+                                            <td>BUD-2025-Q2-003</td>
+                                            <td>Automation Systems</td>
+                                            <td>Conveyor Parts</td>
+                                            <td>$180,000</td>
+                                            <td>$120,000</td>
+                                            <td>$60,000</td>
+                                            <td><span class="badge badge-info">Partial</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PO-2025-0129</td>
+                                            <td>BUD-2025-Q2-001</td>
+                                            <td>Industrial Supply</td>
+                                            <td>Maintenance Supplies</td>
+                                            <td>$39,500</td>
+                                            <td>$0</td>
+                                            <td>$39,500</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

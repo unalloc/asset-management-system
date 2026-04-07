@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.5.7 - Manufacturing Standards Compliance</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 6: Multi-Plant</span> / F-2.5.7
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.5.7 - Manufacturing Standards Compliance</h1>
+                    <div class="meta">
+                        <span class="badge badge-danger">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/6-multi-plant/F-2.5.7-Manufacturing%20Standards%20Compliance.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Certification Status</h2>
+                        <button class="btn btn-primary" onclick="openModal('addCertModal')">+ Add Certification</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Organization</th>
+                                        <th>Standard</th>
+                                        <th>Certification Body</th>
+                                        <th>Cert. Date</th>
+                                        <th>Expiry</th>
+                                        <th>Score</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>GRP01 - Global Manufacturing</td>
+                                        <td><span class="badge badge-primary">ISO 9001</span></td>
+                                        <td>BSI Group</td>
+                                        <td>2024-03-15</td>
+                                        <td>2027-03-14</td>
+                                        <td><span class="badge badge-success">95%</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCert('CERT001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>GRP01 - Global Manufacturing</td>
+                                        <td><span class="badge badge-success">ISO 14001</span></td>
+                                        <td>SGS Group</td>
+                                        <td>2024-05-20</td>
+                                        <td>2027-05-19</td>
+                                        <td><span class="badge badge-success">92%</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCert('CERT002')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>GRP01 - Global Manufacturing</td>
+                                        <td><span class="badge badge-warning">ISO 45001</span></td>
+                                        <td>DNV GL</td>
+                                        <td>2024-06-10</td>
+                                        <td><span class="text-danger">Expired</span></td>
+                                        <td><span class="badge badge-warning">78%</span></td>
+                                        <td><span class="badge badge-danger">Expired</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCert('CERT003')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>USEQ01 - US East Quality</td>
+                                        <td><span class="badge badge-primary">ISO 9001</span></td>
+                                        <td>BSI Group</td>
+                                        <td>2024-03-15</td>
+                                        <td>2027-03-14</td>
+                                        <td><span class="badge badge-success">97%</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCert('CERT004')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>EUBR01 - EU Berlin</td>
+                                        <td><span class="badge badge-info">ISO 55001</span></td>
+                                        <td>TÜV SÜD</td>
+                                        <td>2023-09-01</td>
+                                        <td><span class="text-warning">90 days</span></td>
+                                        <td><span class="badge badge-success">94%</span></td>
+                                        <td><span class="badge badge-warning">Renewal Due</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewCert('CERT005')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Non-Conformances</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>NCAR ID</th>
+                                        <th>Organization</th>
+                                        <th>Standard</th>
+                                        <th>Severity</th>
+                                        <th>Description</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>NCAR-2025-001</td>
+                                        <td>USEQ01</td>
+                                        <td>ISO 9001</td>
+                                        <td><span class="badge badge-danger">MAJOR</span></td>
+                                        <td>Preventive maintenance procedure not followed for CNC machines</td>
+                                        <td>2025-04-30</td>
+                                        <td><span class="badge badge-warning">In Progress</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNCAR('NCAR-2025-001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NCAR-2025-002</td>
+                                        <td>EUBR01</td>
+                                        <td>ISO 14001</td>
+                                        <td><span class="badge badge-warning">MINOR</span></td>
+                                        <td>Waste disposal documentation incomplete for Q1</td>
+                                        <td>2025-05-15</td>
+                                        <td><span class="badge badge-info">Open</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNCAR('NCAR-2025-002')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NCAR-2025-003</td>
+                                        <td>USWQ01</td>
+                                        <td>ISO 45001</td>
+                                        <td><span class="badge badge-info">OBSERVATION</span></td>
+                                        <td>PPE inspection logs need improvement</td>
+                                        <td>2025-06-01</td>
+                                        <td><span class="badge badge-success">Closed</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewNCAR('NCAR-2025-003')">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> Evidence must be collected according to defined evidence plan. Internal audit plan must be approved before assessment.
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addCertModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add Certification</h3>
+                <button class="modal-close" onclick="closeModal('addCertModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="certForm">
+                    <div class="form-group">
+                        <label>Organization</label>
+                        <select class="form-control" id="orgSelect">
+                            <option value="">-- Select Organization --</option>
+                            <option value="GRP01">GRP01 - Global Manufacturing Group</option>
+                            <option value="US01">US01 - US Manufacturing Inc.</option>
+                            <option value="USEQ01">USEQ01 - US East Quality Plant</option>
+                            <option value="EUBR01">EUBR01 - EU Berlin Plant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Standard Code</label>
+                        <select class="form-control" id="standardCode">
+                            <option value="">-- Select Standard --</option>
+                            <option value="ISO9001">ISO 9001 - Quality Management</option>
+                            <option value="ISO14001">ISO 14001 - Environmental Management</option>
+                            <option value="ISO45001">ISO 45001 - Occupational Health & Safety</option>
+                            <option value="ISO55001">ISO 55001 - Asset Management</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certification Body</label>
+                        <input type="text" class="form-control" id="certBody"
+                               placeholder="e.g., BSI Group, SGS Group">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Certification Date</label>
+                            <input type="date" class="form-control" id="certDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Expiry Date</label>
+                            <input type="date" class="form-control" id="expiryDate">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addCertModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addCertModal')">Add Certification</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewCertModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Certification Details</h3>
+                <button class="modal-close" onclick="closeModal('viewCertModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewCertContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewCertModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function viewCert(id) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Certification ID</label>
+                        <p><strong>${id}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Organization</label>
+                    <p>GRP01 - Global Manufacturing Group</p>
+                </div>
+                <div class="form-group">
+                    <label>Standard</label>
+                    <span class="badge badge-primary">ISO 9001</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Certification Body</label>
+                        <p>BSI Group</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Compliance Score</label>
+                        <p><span class="badge badge-success">95%</span></p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Certification Date</label>
+                        <p>2024-03-15</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <p>2027-03-14</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('viewCertContent').innerHTML = content;
+            openModal('viewCertModal');
+        }
+
+        function viewNCAR(id) {
+            alert('View NCAR: ' + id);
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

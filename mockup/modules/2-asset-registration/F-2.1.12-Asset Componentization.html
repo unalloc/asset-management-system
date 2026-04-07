@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.12 - Asset Componentization</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 2: Asset Registration</span> / F-2.1.12
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.12 - Asset Componentization</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.12-Asset%20Componentization.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Component Configurations</h2>
+                        <button class="btn btn-primary" onclick="openModal('addComponentModal')">+ Create Configuration</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Main Asset</th>
+                                        <th>Asset Name</th>
+                                        <th>Components</th>
+                                        <th>Total Value</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="componentTable">
+                                    <tr>
+                                        <td><span class="req-id">MAIN-001</span></td>
+                                        <td>CNC Machining Center</td>
+                                        <td>4 components</td>
+                                        <td>$450,000</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAIN-001')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('MAIN-001')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">MAIN-002</span></td>
+                                        <td>Injection Molding Machine</td>
+                                        <td>6 components</td>
+                                        <td>$280,000</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAIN-002')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editConfig('MAIN-002')">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">MAIN-003</span></td>
+                                        <td>Industrial Robot Cell</td>
+                                        <td>3 components</td>
+                                        <td>$180,000</td>
+                                        <td><span class="badge badge-warning">Replacement Pending</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewConfig('MAIN-003')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="replaceComponent('MAIN-003')">Replace</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Component Details: CNC Machining Center</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Component Asset</th>
+                                        <th>Component Name</th>
+                                        <th>Role</th>
+                                        <th>Value Proportion</th>
+                                        <th>Depreciation</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="req-id">COMP-001</span></td>
+                                        <td>Main Spindle</td>
+                                        <td><span class="badge badge-primary">CORE</span></td>
+                                        <td>40%</td>
+                                        <td>$12,500/yr</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewComponent('COMP-001')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">COMP-002</span></td>
+                                        <td>Linear Guides</td>
+                                        <td><span class="badge badge-info">AUXILIARY</span></td>
+                                        <td>25%</td>
+                                        <td>$7,800/yr</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewComponent('COMP-002')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">COMP-003</span></td>
+                                        <td>Control System</td>
+                                        <td><span class="badge badge-info">AUXILIARY</span></td>
+                                        <td>20%</td>
+                                        <td>$6,200/yr</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewComponent('COMP-003')">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="req-id">COMP-004</span></td>
+                                        <td>Hydraulic System</td>
+                                        <td><span class="badge badge-secondary">SPARE</span></td>
+                                        <td>15%</td>
+                                        <td>$4,700/yr</td>
+                                        <td><span class="badge badge-warning">Replacement Due</span></td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewComponent('COMP-004')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="replaceComponent('COMP-004')">Replace</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="summary-row">
+                                        <td colspan="3"><strong>Total</strong></td>
+                                        <td><strong>100%</strong></td>
+                                        <td><strong>$31,200/yr</strong></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addComponentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Create Component Configuration</h3>
+                <button class="modal-close" onclick="closeModal('addComponentModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addComponentForm">
+                    <div class="form-group">
+                        <label>Main Asset</label>
+                        <select class="form-control" id="mainAsset">
+                            <option value="">-- Select Main Asset --</option>
+                            <option value="MAIN-001">CNC Machining Center (MAIN-001)</option>
+                            <option value="MAIN-002">Injection Molding Machine (MAIN-002)</option>
+                            <option value="MAIN-003">Industrial Robot Cell (MAIN-003)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Components</label>
+                        <div id="componentList">
+                            <div class="component-row">
+                                <select class="form-control component-select">
+                                    <option value="">-- Select Component --</option>
+                                    <option value="COMP-001">Main Spindle (COMP-001)</option>
+                                    <option value="COMP-002">Linear Guides (COMP-002)</option>
+                                    <option value="COMP-003">Control System (COMP-003)</option>
+                                    <option value="COMP-004">Hydraulic System (COMP-004)</option>
+                                </select>
+                                <select class="form-control component-role">
+                                    <option value="CORE">CORE</option>
+                                    <option value="AUXILIARY">AUXILIARY</option>
+                                    <option value="SPARE">SPARE</option>
+                                </select>
+                                <input type="number" class="form-control component-proportion" 
+                                       placeholder="%">
+                                <button type="button" class="btn btn-sm btn-outline" onclick="removeComponentRow(this)">Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline mt-10" onclick="addComponentRow()">+ Add Component</button>
+                        <p class="form-hint mt-10">Value proportions must sum to 100%</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Replacement Strategy</label>
+                        <select class="form-control" id="replacementStrategy">
+                            <option value="">-- Select Strategy --</option>
+                            <option value="IMMEDIATE">Immediate replacement</option>
+                            <option value="PLANNED">Planned replacement with downtime</option>
+                            <option value="CONDITION">Condition-based replacement</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addComponentModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('addComponentModal')">Create Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewComponentModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Component Details</h3>
+                <button class="modal-close" onclick="closeModal('viewComponentModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewComponentContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewComponentModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="replaceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Replace Component</h3>
+                <button class="modal-close" onclick="closeModal('replaceModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="replaceForm">
+                    <p>Replace this component. Full history will be preserved.</p>
+                    <div class="form-group">
+                        <label>Replacement Asset</label>
+                        <select class="form-control" id="replacementAsset">
+                            <option value="">-- Select Replacement --</option>
+                            <option value="NEW-001">New Hydraulic System A (NEW-001)</option>
+                            <option value="NEW-002">New Hydraulic System B (NEW-002)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Replacement Reason</label>
+                        <textarea class="form-control" id="replaceReason"
+                                  placeholder="Reason for replacement"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>New Value Proportion</label>
+                        <input type="number" class="form-control" id="newProportion"
+                               placeholder="%">
+                        <p class="form-hint">Must maintain 100% total across all components</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('replaceModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="closeModal('replaceModal')">Replace Component</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function addComponentRow() {
+            const container = document.getElementById('componentList');
+            const row = document.createElement('div');
+            row.className = 'component-row';
+            row.innerHTML = `
+                <select class="form-control component-select">
+                    <option value="">-- Select Component --</option>
+                    <option value="COMP-001">Main Spindle (COMP-001)</option>
+                    <option value="COMP-002">Linear Guides (COMP-002)</option>
+                    <option value="COMP-003">Control System (COMP-003)</option>
+                    <option value="COMP-004">Hydraulic System (COMP-004)</option>
+                </select>
+                <select class="form-control component-role">
+                    <option value="CORE">CORE</option>
+                    <option value="AUXILIARY">AUXILIARY</option>
+                    <option value="SPARE">SPARE</option>
+                </select>
+                <input type="number" class="form-control component-proportion" 
+                       placeholder="%">
+                <button type="button" class="btn btn-sm btn-outline" onclick="removeComponentRow(this)">Remove</button>
+            `;
+            container.appendChild(row);
+        }
+
+        function removeComponentRow(btn) {
+            const row = btn.closest('.component-row');
+            row.remove();
+        }
+
+        function viewConfig(mainId) {
+            alert('View configuration for: ' + mainId);
+        }
+
+        function editConfig(mainId) {
+            alert('Edit configuration for: ' + mainId);
+        }
+
+        function viewComponent(compId) {
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Component Asset ID</label>
+                        <p><strong>${compId}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <span class="badge badge-primary">CORE</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Value Proportion</label>
+                        <p>40%</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Depreciation</label>
+                        <p>$12,500/yr</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('viewComponentContent').innerHTML = content;
+            openModal('viewComponentModal');
+        }
+
+        function replaceComponent(compId) {
+            document.getElementById('replacementAsset').value = '';
+            document.getElementById('replaceReason').value = '';
+            document.getElementById('newProportion').value = '';
+            openModal('replaceModal');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    <style>
+        .component-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        .component-select {
+            flex: 2;
+        }
+        .component-role {
+            flex: 1;
+        }
+        .component-proportion {
+            width: 80px;
+        }
+        .mt-10 {
+            margin-top: 10px;
+        }
+        .summary-row {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .summary-row td {
+            border-top: 2px solid #dee2e6;
+        }
+    </style>
+</body>
+</html>

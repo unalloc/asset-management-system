@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.4 - TCO Analysis</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select id="company-selector">
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.4 - TCO Analysis</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.4-TCO%20Analysis.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- TCO Summary Cards -->
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Avg TCO per Asset</p>
+                            <h2 style="font-size: 1.5rem;">$287,500</h2>
+                            <p class="text-muted">156 assets analyzed</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total NPV</p>
+                            <h2 style="font-size: 1.5rem;">$44.85M</h2>
+                            <p class="text-success">+2.3% from Q4</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Approval</p>
+                            <h2 style="font-size: 1.5rem;">8</h2>
+                            <p class="text-warning">Awaiting review</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Replacement Candidates</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                            <p class="text-muted">NPV below threshold</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('analyses')">TCO Analyses</button>
+                    <button class="tab" onclick="switchTab('sensitivity')">Sensitivity Analysis</button>
+                    <button class="tab" onclick="switchTab('alternatives')">Alternative Comparison</button>
+                    <button class="tab" onclick="switchTab('reports')">Reports</button>
+                </div>
+
+                <!-- TCO Analyses Tab -->
+                <div class="tab-content active" id="analyses-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Total Cost of Ownership Analyses</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Companies</option>
+                                    <option>US Manufacturing</option>
+                                    <option>EU Holdings</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('new-analysis-modal')">+ New Analysis</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Analysis ID</th>
+                                            <th>Asset/Category</th>
+                                            <th>Acquisition Cost</th>
+                                            <th>Useful Life</th>
+                                            <th>Total TCO</th>
+                                            <th>NPV</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>TCO-2025-001</td>
+                                            <td>CNC Machine Replacement</td>
+                                            <td>$150,000</td>
+                                            <td>10 years</td>
+                                            <td>$425,000</td>
+                                            <td>$312,450</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TCO-2025-002</td>
+                                            <td>IT Infrastructure Upgrade</td>
+                                            <td>$85,000</td>
+                                            <td>5 years</td>
+                                            <td>$156,200</td>
+                                            <td>$132,800</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Review</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TCO-2025-003</td>
+                                            <td>Warehouse Forklift</td>
+                                            <td>$45,000</td>
+                                            <td>7 years</td>
+                                            <td>$98,500</td>
+                                            <td>$78,250</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>TCO-2025-004</td>
+                                            <td>Delivery Fleet Expansion</td>
+                                            <td>$220,000</td>
+                                            <td>8 years</td>
+                                            <td>$485,000</td>
+                                            <td>$298,500</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">Review</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sensitivity Analysis Tab -->
+                <div class="tab-content" id="sensitivity-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Sensitivity Analysis - TCO-2025-001</h2>
+                            <button class="btn btn-outline btn-sm">Export</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">
+                                Sensitivity analysis shows cost variations under different scenarios (±10%, ±20%).
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Variable</th>
+                                            <th>-20%</th>
+                                            <th>-10%</th>
+                                            <th>Base Case</th>
+                                            <th>+10%</th>
+                                            <th>+20%</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Acquisition Cost</td>
+                                            <td>$340,000</td>
+                                            <td>$382,500</td>
+                                            <td>$425,000</td>
+                                            <td>$467,500</td>
+                                            <td>$510,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Operating Cost (Annual)</td>
+                                            <td>$258,000</td>
+                                            <td>$290,250</td>
+                                            <td>$322,500</td>
+                                            <td>$354,750</td>
+                                            <td>$387,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maintenance Cost (Annual)</td>
+                                            <td>$103,200</td>
+                                            <td>$116,100</td>
+                                            <td>$129,000</td>
+                                            <td>$141,900</td>
+                                            <td>$154,800</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discount Rate</td>
+                                            <td>$298,750</td>
+                                            <td>$305,800</td>
+                                            <td>$312,450</td>
+                                            <td>$318,900</td>
+                                            <td>$325,100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Residual Value</td>
+                                            <td>$335,600</td>
+                                            <td>$324,025</td>
+                                            <td>$312,450</td>
+                                            <td>$300,875</td>
+                                            <td>$289,300</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>NPV Sensitivity Chart</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-2">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <p class="text-muted">Operating Cost Impact on NPV</p>
+                                        <div style="height: 200px; display: flex; align-items: flex-end; justify-content: center; gap: 8px; padding: 20px;">
+                                            <div style="width: 40px; background: var(--primary); border-radius: 4px 4px 0 0;" title="-$20%: $298,750"></div>
+                                            <div style="width: 40px; background: var(--primary); border-radius: 4px 4px 0 0;" title="-$10%: $305,800"></div>
+                                            <div style="width: 40px; background: var(--success); border-radius: 4px 4px 0 0; height: 80%;" title="Base: $312,450"></div>
+                                            <div style="width: 40px; background: var(--primary); border-radius: 4px 4px 0 0;" title="+$10%: $318,900"></div>
+                                            <div style="width: 40px; background: var(--primary); border-radius: 4px 4px 0 0;" title="+$20%: $325,100"></div>
+                                        </div>
+                                        <p class="text-muted" style="font-size: 0.75rem;">NPV increases as operating costs increase (time value effect)</p>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <p class="text-muted">Discount Rate Impact on NPV</p>
+                                        <div style="height: 200px; display: flex; align-items: flex-end; justify-content: center; gap: 8px; padding: 20px;">
+                                            <div style="width: 40px; background: var(--danger); border-radius: 4px 4px 0 0; height: 90%;" title="8%: $298,750"></div>
+                                            <div style="width: 40px; background: var(--warning); border-radius: 4px 4px 0 0; height: 85%;" title="9%: $305,800"></div>
+                                            <div style="width: 40px; background: var(--success); border-radius: 4px 4px 0 0; height: 80%;" title="10%: $312,450"></div>
+                                            <div style="width: 40px; background: var(--warning); border-radius: 4px 4px 0 0; height: 75%;" title="11%: $318,900"></div>
+                                            <div style="width: 40px; background: var(--danger); border-radius: 4px 4px 0 0; height: 70%;" title="12%: $325,100"></div>
+                                        </div>
+                                        <p class="text-muted" style="font-size: 0.75rem;">NPV decreases with higher discount rates</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternatives Tab -->
+                <div class="tab-content" id="alternatives-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Alternative Comparison - TCO-2025-001</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('add-alternative-modal')">+ Add Alternative</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Alternative</th>
+                                            <th>Acquisition</th>
+                                            <th>Annual OpEx</th>
+                                            <th>Annual Maint.</th>
+                                            <th>Residual</th>
+                                            <th>Total TCO</th>
+                                            <th>NPV</th>
+                                            <th>Rank</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Option A: New CNC</strong></td>
+                                            <td>$150,000</td>
+                                            <td>$32,250</td>
+                                            <td>$12,900</td>
+                                            <td>$15,000</td>
+                                            <td>$425,000</td>
+                                            <td><strong>$312,450</strong></td>
+                                            <td><span class="badge badge-success">#1</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Option B: Refurbished CNC</td>
+                                            <td>$95,000</td>
+                                            <td>$38,000</td>
+                                            <td>$18,500</td>
+                                            <td>$8,000</td>
+                                            <td>$448,500</td>
+                                            <td>$328,200</td>
+                                            <td><span class="badge badge-warning">#2</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Option C: Lease</td>
+                                            <td>$0</td>
+                                            <td>$45,000</td>
+                                            <td>$8,000</td>
+                                            <td>$0</td>
+                                            <td>$458,000</td>
+                                            <td>$365,800</td>
+                                            <td><span class="badge badge-secondary">#3</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports Tab -->
+                <div class="tab-content" id="reports-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>TCO Reports</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="grid grid-3">
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>TCO Summary</h3>
+                                        <p class="text-muted">All assets with total cost breakdown</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>NPV Analysis</h3>
+                                        <p class="text-muted">Net present value by asset/category</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                                <div class="card" style="background: #f8fafc;">
+                                    <div class="card-body text-center">
+                                        <h3>Replacement Report</h3>
+                                        <p class="text-muted">Assets flagged for replacement</p>
+                                        <button class="btn btn-outline btn-sm">Generate</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

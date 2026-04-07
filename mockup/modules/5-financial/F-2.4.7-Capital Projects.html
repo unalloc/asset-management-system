@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.4.7 - Capital Projects</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 5: Financial</span> / F-2.4.7
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.4.7 - Capital Projects</h1>
+                    <div class="meta">
+                        <span class="badge badge-warning">Medium Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/5-financial/F-2.4.7-Capital%20Projects.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Active Projects</p>
+                            <h2 style="font-size: 1.5rem;">12</h2>
+                            <p class="text-muted">$4.2M total value</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Total Expenditure</p>
+                            <h2 style="font-size: 1.5rem;">$2,850,000</h2>
+                            <p class="text-success">68% of budget</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Pending Capitalization</p>
+                            <h2 style="font-size: 1.5rem;">3</h2>
+                            <p class="text-muted">$450,000 value</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-muted">Completed YTD</p>
+                            <h2 style="font-size: 1.5rem;">5</h2>
+                            <p class="text-muted">$1.8M capitalized</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('projects')">CIP Projects</button>
+                    <button class="tab" onclick="switchTab('expenditures')">Expenditures</button>
+                    <button class="tab" onclick="switchTab('capitalization')">Capitalization</button>
+                    <button class="tab" onclick="switchTab('budgets')">Budget Tracking</button>
+                </div>
+
+                <div class="tab-content active" id="projects-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Construction in Progress Projects</h2>
+                            <div class="d-flex gap-sm">
+                                <select class="form-control" style="width: auto;">
+                                    <option>All Projects</option>
+                                    <option>In Progress</option>
+                                    <option>Completed</option>
+                                    <option>On Hold</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm" onclick="openModal('add-project')">+ New Project</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Project Code</th>
+                                            <th>Project Name</th>
+                                            <th>Budget</th>
+                                            <th>Expended</th>
+                                            <th>Progress</th>
+                                            <th>Est. Completion</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CIP-2025-001</td>
+                                            <td>Plant Expansion Phase 2</td>
+                                            <td>$1,500,000</td>
+                                            <td>$950,000</td>
+                                            <td>
+                                                <div style="background: var(--border); height: 8px; border-radius: 4px; width: 100px;">
+                                                    <div style="background: var(--primary); height: 8px; border-radius: 4px; width: 63%;"></div>
+                                                </div>
+                                                63%
+                                            </td>
+                                            <td>2025-08-15</td>
+                                            <td><span class="badge badge-primary">In Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CIP-2025-002</td>
+                                            <td>New Assembly Line</td>
+                                            <td>$2,200,000</td>
+                                            <td>$1,400,000</td>
+                                            <td>
+                                                <div style="background: var(--border); height: 8px; border-radius: 4px; width: 100px;">
+                                                    <div style="background: var(--primary); height: 8px; border-radius: 4px; width: 64%;"></div>
+                                                </div>
+                                                64%
+                                            </td>
+                                            <td>2025-06-30</td>
+                                            <td><span class="badge badge-primary">In Progress</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CIP-2025-003</td>
+                                            <td>Warehouse Automation</td>
+                                            <td>$800,000</td>
+                                            <td>$500,000</td>
+                                            <td>
+                                                <div style="background: var(--border); height: 8px; border-radius: 4px; width: 100px;">
+                                                    <div style="background: var(--warning); height: 8px; border-radius: 4px; width: 62%;"></div>
+                                                </div>
+                                                62%
+                                            </td>
+                                            <td>2025-07-20</td>
+                                            <td><span class="badge badge-warning">On Hold</span></td>
+                                            <td class="table-actions">
+                                                <button class="btn btn-outline btn-sm">View</button>
+                                                <button class="btn btn-outline btn-sm">Edit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="expenditures-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Project Expenditures</h2>
+                            <button class="btn btn-primary btn-sm" onclick="openModal('add-expenditure')">+ Add Expenditure</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Project</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Vendor</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>2025-04-10</td>
+                                            <td>CIP-2025-001</td>
+                                            <td><span class="tag">Direct Labor</span></td>
+                                            <td>Installation labor - electrical</td>
+                                            <td>$45,000</td>
+                                            <td>ABC Electric</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-08</td>
+                                            <td>CIP-2025-002</td>
+                                            <td><span class="tag">Equipment</span></td>
+                                            <td>Robotic arm assembly unit</td>
+                                            <td>$280,000</td>
+                                            <td>TechRobotics Inc</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-05</td>
+                                            <td>CIP-2025-001</td>
+                                            <td><span class="tag">Materials</span></td>
+                                            <td>Steel beams and supports</td>
+                                            <td>$75,000</td>
+                                            <td>Metal Supply Co</td>
+                                            <td><span class="badge badge-success">Posted</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2025-04-12</td>
+                                            <td>CIP-2025-003</td>
+                                            <td><span class="tag">Indirect</span></td>
+                                            <td>Project management allocation</td>
+                                            <td>$15,000</td>
+                                            <td>Internal</td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="capitalization-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Pending Capitalization</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Project</th>
+                                            <th>Total Cost</th>
+                                            <th>Direct</th>
+                                            <th>Indirect</th>
+                                            <th>Interest</th>
+                                            <th>Overhead</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CIP-2024-018 (Completed)</td>
+                                            <td>$450,000</td>
+                                            <td>$380,000</td>
+                                            <td>$35,000</td>
+                                            <td>$20,000</td>
+                                            <td>$15,000</td>
+                                            <td><button class="btn btn-primary btn-sm">Capitalize</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="budgets-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Budget vs Actual</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Project</th>
+                                            <th>Budget</th>
+                                            <th>Committed</th>
+                                            <th>Expended</th>
+                                            <th>Available</th>
+                                            <th>Variance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CIP-2025-001</td>
+                                            <td>$1,500,000</td>
+                                            <td>$350,000</td>
+                                            <td>$950,000</td>
+                                            <td>$200,000</td>
+                                            <td class="text-danger">-7%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CIP-2025-002</td>
+                                            <td>$2,200,000</td>
+                                            <td>$500,000</td>
+                                            <td>$1,400,000</td>
+                                            <td>$300,000</td>
+                                            <td class="text-success">0%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CIP-2025-003</td>
+                                            <td>$800,000</td>
+                                            <td>$150,000</td>
+                                            <td>$500,000</td>
+                                            <td>$150,000</td>
+                                            <td class="text-warning">0%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>            </div>
+        </main>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.2.4 - Audit Trail</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span>Module 3: Asset Tracking</span> / F-2.2.4
+                </div>
+                <div class="user-info">
+                    <span>Group Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.2.4 - Audit Trail</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/3-asset-tracking/F-2.2.4-Audit%20Trail.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Audit Log Summary -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Log Summary</h2>
+                        <div class="alert alert-info" style="margin: 0; padding: 0.5rem 1rem;">
+                            <strong>Immutability Status:</strong> All records are cryptographically sealed and cannot be modified
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="grid grid-4">
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">12,847</div>
+                                <div style="color: var(--text-secondary);">Total Records (30d)</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">8,234</div>
+                                <div style="color: var(--text-secondary);">Updates</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--info);">3,156</div>
+                                <div style="color: var(--text-secondary);">Creates</div>
+                            </div>
+                            <div class="text-center" style="padding: var(--spacing-lg); background: var(--bg-primary); border-radius: var(--radius-md);">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--warning);">1,457</div>
+                                <div style="color: var(--text-secondary);">Reads (Sensitive)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audit Log Search -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Log Query</h2>
+                        <div class="d-flex gap-sm">
+                            <button class="btn btn-outline btn-sm">Advanced Filters</button>
+                            <button class="btn btn-outline btn-sm">Export CSV</button>
+                            <button class="btn btn-outline btn-sm">Export PDF</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="auditSearchForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Event Type</label>
+                                    <select class="form-control" id="eventType">
+                                        <option value="">All Events</option>
+                                        <option value="CREATE">CREATE</option>
+                                        <option value="UPDATE">UPDATE</option>
+                                        <option value="DELETE">DELETE</option>
+                                        <option value="READ">READ (Sensitive)</option>
+                                        <option value="LOGIN">LOGIN/LOGOUT</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Asset ID</label>
+                                    <input type="text" class="form-control" id="assetId" placeholder="e.g., AST-2024-001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Operator</label>
+                                    <input type="text" class="form-control" id="operator" placeholder="User ID or name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date Range</label>
+                                    <div class="d-flex gap-sm">
+                                        <input type="date" class="form-control" id="startDate">
+                                        <input type="date" class="form-control" id="endDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-sm">
+                                <button type="button" class="btn btn-primary" onclick="closeModal('changesModal')">Search</button>
+                                <button type="reset" class="btn btn-outline">Clear</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Audit Log Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Audit Records</h2>
+                        <div class="text-muted">Showing latest 50 records</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Event</th>
+                                        <th>Asset ID</th>
+                                        <th>Operator</th>
+                                        <th>Changes</th>
+                                        <th>Integrity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2025-04-05 14:32:15</td>
+                                        <td><span class="tag">UPDATE</span></td>
+                                        <td>AST-2024-001</td>
+                                        <td>jsmith (John Smith)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('changesModal')">View Changes</button>
+                                        </td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-04-05 14:28:03</td>
+                                        <td><span class="tag">CREATE</span></td>
+                                        <td>AST-2025-089</td>
+                                        <td>admin (System Admin)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('changesModal')">View Changes</button>
+                                        </td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-04-05 13:45:22</td>
+                                        <td><span class="tag">UPDATE</span></td>
+                                        <td>AST-2024-015</td>
+                                        <td>mg Garcia (Maria)</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline" onclick="openModal('changesModal')">View Changes</button>
+                                        </td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-04-05 12:15:00</td>
+                                        <td><span class="tag">READ</span></td>
+                                        <td>AST-2024-022</td>
+                                        <td>rjohnson (Robert)</td>
+                                        <td>-</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-04-05 11:30:45</td>
+                                        <td><span class="tag">LOGIN</span></td>
+                                        <td>-</td>
+                                        <td>admin (System Admin)</td>
+                                        <td>IP: 192.168.1.100</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-04-05 10:00:12</td>
+                                        <td><span class="tag">DELETE</span></td>
+                                        <td>AST-2023-055</td>
+                                        <td>System</td>
+                                        <td>Soft delete - record retained</td>
+                                        <td><span class="badge badge-success">Valid</span></td>
+                                        <td><button class="btn btn-sm btn-outline">Details</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Types and Retention -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Event Types & Retention Policy</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Event Type</th>
+                                        <th>Fields Logged</th>
+                                        <th>Retention</th>
+                                        <th>Access</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="tag">CREATE</span></td>
+                                        <td>All fields, user, timestamp, reason</td>
+                                        <td>7 years</td>
+                                        <td>Auditors only</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">UPDATE</span></td>
+                                        <td>Old value, new value, user, timestamp, reason</td>
+                                        <td>7 years</td>
+                                        <td>Auditors only</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">DELETE</span></td>
+                                        <td>Soft delete recorded, hard delete prohibited</td>
+                                        <td>7 years</td>
+                                        <td>Auditors only</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">READ</span></td>
+                                        <td>User, timestamp, data accessed</td>
+                                        <td>3 years</td>
+                                        <td>Security team only</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag">LOGIN/LOGOUT</span></td>
+                                        <td>User, timestamp, IP, session</td>
+                                        <td>7 years</td>
+                                        <td>Security team only</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Changes Modal -->
+    <div class="modal-overlay" id="changesModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Audit Changes Detail</h3>
+                <button class="modal-close" onclick="closeModal('changesModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Record ID</label>
+                    <p class="form-control" style="background: var(--bg-primary);">chg001</p>
+                </div>
+                <div class="form-group">
+                    <label>Timestamp</label>
+                    <p class="form-control" style="background: var(--bg-primary);">2025-04-05 14:32:15</p>
+                </div>
+                <div class="form-group">
+                    <label>Before</label>
+                    <pre class="form-control" style="background: var(--bg-primary); height: auto; white-space: pre-wrap;">{
+  "location": "Chicago Plant / Assembly / Line A",
+  "status": "Active",
+  "assignedTo": "EMP-001"
+}</pre>
+                </div>
+                <div class="form-group">
+                    <label>After</label>
+                    <pre class="form-control" style="background: var(--bg-primary); height: auto; white-space: pre-wrap;">{
+  "location": "Chicago Plant / Assembly / Line B",
+  "status": "Active",
+  "assignedTo": "EMP-002"
+}</pre>
+                </div>
+                <div class="form-group">
+                    <label>Hash Integrity</label>
+                    <p class="form-control" style="background: var(--bg-primary); font-family: monospace; font-size: 0.75rem;">sha256:a7b2c3d4e5f6789012345678901234567890abcdef</p>
+                    <span class="badge badge-success">Verified</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('changesModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+    </script>
+</body>
+</html>

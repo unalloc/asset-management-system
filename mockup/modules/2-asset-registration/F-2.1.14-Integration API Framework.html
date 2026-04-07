@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F-2.1.14 - Integration API Framework</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div id="sidebar-container"></div>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span id="current-module">Module 2: Asset Registration</span> / F-2.1.14
+                </div>
+                <div class="user-info">
+                    <span>System Admin</span>
+                    <select>
+                        <option>US Manufacturing Inc.</option>
+                        <option>EU Holdings GmbH</option>
+                    </select>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="page-header">
+                    <h1>F-2.1.14 - Integration API Framework</h1>
+                    <div class="meta">
+                        <span class="badge badge-primary">High Priority</span>
+                        <span class="req-link">
+                            <a href="../../../spec/2-asset-registration/F-2.1.14-Integration%20API%20Framework.md" target="_blank">
+                                View Requirement Document
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>API Integrations</h2>
+                        <button class="btn btn-primary" onclick="openModal('addIntegrationModal')">+ Add Integration</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Integration Name</th>
+                                        <th>Type</th>
+                                        <th>Endpoint</th>
+                                        <th>Auth Type</th>
+                                        <th>Status</th>
+                                        <th>Last Sync</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="integrationTable">
+                                    <tr>
+                                        <td>SAP ERP Integration</td>
+                                        <td>ERP</td>
+                                        <td>https://sap-api.company.com/v1</td>
+                                        <td><span class="tag">OAuth 2.0</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2026-04-05 08:30</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewIntegration('SAP-ERP')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editIntegration('SAP-ERP')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="testConnection('SAP-ERP')">Test</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Salesforce CRM</td>
+                                        <td>CRM</td>
+                                        <td>https://api.salesforce.com/v2</td>
+                                        <td><span class="tag">OAuth 2.0</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2026-04-05 07:15</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewIntegration('SALESFORCE')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editIntegration('SALESFORCE')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="testConnection('SALESFORCE')">Test</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Workday HR</td>
+                                        <td>HR</td>
+                                        <td>https://wd2-impl.workday.com/ccx/api/v1</td>
+                                        <td><span class="tag">API Key</span></td>
+                                        <td><span class="badge badge-warning">Paused</span></td>
+                                        <td>2026-04-01 12:00</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewIntegration('WORKDAY')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editIntegration('WORKDAY')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="testConnection('WORKDAY')">Test</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IoT Sensor Hub</td>
+                                        <td>IoT</td>
+                                        <td>https://iot.internal.local:8080/api</td>
+                                        <td><span class="tag">Basic</span></td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td>2026-04-05 09:45</td>
+                                        <td class="table-actions">
+                                            <button class="btn btn-sm btn-outline" onclick="viewIntegration('IOT-HUB')">View</button>
+                                            <button class="btn btn-sm btn-outline" onclick="editIntegration('IOT-HUB')">Edit</button>
+                                            <button class="btn btn-sm btn-outline" onclick="testConnection('IOT-HUB')">Test</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Recent API Logs</h2>
+                        <button class="btn btn-outline" onclick="openModal('logsModal')">View All Logs</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Integration</th>
+                                        <th>Operation</th>
+                                        <th>Status</th>
+                                        <th>Duration</th>
+                                        <th>Request ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2026-04-05 09:45:23</td>
+                                        <td>SAP ERP</td>
+                                        <td>GET /assets</td>
+                                        <td><span class="badge badge-success">200 OK</span></td>
+                                        <td>245ms</td>
+                                        <td>req_8f3d9a2b</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 09:44:18</td>
+                                        <td>Salesforce</td>
+                                        <td>POST /contacts</td>
+                                        <td><span class="badge badge-success">201 Created</span></td>
+                                        <td>189ms</td>
+                                        <td>req_c7e1f3d4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 09:43:55</td>
+                                        <td>IoT Hub</td>
+                                        <td>POST /readings</td>
+                                        <td><span class="badge badge-danger">500 Error</span></td>
+                                        <td>1203ms</td>
+                                        <td>req_a9d2e5f1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026-04-05 09:43:57</td>
+                                        <td>IoT Hub</td>
+                                        <td>POST /readings (retry 1)</td>
+                                        <td><span class="badge badge-warning">429 Rate Limited</span></td>
+                                        <td>89ms</td>
+                                        <td>req_a9d2e5f1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="addIntegrationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Integration</h3>
+                <button class="modal-close" onclick="closeModal('addIntegrationModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addIntegrationForm">
+                    <div class="form-group">
+                        <label>Integration Name</label>
+                        <input type="text" class="form-control" id="integrationName"
+                               placeholder="e.g., SAP ERP Integration">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Integration Type</label>
+                            <select class="form-control" id="integrationType">
+                                <option value="">Select type...</option>
+                                <option value="ERP">ERP System</option>
+                                <option value="CRM">CRM System</option>
+                                <option value="HR">HR System</option>
+                                <option value="IOT">IoT Platform</option>
+                                <option value="CUSTOM">Custom</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control" id="integrationStatus">
+                                <option value="Draft">Draft</option>
+                                <option value="Active">Active</option>
+                                <option value="Paused">Paused</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Endpoint URL</label>
+                        <input type="url" class="form-control" id="endpointUrl"
+                               placeholder="https://api.example.com/v1">
+                        <p class="form-hint">Must be a valid HTTPS URL</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Authentication Type</label>
+                        <select class="form-control" id="authType" onchange="toggleAuthFields()">
+                            <option value="">Select authentication...</option>
+                            <option value="oauth2">OAuth 2.0</option>
+                            <option value="apikey">API Key</option>
+                            <option value="basic">Basic Auth</option>
+                            <option value="none">No Authentication</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="authCredentialsGroup">
+                        <label>Authentication Credentials</label>
+                        <textarea class="form-control" id="authCredentials"
+                                  placeholder="Enter credentials (will be encrypted)"></textarea>
+                        <p class="form-hint">For OAuth 2.0: client_id, client_secret, token_url (JSON format)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Webhook URL</label>
+                        <input type="url" class="form-control" id="webhookUrl"
+                               placeholder="https://your-server.com/webhook">
+                        <p class="form-hint">Optional endpoint for receiving event notifications</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transformation Rules (JSON)</label>
+                        <textarea class="form-control" id="transformRules"
+                                  placeholder='{"fieldMappings": [{"source": "asset_id", "target": "equipment_no"}]}'></textarea>
+                        <p class="form-hint">Optional JSON mapping rules for data transformation</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('addIntegrationModal')">Cancel</button>
+                <button class="btn btn-outline" onclick="closeModal('addIntegrationModal')">Test Connection</button>
+                <button class="btn btn-primary" onclick="closeModal('addIntegrationModal')">Add Integration</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="viewIntegrationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Integration Details</h3>
+                <button class="modal-close" onclick="closeModal('viewIntegrationModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="viewIntegrationContent">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('viewIntegrationModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script>
+        loadNavigation();
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function toggleAuthFields() {
+            const authType = document.getElementById('authType').value;
+            const credsGroup = document.getElementById('authCredentialsGroup');
+            if (authType === 'none') {
+                credsGroup.style.display = 'none';
+            } else {
+                credsGroup.style.display = 'block';
+            }
+        }
+
+        function viewIntegration(id) {
+            const details = {
+                'SAP-ERP': { name: 'SAP ERP Integration', type: 'ERP', endpoint: 'https://sap-api.company.com/v1', auth: 'OAuth 2.0', status: 'Active', rateLimit: '1000/min' },
+                'SALESFORCE': { name: 'Salesforce CRM', type: 'CRM', endpoint: 'https://api.salesforce.com/v2', auth: 'OAuth 2.0', status: 'Active', rateLimit: '1000/min' },
+                'WORKDAY': { name: 'Workday HR', type: 'HR', endpoint: 'https://wd2-impl.workday.com/ccx/api/v1', auth: 'API Key', status: 'Paused', rateLimit: '500/min' },
+                'IOT-HUB': { name: 'IoT Sensor Hub', type: 'IoT', endpoint: 'https://iot.internal.local:8080/api', auth: 'Basic', status: 'Active', rateLimit: '5000/min' }
+            };
+            
+            const d = details[id] || details['SAP-ERP'];
+            const content = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Integration Name</label>
+                        <p><strong>${d.name}</strong></p>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <span class="badge badge-success">${d.status}</span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Type</label>
+                        <p>${d.type}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Authentication</label>
+                        <p>${d.auth}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Endpoint URL</label>
+                    <p>${d.endpoint}</p>
+                </div>
+                <div class="form-group">
+                    <label>Rate Limit</label>
+                    <p>${d.rateLimit}</p>
+                </div>
+            `;
+            document.getElementById('viewIntegrationContent').innerHTML = content;
+            openModal('viewIntegrationModal');
+        }
+
+        function editIntegration(id) {
+            alert('Edit functionality for integration: ' + id);
+        }
+
+        function testConnection(id) {
+            alert('Testing connection for: ' + id + '\n\nConnection successful!');
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
