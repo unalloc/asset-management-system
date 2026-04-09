@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <exec failonerror="true" dir="/home/hulk/Projects/asset-tracker/code/../frontend" executable="npm">
+      <arg value="install" />
+      <arg value="--ignore-scripts" />
+    </exec>
+    <exec failonerror="true" dir="/home/hulk/Projects/asset-tracker/code/../frontend" executable="npm">
+      <arg value="run" />
+      <arg value="build" />
+    </exec>
+  </target>
+</project>
